@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HomeHunter.Data;
+using HomeHunter.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,15 +29,47 @@ namespace HomeHunter.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<HomeHunterDbContext>(
+              options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services
+               .AddIdentity<HomeHunterUser, IdentityRole>(options =>
+               {
+                   options.Password.RequireDigit = false;
+                   options.Password.RequireLowercase = false;
+                   options.Password.RequireUppercase = false;
+                   options.Password.RequireNonAlphanumeric = false;
+                   options.Password.RequiredLength = 4;
+                   options.SignIn.RequireConfirmedEmail = true;
+               })
+               .AddEntityFrameworkStores<HomeHunterDbContext>()
+               .AddDefaultTokenProviders()
+               .AddDefaultUI(UIFramework.Bootstrap4);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.AllowAreas = true;
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                });
+
+            // Cookie settings
+            services
+               .ConfigureApplicationCookie(options =>
+               {
+                   options.Cookie.HttpOnly = true;
+                   options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                   options.LoginPath = "/Identity/Account/Login";
+                   options.LogoutPath = "/Identity/Account/Logout";
+               });
+
+            services.AddSingleton(this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +89,9 @@ namespace HomeHunter.App
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            //Add authentication in the request pipeline
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
