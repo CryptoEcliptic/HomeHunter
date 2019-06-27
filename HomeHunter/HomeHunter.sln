@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{1038567D-5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A6E452FD-6C83-4F80-ABD8-D2E506F5C327}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHunterCommon", "HomeHunterCommon\HomeHunterCommon.csproj", "{71D84CCC-C2D9-4023-9ED0-869E9CBA87D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3E11CB8A-C739-4D7A-A8D8-208C3657074C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E11CB8A-C739-4D7A-A8D8-208C3657074C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E11CB8A-C739-4D7A-A8D8-208C3657074C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D84CCC-C2D9-4023-9ED0-869E9CBA87D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D84CCC-C2D9-4023-9ED0-869E9CBA87D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D84CCC-C2D9-4023-9ED0-869E9CBA87D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D84CCC-C2D9-4023-9ED0-869E9CBA87D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

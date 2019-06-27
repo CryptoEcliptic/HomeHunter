@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using HomeHunter.Data;
 using HomeHunter.Data.DataSeeding;
 using HomeHunter.Domain;
+using HomeHunter.Services.EmailSender;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -46,12 +48,15 @@ namespace HomeHunter.App
                    options.Password.RequireLowercase = false;
                    options.Password.RequireUppercase = false;
                    options.Password.RequireNonAlphanumeric = false;
-                   options.Password.RequiredLength = 4;
-                   options.SignIn.RequireConfirmedEmail = true;
+                   options.Password.RequiredLength = 6;
+                   options.SignIn.RequireConfirmedEmail = true; //TODO set false during development
                })
                .AddEntityFrameworkStores<HomeHunterDbContext>()
                .AddDefaultTokenProviders()
                .AddDefaultUI(UIFramework.Bootstrap4);
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -69,7 +74,7 @@ namespace HomeHunter.App
                    options.LoginPath = "/Identity/Account/Login";
                    options.LogoutPath = "/Identity/Account/Logout";
                });
-           
+
             services.AddSingleton(this.Configuration);
 
         }
@@ -116,5 +121,7 @@ namespace HomeHunter.App
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+        //TODO Implement Email confirm functionality
+        //TODO Decide weather to remove User City Name
     }
 }

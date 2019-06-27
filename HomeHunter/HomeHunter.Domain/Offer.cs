@@ -18,6 +18,8 @@ namespace HomeHunter.Domain
 
         public bool IsDeleted { get; set; }
 
+        public string Comments { get; set; }
+
         public DateTime? DeletedOn { get; set; }
 
         [ForeignKey(nameof(HomeHunterUser))]

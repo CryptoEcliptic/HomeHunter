@@ -13,7 +13,9 @@ namespace HomeHunter.Domain
             this.OffersCreated = new List<Offer>();
         }
 
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         public string City { get; set; }
 

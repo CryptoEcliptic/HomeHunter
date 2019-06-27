@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using HomeHunter.Domain;
+﻿using HomeHunter.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace HomeHunter.App.Areas.Identity.Pages.Account
 {
@@ -45,15 +44,29 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Phone]
+            [Display(Name = "Телефон")]
+            public string PhoneNumber { get; set; }
+
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(32, ErrorMessage = "{0}то име трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 3)]
+            [Display(Name = "Име")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(32, ErrorMessage = "{0}та не трябва да надвишава {1} символа.")]
+            [Display(Name = "Фамилия")]
+            public string LastName { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "{0}та трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Парола")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Потвърдете паролата")]
+            [Compare("Password", ErrorMessage = "Данните в полета \"Парола\" и \"Потвърдете паролата\" трябва да съвпадат.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -67,7 +80,16 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new HomeHunterUser { UserName = Input.Email, Email = Input.Email };
+                var user = new HomeHunterUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    CreatedOn = DateTime.UtcNow,
+                    PhoneNumber = Input.PhoneNumber,
+                    IsDeleted = false
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
