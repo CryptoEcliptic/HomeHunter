@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.App", "HomeHunte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Data", "HomeHunter.Data\HomeHunter.Data.csproj", "{E1C4D53E-8D57-4FD1-B6BF-FC82BB46EDA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHunter.Domain", "HomeHunter.Domain\HomeHunter.Domain.csproj", "{CCC7E953-7754-45C3-89BD-30162E81F95E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Domain", "HomeHunter.Domain\HomeHunter.Domain.csproj", "{CCC7E953-7754-45C3-89BD-30162E81F95E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHunter.Services", "HomeHunter.Services\HomeHunter.Services.csproj", "{3E11CB8A-C739-4D7A-A8D8-208C3657074C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Services", "HomeHunter.Services\HomeHunter.Services.csproj", "{3E11CB8A-C739-4D7A-A8D8-208C3657074C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{386472B7-2282-456C-896A-03C387421BD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{1038567D-5EB4-4F9C-BE3E-4552CFFEF855}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A6E452FD-6C83-4F80-ABD8-D2E506F5C327}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +42,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B3E504D2-9887-4484-A931-AB6909F98231} = {386472B7-2282-456C-896A-03C387421BD6}
+		{E1C4D53E-8D57-4FD1-B6BF-FC82BB46EDA7} = {1038567D-5EB4-4F9C-BE3E-4552CFFEF855}
+		{CCC7E953-7754-45C3-89BD-30162E81F95E} = {1038567D-5EB4-4F9C-BE3E-4552CFFEF855}
+		{3E11CB8A-C739-4D7A-A8D8-208C3657074C} = {A6E452FD-6C83-4F80-ABD8-D2E506F5C327}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4988E08-8564-4FF7-9343-647C497E401B}

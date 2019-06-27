@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeHunter.Data;
+using HomeHunter.Data.DataSeeding;
 using HomeHunter.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -68,13 +69,28 @@ namespace HomeHunter.App
                    options.LoginPath = "/Identity/Account/Login";
                    options.LogoutPath = "/Identity/Account/Logout";
                });
-
+           
             services.AddSingleton(this.Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Seed data on application startup
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<HomeHunterDbContext>();
+
+                if (env.IsDevelopment())
+                {
+                    dbContext.Database.EnsureCreated();
+                }
+                
+                new RolesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
