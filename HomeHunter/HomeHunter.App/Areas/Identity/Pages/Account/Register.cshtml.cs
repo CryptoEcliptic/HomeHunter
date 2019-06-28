@@ -1,4 +1,5 @@
 ﻿using HomeHunter.Domain;
+using HomeHunterCommon;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -42,10 +43,12 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
+            [StringLength(40, ErrorMessage = "{0} не трябва да надвишава {1} символа.")]
             public string Email { get; set; }
 
             [Phone]
             [Display(Name = "Телефон")]
+            [StringLength(15, ErrorMessage = "{0}ът не трябва да надвишава {1} символа.")]
             public string PhoneNumber { get; set; }
 
             [Required]
@@ -59,7 +62,7 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "{0}та трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 6)]
+            [StringLength(50, ErrorMessage = "{0}та трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Парола")]
             public string Password { get; set; }
@@ -102,10 +105,10 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, $"Потвърждаване на регистрацията Ви в {GlobalConstants.CompanyName}",
+                        $"Благодарим Ви, че се регистрирахте в интернет страницата на {GlobalConstants.CompanyName}! За да потвърдите валидността на email-a си, моля последвайте <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>линка</a>.");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(user, isPersistent: true);
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)

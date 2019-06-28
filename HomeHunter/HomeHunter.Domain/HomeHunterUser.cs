@@ -9,7 +9,6 @@ namespace HomeHunter.Domain
     {
         public HomeHunterUser()
         {
-            this.UserRoles = new List<IdentityRole>();
             this.OffersCreated = new List<Offer>();
         }
 
@@ -26,8 +25,6 @@ namespace HomeHunter.Domain
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
-
-        public ICollection<IdentityRole> UserRoles { get; set; }
 
         public ICollection<Offer> OffersCreated { get; set; }
     }

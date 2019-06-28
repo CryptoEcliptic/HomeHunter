@@ -49,7 +49,7 @@ namespace HomeHunter.App
                    options.Password.RequireUppercase = false;
                    options.Password.RequireNonAlphanumeric = false;
                    options.Password.RequiredLength = 6;
-                   options.SignIn.RequireConfirmedEmail = true; //TODO set false during development
+                   options.SignIn.RequireConfirmedEmail = false; //TODO set true in production
                })
                .AddEntityFrameworkStores<HomeHunterDbContext>()
                .AddDefaultTokenProviders()
@@ -70,7 +70,7 @@ namespace HomeHunter.App
                .ConfigureApplicationCookie(options =>
                {
                    options.Cookie.HttpOnly = true;
-                   options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                   options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                    options.LoginPath = "/Identity/Account/Login";
                    options.LogoutPath = "/Identity/Account/Logout";
                });
@@ -103,7 +103,6 @@ namespace HomeHunter.App
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -111,7 +110,6 @@ namespace HomeHunter.App
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            //Add authentication in the request pipeline
             app.UseAuthentication();
 
             app.UseMvc(routes =>
@@ -121,7 +119,5 @@ namespace HomeHunter.App
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
-        //TODO Implement Email confirm functionality
-        //TODO Decide weather to remove User City Name
     }
 }

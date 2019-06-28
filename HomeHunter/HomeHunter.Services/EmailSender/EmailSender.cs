@@ -12,12 +12,12 @@ namespace HomeHunter.Services.EmailSender
 {
     public class EmailSender : IEmailSender
     {
-        private const string SENDER_EMAIL = "no-reply@home-hunter.com";
+        private const string SENDER_EMAIL = "no-reply@homehunter.bg";
         private const string NAME_OF_THE_SENDER = "HomeHunter";
 
         public EmailSender(IConfiguration Configuration)
         {
-            this.SendGridKey = Configuration["Authentication:SendGridKey"];
+            this.SendGridKey = Configuration["SENDGRID_API_KEY"];
         }
 
         public string SendGridUser { get; set; }
