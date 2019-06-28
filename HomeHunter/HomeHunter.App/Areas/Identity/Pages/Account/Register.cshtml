@@ -1,10 +1,15 @@
 ﻿@page
 @model RegisterModel
+@using Microsoft.AspNetCore.Identity
+@using HomeHunter.Domain
+@inject SignInManager<HomeHunterUser> SignInManager
 @{
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
+@if (!SignInManager.IsSignedIn(User))
+{
+    <h1>@ViewData["Title"]</h1>
 
 <div class="row">
     <div class="col-md-4">
@@ -46,7 +51,7 @@
         </form>
     </div>
 </div>
-
+}
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

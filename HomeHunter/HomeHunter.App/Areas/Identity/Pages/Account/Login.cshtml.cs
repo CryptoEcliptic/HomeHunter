@@ -43,9 +43,10 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
 
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Парола")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Запомни паролата?")]
             public bool RememberMe { get; set; }
         }
 
@@ -59,6 +60,7 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
+
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -91,7 +93,7 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Невалидни потребителски данни.");
                     return Page();
                 }
             }
