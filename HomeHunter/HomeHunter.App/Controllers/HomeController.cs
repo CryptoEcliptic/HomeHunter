@@ -5,13 +5,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HomeHunter.App.Models;
+using Microsoft.AspNetCore.Identity;
+using HomeHunter.Domain;
 
 namespace HomeHunter.App.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
+
             return View();
         }
 

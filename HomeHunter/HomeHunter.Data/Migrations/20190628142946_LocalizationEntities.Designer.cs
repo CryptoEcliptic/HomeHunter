@@ -4,14 +4,16 @@ using HomeHunter.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeHunter.Data.Migrations
 {
     [DbContext(typeof(HomeHunterDbContext))]
-    partial class HomeHunterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190628142946_LocalizationEntities")]
+    partial class LocalizationEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +114,7 @@ namespace HomeHunter.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Offers");
+                    b.ToTable("Offer");
                 });
 
             modelBuilder.Entity("HomeHunter.Domain.Village", b =>
