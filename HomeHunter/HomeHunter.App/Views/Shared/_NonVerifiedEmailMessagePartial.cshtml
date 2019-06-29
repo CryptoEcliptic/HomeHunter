@@ -1,16 +1,8 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using HomeHunter.Domain
-@inject UserManager<HomeHunterUser> UserManager
-
-
-@{
-//ViewData["Title"] = "Register";
-//Task<bool> isVerifiedEmail = UserManager.IsEmailConfirmedAsync();
-
-}
-@*@if (isVerifiedEmail == null)
-{
-    <div class="alert alert-warning" role="alert">
-        A simple warning alert—check it out!
+﻿
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Все още не сте верифицирали имейла си!</strong> За повторно изпращане на валидационен имейл, влезте в Настройки на профила!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-}*@
+

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using HomeHunter.Data;
 using HomeHunter.Data.DataSeeding;
 using HomeHunter.Domain;
+using HomeHunter.Services;
+using HomeHunter.Services.Contracts;
 using HomeHunter.Services.EmailSender;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,6 +58,7 @@ namespace HomeHunter.App
                .AddDefaultUI(UIFramework.Bootstrap4);
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IUsersService, UsersService>();
             
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
