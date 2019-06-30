@@ -13,13 +13,26 @@ namespace HomeHunter.Data
         public DbSet<Municipality> Municipalities { get; set; }
         public DbSet<Village> Villages { get; set; }
         public DbSet<Offer> Offers { get; set; }
-
+        public DbSet<RealEstate> RealEstates { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
 
         public HomeHunterDbContext(DbContextOptions<HomeHunterDbContext> options)
             : base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<RealEstate>()
+                .HasOne(x => x.Address)
+                .WithOne(x => x.RealEstate)
+                .HasForeignKey<Address>(x => x.RealEstateId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            base.OnModelCreating(builder);
         }
     }
 }
