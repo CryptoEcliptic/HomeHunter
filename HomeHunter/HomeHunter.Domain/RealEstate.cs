@@ -17,20 +17,21 @@ namespace HomeHunter.Domain
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
-        public bool ParkingPlace { get; set; }
+        public int Year { get; set; }
 
-        public bool CentralHeatning { get; set; }
-
-        public bool LicenceForExploatation { get; set; } //Акт 16
+        public bool? ParkingPlace { get; set; }
 
         public bool? Yard { get; set; }
 
         public bool? MetroNearBy { get; set; }
 
-        public bool Balcony { get; set; }
+        public bool? Balcony { get; set; }
 
-        public bool CellingOrBasement { get; set; }
+        public bool? CellingOrBasement { get; set; }
 
         public Address Address { get; set; }
+
+        public int? HeatingSystemId { get; set; }
+        public HeatingSystem HeatingSystem { get; set; }
     }
 }

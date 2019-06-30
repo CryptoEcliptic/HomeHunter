@@ -17,5 +17,8 @@ namespace HomeHunter.Domain
 
         public int? VillageId { get; set; }
         public Village Village { get; set; }
+
+        public int? NeighbourhoodId { get; set; }
+        public Neighbourhood Neighbourhood { get; set; }
     }
 }

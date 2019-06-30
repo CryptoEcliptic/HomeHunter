@@ -3,18 +3,15 @@ using System.Collections.Generic;
 
 namespace HomeHunter.Domain
 {
-    public class City : BaseModel<int>
+    public class Neighbourhood : BaseModel<int>
     {
-        public City()
+        public Neighbourhood()
         {
             this.Addresses = new List<Address>();
         }
-
         public string Name { get; set; }
-
-        public int MunicipalityId { get; set; }
-        public Municipality Municipality { get; set; }
 
         public ICollection<Address> Addresses { get; set; }
     }
 }
+

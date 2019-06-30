@@ -15,6 +15,8 @@ namespace HomeHunter.Data
         public DbSet<Offer> Offers { get; set; }
         public DbSet<RealEstate> RealEstates { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Neighbourhood> Neighbourhoods { get; set; }
+        public DbSet<HeatingSystem> HeatingSystems { get; set; }
 
 
         public HomeHunterDbContext(DbContextOptions<HomeHunterDbContext> options)
