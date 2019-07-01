@@ -1,5 +1,6 @@
 ﻿using HomeHunter.Domain.Common;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomeHunter.Domain
 {
@@ -9,6 +10,8 @@ namespace HomeHunter.Domain
         {
             this.Addresses = new List<Address>();
         }
+
+        [Required]
         public string Name { get; set; }
 
         public ICollection<Address> Addresses { get; set; }

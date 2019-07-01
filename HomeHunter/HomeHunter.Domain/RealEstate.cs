@@ -1,14 +1,17 @@
 ﻿using HomeHunter.Domain.Common;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace HomeHunter.Domain
 {
     public class RealEstate : BaseModel<string>
     {
-        public int FloorNumber { get; set; }
+        public RealEstate()
+        {
+            this.Offers = new List<Offer>();
+        }
+
+        public int? FloorNumber { get; set; }
 
         public int? BuildingTotalFloors { get; set; }
 
@@ -17,7 +20,7 @@ namespace HomeHunter.Domain
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
-        public int Year { get; set; }
+        public int? Year { get; set; }
 
         public bool? ParkingPlace { get; set; }
 
@@ -33,5 +36,10 @@ namespace HomeHunter.Domain
 
         public int? HeatingSystemId { get; set; }
         public HeatingSystem HeatingSystem { get; set; }
+
+        public int RealEstateTypeId { get; set; }
+        public RealEstateType RealEstateType { get; set; }
+
+        public ICollection<Offer> Offers { get; set; }
     }
 }

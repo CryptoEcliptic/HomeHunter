@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190630110311_EstateAndAddressEntities.cs" />
     <Compile Remove="Migrations\20190630110311_EstateAndAddressEntities.Designer.cs" />
+    <Compile Remove="Migrations\20190701064146_RealestateOffersCollection.cs" />
+    <Compile Remove="Migrations\20190701064146_RealestateOffersCollection.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

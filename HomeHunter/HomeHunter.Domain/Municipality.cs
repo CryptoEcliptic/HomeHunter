@@ -1,7 +1,7 @@
 ﻿using HomeHunter.Domain.Common;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeHunter.Domain
 {
@@ -13,6 +13,7 @@ namespace HomeHunter.Domain
             this.Villages = new List<Village>();
         }
 
+        [Required]
         public string Name { get; set; }
 
         public int CountryId { get; set; }
