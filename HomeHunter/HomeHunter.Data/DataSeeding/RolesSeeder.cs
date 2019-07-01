@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using HomeHunterCommon;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Data.DataSeeding
@@ -14,8 +13,8 @@ namespace HomeHunter.Data.DataSeeding
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            await SeedRoleAsync(roleManager, "Admin"); //TODO Create Global constants
-            await SeedRoleAsync(roleManager, "User");
+            await SeedRoleAsync(roleManager, GlobalConstants.AdministratorRoleName); 
+            await SeedRoleAsync(roleManager, GlobalConstants.UserRoleName);
         }
 
         private static async Task SeedRoleAsync(RoleManager<IdentityRole> roleManager, string roleName)

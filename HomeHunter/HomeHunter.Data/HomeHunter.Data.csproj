@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HomeHunter.Domain\HomeHunter.Domain.csproj" />
+    <ProjectReference Include="..\HomeHunterCommon\HomeHunterCommon.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,6 +7,6 @@ namespace HomeHunter.Data.DataSeeding
 {
     public interface ISeeder
     {
-        Task SeedAsync(HomeHunterDbContext dbContext, IServiceProvider serviceProvider);
+       Task SeedAsync(HomeHunterDbContext dbContext, IServiceProvider serviceProvider);
     }
 }
