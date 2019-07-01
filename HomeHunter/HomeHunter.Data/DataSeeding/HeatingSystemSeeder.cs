@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Data.DataSeeding
@@ -19,10 +18,10 @@ namespace HomeHunter.Data.DataSeeding
 
         public async Task SeedAsync(HomeHunterDbContext dbContext, IServiceProvider serviceProvider)
         {
-            await SeedRealEstateTypesAsync(HeatingSystemsList, dbContext);
+            await SeedHeatingSystemsAsync(HeatingSystemsList, dbContext);
         }
 
-        private static async Task SeedRealEstateTypesAsync(string[] heatingSystemsList, HomeHunterDbContext dbContext)
+        private static async Task SeedHeatingSystemsAsync(string[] heatingSystemsList, HomeHunterDbContext dbContext)
         {
             var heatingSystemTypesFromDb = dbContext.HeatingSystems.ToList();
             var createdTypes = new List<HeatingSystem>();
