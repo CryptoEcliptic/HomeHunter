@@ -50,8 +50,6 @@ namespace HomeHunter.Data.DataSeeding
 
                 var result = await userManager.CreateAsync(user, password);
 
-
-
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
