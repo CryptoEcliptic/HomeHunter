@@ -39,14 +39,18 @@ namespace HomeHunter.Data.DataSeeding
             {
                 var user = new HomeHunterUser
                 {
+                    UserName = "writetorado@abv.bg",
                     Email = "writetorado@abv.bg",
                     FirstName = "AdminFirstName",
                     LastName = "AdminLastName",
+                    EmailConfirmed = true,
                 };
 
                 var password = "123456";
 
                 var result = await userManager.CreateAsync(user, password);
+
+
 
                 if (result.Succeeded)
                 {
