@@ -30,4 +30,10 @@
     <ProjectReference Include="..\HomeHunterCommon\HomeHunterCommon.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Administrator\ViewModels\" />
+    <Folder Include="Areas\Administrator\Views\Home\" />
+  </ItemGroup>
+
 </Project>

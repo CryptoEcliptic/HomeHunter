@@ -9,6 +9,16 @@
     <Compile Remove="Migrations\20190630110311_EstateAndAddressEntities.Designer.cs" />
     <Compile Remove="Migrations\20190701064146_RealestateOffersCollection.cs" />
     <Compile Remove="Migrations\20190701064146_RealestateOffersCollection.Designer.cs" />
+    <Compile Remove="Migrations\20190702051319_NeighbourhoodCityRelation.cs" />
+    <Compile Remove="Migrations\20190702051319_NeighbourhoodCityRelation.Designer.cs" />
+    <Compile Remove="Migrations\20190702052026_neighbourhoodsRelations.cs" />
+    <Compile Remove="Migrations\20190702052026_neighbourhoodsRelations.Designer.cs" />
+    <Compile Remove="Migrations\20190702053216_NeighbourhoodsRelations.cs" />
+    <Compile Remove="Migrations\20190702053216_NeighbourhoodsRelations.Designer.cs" />
+    <Compile Remove="Migrations\20190702054537_final.cs" />
+    <Compile Remove="Migrations\20190702054537_final.Designer.cs" />
+    <Compile Remove="Migrations\20190702055016_Cities_Addresses.cs" />
+    <Compile Remove="Migrations\20190702055016_Cities_Addresses.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

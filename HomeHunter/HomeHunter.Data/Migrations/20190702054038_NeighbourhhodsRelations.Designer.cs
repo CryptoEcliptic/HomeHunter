@@ -4,14 +4,16 @@ using HomeHunter.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeHunter.Data.Migrations
 {
     [DbContext(typeof(HomeHunterDbContext))]
-    partial class HomeHunterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190702054038_NeighbourhhodsRelations")]
+    partial class NeighbourhhodsRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,8 +26,6 @@ namespace HomeHunter.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CityId");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -46,8 +46,6 @@ namespace HomeHunter.Data.Migrations
                     b.Property<int?>("VillageId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
 
                     b.HasIndex("NeighbourhoodId");
 
@@ -161,6 +159,8 @@ namespace HomeHunter.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CityId");
+
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<DateTime?>("DeletedOn");
@@ -173,6 +173,8 @@ namespace HomeHunter.Data.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.ToTable("Neighbourhoods");
                 });
@@ -225,15 +227,13 @@ namespace HomeHunter.Data.Migrations
 
                     b.Property<int?>("BuildingTotalFloors");
 
-                    b.Property<int?>("BuildingType");
-
                     b.Property<bool?>("CellingOrBasement");
 
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<DateTime?>("DeletedOn");
 
-                    b.Property<string>("FloorNumber");
+                    b.Property<int?>("FloorNumber");
 
                     b.Property<int?>("HeatingSystemId");
 
@@ -500,10 +500,6 @@ namespace HomeHunter.Data.Migrations
 
             modelBuilder.Entity("HomeHunter.Domain.Address", b =>
                 {
-                    b.HasOne("HomeHunter.Domain.City", "City")
-                        .WithMany("Addresses")
-                        .HasForeignKey("CityId");
-
                     b.HasOne("HomeHunter.Domain.Neighbourhood", "Neighbourhood")
                         .WithMany("Addresses")
                         .HasForeignKey("NeighbourhoodId");
@@ -530,6 +526,14 @@ namespace HomeHunter.Data.Migrations
                     b.HasOne("HomeHunter.Domain.Country", "Country")
                         .WithMany("Municipalities")
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HomeHunter.Domain.Neighbourhood", b =>
+                {
+                    b.HasOne("HomeHunter.Domain.City", "City")
+                        .WithMany("Neighbourhoods")
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

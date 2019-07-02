@@ -4,14 +4,16 @@ using HomeHunter.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeHunter.Data.Migrations
 {
     [DbContext(typeof(HomeHunterDbContext))]
-    partial class HomeHunterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190702055811_Neighbourhoods_Addresses")]
+    partial class Neighbourhoods_Addresses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,15 +227,13 @@ namespace HomeHunter.Data.Migrations
 
                     b.Property<int?>("BuildingTotalFloors");
 
-                    b.Property<int?>("BuildingType");
-
                     b.Property<bool?>("CellingOrBasement");
 
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<DateTime?>("DeletedOn");
 
-                    b.Property<string>("FloorNumber");
+                    b.Property<int?>("FloorNumber");
 
                     b.Property<int?>("HeatingSystemId");
 

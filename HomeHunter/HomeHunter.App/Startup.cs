@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 
 namespace HomeHunter.App
 {
@@ -84,7 +85,6 @@ namespace HomeHunter.App
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<HomeHunterDbContext>();
 
                 if (env.IsDevelopment())
@@ -92,10 +92,12 @@ namespace HomeHunter.App
                     dbContext.Database.EnsureCreated();
                 }
                 
+                //Database initial seeding functionality
                 new RolesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
                 new RealEstateTypesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
                 new HeatingSystemSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
                 new NeighbourhoodSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                new CitiesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
             if (env.IsDevelopment())

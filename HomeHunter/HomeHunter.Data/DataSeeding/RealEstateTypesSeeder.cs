@@ -21,7 +21,8 @@ namespace HomeHunter.Data.DataSeeding
             "Магазин",
             "Парцел",
             "Ателие",
-            "Гараж"
+            "Гараж",
+            "Мазе"
         };
         
         public async Task SeedAsync(HomeHunterDbContext dbContext, IServiceProvider serviceProvider)

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -93,6 +94,7 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
                     PhoneNumber = Input.PhoneNumber,
                     IsDeleted = false
                 };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
