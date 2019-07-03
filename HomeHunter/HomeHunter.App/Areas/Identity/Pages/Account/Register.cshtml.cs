@@ -43,7 +43,7 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Email*")]
             [StringLength(40, ErrorMessage = "{0} не трябва да надвишава {1} символа.")]
             public string Email { get; set; }
 
@@ -54,22 +54,22 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
 
             [Required]
             [StringLength(32, ErrorMessage = "{0}то име трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 3)]
-            [Display(Name = "Име")]
+            [Display(Name = "Име*")]
             public string FirstName { get; set; }
 
             [Required]
             [StringLength(32, ErrorMessage = "{0}та не трябва да надвишава {1} символа.")]
-            [Display(Name = "Фамилия")]
+            [Display(Name = "Фамилия*")]
             public string LastName { get; set; }
 
             [Required]
             [StringLength(50, ErrorMessage = "{0}та трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Парола")]
+            [Display(Name = "Парола*")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Потвърдете паролата")]
+            [Display(Name = "Потвърдете паролата*")]
             [Compare("Password", ErrorMessage = "Данните в полета \"Парола\" и \"Потвърдете паролата\" трябва да съвпадат.")]
             public string ConfirmPassword { get; set; }
         }

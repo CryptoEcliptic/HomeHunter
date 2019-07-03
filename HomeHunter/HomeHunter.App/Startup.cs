@@ -128,4 +128,5 @@ namespace HomeHunter.App
             });
         }
     }
+    //TODO Remove Index home html from layout page to Home/Index page
 }
