@@ -1,8 +1,35 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-  
-}
 
-<h1>Hello, Admin</h1>
+}
+    <link rel="stylesheet" href="~/lib/calendar/calendar.css" />
+<div class="process">
+    <h3 class="text-center wowload fadeInUp">Process</h3>
+    <ul class="row text-center list-inline  wowload bounceInUp">
+        <li>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">
+                <span><i class="fa fa-folder"></i><b>Създай обява</b></span></a>
+        </li>
+        <li>
+            <span><i class="fa fa-list"></i><b>Активни обяви</b></span>
+
+        </li>
+        <li>
+            <span><i class="fa fa-database"></i><b>Свалени обяви</b></span>
+
+        </li>
+        <li>
+            <span><i class="fa fa-info-circle"></i><b>Статистики</b></span>
+        </li>
+    </ul>
+</div>
+<div class="container col-lg-offset-3">
+    <a><iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=2&amp;bgcolor=%2300a9c6&amp;ctz=Europe%2FSofia&amp;src=bjBsOGgycmIwNnA2OXZuZTk0am4xcGM1OWdAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=ZW4uYnVsZ2FyaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23616161&amp;color=%230B8043&amp;showTitle=0&amp;showNav=1&amp;showTabs=1&amp;showCalendars=1&amp;showTz=1" style="border-width:thick" width="900" height="600" frameborder="0" scrolling="no"></iframe></a>
+
+</div>
+
+
+
+
 
