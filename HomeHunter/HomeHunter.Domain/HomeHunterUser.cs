@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomeHunter.Domain
 {
@@ -12,10 +13,13 @@ namespace HomeHunter.Domain
             this.OffersCreated = new List<Offer>();
         }
 
+        [MaxLength(16)]
         public string FirstName { get; set; }
 
+        [MaxLength(16)]
         public string LastName { get; set; }
 
+        [MaxLength(32)]
         public string City { get; set; }
 
         public DateTime CreatedOn { get; set; }

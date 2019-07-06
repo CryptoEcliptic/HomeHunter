@@ -12,6 +12,7 @@ namespace HomeHunter.Domain
         }
 
         [Required]
+        [MaxLength(64)]
         public string Name { get; set; }
 
         public ICollection<Address> Addresses { get; set; }

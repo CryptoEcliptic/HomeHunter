@@ -1,7 +1,6 @@
 ﻿using HomeHunter.Domain.Common;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeHunter.Domain
 {
@@ -14,6 +13,7 @@ namespace HomeHunter.Domain
         }
 
         [Required]
+        [MaxLength(32)]
         public string Name { get; set; }
 
         public int CountryId { get; set; }

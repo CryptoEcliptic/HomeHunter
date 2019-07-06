@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
 
 namespace HomeHunter.App
 {
@@ -64,6 +64,9 @@ namespace HomeHunter.App
                     options.AllowAreas = true;
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
                 });
+
+            services.AddMvc(options =>
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
             // Cookie settings
             services
@@ -115,6 +118,7 @@ namespace HomeHunter.App
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+           
 
             app.UseMvc(routes =>
             {

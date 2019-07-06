@@ -49,16 +49,16 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
 
             [Phone]
             [Display(Name = "Телефон")]
-            [StringLength(15, ErrorMessage = "{0}ът не трябва да надвишава {1} символа.")]
+            [StringLength(16, ErrorMessage = "{0}ът не трябва да надвишава {1} символа.")]
             public string PhoneNumber { get; set; }
 
             [Required]
-            [StringLength(32, ErrorMessage = "{0}то име трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 3)]
+            [StringLength(16, ErrorMessage = "{0}то име трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 3)]
             [Display(Name = "Име*")]
             public string FirstName { get; set; }
 
             [Required]
-            [StringLength(32, ErrorMessage = "{0}та не трябва да надвишава {1} символа.")]
+            [StringLength(16, ErrorMessage = "{0}та не трябва да надвишава {1} символа.")]
             [Display(Name = "Фамилия*")]
             public string LastName { get; set; }
 

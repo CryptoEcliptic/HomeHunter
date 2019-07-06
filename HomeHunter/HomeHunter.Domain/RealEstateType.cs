@@ -14,6 +14,7 @@ namespace HomeHunter.Domain
         }
 
         [Required]
+        [MaxLength(32)]
         public string TypeName { get; set; }
 
         public ICollection<RealEstate> RealEstates { get; set; }
