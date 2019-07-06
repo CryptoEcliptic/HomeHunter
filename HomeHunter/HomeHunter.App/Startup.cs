@@ -70,7 +70,7 @@ namespace HomeHunter.App
                .ConfigureApplicationCookie(options =>
                {
                    options.Cookie.HttpOnly = true;
-                   options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                   options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                    options.LoginPath = "/Identity/Account/Login";
                    options.LogoutPath = "/Identity/Account/Logout";
                });
@@ -128,5 +128,4 @@ namespace HomeHunter.App
             });
         }
     }
-    //TODO Repair Account/Manage/SendVerificationEmailButton
 }
