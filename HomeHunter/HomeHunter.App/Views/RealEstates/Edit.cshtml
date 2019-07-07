@@ -1,0 +1,112 @@
+﻿@model HomeHunter.Domain.RealEstate
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>RealEstate</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FloorNumber" class="control-label"></label>
+                <input asp-for="FloorNumber" class="form-control" />
+                <span asp-validation-for="FloorNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BuildingTotalFloors" class="control-label"></label>
+                <input asp-for="BuildingTotalFloors" class="form-control" />
+                <span asp-validation-for="BuildingTotalFloors" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Area" class="control-label"></label>
+                <input asp-for="Area" class="form-control" />
+                <span asp-validation-for="Area" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkingPlace" class="control-label"></label>
+                <input asp-for="ParkingPlace" class="form-control" />
+                <span asp-validation-for="ParkingPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Yard" class="control-label"></label>
+                <input asp-for="Yard" class="form-control" />
+                <span asp-validation-for="Yard" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetroNearBy" class="control-label"></label>
+                <input asp-for="MetroNearBy" class="form-control" />
+                <span asp-validation-for="MetroNearBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Balcony" class="control-label"></label>
+                <input asp-for="Balcony" class="form-control" />
+                <span asp-validation-for="Balcony" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CellingOrBasement" class="control-label"></label>
+                <input asp-for="CellingOrBasement" class="form-control" />
+                <span asp-validation-for="CellingOrBasement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeatingSystemId" class="control-label"></label>
+                <select asp-for="HeatingSystemId" class="form-control" asp-items="ViewBag.HeatingSystemId"></select>
+                <span asp-validation-for="HeatingSystemId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RealEstateTypeId" class="control-label"></label>
+                <select asp-for="RealEstateTypeId" class="form-control" asp-items="ViewBag.RealEstateTypeId"></select>
+                <span asp-validation-for="RealEstateTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BuildingTypeId" class="control-label"></label>
+                <select asp-for="BuildingTypeId" class="form-control" asp-items="ViewBag.BuildingTypeId"></select>
+                <span asp-validation-for="BuildingTypeId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="CreatedOn" class="control-label"></label>
+                <input asp-for="CreatedOn" class="form-control" />
+                <span asp-validation-for="CreatedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedOn" class="control-label"></label>
+                <input asp-for="ModifiedOn" class="form-control" />
+                <span asp-validation-for="ModifiedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeletedOn" class="control-label"></label>
+                <input asp-for="DeletedOn" class="form-control" />
+                <span asp-validation-for="DeletedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
