@@ -21,6 +21,8 @@
     <Compile Remove="Migrations\20190702055016_Cities_Addresses.Designer.cs" />
     <Compile Remove="Migrations\20190706164727_AdditionalDbConstraints.cs" />
     <Compile Remove="Migrations\20190706164727_AdditionalDbConstraints.Designer.cs" />
+    <Compile Remove="Migrations\20190707075724_AddedBuildingTypes.cs" />
+    <Compile Remove="Migrations\20190707075724_AddedBuildingTypes.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

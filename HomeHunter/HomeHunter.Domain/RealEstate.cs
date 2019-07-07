@@ -1,5 +1,4 @@
 ﻿using HomeHunter.Domain.Common;
-using HomeHunter.Domain.Enums;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,8 +10,6 @@ namespace HomeHunter.Domain
         {
             this.Offers = new List<Offer>();
         }
-
-        public BuildingType? BuildingType { get; set; }
 
         public string FloorNumber { get; set; } //Could be a Ground floor Or a Basement floor
 
@@ -42,6 +39,9 @@ namespace HomeHunter.Domain
 
         public int RealEstateTypeId { get; set; }
         public RealEstateType RealEstateType { get; set; }
+
+        public int? BuildingTypeId { get; set; }
+        public BuildingType BuildingType { get; set; }
 
         public ICollection<Offer> Offers { get; set; }
     }

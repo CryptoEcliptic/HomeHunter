@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HomeHunter.Domain
 {
-    public class RealEstateType : BaseModel<int>
+    public class BuildingType : BaseModel<int>
     {
-        public RealEstateType()
+        public BuildingType()
         {
             this.RealEstates = new List<RealEstate>();
         }
 
         [Required]
         [MaxLength(32)]
-        public string TypeName { get; set; }
+        public string Name { get; set; }
 
         public ICollection<RealEstate> RealEstates { get; set; }
     }
