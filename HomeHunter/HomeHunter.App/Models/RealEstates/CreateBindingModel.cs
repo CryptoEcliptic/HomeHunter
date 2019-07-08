@@ -15,13 +15,13 @@ namespace HomeHunter.App.Models.RealEstates
         public int? BuildingTotalFloors { get; set; }
 
         [Required(ErrorMessage = "Полето Площ е задължително")]
-        [Display(Name = "Площ")]
+        [Display(Name = "Площ*")]
         [Range(1, 1000000, ErrorMessage = "Площта не трябва да бъде по-малка от {1}.")]
         public double Area { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         [Required(ErrorMessage = "Полето Цена е задължително")]
-        [Display(Name = "Цена")]
+        [Display(Name = "Цена*")]
         [Range(1, 100000000, ErrorMessage = "Цената не трябва да бъде по-малка от {1}.")]
         public decimal Price { get; set; }
 
@@ -45,7 +45,7 @@ namespace HomeHunter.App.Models.RealEstates
         public bool? CellingOrBasement { get; set; }
 
         [Required(ErrorMessage = "Полето Адрес/Местоположение е задължително")]
-        [Display(Name = "Адрес/Местоположение")]
+        [Display(Name = "Адрес/Местоположение*")]
         public string Address { get; set; }
 
         [Display(Name = "Отопление")]
@@ -53,7 +53,7 @@ namespace HomeHunter.App.Models.RealEstates
         public HeatingSystem HeatingSystem { get; set; }
 
         [Required(ErrorMessage = "Полето Вид на имота е задължително")]
-        [Display(Name = "Вид на имота")]
+        [Display(Name = "Вид на имота*")]
         public int RealEstateTypeId { get; set; }
         public RealEstateType RealEstateType { get; set; }
 

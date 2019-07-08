@@ -9,6 +9,7 @@ namespace HomeHunter.Data.DataSeeding
     public class RealEstateTypesSeeder : ISeeder
     {
         private readonly string[] RealEstateTypesList = new string[] {
+
             "Едностаен апартамент",
             "Двустаен апартамент",
             "Тристаен апартамент",

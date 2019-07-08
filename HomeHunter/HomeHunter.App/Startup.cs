@@ -56,6 +56,9 @@ namespace HomeHunter.App
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IRealEstateTypeService, RealEstateTypeService>();
+            services.AddTransient<IHeatingSystemServices, HeatingSystemServices>();
+            services.AddTransient<IBuildingTypeServices, BuildingTypeServices>();
             
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)

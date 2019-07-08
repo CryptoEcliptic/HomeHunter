@@ -16,10 +16,12 @@ namespace HomeHunter.Services
         public bool IsUserEmailAuthenticated(string userId)
         {
             var userFromDb = this.context.HomeHunterUsers.FirstOrDefault(x => x.Id == userId);
-
-            if (userFromDb.EmailConfirmed == true)
+            if (userFromDb != null)
             {
-                return true;
+                if (userFromDb.EmailConfirmed == true)
+                {
+                    return true;
+                }
             }
 
             return false;

@@ -1,5 +1,7 @@
 ﻿using HomeHunter.Data;
 using HomeHunter.Domain;
+using HomeHunter.Services;
+using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,10 +15,12 @@ namespace HomeHunter.App.Controllers
     public class RealEstatesController : Controller
     {
         private readonly HomeHunterDbContext _context;
+        private readonly IRealEstateTypeService realEstateTypeService;
 
-        public RealEstatesController(HomeHunterDbContext context)
+        public RealEstatesController(HomeHunterDbContext context, IRealEstateTypeService realEstateTypeService)
         {
             _context = context;
+            this.realEstateTypeService = realEstateTypeService;
         }
 
         // GET: RealEstates
@@ -53,6 +57,9 @@ namespace HomeHunter.App.Controllers
             ViewData["BuildingTypeId"] = new SelectList(_context.BuildingTypes, "Id", "Name");
             ViewData["HeatingSystemId"] = new SelectList(_context.HeatingSystems, "Id", "Name");
             ViewData["RealEstateTypeId"] = new SelectList(_context.RealEstateTypes, "Id", "TypeName");
+
+            var realEstateTypes = this.realEstateTypeService.GetAllTypes();
+
             return View();
         }
 
