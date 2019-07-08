@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunterCommon", "HomeHun
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{067F9FC0-31BB-4B76-994A-76E97D2E2BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHunter.Tsets", "HomeHunter.Tsets\HomeHunter.Tsets.csproj", "{9BFFDBA8-5B2B-48FE-9197-8AC5E27AD3AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Tsets", "HomeHunter.Tsets\HomeHunter.Tsets.csproj", "{9BFFDBA8-5B2B-48FE-9197-8AC5E27AD3AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,5 @@
-﻿using HomeHunter.Data;
+﻿using AutoMapper;
+using HomeHunter.Data;
 using HomeHunter.Data.DataSeeding;
 using HomeHunter.Domain;
 using HomeHunter.Services;
@@ -11,7 +12,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,7 +59,8 @@ namespace HomeHunter.App
             services.AddTransient<IRealEstateTypeService, RealEstateTypeService>();
             services.AddTransient<IHeatingSystemServices, HeatingSystemServices>();
             services.AddTransient<IBuildingTypeServices, BuildingTypeServices>();
-            
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -67,10 +68,7 @@ namespace HomeHunter.App
                     options.AllowAreas = true;
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
                 })
-                ;
-
-            services.AddMvc(options =>
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+                .AddMvcOptions(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
             
             // Cookie settings
             services

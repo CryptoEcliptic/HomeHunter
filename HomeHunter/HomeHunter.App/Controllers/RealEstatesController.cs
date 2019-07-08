@@ -1,4 +1,8 @@
-﻿using HomeHunter.Data;
+﻿using AutoMapper;
+using HomeHunter.App.Models.BuildingType;
+using HomeHunter.App.Models.HeatingSystem;
+using HomeHunter.App.Models.RealEstateType;
+using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services;
 using HomeHunter.Services.Contracts;
@@ -6,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,11 +21,20 @@ namespace HomeHunter.App.Controllers
     {
         private readonly HomeHunterDbContext _context;
         private readonly IRealEstateTypeService realEstateTypeService;
+        private readonly IHeatingSystemServices heatyngSystemservices;
+        private readonly IBuildingTypeServices buildingTypeServices;
+        private readonly IMapper mapper;
 
-        public RealEstatesController(HomeHunterDbContext context, IRealEstateTypeService realEstateTypeService)
+        public RealEstatesController(HomeHunterDbContext context, 
+            IRealEstateTypeService realEstateTypeService,
+            IHeatingSystemServices heatyngSystemservices, 
+            IBuildingTypeServices buildingTypeServices, IMapper mapper)
         {
             _context = context;
             this.realEstateTypeService = realEstateTypeService;
+            this.heatyngSystemservices = heatyngSystemservices;
+            this.buildingTypeServices = buildingTypeServices;
+            this.mapper = mapper;
         }
 
         // GET: RealEstates
@@ -59,6 +73,13 @@ namespace HomeHunter.App.Controllers
             ViewData["RealEstateTypeId"] = new SelectList(_context.RealEstateTypes, "Id", "TypeName");
 
             var realEstateTypes = this.realEstateTypeService.GetAllTypes();
+            var realEstateTypesVewModel = this.mapper.Map<IList<RealEstateTypeVewModel>>(realEstateTypes);
+
+            var buildingTypes = this.buildingTypeServices.GetAllBuildingTypes();
+            var buildingTypesVewModel = this.mapper.Map<IList<BuildingTypeVewModel>>(buildingTypes);
+
+            var heatingSystems = this.heatyngSystemservices.GetAllHeatingSystems();
+            var heatingSystemsVewModel = this.mapper.Map<IList<HeatingSystemViewModel>>(heatingSystems);
 
             return View();
         }
