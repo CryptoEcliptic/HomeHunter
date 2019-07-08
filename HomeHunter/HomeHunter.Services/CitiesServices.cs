@@ -6,20 +6,19 @@ using System.Linq;
 
 namespace HomeHunter.Services
 {
-    public class RealEstateTypeService : IRealEstateTypeService
+    public class CitiesServices : ICitiesServices
     {
         private readonly HomeHunterDbContext context;
 
-        public RealEstateTypeService(HomeHunterDbContext context)
+        public CitiesServices(HomeHunterDbContext context)
         {
             this.context = context;
         }
-
-        public List<RealEstateType> GetAllTypes()
+        public List<City> GetAllCities()
         {
-           var types = this.context.RealEstateTypes.ToList();
+            var cities = this.context.Cities.ToList();
+            return cities;
 
-            return types;
         }
     }
 }

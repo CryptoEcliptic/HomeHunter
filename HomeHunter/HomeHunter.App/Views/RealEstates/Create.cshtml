@@ -1,31 +1,27 @@
-﻿@model HomeHunter.App.Models.RealEstates.CreateBindingModel
-
+﻿@model HomeHunter.App.Models.RealEstate.CreateRealEstateBindingModel
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <div class="container">
     <div class="paddingElement col-md-5 col-md-offset-3">
         <br />
         <h4>Информация за имота</h4>
         <hr />
-        @*<form asp-action="Create">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="RealEstateTypeId" class="control-label"></label>
-                <select asp-for="RealEstateTypeId" class="form-control" asp-items="ViewBag.RealEstateTypeId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="FloorNumber" class="control-label"></label>
-                <input asp-for="FloorNumber" class="form-control" />
-                <span asp-validation-for="FloorNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BuildingTotalFloors" class="control-label"></label>
-                <input asp-for="BuildingTotalFloors" class="form-control" />
-                <span asp-validation-for="BuildingTotalFloors" class="text-danger"></span>
+                <label asp-for="RealEstateTypes" class="control-label"></label>
+                <div>
+                    <select class="form-group border-primary mb-0">
+                        @foreach (var realEstateType in Model.RealEstateTypes)
+                        {
+                            <option>@realEstateType.TypeName</option>
+                        }
+                    </select>
+                </div>
+                <span asp-validation-for="RealEstateTypes" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Area" class="control-label"></label>
@@ -38,14 +34,62 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
+                <label asp-for="Cities" class="control-label"></label>
+                <div>
+                    <select class="form-group border-primary mb-0">
+                        @foreach (var city in Model.Cities)
+                        {
+                            <option>@city.Name</option>
+                        }
+                    </select>
+                </div>
+                <span asp-validation-for="Cities" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <textarea asp-for="Address" class="form-control" rows="4"></textarea>
                 <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BuildingTypes" class="control-label"></label>
+                <div>
+                    <select class="form-group border-primary mb-0">
+                        <option>N/A</option>
+                        @foreach (var buildingType in Model.BuildingTypes)
+                        {
+                            <option>@buildingType.Name</option>
+                        }
+                    </select>
+                </div>
+                <span asp-validation-for="BuildingTypes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeatingSystems" class="control-label"></label>
+                <div>
+                    <select class="form-group border-primary mb-0">
+                        <option>N/A</option>
+                        @foreach (var heatingSystem in Model.HeatingSystems)
+                        {
+                            <option>@heatingSystem.Name</option>
+                        }
+                    </select>
+                </div>
+                <span asp-validation-for="HeatingSystems" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FloorNumber" class="control-label"></label>
+                <input asp-for="FloorNumber" class="form-control" />
+                <span asp-validation-for="FloorNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BuildingTotalFloors" class="control-label"></label>
+                <input asp-for="BuildingTotalFloors" class="form-control" />
+                <span asp-validation-for="BuildingTotalFloors" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ParkingPlace" class="control-label"></label>
@@ -73,17 +117,9 @@
                 <span asp-validation-for="CellingOrBasement" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HeatingSystemId" class="control-label"></label>
-                <select asp-for="HeatingSystemId" class="form-control" asp-items="ViewBag.HeatingSystemId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="BuildingTypeId" class="control-label"></label>
-                <select asp-for="BuildingTypeId" class="form-control" asp-items="ViewBag.BuildingTypeId"></select>
-            </div>*@
-            @*<div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>*@
+        </form>
         <p>Полетата със * са задължителни!</p>
     </div>
 </div>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HomeHunter.Services.Contracts
 {
-    public interface IRealEstateTypeService
+    public interface IRealEstateTypeServices
     {
         List<RealEstateType> GetAllTypes();
     }

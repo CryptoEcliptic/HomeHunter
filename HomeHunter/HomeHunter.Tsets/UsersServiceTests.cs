@@ -17,7 +17,7 @@ namespace Tests
         {
             var options = new DbContextOptionsBuilder<HomeHunterDbContext>()
                    .UseInMemoryDatabase(databaseName: "IsUserAuthenticated_Users_Database")
-                   .Options; //TODO Pending implementation
+                   .Options;
         }
     }
 }

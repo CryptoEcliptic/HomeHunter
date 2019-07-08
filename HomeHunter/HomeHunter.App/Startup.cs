@@ -56,9 +56,10 @@ namespace HomeHunter.App
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IRealEstateTypeService, RealEstateTypeService>();
+            services.AddTransient<IRealEstateTypeServices, RealEstateTypeServices>();
             services.AddTransient<IHeatingSystemServices, HeatingSystemServices>();
             services.AddTransient<IBuildingTypeServices, BuildingTypeServices>();
+            services.AddTransient<ICitiesServices, CitiesServices>();
 
             services.AddAutoMapper(typeof(Startup));
 

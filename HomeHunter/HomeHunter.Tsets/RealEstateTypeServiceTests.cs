@@ -35,7 +35,7 @@ namespace HomeHunter.Tsets
             context.RealEstateTypes.AddRange(realEstateInput);
             context.SaveChanges();
 
-            var realEstateTypesService = new RealEstateTypeService(context);
+            var realEstateTypesService = new RealEstateTypeServices(context);
             var actualResult = realEstateTypesService.GetAllTypes();
 
             Assert.That(actualResult.Count, Is.EqualTo(expectedResultCount));
