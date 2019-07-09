@@ -1,4 +1,4 @@
-﻿namespace HomeHunter.App.Models.RealEstateType
+﻿namespace HomeHunter.Models.ViewModels.RealEstateType
 {
     public class RealEstateTypeViewModel
     {

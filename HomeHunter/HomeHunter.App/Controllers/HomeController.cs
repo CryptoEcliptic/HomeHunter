@@ -1,4 +1,4 @@
-﻿using HomeHunter.App.Models;
+﻿using HomeHunter.Models;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Identity;

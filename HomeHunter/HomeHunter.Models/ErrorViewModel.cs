@@ -1,6 +1,6 @@
 using System;
 
-namespace HomeHunter.App.Models
+namespace HomeHunter.Models
 {
     public class ErrorViewModel
     {

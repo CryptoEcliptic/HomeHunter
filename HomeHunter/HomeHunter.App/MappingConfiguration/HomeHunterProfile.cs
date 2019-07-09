@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
-using HomeHunter.App.Models.BuildingType;
-using HomeHunter.App.Models.City;
-using HomeHunter.App.Models.HeatingSystem;
-using HomeHunter.App.Models.RealEstateType;
+using HomeHunter.Models.ViewModels.BuildingType;
+using HomeHunter.Models.ViewModels.City;
+using HomeHunter.Models.ViewModels.HeatingSystem;
+using HomeHunter.Models.ViewModels.RealEstateType;
 using HomeHunter.Domain;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace HomeHunter.App.MappingConfiguration
 {
@@ -14,7 +16,7 @@ namespace HomeHunter.App.MappingConfiguration
             this.CreateMap<HeatingSystem, HeatingSystemViewModel>();
             this.CreateMap<BuildingType, BuildingTypeViewModel>();
             this.CreateMap<RealEstateType, RealEstateTypeViewModel>();
-            this.CreateMap<City, CityBindingModel>();
+            this.CreateMap<City, CityViewModel>();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace HomeHunter.App.Models.BuildingType
+﻿namespace HomeHunter.Models.ViewModels.BuildingType
 {
     public class BuildingTypeViewModel
     {

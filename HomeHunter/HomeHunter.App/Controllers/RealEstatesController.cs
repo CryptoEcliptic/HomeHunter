@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using HomeHunter.App.Models.BuildingType;
-using HomeHunter.App.Models.City;
-using HomeHunter.App.Models.HeatingSystem;
-using HomeHunter.App.Models.RealEstate;
-using HomeHunter.App.Models.RealEstateType;
+using HomeHunter.Models.ViewModels.City;
+using HomeHunter.Models.ViewModels.HeatingSystem;
+using HomeHunter.Models.BindingModels.RealEstate;
+using HomeHunter.Models.ViewModels.RealEstateType;
 using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services;
@@ -15,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HomeHunter.Models.ViewModels.BuildingType;
+using HomeHunter.Models.ViewModels.RealEstate;
 
 namespace HomeHunter.App.Controllers
 {
@@ -25,18 +26,23 @@ namespace HomeHunter.App.Controllers
         private readonly IHeatingSystemServices heatingSystemservices;
         private readonly IBuildingTypeServices buildingTypeServices;
         private readonly ICitiesServices citiesServices;
+        private readonly IRealEstateServices realEstateServices;
         private readonly IMapper mapper;
 
         public RealEstatesController(
             IRealEstateTypeServices realEstateTypeService,
             IHeatingSystemServices heatingSystemservices, 
-            IBuildingTypeServices buildingTypeServices, ICitiesServices citiesServices ,IMapper mapper)
+            IBuildingTypeServices buildingTypeServices, 
+            ICitiesServices citiesServices,
+            IRealEstateServices realEstateServices
+            ,IMapper mapper)
         {
            
             this.realEstateTypeService = realEstateTypeService;
             this.heatingSystemservices = heatingSystemservices;
             this.buildingTypeServices = buildingTypeServices;
             this.citiesServices = citiesServices;
+            this.realEstateServices = realEstateServices;
             this.mapper = mapper;
         }
 
@@ -82,9 +88,9 @@ namespace HomeHunter.App.Controllers
             var heatingSystemsVewModel = this.mapper.Map<IList<HeatingSystemViewModel>>(heatingSystems);
 
             var cities = this.citiesServices.GetAllCities();
-            var citiesVewModel = this.mapper.Map<IList<CityBindingModel>>(cities);
-
-            var createRealEstateBindingModel = new CreateRealEstateBindingModel
+            var citiesVewModel = this.mapper.Map<IList<CityViewModel>>(cities);
+            
+            var createRealEstateViewModel = new CreateRealEstateViewModel
             {
                  RealEstateTypes = realEstateTypesVewModel,
                  HeatingSystems = heatingSystemsVewModel,
@@ -92,7 +98,7 @@ namespace HomeHunter.App.Controllers
                  Cities = citiesVewModel
             };
 
-            return View(createRealEstateBindingModel);
+            return View(createRealEstateViewModel);
         }
 
         // POST: RealEstates/Create
@@ -104,8 +110,8 @@ namespace HomeHunter.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO Create Real estate service method, check FkConstraint for City, RealEstateType, HeatingSystem and BuildingType!!!!!
-                return RedirectToAction(nameof(Index));
+                var isRealEstateCreated = this.realEstateServices.CreateRealEstate(model);
+                return RedirectToAction();
             }
             
             return View(model);

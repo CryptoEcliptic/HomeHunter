@@ -1,14 +1,14 @@
-﻿using HomeHunter.App.Models.BuildingType;
-using HomeHunter.App.Models.City;
-using HomeHunter.App.Models.HeatingSystem;
-using HomeHunter.App.Models.RealEstateType;
+﻿using HomeHunter.Models.ViewModels.BuildingType;
+using HomeHunter.Models.ViewModels.City;
+using HomeHunter.Models.ViewModels.HeatingSystem;
+using HomeHunter.Models.ViewModels.RealEstateType;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HomeHunter.App.Models.RealEstate
+namespace HomeHunter.Models.ViewModels.RealEstate
 {
-    public class CreateRealEstateBindingModel
+    public class CreateRealEstateViewModel
     {
         [Display(Name = "Етаж")]
         [StringLength(10, ErrorMessage = "Полето {0} не трябва да надвишава {1} символа.")]
@@ -52,17 +52,21 @@ namespace HomeHunter.App.Models.RealEstate
         [Display(Name = "Адрес/Местоположение*")]
         public string Address { get; set; }
 
+
         [Display(Name = "Отопление")]
         public IList<HeatingSystemViewModel> HeatingSystems { get; set; }
+
 
         [Required(ErrorMessage = "Полето Вид на имота е задължително")]
         [Display(Name = "Вид на имота * ")]
         public IList<RealEstateTypeViewModel> RealEstateTypes { get; set; }
 
+
         [Display(Name = "Тип на сградата")]
         public IList<BuildingTypeViewModel> BuildingTypes { get; set; }
 
+
         [Display(Name = "Град")]
-        public IList<CityBindingModel> Cities { get; set; }
+        public IList<CityViewModel> Cities { get; set; }
     }
 }

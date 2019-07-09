@@ -1,4 +1,4 @@
-﻿namespace HomeHunter.App.Models.HeatingSystem
+﻿namespace HomeHunter.Models.ViewModels.HeatingSystem
 {
     public class HeatingSystemViewModel
     {

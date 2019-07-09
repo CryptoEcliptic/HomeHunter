@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HomeHunter.Data\HomeHunter.Data.csproj" />
+    <ProjectReference Include="..\HomeHunter.Models\HomeHunter.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

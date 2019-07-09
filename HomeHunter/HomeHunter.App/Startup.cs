@@ -60,6 +60,7 @@ namespace HomeHunter.App
             services.AddTransient<IHeatingSystemServices, HeatingSystemServices>();
             services.AddTransient<IBuildingTypeServices, BuildingTypeServices>();
             services.AddTransient<ICitiesServices, CitiesServices>();
+            services.AddTransient<IRealEstateServices, RealEstateServices>();
 
             services.AddAutoMapper(typeof(Startup));
 
