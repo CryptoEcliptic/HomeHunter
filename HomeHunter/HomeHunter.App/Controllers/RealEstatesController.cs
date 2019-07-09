@@ -15,7 +15,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeHunter.Models.ViewModels.BuildingType;
-using HomeHunter.Models.ViewModels.RealEstate;
+using System.Web.WebPages.Html;
+using System.Web.Mvc;
 
 namespace HomeHunter.App.Controllers
 {
@@ -79,7 +80,7 @@ namespace HomeHunter.App.Controllers
         {
 
             var realEstateTypes = this.realEstateTypeService.GetAllTypes();
-            var realEstateTypesVewModel = this.mapper.Map<IList<RealEstateTypeViewModel>>(realEstateTypes);
+            var realEstateTypesVewModel = this.mapper.Map<List<RealEstateTypeViewModel>>(realEstateTypes);
 
             var buildingTypes = this.buildingTypeServices.GetAllBuildingTypes();
             var buildingTypesVewModel = this.mapper.Map<IList<BuildingTypeViewModel>>(buildingTypes);
@@ -89,16 +90,15 @@ namespace HomeHunter.App.Controllers
 
             var cities = this.citiesServices.GetAllCities();
             var citiesVewModel = this.mapper.Map<IList<CityViewModel>>(cities);
-            
-            var createRealEstateViewModel = new CreateRealEstateViewModel
-            {
-                 RealEstateTypes = realEstateTypesVewModel,
-                 HeatingSystems = heatingSystemsVewModel,
-                 BuildingTypes = buildingTypesVewModel,
-                 Cities = citiesVewModel
-            };
 
-            return View(createRealEstateViewModel);
+            this.ViewData["RealEstateTypes"] = realEstateTypesVewModel;
+            this.ViewData["HeatingSystems"] = heatingSystemsVewModel;
+            this.ViewData["Cities"] = citiesVewModel;
+            this.ViewData["BuildingTypes"] = buildingTypesVewModel;
+
+          
+
+            return View();
         }
 
         // POST: RealEstates/Create
@@ -110,7 +110,7 @@ namespace HomeHunter.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isRealEstateCreated = this.realEstateServices.CreateRealEstate(model);
+                var isRealEstateCreated = await this.realEstateServices.CreateRealEstate(model);
                 return RedirectToAction();
             }
             

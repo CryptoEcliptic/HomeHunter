@@ -1,4 +1,9 @@
-﻿@model HomeHunter.Models.ViewModels.RealEstate.CreateRealEstateViewModel
+﻿@model HomeHunter.Models.BindingModels.RealEstate.CreateRealEstateBindingModel
+@using HomeHunter.Models.ViewModels.City
+@using HomeHunter.Models.ViewModels.RealEstateType
+@using HomeHunter.Models.ViewModels.BuildingType
+@using HomeHunter.Models.ViewModels.HeatingSystem
+
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,18 +16,22 @@
         <hr />
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RealEstateTypes" class="control-label"></label>
-                <div>
-                    <select class="form-group border-primary mb-0">
-                        @foreach (var realEstateType in Model.RealEstateTypes)
-                        {
-                            <option>@realEstateType.TypeName</option>
-                        }
-                    </select>
+            <div class="form-group w-50 mx-auto">
+                <div class="text-left">
+                    <label asp-for="RealEstateType">Тип на имота</label>
+                    <span asp-validation-for="RealEstateType" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="RealEstateTypes" class="text-danger"></span>
+                <select class="custom-select" id="realEstateType" asp-for="RealEstateType">
+                    <option selected disabled>-- Изберете тип на имота --</option>
+                    //Add
+                    @foreach (var realEstateType in (List<RealEstateTypeViewModel>)this.ViewData["RealEstateTypes"])
+                    {
+                        <option>@realEstateType.TypeName</option>
+                    }
+                </select>
+                <span asp-validation-for="RealEstateType" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Area" class="control-label"></label>
                 <input asp-for="Area" class="form-control" />
@@ -33,48 +42,59 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Cities" class="control-label"></label>
-                <div>
-                    <select class="form-group border-primary mb-0">
-                        @foreach (var city in Model.Cities)
-                        {
-                            <option>@city.Name</option>
-                        }
-                    </select>
+
+            <div class="form-group w-50 mx-auto">
+                <div class="text-left">
+                    <label asp-for="City">Град</label>
+                    <span asp-validation-for="City" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="Cities" class="text-danger"></span>
+                <select class="custom-select" id="city" asp-for="City">
+                    <option selected disabled>-- Изберете град --</option>
+                    //Add
+                    @foreach (var city in (List<CityViewModel>)this.ViewData["Cities"])
+                    {
+                        <option>@city.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="City" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <textarea asp-for="Address" class="form-control" rows="4"></textarea>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="BuildingTypes" class="control-label"></label>
-                <div>
-                    <select class="form-group border-primary mb-0">
-                        <option>N/A</option>
-                        @foreach (var buildingType in Model.BuildingTypes)
-                        {
-                            <option>@buildingType.Name</option>
-                        }
-                    </select>
+
+            <div class="form-group w-50 mx-auto">
+                <div class="text-left">
+                    <label asp-for="BuildingType">Тип на сградата</label>
+                    <span asp-validation-for="BuildingType" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="BuildingTypes" class="text-danger"></span>
+                <select class="custom-select" id="buildingType" asp-for="BuildingType">
+                    <option selected disabled>-- Изберете тип сграда --</option>
+                    //Add
+                    @foreach (var buildingType in (List<BuildingTypeViewModel>)this.ViewData["BuildingTypes"])
+                    {
+                        <option>@buildingType.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="BuildingType" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="HeatingSystems" class="control-label"></label>
-                <div>
-                    <select class="form-group border-primary mb-0">
-                        <option>N/A</option>
-                        @foreach (var heatingSystem in Model.HeatingSystems)
-                        {
-                            <option>@heatingSystem.Name</option>
-                        }
-                    </select>
+          
+            <div class="form-group w-50 mx-auto">
+                <div class="text-left">
+                    <label asp-for="HeatingSystem">Вид отопление</label>
+                    <span asp-validation-for="HeatingSystem" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="HeatingSystems" class="text-danger"></span>
+                <select class="custom-select" id="heatingSystem" asp-for="HeatingSystem">
+                    <option selected disabled>-- Изберете типа отопление --</option>
+                    //Add
+                    @foreach (var heatingSystem in (List<HeatingSystemViewModel>)this.ViewData["HeatingSystems"])
+                    {
+                        <option>@heatingSystem.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="HeatingSystem" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FloorNumber" class="control-label"></label>

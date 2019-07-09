@@ -24,19 +24,19 @@ namespace HomeHunter.Services
 
         public async Task<bool> CreateRealEstate(CreateRealEstateBindingModel model)
         {
-            var realEstateType = Task.Run(() => this.realEstateTypeServices.GetRealEstateTypeByName(model.RealEstateType.TypeName));
+        //    var realEstateType = Task.Run(() => this.realEstateTypeServices.GetRealEstateTypeByName(model.RealEstateType.TypeName.ToSt));
 
-            if (realEstateType == null)
-            {
-                return false;
-            }
+        //    if (realEstateType == null)
+        //    {
+        //        return false;
+        //    }
 
-            var city = Task.Run(() => this.citiesServices.GetByName(model.City.Name));
+            //var city = Task.Run(() => this.citiesServices.GetByName(model.City.Name));
 
 
             var realEstate = new RealEstate
             {
-                RealEstateType = await realEstateType,
+                //RealEstateType = await realEstateType,
                 Area = model.Area,
                 Price = model.Price,
                 CreatedOn = DateTime.UtcNow,

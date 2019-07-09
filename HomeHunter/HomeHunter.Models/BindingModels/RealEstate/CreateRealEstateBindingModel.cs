@@ -52,30 +52,17 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [Display(Name = "Адрес/Местоположение*")]
         public string Address { get; set; }
 
-        public HeatingSystemViewModel HeatingSystem { get; set; }
+        [MaxLength(32)]
+        public string  HeatingSystem { get; set; }
 
 
         [Required(ErrorMessage = "Полето Вид на имота е задължително")]
-        public RealEstateTypeViewModel RealEstateType { get; set; }
+        public string RealEstateType { get; set; }
 
-        public BuildingTypeViewModel BuildingType { get; set; }
+        [MaxLength(32)]
+        public string BuildingType { get; set; }
 
-        public CityViewModel City { get; set; }
-
-        [Display(Name = "Отопление")]
-        public IList<HeatingSystemViewModel> HeatingSystems { get; set; }
-
-
-        [Required(ErrorMessage = "Полето Вид на имота е задължително")]
-        [Display(Name = "Вид на имота * ")]
-        public IList<RealEstateTypeViewModel> RealEstateTypes { get; set; }
-
-
-        [Display(Name = "Тип на сградата")]
-        public IList<BuildingTypeViewModel> BuildingTypes { get; set; }
-
-
-        [Display(Name = "Град")]
-        public IList<CityViewModel> Cities { get; set; }
+        [MaxLength(32)]
+        public string City { get; set; }
     }
 }
