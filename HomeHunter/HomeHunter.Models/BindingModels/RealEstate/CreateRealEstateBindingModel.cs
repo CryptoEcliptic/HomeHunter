@@ -34,19 +34,19 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         public int Year { get; set; }
 
         [Display(Name = "Паркомясто/Гараж")]
-        public bool? ParkingPlace { get; set; }
+        public bool ParkingPlace { get; set; }
 
         [Display(Name = "Двор")]
-        public bool? Yard { get; set; }
+        public bool Yard { get; set; }
 
         [Display(Name = "Достъп до метро")]
-        public bool? MetroNearBy { get; set; }
+        public bool MetroNearBy { get; set; }
 
         [Display(Name = "Тераса")]
-        public bool? Balcony { get; set; }
+        public bool Balcony { get; set; }
 
         [Display(Name = "Мазе/Таван")]
-        public bool? CellingOrBasement { get; set; }
+        public bool CellingOrBasement { get; set; }
 
         [Required(ErrorMessage = "Полето Адрес/Местоположение е задължително")]
         [Display(Name = "Адрес/Местоположение*")]

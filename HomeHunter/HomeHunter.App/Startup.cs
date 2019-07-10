@@ -61,6 +61,7 @@ namespace HomeHunter.App
             services.AddTransient<IBuildingTypeServices, BuildingTypeServices>();
             services.AddTransient<ICitiesServices, CitiesServices>();
             services.AddTransient<IRealEstateServices, RealEstateServices>();
+            services.AddTransient<INeighbourhoodServices, NeighbourhoodServices>();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -77,7 +78,7 @@ namespace HomeHunter.App
                .ConfigureApplicationCookie(options =>
                {
                    options.Cookie.HttpOnly = true;
-                   options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                   options.ExpireTimeSpan = TimeSpan.FromHours(4);
                    options.LoginPath = "/Identity/Account/Login";
                    options.LogoutPath = "/Identity/Account/Logout";
                });

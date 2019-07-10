@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using HomeHunter.Models.ViewModels.BuildingType;
 using System.Web.WebPages.Html;
 using System.Web.Mvc;
+using HomeHunter.Models.ViewModels.Neighbourhood;
 
 namespace HomeHunter.App.Controllers
 {
@@ -28,6 +29,7 @@ namespace HomeHunter.App.Controllers
         private readonly IBuildingTypeServices buildingTypeServices;
         private readonly ICitiesServices citiesServices;
         private readonly IRealEstateServices realEstateServices;
+        private readonly INeighbourhoodServices neighbourhoodServices;
         private readonly IMapper mapper;
 
         public RealEstatesController(
@@ -35,7 +37,8 @@ namespace HomeHunter.App.Controllers
             IHeatingSystemServices heatingSystemservices, 
             IBuildingTypeServices buildingTypeServices, 
             ICitiesServices citiesServices,
-            IRealEstateServices realEstateServices
+            IRealEstateServices realEstateServices,
+            INeighbourhoodServices neighbourhoodServices
             ,IMapper mapper)
         {
            
@@ -44,6 +47,7 @@ namespace HomeHunter.App.Controllers
             this.buildingTypeServices = buildingTypeServices;
             this.citiesServices = citiesServices;
             this.realEstateServices = realEstateServices;
+            this.neighbourhoodServices = neighbourhoodServices;
             this.mapper = mapper;
         }
 
@@ -91,12 +95,15 @@ namespace HomeHunter.App.Controllers
             var cities = this.citiesServices.GetAllCities();
             var citiesVewModel = this.mapper.Map<IList<CityViewModel>>(cities);
 
+            //var neighbourhoods = this.neighbourhoodServices.GetAllNeighbourhoods();
+            //var neighbourhoodsVewModel = this.mapper.Map<IList<NeighbourhoodViewModel>>(neighbourhoods);
+
+
             this.ViewData["RealEstateTypes"] = realEstateTypesVewModel;
             this.ViewData["HeatingSystems"] = heatingSystemsVewModel;
             this.ViewData["Cities"] = citiesVewModel;
             this.ViewData["BuildingTypes"] = buildingTypesVewModel;
-
-          
+            //this.ViewData["Neighbourhoods"] = neighbourhoodsVewModel;
 
             return View();
         }
@@ -210,5 +217,16 @@ namespace HomeHunter.App.Controllers
         //{
         //    return _context.RealEstates.Any(e => e.Id == id);
         //}
+
+        [HttpGet]
+        public JsonResult GetNeighbourhoodsList(int cityId)
+        {
+            var neighbourhoods = this.neighbourhoodServices.GetAllNeighbourhoods();
+            var neighbourhoodsVewModel = this.mapper.Map<IList<NeighbourhoodViewModel>>(neighbourhoods);
+
+            var neighbourhoodlist = new SelectList(neighbourhoodsVewModel);
+            return Json(neighbourhoodlist);
+
+        }
     }
 }
