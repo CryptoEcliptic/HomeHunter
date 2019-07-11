@@ -28,6 +28,7 @@ namespace HomeHunter.App
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -62,6 +63,8 @@ namespace HomeHunter.App
             services.AddTransient<ICitiesServices, CitiesServices>();
             services.AddTransient<IRealEstateServices, RealEstateServices>();
             services.AddTransient<INeighbourhoodServices, NeighbourhoodServices>();
+            services.AddTransient<IAddressServices, AddressServices>();
+            services.AddTransient<IVillageServices, VillageServices>();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -104,8 +107,8 @@ namespace HomeHunter.App
                 new RolesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
                 new RealEstateTypesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
                 new HeatingSystemSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                new NeighbourhoodSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
                 new CitiesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                new NeighbourhoodSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
                 new BuildingTypeSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
@@ -137,5 +140,6 @@ namespace HomeHunter.App
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+        //TODO Seed All bulgarian cities in the db
     }
 }

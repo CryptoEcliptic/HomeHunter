@@ -20,5 +20,15 @@ namespace HomeHunter.Services
         {
             return this.context.Neighbourhoods.ToList();
         }
+
+        public Neighbourhood GetNeighbourhoodByName(string name)
+        {
+            return this.context.Neighbourhoods.FirstOrDefault(x => x.Name == name);
+        }
+
+        public List<Neighbourhood> GetNeighbourhoodsByCity(string cityName)
+        {
+            return this.context.Neighbourhoods.Where(x => x.City.Name == cityName).ToList();
+        }
     }
 }

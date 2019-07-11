@@ -26,8 +26,8 @@
                     <option selected disabled>-- Изберете тип на имота --</option>
                     //Add
                     @foreach (var realEstateType in (List
-                <RealEstateTypeViewModel>
-                    )this.ViewData["RealEstateTypes"])
+              <RealEstateTypeViewModel>
+                  )this.ViewData["RealEstateTypes"])
                     {
                         <option>@realEstateType.TypeName</option>
                     }
@@ -49,22 +49,25 @@
             <div class="form-group w-50 mx-auto">
                 <div class="text-left">
                     <label asp-for="City">Град</label>
-                    <span asp-validation-for="City" class="text-danger"></span>
                 </div>
                 <select class="custom-select" id="city" asp-for="City">
                     <option selected disabled>-- Изберете град --</option>
                     //Add
-                    @foreach (var city in (List
-                <CityViewModel>
-                    )this.ViewData["Cities"])
+                    @foreach (var city in (List<CityViewModel>)this.ViewData["Cities"])
                     {
                         <option class="@city.Name" id="@city.Name">@city.Name</option>
                     }
                 </select>
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
-            <div>
-                <select id="neighbourhoodList"></select>
+            <div class="form-group w-50 mx-auto">
+                <div class="text-left">
+                    <label asp-for="Neighbourhood">Квартал</label>
+                </div>
+                <select class="custom-select" id="Neighbourhood" name="Neighbourhood" asp-for="Neighbourhood">
+                    <option selected disabled>-- Изберете квартал --</option>
+                </select>
+                <span asp-validation-for="Neighbourhood" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">
@@ -82,8 +85,8 @@
                     <option selected disabled>-- Изберете тип сграда --</option>
                     //Add
                     @foreach (var buildingType in (List
-                <BuildingTypeViewModel>
-                    )this.ViewData["BuildingTypes"])
+              <BuildingTypeViewModel>
+                  )this.ViewData["BuildingTypes"])
                     {
                         <option>@buildingType.Name</option>
                     }
@@ -100,8 +103,8 @@
                     <option selected disabled>-- Изберете типа отопление --</option>
                     //Add
                     @foreach (var heatingSystem in (List
-                <HeatingSystemViewModel>
-                    )this.ViewData["HeatingSystems"])
+              <HeatingSystemViewModel>
+                  )this.ViewData["HeatingSystems"])
                     {
                         <option>@heatingSystem.Name</option>
                     }
@@ -160,8 +163,13 @@
         </form>
 
         <p>Полетата със * са задължителни!</p>
+
+        <div class=" container">
+            <a asp-area="Administrator" asp-controller="Home" asp-action="Index"><strong>Назад</strong></a>
+        </div>
     </div>
 </div>
+
 
 @section Scripts
 {
@@ -199,82 +207,35 @@
         });
     </script>
 
-    <script>
-        $(function () {
-            var map = {
-                "eng": "English",
-                "esp": "Español",
-                "kor": "한국어",
-                "viet": "Tiếng Việt",
-                "chin": "中文"
-            }
-            $("#docs").on("change", function () {
-                //explanation of .attr()
-                // lets say your html looks like this ===
-                //<option id="specEd/Sofia" class="eng kor viet esp chin/Sofia">Special Education Programs</option>
-                // .attr("class") will create a string of all the classes like : 'eng kor viet esp chin'
-
-                var selected = $("option:selected", this).attr("class=София");
-
-                //then you split the string by spaces to get an arr like ["eng", "kor", "viet", "esp", "chin"]
-
-                var arr = selected.split(" ");
-
-                console.log(arr) //["eng", "kor", "viet", "esp", "chin"]
-
-
-                //Next, remove the old dropdown that was appended. If `.added` was not there it will remove nothing
-                //Then after it is removed append the new dropdown
-                //so, on every change event you're removing the old and appending the new.
-
-                $(".added").remove()
-                $("body").append("<select class='added'>")
-
-                //since the string of classes are split into an array you can use the array method of [forEach][1]
-                arr.forEach(function (e) {
-                    //`e` is each element in `arr`
-                    $(".added").append("<option>" + map[e] + "</option>");
-
-                    // so map[eng] == "English" then it goes to map[kor] etc..
-                    // you should know how JavaScript objects work
-
-                })
-            })
-        })
-    </script>
-
     <script type="text/javascript">
         //Insert default item "Select" in dropdownlist on load
         $(document).ready(function () {
             var items = "<option value='0'>Select</option>";
-            $("#neighbourhoodList").html(items);
+            $("#Neighbourhood").html(items);
         });
 
         //Bind City dropdownlist
         $("#city").change(function () {
-            var cityId = $("#city").val();
-            if (cityId == "София") {
+            var cityName = $("#city").val();
 
-                var url = "/RealEstates/GetNeighbourhoodsList";
+            var url = "/RealEstates/GetNeighbourhoodsList";
 
-            $.getJSON(url, { CityId: cityId }, function (data) {
+            $.getJSON(url, { CityName: cityName }, function (data) {
                 var item = "";
-                $("#neighbourhoodList").empty();
-                $.each(data, function (i, neignbourhood) {
-                    item += '<option value="' + neignbourhood.value + '">' + neignbourhood.text + '</option>'
-                });
-                $("#neighbourhoodList").html(item);
-            });
-            }
+                $("#Neighbourhood").empty();
+                $.each(data, function (i, Neighbourhood) {
 
-            
+                    item += '<option>' + Neighbourhood.text + '</option>'
+                });
+                $("#Neighbourhood").html(item);
+            });
+
+
         });
     </script>
 }
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 
 

@@ -1,20 +1,27 @@
 ﻿using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
-using System;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Services
 {
-    class AddressServices : IAddressServices
+    public class AddressServices : IAddressServices
     {
-        public Task<bool> CreateAddress(City city)
+        public async Task<Address> CreateAddress(City city, string description, Village village, Neighbourhood neighbourhood)
         {
-            throw new NotImplementedException();
+            var address = Task.Run(() => new Address
+            {
+                City = city,
+                Description = description,
+                Village = village,
+                Neighbourhood = neighbourhood
+            });
+            return await address;
         }
 
-        public Task<bool> CreateAddress(Village village)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<bool> CreateAddress(Village village)  //TODO Is necessary?
+        //{
+        //    throw new NotImplementedException();
+        //}
+
     }
 }

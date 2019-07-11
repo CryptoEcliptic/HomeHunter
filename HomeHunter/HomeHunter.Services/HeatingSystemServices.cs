@@ -3,6 +3,7 @@ using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HomeHunter.Services
 {
@@ -21,6 +22,13 @@ namespace HomeHunter.Services
 
             return heatingSystems;
 
+        }
+
+        public Task<HeatingSystem> GetHeatingSystem(string systemName)
+        {
+            var heatingSystem = Task.Run(() => this.context.HeatingSystems.FirstOrDefault(x => x.Name == systemName));
+
+            return heatingSystem;
         }
     }
 }

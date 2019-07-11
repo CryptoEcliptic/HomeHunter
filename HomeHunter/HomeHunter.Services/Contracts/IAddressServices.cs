@@ -5,7 +5,7 @@ namespace HomeHunter.Services.Contracts
 {
     public interface IAddressServices
     {
-        Task<bool> CreateAddress(City city);
-        Task<bool> CreateAddress(Village village);
+        Task<Address> CreateAddress(City city, string description, Village village, Neighbourhood neighbourhood);
+        //Task<bool> CreateAddress(Village village); //TODO Is necessary?
     }
 }

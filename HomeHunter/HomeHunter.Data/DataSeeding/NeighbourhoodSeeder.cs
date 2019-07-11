@@ -125,6 +125,7 @@ namespace HomeHunter.Data.DataSeeding
                     {
                         Name = name,
                         CreatedOn = DateTime.UtcNow,
+                        CityId = 1,
                     });
                 }
             }

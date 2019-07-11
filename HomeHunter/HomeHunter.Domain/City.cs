@@ -10,6 +10,7 @@ namespace HomeHunter.Domain
         public City()
         {
             this.Addresses = new List<Address>();
+            this.Neighbourhoods = new List<Neighbourhood>();
         }
 
         [Required]
@@ -20,5 +21,6 @@ namespace HomeHunter.Domain
         public Municipality Municipality { get; set; }
 
         public ICollection<Address> Addresses { get; set; }
+        public ICollection<Neighbourhood> Neighbourhoods { get; set; }
     }
 }

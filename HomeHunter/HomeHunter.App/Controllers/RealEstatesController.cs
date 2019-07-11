@@ -95,15 +95,11 @@ namespace HomeHunter.App.Controllers
             var cities = this.citiesServices.GetAllCities();
             var citiesVewModel = this.mapper.Map<IList<CityViewModel>>(cities);
 
-            //var neighbourhoods = this.neighbourhoodServices.GetAllNeighbourhoods();
-            //var neighbourhoodsVewModel = this.mapper.Map<IList<NeighbourhoodViewModel>>(neighbourhoods);
-
 
             this.ViewData["RealEstateTypes"] = realEstateTypesVewModel;
             this.ViewData["HeatingSystems"] = heatingSystemsVewModel;
             this.ViewData["Cities"] = citiesVewModel;
             this.ViewData["BuildingTypes"] = buildingTypesVewModel;
-            //this.ViewData["Neighbourhoods"] = neighbourhoodsVewModel;
 
             return View();
         }
@@ -118,6 +114,7 @@ namespace HomeHunter.App.Controllers
             if (ModelState.IsValid)
             {
                 var isRealEstateCreated = await this.realEstateServices.CreateRealEstate(model);
+
                 return RedirectToAction();
             }
             
@@ -219,12 +216,12 @@ namespace HomeHunter.App.Controllers
         //}
 
         [HttpGet]
-        public JsonResult GetNeighbourhoodsList(int cityId)
+        public JsonResult GetNeighbourhoodsList(string cityName)
         {
-            var neighbourhoods = this.neighbourhoodServices.GetAllNeighbourhoods();
+            var neighbourhoods = this.neighbourhoodServices.GetNeighbourhoodsByCity(cityName);
             var neighbourhoodsVewModel = this.mapper.Map<IList<NeighbourhoodViewModel>>(neighbourhoods);
 
-            var neighbourhoodlist = new SelectList(neighbourhoodsVewModel);
+            var neighbourhoodlist = new SelectList(neighbourhoodsVewModel.Select(x => x.Name));
             return Json(neighbourhoodlist);
 
         }

@@ -1,9 +1,4 @@
-﻿using HomeHunter.Models.ViewModels.BuildingType;
-using HomeHunter.Models.ViewModels.City;
-using HomeHunter.Models.ViewModels.HeatingSystem;
-using HomeHunter.Models.ViewModels.RealEstateType;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeHunter.Models.BindingModels.RealEstate
@@ -64,5 +59,11 @@ namespace HomeHunter.Models.BindingModels.RealEstate
 
         [MaxLength(32)]
         public string City { get; set; }
+
+        [MaxLength(32)]
+        public string Village { get; set; } //Todo Add village field in the view
+
+        [MaxLength(64)]
+        public string Neighbourhood { get; set; }
     }
 }
