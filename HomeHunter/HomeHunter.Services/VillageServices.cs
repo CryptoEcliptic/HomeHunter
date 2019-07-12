@@ -15,7 +15,7 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public async Task<Village> CreateVillage(string name)
+        public Village CreateVillage(string name)
         {
             if (name == null)
             {
@@ -24,12 +24,12 @@ namespace HomeHunter.Services
 
             if (!IsVillageEhists(name))
             {
-                var village = Task.Run(() => new Village
+                var village =  new Village
                 {
                     Name = name
-                });
+                };
 
-                return await village;
+                return village;
             }
 
             return null;

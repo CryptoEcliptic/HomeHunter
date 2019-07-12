@@ -6,8 +6,8 @@ namespace HomeHunter.Services.Contracts
 {
     public interface IRealEstateTypeServices
     {
-        List<RealEstateType> GetAllTypes();
+       List<RealEstateType>GetAllTypes();
 
-        Task<RealEstateType> GetRealEstateTypeByName(string typeName);
+       RealEstateType GetRealEstateTypeByName(string typeName);
     }
 }

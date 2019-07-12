@@ -23,9 +23,9 @@ namespace HomeHunter.Services
             return buildingTypes;
         }
 
-        public Task<BuildingType> GetBuildingType(string type)
+        public BuildingType GetBuildingType(string type)
         {
-            var buildingType = Task.Run(() => this.context.BuildingTypes.FirstOrDefault(x => x.Name == type));
+            var buildingType = this.context.BuildingTypes.FirstOrDefault(x => x.Name == type);
 
             return buildingType;
         }

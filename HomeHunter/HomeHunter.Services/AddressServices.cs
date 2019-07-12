@@ -17,11 +17,5 @@ namespace HomeHunter.Services
             });
             return await address;
         }
-
-        //public Task<bool> CreateAddress(Village village)  //TODO Is necessary?
-        //{
-        //    throw new NotImplementedException();
-        //}
-
     }
 }

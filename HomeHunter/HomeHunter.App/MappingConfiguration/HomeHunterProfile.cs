@@ -5,6 +5,8 @@ using HomeHunter.Models.ViewModels.City;
 using HomeHunter.Models.ViewModels.HeatingSystem;
 using HomeHunter.Models.ViewModels.Neighbourhood;
 using HomeHunter.Models.ViewModels.RealEstateType;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HomeHunter.App.MappingConfiguration
 {

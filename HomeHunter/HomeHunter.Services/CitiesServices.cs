@@ -22,11 +22,11 @@ namespace HomeHunter.Services
 
         }
 
-        public async Task<City> GetByName(string name)
+        public City GetByName(string name)
         {
-            var city = Task.Run(() => this.context.Cities.FirstOrDefault(x => x.Name == name));
+            var city = this.context.Cities.FirstOrDefault(x => x.Name == name);
 
-            return await city;
+            return city;
         }
     }
 }

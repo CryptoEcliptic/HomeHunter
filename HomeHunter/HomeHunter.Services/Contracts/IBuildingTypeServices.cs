@@ -6,8 +6,8 @@ namespace HomeHunter.Services.Contracts
 {
     public interface IBuildingTypeServices
     {
-        List<BuildingType> GetAllBuildingTypes();
+       List<BuildingType> GetAllBuildingTypes();
 
-        Task<BuildingType> GetBuildingType(string type);
+       BuildingType GetBuildingType(string type);
     }
 }

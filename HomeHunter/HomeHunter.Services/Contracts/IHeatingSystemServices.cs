@@ -8,6 +8,6 @@ namespace HomeHunter.Services.Contracts
     {
         List<HeatingSystem> GetAllHeatingSystems();
 
-        Task<HeatingSystem> GetHeatingSystem(string systemName);
+        HeatingSystem GetHeatingSystem(string systemName);
     }
 }

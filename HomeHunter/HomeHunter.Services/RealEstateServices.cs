@@ -39,21 +39,21 @@ namespace HomeHunter.Services
 
         public async Task<bool> CreateRealEstate(CreateRealEstateBindingModel model)
         {
-            var realEstateType = Task.Run(() => this.realEstateTypeServices.GetRealEstateTypeByName(model.RealEstateType));
+            var realEstateType = await Task.Run(() => this.realEstateTypeServices.GetRealEstateTypeByName(model.RealEstateType));
 
             if (realEstateType == null || model.Area <=0 || model.Price <= 0 || model.Address == null)
             {
                 return false;
             }
 
-            var city = Task.Run(() => this.citiesServices.GetByName(model.City));
-            var village = this.villageServices.CreateVillage(model.Village);
+            var city = await Task.Run(() => this.citiesServices.GetByName(model.City));
+            var village = await Task.Run(() => this.villageServices.CreateVillage(model.Village));
 
-            var neighbourhood = this.neighbourhoodServices.GetNeighbourhoodByName(model.Neighbourhood);
-            var address = this.addressServices.CreateAddress(await city, model.Address, await village, neighbourhood);
+            var neighbourhood = await Task.Run(() => this.neighbourhoodServices.GetNeighbourhoodByName(model.Neighbourhood));
+            var address = await Task.Run(() => this.addressServices.CreateAddress(city, model.Address, village, neighbourhood));
 
-            var buildingType = this.buildingTypeServices.GetBuildingType(model.BuildingType);
-            var heatingSystem = this.heatingSystemServices.GetHeatingSystem(model.HeatingSystem);
+            var buildingType = await Task.Run(() => this.buildingTypeServices.GetBuildingType(model.BuildingType));
+            var heatingSystem = await Task.Run(() => this.heatingSystemServices.GetHeatingSystem(model.HeatingSystem));
 
             var realEstate = new RealEstate
             {
@@ -68,10 +68,10 @@ namespace HomeHunter.Services
                 BuildingTotalFloors = model.BuildingTotalFloors,
                 CellingOrBasement = model.CellingOrBasement,
 
-                RealEstateType = await realEstateType,
-                Address = await address,
-                BuildingType = await buildingType,
-                HeatingSystem = await heatingSystem,
+                RealEstateType = realEstateType,
+                Address = address,
+                BuildingType = buildingType,
+                HeatingSystem = heatingSystem,
 
                 IsDeleted = false,
                 CreatedOn = DateTime.UtcNow,

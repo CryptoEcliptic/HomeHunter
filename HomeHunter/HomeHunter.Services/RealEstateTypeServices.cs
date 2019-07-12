@@ -1,10 +1,8 @@
 ﻿using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HomeHunter.Services
 {
@@ -24,11 +22,11 @@ namespace HomeHunter.Services
             return types;
         }
 
-        public async Task<RealEstateType> GetRealEstateTypeByName(string typeName)
+        public RealEstateType GetRealEstateTypeByName(string typeName)
         {
-            var realEstateType = Task.Run(() => this.context.RealEstateTypes.FirstOrDefault(x => x.TypeName == typeName));
+            var realEstateType = this.context.RealEstateTypes.FirstOrDefault(x => x.TypeName == typeName);
 
-            return await realEstateType;
+            return realEstateType;
         }
     }
 }

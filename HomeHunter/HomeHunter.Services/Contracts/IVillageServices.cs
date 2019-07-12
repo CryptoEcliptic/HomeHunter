@@ -5,7 +5,7 @@ namespace HomeHunter.Services.Contracts
 {
     public interface IVillageServices
     {
-        Task<Village> CreateVillage(string name);
+        Village CreateVillage(string name);
 
         bool IsVillageEhists(string name);
     }

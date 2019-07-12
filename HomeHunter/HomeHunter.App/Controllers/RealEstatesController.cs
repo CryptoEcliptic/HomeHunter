@@ -1,23 +1,17 @@
 ﻿using AutoMapper;
+using HomeHunter.Models.BindingModels.RealEstate;
+using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
 using HomeHunter.Models.ViewModels.HeatingSystem;
-using HomeHunter.Models.BindingModels.RealEstate;
+using HomeHunter.Models.ViewModels.Neighbourhood;
 using HomeHunter.Models.ViewModels.RealEstateType;
-using HomeHunter.Data;
-using HomeHunter.Domain;
-using HomeHunter.Services;
 using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HomeHunter.Models.ViewModels.BuildingType;
-using System.Web.WebPages.Html;
-using System.Web.Mvc;
-using HomeHunter.Models.ViewModels.Neighbourhood;
 
 namespace HomeHunter.App.Controllers
 {
@@ -80,20 +74,19 @@ namespace HomeHunter.App.Controllers
         //}
 
         // GET: RealEstates/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-
-            var realEstateTypes = this.realEstateTypeService.GetAllTypes();
+            var realEstateTypes = await Task.Run(() => this.realEstateTypeService.GetAllTypes());
             var realEstateTypesVewModel = this.mapper.Map<List<RealEstateTypeViewModel>>(realEstateTypes);
 
-            var buildingTypes = this.buildingTypeServices.GetAllBuildingTypes();
-            var buildingTypesVewModel = this.mapper.Map<IList<BuildingTypeViewModel>>(buildingTypes);
+            var buildingTypes = await Task.Run(() => this.buildingTypeServices.GetAllBuildingTypes());
+            var buildingTypesVewModel = this.mapper.Map<List<BuildingTypeViewModel>>(buildingTypes);
 
-            var heatingSystems = this.heatingSystemservices.GetAllHeatingSystems();
-            var heatingSystemsVewModel = this.mapper.Map<IList<HeatingSystemViewModel>>(heatingSystems);
+            var heatingSystems = await Task.Run(() => this.heatingSystemservices.GetAllHeatingSystems());
+            var heatingSystemsVewModel = this.mapper.Map<List<HeatingSystemViewModel>>(heatingSystems);
 
-            var cities = this.citiesServices.GetAllCities();
-            var citiesVewModel = this.mapper.Map<IList<CityViewModel>>(cities);
+            var cities = await Task.Run(() => this.citiesServices.GetAllCities());
+            var citiesVewModel = this.mapper.Map<List<CityViewModel>>(cities);
 
 
             this.ViewData["RealEstateTypes"] = realEstateTypesVewModel;
@@ -216,9 +209,9 @@ namespace HomeHunter.App.Controllers
         //}
 
         [HttpGet]
-        public JsonResult GetNeighbourhoodsList(string cityName)
+        public async Task<JsonResult> GetNeighbourhoodsList(string cityName)
         {
-            var neighbourhoods = this.neighbourhoodServices.GetNeighbourhoodsByCity(cityName);
+            var neighbourhoods = await Task.Run(() => this.neighbourhoodServices.GetNeighbourhoodsByCity(cityName));
             var neighbourhoodsVewModel = this.mapper.Map<IList<NeighbourhoodViewModel>>(neighbourhoods);
 
             var neighbourhoodlist = new SelectList(neighbourhoodsVewModel.Select(x => x.Name));

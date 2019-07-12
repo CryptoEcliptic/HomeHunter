@@ -24,9 +24,11 @@ namespace HomeHunter.Services
 
         }
 
-        public Task<HeatingSystem> GetHeatingSystem(string systemName)
+        public HeatingSystem GetHeatingSystem(string systemName)
         {
-            var heatingSystem = Task.Run(() => this.context.HeatingSystems.FirstOrDefault(x => x.Name == systemName));
+            var heatingSystem =  this.context.HeatingSystems
+            .FirstOrDefault(x => x.Name == systemName)
+                ;
 
             return heatingSystem;
         }

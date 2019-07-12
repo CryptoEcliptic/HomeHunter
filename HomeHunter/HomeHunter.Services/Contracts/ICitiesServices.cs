@@ -6,8 +6,8 @@ namespace HomeHunter.Services.Contracts
 {
     public interface ICitiesServices
     {
-        List<City> GetAllCities();
+       List<City> GetAllCities();
 
-        Task<City> GetByName(string name);
+       City GetByName(string name);
     }
 }
