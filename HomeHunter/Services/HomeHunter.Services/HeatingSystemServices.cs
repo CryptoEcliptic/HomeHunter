@@ -1,6 +1,7 @@
 ﻿using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.Models.HeatingSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,9 +17,13 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public List<HeatingSystem> GetAllHeatingSystems()
+        public async Task<IQueryable<HeatingSystemServiceModel>> GetAllHeatingSystems()
         {
-            var heatingSystems = this.context.HeatingSystems.ToList();
+            var heatingSystems = this.context.HeatingSystems
+                .Select(x => new HeatingSystemServiceModel
+                {
+                    Name = x.Name,
+                });
 
             return heatingSystems;
 

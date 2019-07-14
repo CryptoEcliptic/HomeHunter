@@ -1,12 +1,13 @@
 ﻿using HomeHunter.Domain;
-using System.Collections.Generic;
+using HomeHunter.Services.Models.RealEstateType;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Services.Contracts
 {
     public interface IRealEstateTypeServices
     {
-       List<RealEstateType>GetAllTypes();
+        Task<IQueryable<RealEstateTypeServiceModel>> GetAllTypes();
 
        RealEstateType GetRealEstateTypeByName(string typeName);
     }

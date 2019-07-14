@@ -26,7 +26,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
 
         [Display(Name = "Година")]
         [Range(1800, 2030)]
-        public int Year { get; set; }
+        public int? Year { get; set; }
 
         [Display(Name = "Паркомясто/Гараж")]
         public bool ParkingPlace { get; set; }
@@ -45,13 +45,15 @@ namespace HomeHunter.Models.BindingModels.RealEstate
 
         [Required(ErrorMessage = "Полето Адрес/Местоположение е задължително")]
         [Display(Name = "Адрес/Местоположение*")]
+        [MinLength(5, ErrorMessage = "Полето Адрес/Местоположение трябва да съдържа поне 5 символа")]
         public string Address { get; set; }
 
         [MaxLength(32)]
         public string  HeatingSystem { get; set; }
 
 
-        [Required(ErrorMessage = "Полето Вид на имота е задължително")]
+        [Required(ErrorMessage = "Полето {0} е задължително")]
+        [Display(Name = "Тип на имота")]
         public string RealEstateType { get; set; }
 
         [MaxLength(32)]

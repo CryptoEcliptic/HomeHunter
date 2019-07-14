@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HomeHunter.Data;
 using HomeHunter.Models.BindingModels.RealEstate;
 using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
@@ -6,9 +7,11 @@ using HomeHunter.Models.ViewModels.HeatingSystem;
 using HomeHunter.Models.ViewModels.Neighbourhood;
 using HomeHunter.Models.ViewModels.RealEstateType;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.Models.RealEstate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +28,7 @@ namespace HomeHunter.App.Controllers
         private readonly IRealEstateServices realEstateServices;
         private readonly INeighbourhoodServices neighbourhoodServices;
         private readonly IMapper mapper;
+        private readonly HomeHunterDbContext _context;
 
         public RealEstatesController(
             IRealEstateTypeServices realEstateTypeService,
@@ -33,7 +37,7 @@ namespace HomeHunter.App.Controllers
             ICitiesServices citiesServices,
             IRealEstateServices realEstateServices,
             INeighbourhoodServices neighbourhoodServices
-            ,IMapper mapper)
+            ,IMapper mapper, HomeHunterDbContext _context)
         {
            
             this.realEstateTypeService = realEstateTypeService;
@@ -43,16 +47,18 @@ namespace HomeHunter.App.Controllers
             this.realEstateServices = realEstateServices;
             this.neighbourhoodServices = neighbourhoodServices;
             this.mapper = mapper;
+            this._context = _context;
         }
 
         // GET: RealEstates
-        //public async Task<IActionResult> Index()
-        //{
-        //    var homeHunterDbContext = _context.RealEstates.Include(r => r.BuildingType).Include(r => r.HeatingSystem).Include(r => r.RealEstateType);
-        //    return View(await homeHunterDbContext.ToListAsync());
-        //}
+        public async Task<IActionResult> Index()
+        {
+            var homeHunterDbContext = _context.RealEstates.Include(r => r.BuildingType).Include(r => r.HeatingSystem).Include(r => r.RealEstateType);
+            return View(await homeHunterDbContext.ToListAsync());
+           
+        }
 
-        // GET: RealEstates/Details/5
+        //GET: RealEstates/Details/5
         //public async Task<IActionResult> Details(string id)
         //{
         //    if (id == null)
@@ -76,23 +82,8 @@ namespace HomeHunter.App.Controllers
         // GET: RealEstates/Create
         public async Task<IActionResult> Create()
         {
-            var realEstateTypes = await Task.Run(() => this.realEstateTypeService.GetAllTypes());
-            var realEstateTypesVewModel = this.mapper.Map<List<RealEstateTypeViewModel>>(realEstateTypes);
-
-            var buildingTypes = await Task.Run(() => this.buildingTypeServices.GetAllBuildingTypes());
-            var buildingTypesVewModel = this.mapper.Map<List<BuildingTypeViewModel>>(buildingTypes);
-
-            var heatingSystems = await Task.Run(() => this.heatingSystemservices.GetAllHeatingSystems());
-            var heatingSystemsVewModel = this.mapper.Map<List<HeatingSystemViewModel>>(heatingSystems);
-
-            var cities = await Task.Run(() => this.citiesServices.GetAllCities());
-            var citiesVewModel = this.mapper.Map<List<CityViewModel>>(cities);
-
-
-            this.ViewData["RealEstateTypes"] = realEstateTypesVewModel;
-            this.ViewData["HeatingSystems"] = heatingSystemsVewModel;
-            this.ViewData["Cities"] = citiesVewModel;
-            this.ViewData["BuildingTypes"] = buildingTypesVewModel;
+            
+            await this.LoadDropdownMenusData();
 
             return View();
         }
@@ -106,12 +97,17 @@ namespace HomeHunter.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isRealEstateCreated = await this.realEstateServices.CreateRealEstate(model);
+                var realEstate = this.mapper.Map<RealEstateCreateServiceModel>(model);
 
-                return RedirectToAction();
+                var isRealEstateCreated = await this.realEstateServices.CreateRealEstate(realEstate);
+
+                return RedirectToAction(nameof(Index));
             }
-            
-            return View(model);
+
+            await this.LoadDropdownMenusData();
+            await GetNeighbourhoodsList(model.City);
+
+            return View(model ?? new CreateRealEstateBindingModel());
         }
 
         // GET: RealEstates/Edit/5
@@ -218,5 +214,28 @@ namespace HomeHunter.App.Controllers
             return Json(neighbourhoodlist);
 
         }
+
+        [NonAction]
+        private async Task LoadDropdownMenusData()
+        {
+            var realEstateTypes = await this.realEstateTypeService.GetAllTypes();
+            var realEstateTypesVewModel = this.mapper.Map<List<RealEstateTypeViewModel>>(realEstateTypes);
+
+            var buildingTypes = await Task.Run(() => this.buildingTypeServices.GetAllBuildingTypes());
+            var buildingTypesVewModel = this.mapper.Map<List<BuildingTypeViewModel>>(buildingTypes);
+
+            var heatingSystems = await Task.Run(() => this.heatingSystemservices.GetAllHeatingSystems());
+            var heatingSystemsVewModel = this.mapper.Map<List<HeatingSystemViewModel>>(heatingSystems);
+
+            var cities = await Task.Run(() => this.citiesServices.GetAllCities());
+            var citiesVewModel = this.mapper.Map<List<CityViewModel>>(cities);
+
+
+            this.ViewData["RealEstateTypes"] = realEstateTypesVewModel;
+            this.ViewData["HeatingSystems"] = heatingSystemsVewModel;
+            this.ViewData["Cities"] = citiesVewModel;
+            this.ViewData["BuildingTypes"] = buildingTypesVewModel;
+        }
+        
     }
 }

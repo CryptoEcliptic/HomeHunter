@@ -1,6 +1,7 @@
 ﻿using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.Models.BuildingType;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,9 +17,14 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public List<BuildingType> GetAllBuildingTypes()
+        public async Task<IQueryable<BuildingTypeServiceModel>> GetAllBuildingTypes()
         {
-            var buildingTypes = this.context.BuildingTypes.ToList();
+            var buildingTypes = this.context.BuildingTypes
+                .Select(x => new BuildingTypeServiceModel
+                {
+                    Name = x.Name,
+                });
+              
 
             return buildingTypes;
         }

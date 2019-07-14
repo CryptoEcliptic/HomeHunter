@@ -1,12 +1,13 @@
 ﻿using HomeHunter.Domain;
-using System.Collections.Generic;
+using HomeHunter.Services.Models.HeatingSystem;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Services.Contracts
 {
     public interface IHeatingSystemServices
     {
-        List<HeatingSystem> GetAllHeatingSystems();
+        Task<IQueryable<HeatingSystemServiceModel>> GetAllHeatingSystems();
 
         HeatingSystem GetHeatingSystem(string systemName);
     }

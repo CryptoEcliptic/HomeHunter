@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.Models.Neighbourhood;
 
 namespace HomeHunter.Services
 {
@@ -25,9 +27,16 @@ namespace HomeHunter.Services
             return this.context.Neighbourhoods.FirstOrDefault(x => x.Name == name);
         }
 
-        public List<Neighbourhood> GetNeighbourhoodsByCity(string cityName)
+        public async Task<IQueryable<NeighbourhoodServiceModel>> GetNeighbourhoodsByCity(string cityName)
         {
-            return this.context.Neighbourhoods.Where(x => x.City.Name == cityName).ToList();
+            var neighbourhoodsFromDb =  this.context.Neighbourhoods
+                .Where(x => x.City.Name == cityName)
+                .Select(x => new NeighbourhoodServiceModel
+                {
+                    Name = x.Name,
+                });
+
+            return neighbourhoodsFromDb;
         }
     }
 }

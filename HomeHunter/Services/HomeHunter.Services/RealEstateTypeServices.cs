@@ -1,8 +1,10 @@
 ﻿using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.Models.RealEstateType;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HomeHunter.Services
 {
@@ -15,9 +17,13 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public List<RealEstateType> GetAllTypes()
+        public async Task<IQueryable<RealEstateTypeServiceModel>> GetAllTypes()
         {
-           var types = this.context.RealEstateTypes.ToList();
+           var types = this.context.RealEstateTypes
+                .Select(x => new RealEstateTypeServiceModel
+                {
+                    TypeName = x.TypeName,
+                });
 
             return types;
         }

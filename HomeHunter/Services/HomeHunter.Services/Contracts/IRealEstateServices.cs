@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using HomeHunter.Services.Models.RealEstate;
+using System.Threading.Tasks;
 
 namespace HomeHunter.Services.Contracts
 {
     public interface IRealEstateServices
     {
-        Task<bool> CreateRealEstate(CreateRealEstateBindingModel model);
+        Task<bool> CreateRealEstate(RealEstateCreateServiceModel model);
     }
 }

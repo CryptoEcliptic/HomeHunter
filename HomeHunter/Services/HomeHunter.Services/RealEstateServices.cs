@@ -1,6 +1,7 @@
 ﻿using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.Models.RealEstate;
 using System;
 using System.Threading.Tasks;
 
@@ -36,7 +37,7 @@ namespace HomeHunter.Services
             this.heatingSystemServices = heatingSystemServices;
         }
 
-        public async Task<bool> CreateRealEstate(CreateRealEstateBindingModel model)
+        public async Task<bool> CreateRealEstate(RealEstateCreateServiceModel model)
         {
             var realEstateType = await Task.Run(() => this.realEstateTypeServices.GetRealEstateTypeByName(model.RealEstateType));
 

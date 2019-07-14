@@ -15,19 +15,16 @@
         <br />
         <h4>Информация за имота</h4>
         <hr />
-        <form asp-action="Create">
+        <form method="post" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group w-50 mx-auto">
                 <div class="text-left">
                     <label asp-for="RealEstateType">Тип на имота</label>
-                    <span asp-validation-for="RealEstateType" class="text-danger"></span>
                 </div>
                 <select class="custom-select" id="realEstateType" asp-for="RealEstateType">
                     <option selected disabled>-- Изберете тип на имота --</option>
                     //Add
-                    @foreach (var realEstateType in (List
-              <RealEstateTypeViewModel>
-                  )this.ViewData["RealEstateTypes"])
+                    @foreach (var realEstateType in (IEnumerable<RealEstateTypeViewModel>)this.ViewData["RealEstateTypes"])
                     {
                         <option>@realEstateType.TypeName</option>
                     }
@@ -229,10 +226,10 @@
                 });
                 $("#Neighbourhood").html(item);
             });
-
-
         });
     </script>
+
+    <partial name="_ValidationScriptsPartial" />
 }
 
 
