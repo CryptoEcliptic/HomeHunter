@@ -51,7 +51,6 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [MaxLength(32)]
         public string  HeatingSystem { get; set; }
 
-
         [Required(ErrorMessage = "Полето {0} е задължително")]
         [Display(Name = "Тип на имота")]
         public string RealEstateType { get; set; }
