@@ -10,8 +10,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-
-
 <div class="container">
     <div class="paddingElement col-md-5 col-md-offset-3">
         <br />
@@ -21,14 +19,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group w-50 mx-auto">
                 <div class="text-left">
-                    <label asp-for="RealEstateType">Тип на имота</label>
+                    <label asp-for="RealEstateType"></label>
                 </div>
                 <select class="custom-select" id="realEstateType" asp-for="RealEstateType">
                     <option selected disabled>-- Изберете тип на имота --</option>
                     //Add
                     @foreach (var realEstateType in (IEnumerable<RealEstateTypeViewModel>)this.ViewData["RealEstateTypes"])
                     {
-                        <option>@realEstateType.TypeName</option>
+                        <option value="@realEstateType.TypeName">@realEstateType.TypeName</option>
                     }
                 </select>
                 <span asp-validation-for="RealEstateType" class="text-danger"></span>
@@ -47,7 +45,7 @@
 
             <div class="form-group w-50 mx-auto">
                 <div class="text-left">
-                    <label asp-for="City">Град</label>
+                    <label asp-for="City"></label>
                 </div>
                 <select class="custom-select" id="city" asp-for="City">
                     <option selected disabled>-- Изберете град --</option>
@@ -59,9 +57,16 @@
                 </select>
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Village" class="control-label"></label>
+                <input asp-for="Village" class="form-control" />
+                <span asp-validation-for="Village" class="text-danger"></span>
+            </div>
+
             <div class="form-group w-50 mx-auto">
                 <div class="text-left">
-                    <label asp-for="Neighbourhood">Квартал</label>
+                    <label asp-for="Neighbourhood"></label>
                 </div>
                 <select class="custom-select" id="Neighbourhood" name="Neighbourhood" asp-for="Neighbourhood">
                     <option selected disabled>-- Изберете квартал --</option>
@@ -75,17 +80,15 @@
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
 
-            <div class="form-group w-50 mx-auto">
+            <div class="form-group w-50 mx-auto" id="buildingType">
                 <div class="text-left">
-                    <label asp-for="BuildingType">Тип на сградата</label>
+                    <label asp-for="BuildingType"></label>
                     <span asp-validation-for="BuildingType" class="text-danger"></span>
                 </div>
                 <select class="custom-select" id="buildingType" asp-for="BuildingType">
                     <option selected disabled>-- Изберете тип сграда --</option>
                     //Add
-                    @foreach (var buildingType in (List
-<BuildingTypeViewModel>
-           )this.ViewData["BuildingTypes"])
+                    @foreach (var buildingType in (List<BuildingTypeViewModel>)this.ViewData["BuildingTypes"])
                     {
                         <option>@buildingType.Name</option>
                     }
@@ -93,17 +96,15 @@
                 <span asp-validation-for="BuildingType" class="text-danger"></span>
             </div>
 
-            <div class="form-group w-50 mx-auto">
+            <div class="form-group w-50 mx-auto" id="heatingSystem">
                 <div class="text-left">
-                    <label asp-for="HeatingSystem">Вид отопление</label>
+                    <label asp-for="HeatingSystem"></label>
                     <span asp-validation-for="HeatingSystem" class="text-danger"></span>
                 </div>
                 <select class="custom-select" id="heatingSystem" asp-for="HeatingSystem">
                     <option selected disabled>-- Изберете типа отопление --</option>
                     //Add
-                    @foreach (var heatingSystem in (List
-<HeatingSystemViewModel>
-           )this.ViewData["HeatingSystems"])
+                    @foreach (var heatingSystem in (List<HeatingSystemViewModel>)this.ViewData["HeatingSystems"])
                     {
                         <option>@heatingSystem.Name</option>
                     }
@@ -112,17 +113,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="FloorNumber" class="control-label"></label>
-                <input asp-for="FloorNumber" class="form-control" />
+                <input asp-for="FloorNumber" class="form-control" id="FloorNumber" />
                 <span asp-validation-for="FloorNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BuildingTotalFloors" class="control-label"></label>
-                <input asp-for="BuildingTotalFloors" class="form-control" />
+                <input asp-for="BuildingTotalFloors" class="form-control" id="BuildingTotalFloors" />
                 <span asp-validation-for="BuildingTotalFloors" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
+                <input asp-for="Year" class="form-control" id="Year" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
             <div class="checkbox">
@@ -168,34 +169,10 @@
     </div>
 </div>
 
-
 @section Scripts
 {
-
-    <script type="text/javascript">
-        //Insert default item "Select" in dropdownlist on load
-        $(document).ready(function () {
-            var items = "<option value='0'>Select</option>";
-            $("#Neighbourhood").html(items);
-        });
-
-        //Bind City dropdownlist
-        $("#city").change(function () {
-            var cityName = $("#city").val();
-
-            var url = "/RealEstates/GetNeighbourhoodsList";
-
-            $.getJSON(url, { CityName: cityName }, function (data) {
-                var item = "";
-                $("#Neighbourhood").empty();
-                $.each(data, function (i, Neighbourhood) {
-
-                    item += '<option>' + Neighbourhood.text + '</option>'
-                });
-                $("#Neighbourhood").html(item);
-            });
-        });
-    </script>
+    <script src="~/js/CascadeDropdown.js" asp-append-version="true"></script>
+    <script src="~/js/LockCreateRealEstateFields.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
 }
 

@@ -1,5 +1,5 @@
 ﻿using HomeHunter.Domain;
-using HomeHunterCommon;
+using HomeHunter.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;

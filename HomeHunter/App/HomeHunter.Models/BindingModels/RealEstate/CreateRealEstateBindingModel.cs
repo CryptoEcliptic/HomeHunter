@@ -21,7 +21,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [Column(TypeName = "decimal(18,2)")]
         [Required(ErrorMessage = "Полето Цена е задължително")]
         [Display(Name = "Цена*")]
-        [Range(1, 100000000, ErrorMessage = "Цената не трябва да бъде по-малка от {1}.")]
+        [Range(1, 10000000, ErrorMessage = "Цената не трябва да бъде по-малка от {1}.")]
         public decimal Price { get; set; }
 
         [Display(Name = "Година")]
@@ -49,22 +49,27 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         public string Address { get; set; }
 
         [MaxLength(32)]
+        [Display(Name = "Вид отопление")]
         public string  HeatingSystem { get; set; }
 
         [Required(ErrorMessage = "Полето {0} е задължително")]
-        [Display(Name = "Тип на имота")]
+        [Display(Name = "Тип на имота *")]
         public string RealEstateType { get; set; }
 
         [MaxLength(32)]
+        [Display(Name = "Тип на сградата")]
         public string BuildingType { get; set; }
 
         [MaxLength(32)]
+        [Display(Name = "Град")]
         public string City { get; set; }
 
         [MaxLength(32)]
+        [Display(Name = "Село")]
         public string Village { get; set; } //Todo Add village field in the view
 
         [MaxLength(64)]
+        [Display(Name = "Квартал")]
         public string Neighbourhood { get; set; }
     }
 }

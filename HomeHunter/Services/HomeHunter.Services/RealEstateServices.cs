@@ -1,8 +1,12 @@
-﻿using HomeHunter.Data;
+﻿using AutoMapper;
+using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.RealEstate;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Services
@@ -17,6 +21,7 @@ namespace HomeHunter.Services
         private readonly IVillageServices villageServices;
         private readonly IBuildingTypeServices buildingTypeServices;
         private readonly IHeatingSystemServices heatingSystemServices;
+        private readonly IMapper mapper;
 
         public RealEstateServices(HomeHunterDbContext context, 
             IRealEstateTypeServices realEstateTypeServices,
@@ -25,7 +30,8 @@ namespace HomeHunter.Services
             IAddressServices addressServices,
             IVillageServices villageServices,
             IBuildingTypeServices buildingTypeServices,
-            IHeatingSystemServices heatingSystemServices)
+            IHeatingSystemServices heatingSystemServices,
+            IMapper mapper)
         {
             this.context = context;
             this.realEstateTypeServices = realEstateTypeServices;
@@ -35,6 +41,7 @@ namespace HomeHunter.Services
             this.villageServices = villageServices;
             this.buildingTypeServices = buildingTypeServices;
             this.heatingSystemServices = heatingSystemServices;
+            this.mapper = mapper;
         }
 
         public async Task<bool> CreateRealEstate(RealEstateCreateServiceModel model)
@@ -80,6 +87,23 @@ namespace HomeHunter.Services
             await this.context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstates()
+        {
+            var realEstates = context.RealEstates
+                .Include(r => r.BuildingType)
+                .Include(r => r.HeatingSystem)
+                .Include(r => r.RealEstateType)
+                .Include(r => r.Address.City)
+                .Include(r => r.Address.Village)
+                .Include(r => r.Address.Neighbourhood)
+                .Where(x => x.IsDeleted == false)
+                .ToList();
+
+            var realEstatesServiceModel = this.mapper.Map<IEnumerable<RealEstateIndexServiceModel>>(realEstates);
+
+            return realEstatesServiceModel;
         }
     }
 }

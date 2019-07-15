@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using HomeHunter.Common;
 using HomeHunter.Data;
 using HomeHunter.Models.BindingModels.RealEstate;
 using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
 using HomeHunter.Models.ViewModels.HeatingSystem;
 using HomeHunter.Models.ViewModels.Neighbourhood;
+using HomeHunter.Models.ViewModels.RealEstate;
 using HomeHunter.Models.ViewModels.RealEstateType;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.RealEstate;
@@ -37,7 +39,7 @@ namespace HomeHunter.App.Controllers
             ICitiesServices citiesServices,
             IRealEstateServices realEstateServices,
             INeighbourhoodServices neighbourhoodServices
-            ,IMapper mapper, HomeHunterDbContext _context)
+            ,IMapper mapper)
         {
            
             this.realEstateTypeService = realEstateTypeService;
@@ -47,14 +49,15 @@ namespace HomeHunter.App.Controllers
             this.realEstateServices = realEstateServices;
             this.neighbourhoodServices = neighbourhoodServices;
             this.mapper = mapper;
-            this._context = _context;
         }
 
         // GET: RealEstates
         public async Task<IActionResult> Index()
         {
-            var homeHunterDbContext = _context.RealEstates.Include(r => r.BuildingType).Include(r => r.HeatingSystem).Include(r => r.RealEstateType);
-            return View(await homeHunterDbContext.ToListAsync());
+            var realEstates = await this.realEstateServices.GetAllRealEstates();
+            var mappedRealEstates = this.mapper.Map<IEnumerable<RealEstateIndexViewModel>>(realEstates);
+
+            return View(mappedRealEstates);
            
         }
 

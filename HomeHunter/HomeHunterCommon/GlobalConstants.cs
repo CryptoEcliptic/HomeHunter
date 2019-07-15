@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HomeHunterCommon
+﻿namespace HomeHunter.Common
 {
     public static class GlobalConstants
     {
@@ -10,5 +6,7 @@ namespace HomeHunterCommon
         public const string UserRoleName = "User";
         public const string CompanyName = "ХоумХънтър ООД";
         public const string CompanyWebSite = "https://home-hunter.bg";
+        public const int UtcTimeCompensationZone = 2;
+        public const string DateTimeVisualizationFormat = "dd-MM-yyyy HH";
     }
 }

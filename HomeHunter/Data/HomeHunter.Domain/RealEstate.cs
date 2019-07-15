@@ -40,6 +40,7 @@ namespace HomeHunter.Domain
         public int RealEstateTypeId { get; set; }
         public RealEstateType RealEstateType { get; set; }
 
+        [ForeignKey(nameof(RealEstate))]
         public int? BuildingTypeId { get; set; }
         public BuildingType BuildingType { get; set; }
 
