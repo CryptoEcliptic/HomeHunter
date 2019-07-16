@@ -1,97 +1,89 @@
 ﻿@model IEnumerable<HomeHunter.Models.ViewModels.RealEstate.RealEstateIndexViewModel>
 @using HomeHunter.Common
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-     @{int index = 1; }
-    <div class="container paddingElement">
-        <h3>Актовни имоти</h3>
-        <p>
-            <a asp-action="Create">Създай нова обява</a>
-        </p>
-        
-        <table class="table">
+<div class="index-table-container paddingElement">
+    <h3>Активни имоти</h3>
+    <p>
+        <a asp-action="Create">Създай нова обява</a>
+    </p>
+    
+        <table class="table table-fixed table-responsive-md table-hover">
             <thead>
                 <tr>
-                    <th>
+                    <th class="col-md-1">
                         No
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id)
-                    </th>
-                    <th>
+                    <th class="col-md-2">
                         @Html.DisplayNameFor(model => model.RealEstateType)
                     </th>
-                    <th>
+                    <th class="col-md-2">
                         @Html.DisplayNameFor(model => model.BuildingType)
                     </th>
-                    <th>
+                    <th class="col-md-1">
                         @Html.DisplayNameFor(model => model.City)
                     </th>
-                    <th>
+                    <th class="col-md-1">
                         @Html.DisplayNameFor(model => model.Village)
                     </th>
-
-                    <th>
+                    <th class="col-md-1">
                         @Html.DisplayNameFor(model => model.Neighbourhood)
                     </th>
-                    <th>
+                    <th class="col-md-1">
                         @Html.DisplayNameFor(model => model.Price)
                     </th>
-                    <th>
+                    <th class="col-md-1">
                         @Html.DisplayNameFor(model => model.CreatedOn)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ModifiedOn)
+                    <th class="col-md-2">
+                        Действия
                     </th>
-                    <th></th>
+                   
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                <tr>
-                    <td>
-                        (idex++)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RealEstateType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BuildingType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Village)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Neighbourhood)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
+            @{int index = 1;
 
-                        @Html.DisplayFor(modelItem => item.CreatedOn)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ModifiedOn)
-                    </td>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="col-md-1">
+                                @(index++)
+                            </td>
+                            <td class="col-md-2">
+                                @Html.DisplayFor(modelItem => item.RealEstateType)
+                            </td>
+                            <td class="col-md-2">
+                                @Html.DisplayFor(modelItem => item.BuildingType)
+                            </td>
+                            <td class="col-md-1">
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td class="col-md-1">
+                                @Html.DisplayFor(modelItem => item.Village)
+                            </td>
+                            <td class="col-md-1">
+                                @Html.DisplayFor(modelItem => item.Neighbourhood)
+                            </td>
+                            <td class="col-md-1">
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td class="col-md-1">
+                                @Html.DisplayFor(modelItem => item.CreatedOn)
+                            </td>
 
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-                }
-            </tbody>
+                            <td class="col-md-2">
+                                <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
         </table>
-    </div>
+</div>
+

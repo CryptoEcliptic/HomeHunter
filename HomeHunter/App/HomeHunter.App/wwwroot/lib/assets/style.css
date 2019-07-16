@@ -1,4 +1,44 @@
 body {	color:#666;	font:300 15px/15px Roboto,Arial,Helvetica;background-color:#fff;-webkit-font-smoothing:antialiased;}
+
+.home-hunter-center {
+    text-align:center;
+}
+
+.index-table-container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.table-fixed tbody {
+    height: 350px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+thead {
+    background-color: #e7e7e7
+}
+
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+    display: block;
+}
+
+    .table-fixed tr:after {
+        content: "";
+        display: block;
+        visibility: hidden;
+        clear: both;
+    }
+
+    .table-fixed tbody td,
+    .table-fixed thead > tr > th {
+        float: left;
+    }
+
 .gdpr {
     padding-top: 120px;
 }

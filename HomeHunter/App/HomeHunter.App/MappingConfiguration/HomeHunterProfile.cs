@@ -13,6 +13,7 @@ using HomeHunter.Services.Models.HeatingSystem;
 using HomeHunter.Services.Models.Neighbourhood;
 using HomeHunter.Services.Models.RealEstate;
 using HomeHunter.Services.Models.RealEstateType;
+using HomeHunter.Common;
 
 namespace HomeHunter.App.MappingConfiguration
 {
@@ -26,7 +27,9 @@ namespace HomeHunter.App.MappingConfiguration
             this.CreateMap<CityServiceModel, CityViewModel>();
             this.CreateMap<NeighbourhoodServiceModel, NeighbourhoodViewModel>();
             this.CreateMap<CreateRealEstateBindingModel, RealEstateCreateServiceModel>();
-            this.CreateMap<RealEstateIndexServiceModel, RealEstateIndexViewModel>();
+
+            this.CreateMap<RealEstateIndexServiceModel, RealEstateIndexViewModel>()
+               .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)));
 
             this.CreateMap<RealEstate, RealEstateIndexServiceModel>()
                 .ForMember(x => x.RealEstateType, y => y.MapFrom(z => z.RealEstateType.TypeName))

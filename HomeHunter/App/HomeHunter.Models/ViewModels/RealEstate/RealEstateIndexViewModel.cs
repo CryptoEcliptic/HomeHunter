@@ -26,10 +26,10 @@ namespace HomeHunter.Models.ViewModels.RealEstate
         [Display(Name = "Цена")]
         public decimal Price { get; set; }
 
-        [Display(Name = "Дата а добавяне в базата")]
-        public DateTime CreatedOn { get; set; }
+        [Display(Name = "Добавен")]
+        public string CreatedOn { get; set; }
 
-        [Display(Name = "Дата на последна промяна")]
+        [Display(Name = "Последна промяна")]
         public DateTime? ModifiedOn { get; set; }
     }
 }

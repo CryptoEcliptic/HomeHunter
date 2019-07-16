@@ -99,7 +99,9 @@ namespace HomeHunter.Services
                 .Include(r => r.Address.Village)
                 .Include(r => r.Address.Neighbourhood)
                 .Where(x => x.IsDeleted == false)
+                .OrderByDescending(x => x.CreatedOn)
                 .ToList();
+
 
             var realEstatesServiceModel = this.mapper.Map<IEnumerable<RealEstateIndexServiceModel>>(realEstates);
 
