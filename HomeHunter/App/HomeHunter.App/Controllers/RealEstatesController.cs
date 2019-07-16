@@ -54,7 +54,7 @@ namespace HomeHunter.App.Controllers
         // GET: RealEstates
         public async Task<IActionResult> Index()
         {
-            var realEstates = await this.realEstateServices.GetAllRealEstates();
+            var realEstates = await this.realEstateServices.GetAllRealEstatesAsync();
             var mappedRealEstates = this.mapper.Map<IEnumerable<RealEstateIndexViewModel>>(realEstates);
 
             return View(mappedRealEstates);
@@ -102,7 +102,7 @@ namespace HomeHunter.App.Controllers
             {
                 var realEstate = this.mapper.Map<RealEstateCreateServiceModel>(model);
 
-                var isRealEstateCreated = await this.realEstateServices.CreateRealEstate(realEstate);
+                var isRealEstateCreated = await this.realEstateServices.CreateRealEstateAsync(realEstate);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -210,7 +210,7 @@ namespace HomeHunter.App.Controllers
         [HttpGet]
         public async Task<JsonResult> GetNeighbourhoodsList(string cityName)
         {
-            var neighbourhoods = await Task.Run(() => this.neighbourhoodServices.GetNeighbourhoodsByCity(cityName));
+            var neighbourhoods = await this.neighbourhoodServices.GetNeighbourhoodsByCityAsync(cityName);
             var neighbourhoodsVewModel = this.mapper.Map<IList<NeighbourhoodViewModel>>(neighbourhoods);
 
             var neighbourhoodlist = new SelectList(neighbourhoodsVewModel.Select(x => x.Name));
@@ -221,16 +221,16 @@ namespace HomeHunter.App.Controllers
         [NonAction]
         private async Task LoadDropdownMenusData()
         {
-            var realEstateTypes = await this.realEstateTypeService.GetAllTypes();
+            var realEstateTypes = await this.realEstateTypeService.GetAllTypesAsync();
             var realEstateTypesVewModel = this.mapper.Map<List<RealEstateTypeViewModel>>(realEstateTypes);
 
-            var buildingTypes = await Task.Run(() => this.buildingTypeServices.GetAllBuildingTypes());
+            var buildingTypes = await Task.Run(() => this.buildingTypeServices.GetAllBuildingTypesAsync());
             var buildingTypesVewModel = this.mapper.Map<List<BuildingTypeViewModel>>(buildingTypes);
 
-            var heatingSystems = await Task.Run(() => this.heatingSystemservices.GetAllHeatingSystems());
+            var heatingSystems = await this.heatingSystemservices.GetAllHeatingSystemsAsync();
             var heatingSystemsVewModel = this.mapper.Map<List<HeatingSystemViewModel>>(heatingSystems);
 
-            var cities = await Task.Run(() => this.citiesServices.GetAllCities());
+            var cities = await this.citiesServices.GetAllCitiesAsync();
             var citiesVewModel = this.mapper.Map<List<CityViewModel>>(cities);
 
 

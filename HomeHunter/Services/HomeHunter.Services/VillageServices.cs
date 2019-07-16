@@ -15,27 +15,30 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public Village CreateVillage(string name)
+        public async Task<Village> CreateVillageAsync(string name)
         {
             if (name == null)
             {
                 return null;
             }
 
-            if (!IsVillageEhists(name))
+            if (!IsVillageExists(name))
             {
                 var village =  new Village
                 {
                     Name = name
                 };
 
+                await this.context.Villages.AddAsync(village);
+
                 return village;
+
             }
 
             return null;
         }
 
-        public bool IsVillageEhists(string name)
+        private bool IsVillageExists(string name)
         {
             return this.context.Villages.Any(x => x.Name == name);
         }

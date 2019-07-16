@@ -7,8 +7,8 @@ namespace HomeHunter.Services.Contracts
 {
     public interface ICitiesServices
     {
-       Task<IQueryable<CityServiceModel>> GetAllCities();
+       Task<IQueryable<CityServiceModel>> GetAllCitiesAsync();
 
-       City GetByName(string name);
+       Task<City> GetByNameAsync(string name);
     }
 }

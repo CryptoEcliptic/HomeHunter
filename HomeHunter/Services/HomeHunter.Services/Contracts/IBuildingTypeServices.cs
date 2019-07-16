@@ -8,8 +8,8 @@ namespace HomeHunter.Services.Contracts
 {
     public interface IBuildingTypeServices
     {
-        Task<IQueryable<BuildingTypeServiceModel>> GetAllBuildingTypes();
+        Task<IQueryable<BuildingTypeServiceModel>> GetAllBuildingTypesAsync();
 
-       BuildingType GetBuildingType(string type);
+        Task<BuildingType> GetBuildingTypeAsync(string type);
     }
 }

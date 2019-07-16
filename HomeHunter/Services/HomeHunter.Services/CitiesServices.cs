@@ -2,7 +2,6 @@
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.City;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,22 +15,22 @@ namespace HomeHunter.Services
         {
             this.context = context;
         }
-        public async Task<IQueryable<CityServiceModel>> GetAllCities()
+        public async Task<IQueryable<CityServiceModel>> GetAllCitiesAsync()
         {
-            var cities = this.context.Cities
+            var cities = Task.Run(() => this.context.Cities
                 .Select(x => new CityServiceModel
                 {
                     Name = x.Name,
-                });
+                }));
 
-            return cities;
+            return await cities;
         }
 
-        public City GetByName(string name)
+        public async Task<City> GetByNameAsync(string name)
         {
-            var city = this.context.Cities.FirstOrDefault(x => x.Name == name);
+            var city = Task.Run(() => this.context.Cities.FirstOrDefault(x => x.Name == name));
 
-            return city;
+            return await city;
         }
     }
 }

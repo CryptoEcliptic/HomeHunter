@@ -5,6 +5,6 @@ namespace HomeHunter.Services.Contracts
 {
     public interface IAddressServices
     {
-        Task<Address> CreateAddress(City city, string description, Village village, Neighbourhood neighbourhood);
+        Task<Address> CreateAddressAsync(City city, string description, Village village, Neighbourhood neighbourhood);
     }
 }

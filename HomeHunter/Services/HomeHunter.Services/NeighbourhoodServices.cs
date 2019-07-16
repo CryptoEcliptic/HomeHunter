@@ -17,26 +17,26 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public List<Neighbourhood> GetAllNeighbourhoods()
+        public async Task<List<Neighbourhood>> GetAllNeighbourhoodsAsync()
         {
-            return this.context.Neighbourhoods.ToList();
+            return await Task.Run(() => this.context.Neighbourhoods.ToList());
         }
 
-        public Neighbourhood GetNeighbourhoodByName(string name)
+        public async Task<Neighbourhood> GetNeighbourhoodByNameAsync(string name)
         {
-            return this.context.Neighbourhoods.FirstOrDefault(x => x.Name == name);
+            return await Task.Run(() => this.context.Neighbourhoods.FirstOrDefault(x => x.Name == name));
         }
 
-        public async Task<IQueryable<NeighbourhoodServiceModel>> GetNeighbourhoodsByCity(string cityName)
+        public async Task<IQueryable<NeighbourhoodServiceModel>> GetNeighbourhoodsByCityAsync(string cityName)
         {
-            var neighbourhoodsFromDb =  this.context.Neighbourhoods
+            var neighbourhoodsFromDb = Task.Run(() =>  this.context.Neighbourhoods
                 .Where(x => x.City.Name == cityName)
                 .Select(x => new NeighbourhoodServiceModel
                 {
                     Name = x.Name,
-                });
+                }));
 
-            return neighbourhoodsFromDb;
+            return await neighbourhoodsFromDb;
         }
     }
 }

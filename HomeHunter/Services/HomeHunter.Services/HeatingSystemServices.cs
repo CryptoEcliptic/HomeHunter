@@ -17,25 +17,25 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public async Task<IQueryable<HeatingSystemServiceModel>> GetAllHeatingSystems()
+        public async Task<IQueryable<HeatingSystemServiceModel>> GetAllHeatingSystemsAsync()
         {
-            var heatingSystems = this.context.HeatingSystems
+            var heatingSystems = Task.Run(() => this.context.HeatingSystems
                 .Select(x => new HeatingSystemServiceModel
                 {
                     Name = x.Name,
-                });
+                }));
 
-            return heatingSystems;
+            return await heatingSystems;
 
         }
 
-        public HeatingSystem GetHeatingSystem(string systemName)
+        public async Task<HeatingSystem> GetHeatingSystemAsync(string systemName)
         {
-            var heatingSystem =  this.context.HeatingSystems
-            .FirstOrDefault(x => x.Name == systemName)
+            var heatingSystem = Task.Run(() =>  this.context.HeatingSystems
+            .FirstOrDefault(x => x.Name == systemName))
                 ;
 
-            return heatingSystem;
+            return await heatingSystem;
         }
     }
 }

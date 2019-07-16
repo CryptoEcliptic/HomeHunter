@@ -8,10 +8,10 @@ namespace HomeHunter.Services.Contracts
 {
     public interface INeighbourhoodServices
     {
-        List<Neighbourhood> GetAllNeighbourhoods();
+        Task<List<Neighbourhood>> GetAllNeighbourhoodsAsync();
 
-        Task<IQueryable<NeighbourhoodServiceModel>> GetNeighbourhoodsByCity(string cityName);
+        Task<Neighbourhood> GetNeighbourhoodByNameAsync(string name);
 
-        Neighbourhood GetNeighbourhoodByName(string name);
+        Task<IQueryable<NeighbourhoodServiceModel>> GetNeighbourhoodsByCityAsync(string cityName);
     }
 }

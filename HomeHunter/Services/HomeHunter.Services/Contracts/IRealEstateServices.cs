@@ -7,8 +7,8 @@ namespace HomeHunter.Services.Contracts
 {
     public interface IRealEstateServices
     {
-        Task<bool> CreateRealEstate(RealEstateCreateServiceModel model);
+        Task<bool> CreateRealEstateAsync(RealEstateCreateServiceModel model);
 
-        Task <IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstates();
+        Task <IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstatesAsync();
     }
 }

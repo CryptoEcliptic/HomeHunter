@@ -44,23 +44,23 @@ namespace HomeHunter.Services
             this.mapper = mapper;
         }
 
-        public async Task<bool> CreateRealEstate(RealEstateCreateServiceModel model)
+        public async Task<bool> CreateRealEstateAsync(RealEstateCreateServiceModel model)
         {
-            var realEstateType = await Task.Run(() => this.realEstateTypeServices.GetRealEstateTypeByName(model.RealEstateType));
+            var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
 
             if (realEstateType == null || model.Area <=0 || model.Price <= 0 || model.Address == null)
             {
                 return false;
             }
 
-            var city = await Task.Run(() => this.citiesServices.GetByName(model.City));
-            var village = await Task.Run(() => this.villageServices.CreateVillage(model.Village));
+            var city = await this.citiesServices.GetByNameAsync(model.City);
+            var village = await this.villageServices.CreateVillageAsync(model.Village);
 
-            var neighbourhood = await Task.Run(() => this.neighbourhoodServices.GetNeighbourhoodByName(model.Neighbourhood));
-            var address = await Task.Run(() => this.addressServices.CreateAddress(city, model.Address, village, neighbourhood));
+            var neighbourhood = await this.neighbourhoodServices.GetNeighbourhoodByNameAsync(model.Neighbourhood);
+            var address = await this.addressServices.CreateAddressAsync(city, model.Address, village, neighbourhood);
 
-            var buildingType = await Task.Run(() => this.buildingTypeServices.GetBuildingType(model.BuildingType));
-            var heatingSystem = await Task.Run(() => this.heatingSystemServices.GetHeatingSystem(model.HeatingSystem));
+            var buildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType);
+            var heatingSystem = await this.heatingSystemServices.GetHeatingSystemAsync(model.HeatingSystem);
 
             var realEstate = new RealEstate
             {
@@ -89,7 +89,7 @@ namespace HomeHunter.Services
             return true;
         }
 
-        public async Task<IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstates()
+        public async Task<IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstatesAsync()
         {
             var realEstates = context.RealEstates
                 .Include(r => r.BuildingType)

@@ -17,22 +17,22 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public async Task<IQueryable<RealEstateTypeServiceModel>> GetAllTypes()
+        public async Task<IQueryable<RealEstateTypeServiceModel>> GetAllTypesAsync()
         {
-           var types = this.context.RealEstateTypes
+           var types = Task.Run(() => this.context.RealEstateTypes
                 .Select(x => new RealEstateTypeServiceModel
                 {
                     TypeName = x.TypeName,
-                });
+                }));
 
-            return types;
+            return await types;
         }
 
-        public RealEstateType GetRealEstateTypeByName(string typeName)
+        public async Task<RealEstateType> GetRealEstateTypeByNameAsync(string typeName)
         {
-            var realEstateType = this.context.RealEstateTypes.FirstOrDefault(x => x.TypeName == typeName);
+            var realEstateType = Task.Run(() => this.context.RealEstateTypes.FirstOrDefault(x => x.TypeName == typeName));
 
-            return realEstateType;
+            return await realEstateType;
         }
     }
 }

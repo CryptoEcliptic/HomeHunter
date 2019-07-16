@@ -7,8 +7,8 @@ namespace HomeHunter.Services.Contracts
 {
     public interface IHeatingSystemServices
     {
-        Task<IQueryable<HeatingSystemServiceModel>> GetAllHeatingSystems();
+        Task<IQueryable<HeatingSystemServiceModel>> GetAllHeatingSystemsAsync();
 
-        HeatingSystem GetHeatingSystem(string systemName);
+        Task<HeatingSystem> GetHeatingSystemAsync(string systemName);
     }
 }
