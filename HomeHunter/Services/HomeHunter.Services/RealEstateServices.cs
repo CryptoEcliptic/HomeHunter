@@ -107,5 +107,22 @@ namespace HomeHunter.Services
 
             return realEstatesServiceModel;
         }
+
+        public async Task<RealEstateDetailsServiceModel> GetDetailsAsync(string id)
+        {
+            var realEstate = await this.context.RealEstates
+                .Include(r => r.BuildingType)
+                .Include(r => r.HeatingSystem)
+                .Include(r => r.RealEstateType)
+                .Include(r => r.Address.City)
+                .Include(r => r.Address.Village)
+                .Include(r => r.Address.Neighbourhood)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            var realEstateServiceModel = this.mapper.Map<RealEstateDetailsServiceModel>(realEstate);
+
+            return realEstateServiceModel;
+        }
+
     }
 }

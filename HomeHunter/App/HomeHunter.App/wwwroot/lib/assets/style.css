@@ -4,6 +4,20 @@ body {	color:#666;	font:300 15px/15px Roboto,Arial,Helvetica;background-color:#f
     text-align:center;
 }
 
+.details-real-estate-container {
+    padding-left: 20px;
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+
+.table-estate-details {
+    height: 550px;
+    overflow-y: auto;
+    width: 100%;
+    display: block;
+    clear: both;
+}
+
 .index-table-container {
     padding-left: 20px;
     padding-right: 20px;

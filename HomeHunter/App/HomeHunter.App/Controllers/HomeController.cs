@@ -9,10 +9,10 @@ namespace HomeHunter.App.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUsersService usersService;
+        private readonly IUsersServices usersService;
         private readonly UserManager<HomeHunterUser> userManager;
 
-        public HomeController(IUsersService usersService, UserManager<HomeHunterUser> userManager)
+        public HomeController(IUsersServices usersService, UserManager<HomeHunterUser> userManager)
         {
             this.usersService = usersService;
             this.userManager = userManager;

@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace HomeHunter.Services
 {
-    public class UsersService : IUsersService
+    public class UsersServices : IUsersServices
     {
         private readonly HomeHunterDbContext context;
 
-        public UsersService(HomeHunterDbContext context)
+        public UsersServices(HomeHunterDbContext context)
         {
             this.context = context;
         }

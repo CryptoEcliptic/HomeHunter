@@ -1,121 +1,99 @@
-﻿@model HomeHunter.Domain.RealEstate
+﻿@model HomeHunter.Models.ViewModels.RealEstate.RealEstateDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <div class="row">
+        <div class="col-md-6 details-real-estate-container">
+            <br />
+            <br />
+            <h4 class="home-hunter-center">Детайли за имота</h4>
+            <table class="table table-estate-details table-responsive-md hover-table">
+                <tbody>
+                    <tr>
+                        <th class="col-md-2">@Html.DisplayNameFor(model => model.Id)</th>
+                        <td class="col-md-2">@Html.DisplayFor(model => model.Id)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.RealEstateType)</th>
+                        <td>@Html.DisplayFor(model => model.RealEstateType)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.BuildingType)</th>
+                        <td>@Html.DisplayFor(model => model.BuildingType)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Area)</th>
+                        <td>@Html.DisplayFor(model => model.Area)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Price)</th>
+                        <td>@Html.DisplayFor(model => model.Price)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.City)</th>
+                        <td>@Html.DisplayFor(model => model.City)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Neighbourhood)</th>
+                        <td>@Html.DisplayFor(model => model.Neighbourhood)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Village)</th>
+                        <td>@Html.DisplayFor(model => model.Village)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Address)</th>
+                        <td>@Html.DisplayFor(model => model.Address)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FloorNumber)</th>
+                        <td>@Html.DisplayFor(model => model.FloorNumber)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.BuildingTotalFloors)</th>
+                        <td>@Html.DisplayFor(model => model.BuildingTotalFloors)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Year)</th>
+                        <td>@Html.DisplayFor(model => model.Year)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.ParkingPlace)</th>
+                        <td>@Html.DisplayFor(model => model.ParkingPlace)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Yard)</th>
+                        <td>@Html.DisplayFor(model => model.Yard)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.MetroNearBy)</th>
+                        <td>@Html.DisplayFor(model => model.MetroNearBy)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Balcony)</th>
+                        <td>@Html.DisplayFor(model => model.Balcony)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CellingOrBasement)</th>
+                        <td>@Html.DisplayFor(model => model.CellingOrBasement)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.HeatingSystem)</th>
+                        <td>@Html.DisplayFor(model => model.HeatingSystem)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                        <td>@Html.DisplayFor(model => model.CreatedOn)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <div class="col-md-offset-5">
+                <a asp-action="Edit" asp-route-id="@Model.Id"><b>Редактирай</b> </a> |
+                <a asp-action="Index"> <b>Назад</b></a>
+            </div>
+        </div>
+    </div>
 
-<h1>Details</h1>
-
-<div>
-    <h4>RealEstate</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FloorNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FloorNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BuildingTotalFloors)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BuildingTotalFloors)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Area)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Area)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ParkingPlace)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ParkingPlace)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Yard)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Yard)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MetroNearBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MetroNearBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Balcony)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Balcony)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CellingOrBasement)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CellingOrBasement)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HeatingSystem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HeatingSystem.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RealEstateType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RealEstateType.TypeName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BuildingType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BuildingType.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedOn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedOn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeletedOn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeletedOn)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

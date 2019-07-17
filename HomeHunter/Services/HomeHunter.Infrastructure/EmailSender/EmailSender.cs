@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
 
-namespace HomeHunter.Services.EmailSender
+namespace HomeHunter.Infrastructure.EmailSender
 {
     public class EmailSender : IEmailSender
     {

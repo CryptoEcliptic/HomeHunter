@@ -1,6 +1,5 @@
 ﻿using HomeHunter.Services.Models.RealEstate;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Services.Contracts
@@ -10,5 +9,7 @@ namespace HomeHunter.Services.Contracts
         Task<bool> CreateRealEstateAsync(RealEstateCreateServiceModel model);
 
         Task <IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstatesAsync();
+
+        Task<RealEstateDetailsServiceModel> GetDetailsAsync(string id);
     }
 }

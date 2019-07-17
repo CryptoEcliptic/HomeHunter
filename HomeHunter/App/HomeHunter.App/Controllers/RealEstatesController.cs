@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HomeHunter.Common;
 using HomeHunter.Data;
+using HomeHunter.Infrastructure;
 using HomeHunter.Models.BindingModels.RealEstate;
 using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
@@ -38,8 +39,8 @@ namespace HomeHunter.App.Controllers
             IBuildingTypeServices buildingTypeServices, 
             ICitiesServices citiesServices,
             IRealEstateServices realEstateServices,
-            INeighbourhoodServices neighbourhoodServices
-            ,IMapper mapper)
+            INeighbourhoodServices neighbourhoodServices,
+            IMapper mapper)
         {
            
             this.realEstateTypeService = realEstateTypeService;
@@ -55,32 +56,31 @@ namespace HomeHunter.App.Controllers
         public async Task<IActionResult> Index()
         {
             var realEstates = await this.realEstateServices.GetAllRealEstatesAsync();
-            var mappedRealEstates = this.mapper.Map<IEnumerable<RealEstateIndexViewModel>>(realEstates);
+            var realEstatesViewModel = this.mapper.Map<IEnumerable<RealEstateIndexViewModel>>(realEstates);
 
-            return View(mappedRealEstates);
+            return View(realEstatesViewModel);
            
         }
 
         //GET: RealEstates/Details/5
-        //public async Task<IActionResult> Details(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var realEstate = await _context.RealEstates
-        //        .Include(r => r.BuildingType)
-        //        .Include(r => r.HeatingSystem)
-        //        .Include(r => r.RealEstateType)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (realEstate == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var realEstateServiceModel = await this.realEstateServices.GetDetailsAsync(id);
 
-        //    return View(realEstate);
-        //}
+            if (realEstateServiceModel == null)
+            {
+                return NotFound();
+            }
+
+            var reaiEstateDetailsViewModel = this.mapper.Map<RealEstateDetailsViewModel>(realEstateServiceModel);
+
+            return View(reaiEstateDetailsViewModel);
+        }
 
         // GET: RealEstates/Create
         public async Task<IActionResult> Create()
@@ -103,6 +103,11 @@ namespace HomeHunter.App.Controllers
                 var realEstate = this.mapper.Map<RealEstateCreateServiceModel>(model);
 
                 var isRealEstateCreated = await this.realEstateServices.CreateRealEstateAsync(realEstate);
+
+                if (!isRealEstateCreated)
+                {
+                    return View(model ?? new CreateRealEstateBindingModel());
+                }
 
                 return RedirectToAction(nameof(Index));
             }

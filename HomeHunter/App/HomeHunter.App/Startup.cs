@@ -2,9 +2,10 @@
 using HomeHunter.Data;
 using HomeHunter.Data.DataSeeding;
 using HomeHunter.Domain;
+using HomeHunter.Infrastructure;
 using HomeHunter.Services;
 using HomeHunter.Services.Contracts;
-using HomeHunter.Services.EmailSender;
+using HomeHunter.Infrastructure.EmailSender;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -55,7 +56,7 @@ namespace HomeHunter.App
                .AddDefaultUI(UIFramework.Bootstrap4);
 
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IUsersServices, UsersServices>();
             services.AddTransient<IRealEstateTypeServices, RealEstateTypeServices>();
             services.AddTransient<IHeatingSystemServices, HeatingSystemServices>();
             services.AddTransient<IBuildingTypeServices, BuildingTypeServices>();
@@ -65,7 +66,8 @@ namespace HomeHunter.App
             services.AddTransient<IAddressServices, AddressServices>();
             services.AddTransient<IVillageServices, VillageServices>();
 
-            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(HomeHunterProfile));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -80,7 +82,7 @@ namespace HomeHunter.App
                .ConfigureApplicationCookie(options =>
                {
                    options.Cookie.HttpOnly = true;
-                   options.ExpireTimeSpan = TimeSpan.FromHours(6);
+                   options.ExpireTimeSpan = TimeSpan.FromHours(7);
                    options.LoginPath = "/Identity/Account/Login";
                    options.LogoutPath = "/Identity/Account/Logout";
                });

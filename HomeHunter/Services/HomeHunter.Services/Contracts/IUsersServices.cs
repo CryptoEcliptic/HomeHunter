@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HomeHunter.Services.Contracts
 {
-    public interface IUsersService
+    public interface IUsersServices
     {
         bool IsUserEmailAuthenticated(string userId);
     }
