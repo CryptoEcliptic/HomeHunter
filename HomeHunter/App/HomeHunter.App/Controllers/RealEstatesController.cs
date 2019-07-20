@@ -107,6 +107,18 @@ namespace HomeHunter.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateRealEstateBindingModel model)
         {
+            if (int.TryParse(model.FloorNumber, out int floor))
+            {
+                if (floor > model.BuildingTotalFloors)
+                {
+                    await this.LoadDropdownMenusData();
+                    return View(model ?? new CreateRealEstateBindingModel());
+                }
+                
+            }
+
+            
+
             if (ModelState.IsValid)
             {
                 var realEstate = this.mapper.Map<RealEstateCreateServiceModel>(model);
@@ -158,6 +170,16 @@ namespace HomeHunter.App.Controllers
             if (id != model.Id)
             {
                 return NotFound();
+            }
+
+            if (int.TryParse(model.FloorNumber, out int floor))
+            {
+                if (floor > model.BuildingTotalFloors)
+                {
+                    await this.LoadDropdownMenusData();
+                    return View(model ?? new RealEstateEditBindingModel());
+                }
+
             }
 
             if (ModelState.IsValid)

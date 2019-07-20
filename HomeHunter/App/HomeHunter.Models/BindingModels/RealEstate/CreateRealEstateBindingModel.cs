@@ -8,10 +8,11 @@ namespace HomeHunter.Models.BindingModels.RealEstate
 {
     public class CreateRealEstateBindingModel
     {
-   
+
         [Display(Name = "Етаж")]
         [StringLength(10, ErrorMessage = "Полето {0} не трябва да надвишава {1} символа.")]
         public string FloorNumber { get; set; }
+
 
         [Display(Name = "Брой етажи")]
         [Range(1, 50, ErrorMessage = "Броят на етажите не трябва да бъде по-малък от {1}.")]

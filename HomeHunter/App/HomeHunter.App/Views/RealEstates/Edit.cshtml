@@ -47,7 +47,7 @@
                     <label asp-for="City"></label>
                 </div>
                 <select class="custom-select" id="city" asp-for="City">
-                    <option selected disabled>-- Изберете град --</option>
+                    <option selected value=null>-- Изберете град --</option>
                     //Add
                     @foreach (var city in (List<CityViewModel>)this.ViewData["Cities"])
                     {

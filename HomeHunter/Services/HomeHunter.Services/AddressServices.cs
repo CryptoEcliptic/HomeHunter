@@ -44,7 +44,11 @@ namespace HomeHunter.Services
                 throw new ArgumentNullException("No such address in the database!");
             }
 
+
             address.City = city;
+            address.CityId = city == null ? address.CityId = null : address.CityId = city.Id;
+
+       
             address.Village = village;
             address.Neighbourhood = neighbourhood;
 

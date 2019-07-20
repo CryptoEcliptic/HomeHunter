@@ -28,6 +28,11 @@ namespace HomeHunter.Services
 
         public async Task<City> GetByNameAsync(string name)
         {
+            if (name == null)
+            {
+                return null;
+            }
+
             var city = Task.Run(() => this.context.Cities.FirstOrDefault(x => x.Name == name));
 
             return await city;
