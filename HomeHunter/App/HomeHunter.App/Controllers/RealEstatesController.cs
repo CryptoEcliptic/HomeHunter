@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using HomeHunter.Common;
 using HomeHunter.Data;
-using HomeHunter.Infrastructure;
 using HomeHunter.Models.BindingModels.RealEstate;
 using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
@@ -14,7 +12,6 @@ using HomeHunter.Services.Models.RealEstate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,6 +27,10 @@ namespace HomeHunter.App.Controllers
         private readonly ICitiesServices citiesServices;
         private readonly IRealEstateServices realEstateServices;
         private readonly INeighbourhoodServices neighbourhoodServices;
+        private readonly IVillageServices villageServices;
+        private readonly IAddressServices addressServices;
+        private readonly IHeatingSystemServices heatingSystemServices;
+        private readonly IRealEstateTypeServices realEstateTypeServices;
         private readonly IMapper mapper;
         private readonly HomeHunterDbContext _context;
 
@@ -40,6 +41,10 @@ namespace HomeHunter.App.Controllers
             ICitiesServices citiesServices,
             IRealEstateServices realEstateServices,
             INeighbourhoodServices neighbourhoodServices,
+            IVillageServices villageServices,
+            IAddressServices addressServices,
+            IHeatingSystemServices heatingSystemServices,
+            IRealEstateTypeServices realEstateTypeServices,
             IMapper mapper)
         {
            
@@ -49,6 +54,10 @@ namespace HomeHunter.App.Controllers
             this.citiesServices = citiesServices;
             this.realEstateServices = realEstateServices;
             this.neighbourhoodServices = neighbourhoodServices;
+            this.villageServices = villageServices;
+            this.addressServices = addressServices;
+            this.heatingSystemServices = heatingSystemServices;
+            this.realEstateTypeServices = realEstateTypeServices;
             this.mapper = mapper;
         }
 
@@ -113,67 +122,61 @@ namespace HomeHunter.App.Controllers
             }
 
             await this.LoadDropdownMenusData();
-            await GetNeighbourhoodsList(model.City);
 
             return View(model ?? new CreateRealEstateBindingModel());
         }
 
         // GET: RealEstates/Edit/5
-        //public async Task<IActionResult> Edit(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var realEstate = await _context.RealEstates.FindAsync(id);
-        //    if (realEstate == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["BuildingTypeId"] = new SelectList(_context.BuildingTypes, "Id", "Name", realEstate.BuildingTypeId);
-        //    ViewData["HeatingSystemId"] = new SelectList(_context.HeatingSystems, "Id", "Name", realEstate.HeatingSystemId);
-        //    ViewData["RealEstateTypeId"] = new SelectList(_context.RealEstateTypes, "Id", "TypeName", realEstate.RealEstateTypeId);
-        //    return View(realEstate);
-        //}
+            var realEstate = await this.realEstateServices.GetDetailsAsync(id);
+
+            if (realEstate == null)
+            {
+                return NotFound();
+            }
+
+            var realEstateEditModel = this.mapper.Map<RealEstateEditBindingModel>(realEstate);
+
+            await this.LoadDropdownMenusData();
+
+            return View(realEstateEditModel);
+        }
 
         //// POST: RealEstates/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(string id, [Bind("FloorNumber,BuildingTotalFloors,Area,Price,Year,ParkingPlace,Yard,MetroNearBy,Balcony,CellingOrBasement,HeatingSystemId,RealEstateTypeId,BuildingTypeId,Id,CreatedOn,ModifiedOn,IsDeleted,DeletedOn")] RealEstate realEstate)
-        //{
-        //    if (id != realEstate.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, RealEstateEditBindingModel model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(realEstate);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!RealEstateExists(realEstate.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["BuildingTypeId"] = new SelectList(_context.BuildingTypes, "Id", "Name", realEstate.BuildingTypeId);
-        //    ViewData["HeatingSystemId"] = new SelectList(_context.HeatingSystems, "Id", "Name", realEstate.HeatingSystemId);
-        //    ViewData["RealEstateTypeId"] = new SelectList(_context.RealEstateTypes, "Id", "TypeName", realEstate.RealEstateTypeId);
-        //    return View(realEstate);
-        //}
+            if (ModelState.IsValid)
+            {
+                var realEstateToEdit = this.mapper.Map<RealEstateEditServiceModel>(model);
+
+                var isRealEstateEddited = await this.realEstateServices.EditRealEstate(realEstateToEdit);
+
+                if (!isRealEstateEddited)
+                {
+                    return View(model);
+                }
+
+                RedirectToActionResult redirectResult = new RedirectToActionResult("Details", "RealEstates", new { @Id = $"{realEstateToEdit.Id}" });
+                return redirectResult;
+            }
+
+             return View(model);
+        }
 
         //// GET: RealEstates/Delete/5
         //public async Task<IActionResult> Delete(string id)

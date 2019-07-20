@@ -11,5 +11,7 @@ namespace HomeHunter.Services.Contracts
         Task <IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstatesAsync();
 
         Task<RealEstateDetailsServiceModel> GetDetailsAsync(string id);
+
+        Task<bool> EditRealEstate(RealEstateEditServiceModel model);
     }
 }

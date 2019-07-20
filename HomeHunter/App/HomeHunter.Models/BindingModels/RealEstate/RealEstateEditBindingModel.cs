@@ -1,14 +1,14 @@
 ﻿using HomeHunter.Common;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeHunter.Models.BindingModels.RealEstate
 {
-    public class CreateRealEstateBindingModel
+    public class RealEstateEditBindingModel
     {
-   
+        public string Id { get; set; }
+
         [Display(Name = "Етаж")]
         [StringLength(10, ErrorMessage = "Полето {0} не трябва да надвишава {1} символа.")]
         public string FloorNumber { get; set; }
@@ -29,7 +29,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         public decimal Price { get; set; }
 
         [Display(Name = "Година")]
-        [Range(1800, 2030)]
+        [Range(1800, 2020)]
         public int? Year { get; set; }
 
         [Display(Name = "Паркомясто/Гараж")]
@@ -54,7 +54,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
 
         [MaxLength(32)]
         [Display(Name = "Вид отопление")]
-        public string  HeatingSystem { get; set; }
+        public string HeatingSystem { get; set; }
 
         [Required(ErrorMessage = "Полето {0} е задължително")]
         [Display(Name = "Тип на имота *")]

@@ -1,4 +1,6 @@
-﻿namespace HomeHunter.Common
+﻿using System;
+
+namespace HomeHunter.Common
 {
     public static class GlobalConstants
     {
@@ -8,5 +10,6 @@
         public const string CompanyWebSite = "https://home-hunter.bg";
         public const int UtcTimeCompensationZone = 2;
         public const string DateTimeVisualizationFormat = "dd-MM-yyyy HH:mm";
+        public static int DefaultRealEstateYear = DateTime.UtcNow.Year;
     }
 }

@@ -32,10 +32,13 @@ namespace HomeHunter.Services
                 await this.context.Villages.AddAsync(village);
 
                 return village;
-
             }
 
-            return null;
+            else
+            {
+                return this.context.Villages.FirstOrDefault(x => x.Name == name);
+            }
+
         }
 
         private bool IsVillageExists(string name)

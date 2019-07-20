@@ -1,7 +1,7 @@
 ﻿
     //Insert default item "Select" in dropdownlist on load
     $(document).ready(function () {
-            var items = "<option value='0'>Select</option>";
+            var items = "<option value='0'>Изберете квартал</option>";
     $("#Neighbourhood").html(items);
 });
 

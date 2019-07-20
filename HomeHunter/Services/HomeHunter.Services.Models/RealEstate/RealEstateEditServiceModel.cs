@@ -1,6 +1,6 @@
 ﻿namespace HomeHunter.Services.Models.RealEstate
 {
-    public class RealEstateDetailsServiceModel
+    public class RealEstateEditServiceModel
     {
         public string Id { get; set; }
 
@@ -12,7 +12,7 @@
 
         public decimal Price { get; set; }
 
-        public int Year { get; set; }
+        public int? Year { get; set; }
 
         public bool ParkingPlace { get; set; }
 
@@ -37,9 +37,5 @@
         public string Village { get; set; }
 
         public string Neighbourhood { get; set; }
-
-        public string CreatedOn { get; set; }
-
-        public string ModifiedOn { get; set; }
     }
 }

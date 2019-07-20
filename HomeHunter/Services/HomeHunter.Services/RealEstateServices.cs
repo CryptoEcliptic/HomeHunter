@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HomeHunter.Common;
 using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
@@ -119,10 +120,56 @@ namespace HomeHunter.Services
                 .Include(r => r.Address.Neighbourhood)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
+           
             var realEstateServiceModel = this.mapper.Map<RealEstateDetailsServiceModel>(realEstate);
 
             return realEstateServiceModel;
         }
 
+        public async Task<bool>EditRealEstate(RealEstateEditServiceModel model)
+        {
+            if (!this.context.RealEstates.Any(x => x.Id == model.Id))
+            {
+                return false;
+            }
+
+            var realEstateToEdit = await this.context.RealEstates
+                .Include(x => x.Address)
+                .FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            var city = await this.citiesServices.GetByNameAsync(model.City);
+            var neighbourhood = await this.neighbourhoodServices.GetNeighbourhoodByNameAsync(model.Neighbourhood);
+  
+            var village = await this.villageServices.CreateVillageAsync(model.Village);
+
+            var addressId = realEstateToEdit.Address.Id;
+            var address = await this.addressServices.EditAddress(addressId, city, model.Address, village, neighbourhood);
+
+            var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
+            var buildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType);
+            var heatingSystem = await this.heatingSystemServices.GetHeatingSystemAsync(model.HeatingSystem);
+
+            realEstateToEdit.Address = address;
+            realEstateToEdit.BuildingType = buildingType;
+            realEstateToEdit.HeatingSystem = heatingSystem;
+            realEstateToEdit.RealEstateType = realEstateType;
+            realEstateToEdit.Year = model.Year;
+            realEstateToEdit.ModifiedOn = DateTime.UtcNow;
+
+            this.mapper.Map<RealEstateEditServiceModel, RealEstate>(model, realEstateToEdit);
+
+            try
+            {
+                this.context.Update(realEstateToEdit);
+                await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
     }
 }

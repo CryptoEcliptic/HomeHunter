@@ -1,8 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace HomeHunter.Models.ViewModels.RealEstate
 {
-    public class RealEstateDetailsViewModel
+    public class RealEstateEditViewModel
     {
         [Display(Name = "Id")]
         public string Id { get; set; }
@@ -35,7 +38,7 @@ namespace HomeHunter.Models.ViewModels.RealEstate
         public int? BuildingTotalFloors { get; set; }
 
         [Display(Name = "Година")]
-        public string Year { get; set; }
+        public int Year { get; set; }
 
         [Display(Name = "Паркомясто")]
         public bool ParkingPlace { get; set; }
@@ -60,8 +63,5 @@ namespace HomeHunter.Models.ViewModels.RealEstate
 
         [Display(Name = "Дата на добавяне")]
         public string CreatedOn { get; set; }
-
-        [Display(Name = "Последна промяна")]
-        public string ModifiedOn { get; set; }
     }
 }
