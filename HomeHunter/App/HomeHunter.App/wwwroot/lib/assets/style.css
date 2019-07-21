@@ -10,6 +10,7 @@ body {	color:#666;	font:300 15px/15px Roboto,Arial,Helvetica;background-color:#f
     padding-bottom: 40px;
 }
 
+
 .table-estate-details {
     height: 550px;
     overflow-y: auto;
@@ -109,6 +110,31 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 .btn-default:hover,.btn-default:active{background: rgba(0,0,0,0.8);}
 .btn-primary{color: #fff;background:#00a9c6;width: 100%;outline: none;}
 .btn-primary:hover,.btn-primary:active,.btn-primary:focus{background:#1BC0DC;box-shadow: none;}
+
+.btn-alert-h {
+    border: none;
+    border-radius: 5px;
+    padding: 1em 4em;
+    background: #d9534f;
+    text-transform: uppercase;
+    color:white;
+}
+    .btn-alert-h:hover {
+        background-color: #ad423f;
+    }
+
+.btn-info-h {
+    border: none;
+    border-radius: 5px;
+    padding: 1em 4em;
+    background: #51acc7;
+    text-transform: uppercase;
+    color: white;
+}
+
+    .btn-info-h:hover {
+        background-color: #3f869b;
+    }
 
 .topbar {background:url(../images/lines.png);	height:5px;position: fixed;top: 0;width: 100%;z-index: 1000;}
 .navbar-nav > li > a{font-size: 1em;line-height: 3.6em;}

@@ -168,5 +168,34 @@ namespace HomeHunter.Services
 
             return true;
         }
+
+        public async Task<bool> DeleteRealEstate(string id)
+        {
+            var realEstate = await this.context.RealEstates
+                .Include(x => x.Address)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (realEstate == null)
+            {
+                throw new ArgumentNullException($"Real estate with id {id} not found!");
+            }
+
+            await this.addressServices.DeleteAddress(realEstate.Address.Id);
+
+            realEstate.IsDeleted = true;
+            realEstate.DeletedOn = DateTime.UtcNow;
+            try
+            {
+                this.context.Update(realEstate);
+                await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                return false;
+            }
+           
+            return true;
+        }
     }
 }

@@ -101,8 +101,7 @@ namespace HomeHunter.App.Controllers
         }
 
         // POST: RealEstates/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateRealEstateBindingModel model)
@@ -159,8 +158,6 @@ namespace HomeHunter.App.Controllers
         }
 
         //// POST: RealEstates/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, RealEstateEditBindingModel model)
@@ -200,41 +197,43 @@ namespace HomeHunter.App.Controllers
         }
 
         //// GET: RealEstates/Delete/5
-        //public async Task<IActionResult> Delete(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var realEstate = await _context.RealEstates
-        //        .Include(r => r.BuildingType)
-        //        .Include(r => r.HeatingSystem)
-        //        .Include(r => r.RealEstateType)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (realEstate == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var realEstate = await this.realEstateServices.GetDetailsAsync(id);
 
-        //    return View(realEstate);
-        //}
+            if (realEstate == null)
+            {
+                return NotFound();
+            }
+
+            var realEstateEditModel = this.mapper.Map<RealEstateDetailsViewModel>(realEstate);
+            return View(realEstateEditModel);
+        }
 
         //// POST: RealEstates/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(string id)
-        //{
-        //    var realEstate = await _context.RealEstates.FindAsync(id);
-        //    _context.RealEstates.Remove(realEstate);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //private bool RealEstateExists(string id)
-        //{
-        //    return _context.RealEstates.Any(e => e.Id == id);
-        //}
+            var isRealEstateDeleted = await this.realEstateServices.DeleteRealEstate(id);
+
+            if (!isRealEstateDeleted)
+            {
+                return NotFound();
+            }
+           
+            return RedirectToAction(nameof(Index));
+        }
 
         [HttpGet]
         public async Task<JsonResult> GetNeighbourhoodsList(string cityName)

@@ -32,6 +32,7 @@ namespace HomeHunter.Services
             return address;
         }
 
+
         public async Task<Address> EditAddress(int addressId, City city, string description, Village village, Neighbourhood neighbourhood)
         {
             var address = this.context.Addresses
@@ -63,6 +64,32 @@ namespace HomeHunter.Services
             await this.context.SaveChangesAsync();
 
             return address;
+        }
+
+        public async Task<bool> DeleteAddress(int id)
+        {
+
+            var address = await this.context.Addresses.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (address == null)
+            {
+                return false;
+            }
+
+            address.IsDeleted = true;
+            address.DeletedOn = DateTime.UtcNow;
+
+            try
+            {
+                this.context.Update(address);
+                await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+
+            return true;
         }
 
     }

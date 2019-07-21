@@ -7,5 +7,7 @@ namespace HomeHunter.Services.Contracts
     {
         Task<Address> CreateAddressAsync(City city, string description, Village village, Neighbourhood neighbourhood);
         Task<Address> EditAddress(int addressId, City city, string description, Village village, Neighbourhood neighbourhood);
+
+        Task<bool> DeleteAddress(int id);
     }
 }
