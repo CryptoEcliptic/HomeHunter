@@ -1,4 +1,5 @@
 ﻿using HomeHunter.Common;
+using HomeHunter.Models.CustomValidationAttributse;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -30,7 +31,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         public decimal Price { get; set; }
 
         [Display(Name = "Година")]
-        [Range(1800, 2030)]
+        [BeforeCurrentYear(1900)]
         public int? Year { get; set; }
 
         [Display(Name = "Паркомясто/Гараж")]

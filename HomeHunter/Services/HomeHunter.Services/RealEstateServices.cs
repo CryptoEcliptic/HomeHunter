@@ -139,9 +139,7 @@ namespace HomeHunter.Services
 
             var city = await this.citiesServices.GetByNameAsync(model.City);
             var neighbourhood = await this.neighbourhoodServices.GetNeighbourhoodByNameAsync(model.Neighbourhood);
-  
             var village = await this.villageServices.CreateVillageAsync(model.Village);
-
             var addressId = realEstateToEdit.Address.Id;
             var address = await this.addressServices.EditAddress(addressId, city, model.Address, village, neighbourhood);
 
@@ -169,7 +167,6 @@ namespace HomeHunter.Services
             }
 
             return true;
-
         }
     }
 }

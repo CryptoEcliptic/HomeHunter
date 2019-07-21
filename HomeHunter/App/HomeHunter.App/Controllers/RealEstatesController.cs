@@ -117,8 +117,6 @@ namespace HomeHunter.App.Controllers
                 
             }
 
-            
-
             if (ModelState.IsValid)
             {
                 var realEstate = this.mapper.Map<RealEstateCreateServiceModel>(model);
@@ -127,6 +125,7 @@ namespace HomeHunter.App.Controllers
 
                 if (!isRealEstateCreated)
                 {
+                    await this.LoadDropdownMenusData();
                     return View(model ?? new CreateRealEstateBindingModel());
                 }
 
@@ -134,7 +133,6 @@ namespace HomeHunter.App.Controllers
             }
 
             await this.LoadDropdownMenusData();
-
             return View(model ?? new CreateRealEstateBindingModel());
         }
 
@@ -179,7 +177,6 @@ namespace HomeHunter.App.Controllers
                     await this.LoadDropdownMenusData();
                     return View(model ?? new RealEstateEditBindingModel());
                 }
-
             }
 
             if (ModelState.IsValid)
@@ -190,6 +187,7 @@ namespace HomeHunter.App.Controllers
 
                 if (!isRealEstateEddited)
                 {
+                    await this.LoadDropdownMenusData();
                     return View(model);
                 }
 
@@ -197,7 +195,8 @@ namespace HomeHunter.App.Controllers
                 return redirectResult;
             }
 
-             return View(model);
+            await this.LoadDropdownMenusData();
+            return View(model);
         }
 
         //// GET: RealEstates/Delete/5
