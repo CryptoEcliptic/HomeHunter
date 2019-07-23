@@ -1,4 +1,7 @@
-﻿namespace HomeHunter.Services.Models.RealEstate
+﻿using HomeHunter.Domain;
+using System.Collections.Generic;
+
+namespace HomeHunter.Services.Models.RealEstate
 {
     public class RealEstateDetailsServiceModel
     {
@@ -41,5 +44,7 @@
         public string CreatedOn { get; set; }
 
         public string ModifiedOn { get; set; }
+
+        public List<string> Images { get; set; }
     }
 }

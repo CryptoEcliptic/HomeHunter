@@ -118,7 +118,9 @@ namespace HomeHunter.Services
                 .Include(r => r.Address.City)
                 .Include(r => r.Address.Village)
                 .Include(r => r.Address.Neighbourhood)
+                .Include(r => r.Images)
                 .FirstOrDefaultAsync(x => x.Id == id);
+            ;
 
            
             var realEstateServiceModel = this.mapper.Map<RealEstateDetailsServiceModel>(realEstate);

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomeHunter.Models.ViewModels.RealEstate
 {
@@ -63,5 +64,7 @@ namespace HomeHunter.Models.ViewModels.RealEstate
 
         [Display(Name = "Последна промяна")]
         public string ModifiedOn { get; set; }
+
+        public List<string> Images { get; set; }
     }
 }
