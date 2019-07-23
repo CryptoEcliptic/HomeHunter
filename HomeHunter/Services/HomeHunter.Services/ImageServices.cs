@@ -1,7 +1,6 @@
 ﻿using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
-using System;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Services

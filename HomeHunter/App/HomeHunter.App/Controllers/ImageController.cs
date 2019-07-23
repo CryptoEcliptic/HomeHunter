@@ -3,7 +3,6 @@ using HomeHunter.Models.BindingModels.Image;
 using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 

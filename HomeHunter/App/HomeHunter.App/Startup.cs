@@ -80,7 +80,6 @@ namespace HomeHunter.App
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IImageServices, ImageServices>();
 
-            //services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(typeof(HomeHunterProfile));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -116,6 +115,7 @@ namespace HomeHunter.App
                 if (env.IsDevelopment())
                 {
                     dbContext.Database.EnsureCreated();
+
                 }
                 
                 //Database initial seeding functionality
