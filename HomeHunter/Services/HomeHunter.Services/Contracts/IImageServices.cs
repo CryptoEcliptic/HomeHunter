@@ -7,6 +7,6 @@ namespace HomeHunter.Services.Contracts
 {
     public interface IImageServices
     {
-        Task<bool> AddImageAsync(string url, string estateId, string imageId);
+        Task<bool> AddImageAsync(string url, string estateId);
     }
 }

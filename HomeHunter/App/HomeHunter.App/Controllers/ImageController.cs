@@ -3,6 +3,7 @@ using HomeHunter.Models.BindingModels.Image;
 using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -24,7 +25,6 @@ namespace HomeHunter.App.Controllers
         public async Task<IActionResult> Upload(string id)
         {
             return View();
-      
         }
 
         [HttpPost]
@@ -41,10 +41,15 @@ namespace HomeHunter.App.Controllers
                 var imageId = Guid.NewGuid().ToString();
                 var imageRrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
 
-                var isImageAddedInDb = this.imageServices.AddImageAsync(imageRrl, id, imageId);
+                var isImageAddedInDb = await this.imageServices.AddImageAsync(imageRrl, id);
+
+                if (!isImageAddedInDb)
+                {
+                    throw new ArgumentNullException("Invalid Db input params!");
+                };
             }
 
-            RedirectToActionResult redirectResult = new RedirectToActionResult("Details", "RealEstates", new { @Id = $"{id}" });
+            RedirectToActionResult redirectResult = new RedirectToActionResult("Upload", "Image", new { @Id = $"{id}" });
             return redirectResult;
         }
 

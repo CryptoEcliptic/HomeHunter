@@ -15,16 +15,15 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public async Task<bool> AddImageAsync(string url, string estateId, string imageId)
+        public async Task<bool> AddImageAsync(string url, string estateId)
         {
-            if (url == null || estateId == null || imageId == null)
+            if (url == null || estateId == null)
             {
                 return false;
             }
 
             var image = new Image
             {
-                Id = imageId,
                 Url = url,
                 RealEstateId = estateId,
             };
