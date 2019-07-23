@@ -45,5 +45,7 @@ namespace HomeHunter.Domain
         public BuildingType BuildingType { get; set; }
 
         public ICollection<Offer> Offers { get; set; }
+
+        public ICollection<Image> Images { get; set; }
     }
 }

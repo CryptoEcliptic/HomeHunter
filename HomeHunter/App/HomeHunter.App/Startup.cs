@@ -17,6 +17,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using CloudinaryDotNet;
+using HomeHunter.Infrastructure.CloudinaryServices;
+
 namespace HomeHunter.App
 {
     public class Startup
@@ -55,6 +58,15 @@ namespace HomeHunter.App
                .AddDefaultTokenProviders()
                .AddDefaultUI(UIFramework.Bootstrap4);
 
+            //Cloudinary service
+            Account cloudinaryCredentails = new Account(
+                this.Configuration["Cloudinary:CloudName"],
+                this.Configuration["Cloudinary:ApiKey"],
+                this.Configuration["Cloudinary:ApiSecret"]
+                );
+            Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentails);
+            services.AddSingleton(cloudinaryUtility);
+
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IUsersServices, UsersServices>();
             services.AddTransient<IRealEstateTypeServices, RealEstateTypeServices>();
@@ -65,6 +77,8 @@ namespace HomeHunter.App
             services.AddTransient<INeighbourhoodServices, NeighbourhoodServices>();
             services.AddTransient<IAddressServices, AddressServices>();
             services.AddTransient<IVillageServices, VillageServices>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IImageServices, ImageServices>();
 
             //services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(typeof(HomeHunterProfile));

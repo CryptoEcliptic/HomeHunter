@@ -120,15 +120,17 @@ namespace HomeHunter.App.Controllers
             {
                 var realEstate = this.mapper.Map<RealEstateCreateServiceModel>(model);
 
-                var isRealEstateCreated = await this.realEstateServices.CreateRealEstateAsync(realEstate);
+                var realEstateId = await this.realEstateServices.CreateRealEstateAsync(realEstate);
 
-                if (!isRealEstateCreated)
+                if (realEstateId == null)
                 {
                     await this.LoadDropdownMenusData();
                     return View(model ?? new CreateRealEstateBindingModel());
                 }
 
-                return RedirectToAction(nameof(Index));
+                
+                RedirectToActionResult redirectResult = new RedirectToActionResult("Upload", "Image", new { @Id = $"{realEstateId}" });
+                return redirectResult;
             }
 
             await this.LoadDropdownMenusData();
@@ -180,7 +182,7 @@ namespace HomeHunter.App.Controllers
             {
                 var realEstateToEdit = this.mapper.Map<RealEstateEditServiceModel>(model);
 
-                var isRealEstateEddited = await this.realEstateServices.EditRealEstate(realEstateToEdit);
+                var isRealEstateEddited = await this.realEstateServices.EditRealEstateAsync(realEstateToEdit);
 
                 if (!isRealEstateEddited)
                 {
@@ -225,7 +227,7 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            var isRealEstateDeleted = await this.realEstateServices.DeleteRealEstate(id);
+            var isRealEstateDeleted = await this.realEstateServices.DeleteRealEstateAsync(id);
 
             if (!isRealEstateDeleted)
             {

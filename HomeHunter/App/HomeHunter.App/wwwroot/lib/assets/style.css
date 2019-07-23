@@ -136,6 +136,21 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
         background-color: #3f869b;
     }
 
+.btn-blue-h {
+    width: 100%;
+    padding-top: 50px;
+    border: 0px;
+    border-radius: 5px;
+    padding: 1em 4em;
+    background: #428BCA;
+    text-transform: uppercase;
+    color: white;
+}
+
+    .btn-blue-h:hover {
+        background-color: #346fa1;
+    }
+
 .topbar {background:url(../images/lines.png);	height:5px;position: fixed;top: 0;width: 100%;z-index: 1000;}
 .navbar-nav > li > a{font-size: 1em;line-height: 3.6em;}
 .navbar-fixed-top{top: 5px;}

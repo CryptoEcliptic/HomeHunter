@@ -28,12 +28,12 @@ namespace HomeHunter.Services
             };
 
             //await this.context.Addresses.AddAsync(address);
-
+          
             return address;
         }
 
 
-        public async Task<Address> EditAddress(int addressId, City city, string description, Village village, Neighbourhood neighbourhood)
+        public async Task<Address> EditAddressAsync(int addressId, City city, string description, Village village, Neighbourhood neighbourhood)
         {
             var address = this.context.Addresses
                 .Include(x => x.Village)
@@ -66,7 +66,7 @@ namespace HomeHunter.Services
             return address;
         }
 
-        public async Task<bool> DeleteAddress(int id)
+        public async Task<bool> DeleteAddressAsync(int id)
         {
 
             var address = await this.context.Addresses.FirstOrDefaultAsync(x => x.Id == id);

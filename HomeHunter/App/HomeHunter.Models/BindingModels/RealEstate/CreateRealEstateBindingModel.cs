@@ -1,7 +1,4 @@
-﻿using HomeHunter.Common;
-using HomeHunter.Models.CustomValidationAttributse;
-using System;
-using System.ComponentModel;
+﻿using HomeHunter.Models.CustomValidationAttributse;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

@@ -1,0 +1,103 @@
+﻿@model HomeHunter.Models.BindingModels.Image.ImageUploadBindingModel
+@{
+    ViewData["Title"] = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/lib/assets/upload_image.css">
+
+<div class="row paddingElement">
+    <div class="container d-flex justify-content-around">
+        <br />
+        <br />
+        <h4 style="text-align:center">Качване на снимки</h4>
+
+        <form method="post" class="wrapper overflow-y-auto" enctype="multipart/form-data">
+            <div class="box">
+                <div class="js--image-preview"></div>
+                <div class="upload-options">
+                    <label>
+                        <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                    </label>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="js--image-preview"></div>
+                <div class="upload-options">
+                    <label>
+                        <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                    </label>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="js--image-preview"></div>
+                <div class="upload-options">
+                    <label>
+                        <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                    </label>
+                </div>
+            </div>
+            <div class="box">
+                <div class="js--image-preview"></div>
+                <div class="upload-options">
+                    <label>
+                        <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                    </label>
+                </div>
+            </div>
+            <div class="box">
+                <div class="js--image-preview"></div>
+                <div class="upload-options">
+                    <label>
+                        <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                    </label>
+                </div>
+            </div>
+            <div class="box">
+                <div class="js--image-preview"></div>
+                <div class="upload-options">
+                    <label>
+                        <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                    </label>
+                </div>
+            </div>
+            <div class="box">
+                <div class="js--image-preview"></div>
+                <div class="upload-options">
+                    <label>
+                        <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                    </label>
+                </div>
+            </div>
+            <div class="box">
+                <div class="js--image-preview"></div>
+                <div class="upload-options">
+                    <label>
+                        <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                    </label>
+                </div>
+            </div>
+            <div class="box">
+                <div class="js--image-preview"></div>
+                <div class="upload-options">
+                    <label>
+                        <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                    </label>
+                </div>
+            </div>
+            <br />
+            <div class="col-sm-4" style="padding-top:30px">
+                <input type="submit" value="Качи снимки" class="btn btn-blue-h" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+
+    <script src="~/js/upload_Images.js" asp-append-version="true"></script>
+}

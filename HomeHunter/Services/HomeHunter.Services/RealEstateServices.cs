@@ -45,13 +45,13 @@ namespace HomeHunter.Services
             this.mapper = mapper;
         }
 
-        public async Task<bool> CreateRealEstateAsync(RealEstateCreateServiceModel model)
+        public async Task<string> CreateRealEstateAsync(RealEstateCreateServiceModel model)
         {
             var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
 
             if (realEstateType == null || model.Area <=0 || model.Price <= 0 || model.Address == null)
             {
-                return false;
+                return null;
             }
 
             var city = await this.citiesServices.GetByNameAsync(model.City);
@@ -87,7 +87,7 @@ namespace HomeHunter.Services
             await this.context.RealEstates.AddAsync(realEstate);
             await this.context.SaveChangesAsync();
 
-            return true;
+            return realEstate.Id;
         }
 
         public async Task<IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstatesAsync()
@@ -104,7 +104,7 @@ namespace HomeHunter.Services
                 .ToList();
 
 
-            var realEstatesServiceModel = this.mapper.Map<IEnumerable<RealEstateIndexServiceModel>>(realEstates);
+            var realEstatesServiceModel =  this.mapper.Map<IEnumerable<RealEstateIndexServiceModel>>(realEstates);
 
             return realEstatesServiceModel;
         }
@@ -126,7 +126,7 @@ namespace HomeHunter.Services
             return realEstateServiceModel;
         }
 
-        public async Task<bool>EditRealEstate(RealEstateEditServiceModel model)
+        public async Task<bool>EditRealEstateAsync(RealEstateEditServiceModel model)
         {
             if (!this.context.RealEstates.Any(x => x.Id == model.Id))
             {
@@ -141,7 +141,7 @@ namespace HomeHunter.Services
             var neighbourhood = await this.neighbourhoodServices.GetNeighbourhoodByNameAsync(model.Neighbourhood);
             var village = await this.villageServices.CreateVillageAsync(model.Village);
             var addressId = realEstateToEdit.Address.Id;
-            var address = await this.addressServices.EditAddress(addressId, city, model.Address, village, neighbourhood);
+            var address = await this.addressServices.EditAddressAsync(addressId, city, model.Address, village, neighbourhood);
 
             var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
             var buildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType);
@@ -169,7 +169,7 @@ namespace HomeHunter.Services
             return true;
         }
 
-        public async Task<bool> DeleteRealEstate(string id)
+        public async Task<bool> DeleteRealEstateAsync(string id)
         {
             var realEstate = await this.context.RealEstates
                 .Include(x => x.Address)
@@ -180,7 +180,7 @@ namespace HomeHunter.Services
                 throw new ArgumentNullException($"Real estate with id {id} not found!");
             }
 
-            await this.addressServices.DeleteAddress(realEstate.Address.Id);
+            await this.addressServices.DeleteAddressAsync(realEstate.Address.Id);
 
             realEstate.IsDeleted = true;
             realEstate.DeletedOn = DateTime.UtcNow;
