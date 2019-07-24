@@ -122,7 +122,6 @@ namespace HomeHunter.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
             ;
 
-           
             var realEstateServiceModel = this.mapper.Map<RealEstateDetailsServiceModel>(realEstate);
 
             return realEstateServiceModel;

@@ -48,7 +48,7 @@ namespace HomeHunter.App.Controllers
                 };
             }
 
-            RedirectToActionResult redirectResult = new RedirectToActionResult("Upload", "Image", new { @Id = $"{id}" });
+            RedirectToActionResult redirectResult = new RedirectToActionResult("Create", "Offer", new { @Id = $"{id}" });
             return redirectResult;
         }
 

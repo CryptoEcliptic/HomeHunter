@@ -19,6 +19,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using CloudinaryDotNet;
 using HomeHunter.Infrastructure.CloudinaryServices;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace HomeHunter.App
 {
@@ -79,6 +81,9 @@ namespace HomeHunter.App
             services.AddTransient<IVillageServices, VillageServices>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IImageServices, ImageServices>();
+            services.AddTransient<IOfferServices, OfferServices>();
+            services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
+
 
             services.AddAutoMapper(typeof(HomeHunterProfile));
 

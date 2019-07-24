@@ -1,6 +1,7 @@
 ﻿using HomeHunter.Common;
 using HomeHunter.Models.CustomValidationAttributse;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -76,5 +77,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [MaxLength(64)]
         [Display(Name = "Квартал")]
         public string Neighbourhood { get; set; }
+
+        public List<string> Images { get; set; }
     }
 }

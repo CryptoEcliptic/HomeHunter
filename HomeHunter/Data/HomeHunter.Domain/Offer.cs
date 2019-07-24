@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HomeHunter.Domain
 {
-    public class Offer : BaseModel<int>
+    public class Offer : BaseModel<string>
     {
         public OfferType OfferType { get; set; }
 
@@ -13,11 +13,14 @@ namespace HomeHunter.Domain
 
         public string Comments { get; set; }
 
+        public string ContactNumber { get; set; }
+
         [Required]
         public string AuthorId { get; set; }
         public HomeHunterUser Author { get; set; }
 
-        public int RealEstateId { get; set; }
+        [Required]
+        public string RealEstateId { get; set; }
         public RealEstate RealEstate { get; set; }
     }
 }

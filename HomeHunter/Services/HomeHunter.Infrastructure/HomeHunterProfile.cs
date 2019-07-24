@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HomeHunter.Common;
 using HomeHunter.Domain;
+using HomeHunter.Models.BindingModels.Offer;
 using HomeHunter.Models.BindingModels.RealEstate;
 using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
@@ -12,6 +13,7 @@ using HomeHunter.Services.Models.BuildingType;
 using HomeHunter.Services.Models.City;
 using HomeHunter.Services.Models.HeatingSystem;
 using HomeHunter.Services.Models.Neighbourhood;
+using HomeHunter.Services.Models.Offer;
 using HomeHunter.Services.Models.RealEstate;
 using HomeHunter.Services.Models.RealEstateType;
 using System;
@@ -31,6 +33,7 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<CreateRealEstateBindingModel, RealEstateCreateServiceModel>();
             this.CreateMap<RealEstateEditBindingModel, RealEstateEditServiceModel>();
             this.CreateMap<RealEstateDetailsServiceModel, RealEstateEditBindingModel>();
+            this.CreateMap<OfferCreateBindingModel, OfferCreateServiceModel>();
 
             this.CreateMap<RealEstateIndexServiceModel, RealEstateIndexViewModel>()
                .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)));

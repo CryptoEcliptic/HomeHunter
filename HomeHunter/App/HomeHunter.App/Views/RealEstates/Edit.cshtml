@@ -9,212 +9,325 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="paddingElement col-md-5 col-md-offset-3">
-        <br />
-        <h4>Информация за имота</h4>
-        <hr />
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group w-50 mx-auto">
-                <div class="text-left">
-                    <label asp-for="RealEstateType"></label>
-                </div>
-                <select class="custom-select" id="realEstateType" asp-for="RealEstateType">
-                    <option selected disabled>-- Изберете тип на имота --</option>
-                    //Add
-                    @foreach (var realEstateType in (IEnumerable<RealEstateTypeViewModel>)this.ViewData["RealEstateTypes"])
-                    {
-                        <option value="@realEstateType.TypeName">@realEstateType.TypeName</option>
-                    }
-                </select>
-                <span asp-validation-for="RealEstateType" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Area" class="control-label"></label>
-                <input asp-for="Area" class="form-control" />
-                <span asp-validation-for="Area" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-
-            <div class="form-group w-50 mx-auto">
-                <div class="text-left">
-                    <label asp-for="City"></label>
-                </div>
-                <select class="custom-select" id="city" asp-for="City">
-                    <option selected value=null>-- Изберете град --</option>
-                    //Add
-                    @foreach (var city in (List<CityViewModel>)this.ViewData["Cities"])
-                    {
-                        <option class="@city.Name" id="@city.Name">@city.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-
-            <div class="form-group w-50 mx-auto">
-                <div class="text-left">
-                    <label asp-for="Neighbourhood"></label>
-                </div>
-                <select class="custom-select" id="Neighbourhood" name="Neighbourhood" asp-for="Neighbourhood">
-                    <option selected value="@Model.Neighbourhood"></option>
-                </select>
-                <span asp-validation-for="Neighbourhood" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Village" class="control-label"></label>
-                <input asp-for="Village" class="form-control" />
-                <span asp-validation-for="Village" class="text-danger"></span>
-            </div>
+<link rel="stylesheet" href="~/lib/assets/upload_image.css">
+<link rel="stylesheet" href="~/lib/assets/modal_images.css">
+<div class="container-fluid paddingElement">
+    <div class="row" style="padding-left:150px">
+        <div class="col-md-4">
             <br />
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <textarea asp-for="Address" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
+            <br />
+            <h4>Промени данните на имота</h4>
+            <hr />
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group w-50 mx-auto">
+                    <div class="text-left">
+                        <label asp-for="RealEstateType"></label>
+                    </div>
+                    <select class="custom-select" id="realEstateType" asp-for="RealEstateType">
+                        <option selected disabled>-- Изберете тип на имота --</option>
+                        //Add
+                        @foreach (var realEstateType in (IEnumerable<RealEstateTypeViewModel>)this.ViewData["RealEstateTypes"])
+                        {
+                            <option value="@realEstateType.TypeName">@realEstateType.TypeName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="RealEstateType" class="text-danger"></span>
+                </div>
 
-            <div class="form-group w-50 mx-auto" id="buildingType">
-                <div class="text-left">
-                    <label asp-for="BuildingType"></label>
+                <div class="form-group">
+                    <label asp-for="Area" class="control-label"></label>
+                    <input asp-for="Area" class="form-control" />
+                    <span asp-validation-for="Area" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w-50 mx-auto">
+                    <div class="text-left">
+                        <label asp-for="City"></label>
+                    </div>
+                    <select class="custom-select" id="city" asp-for="City">
+                        <option selected value=null>-- Изберете град --</option>
+                        //Add
+                        @foreach (var city in (List<CityViewModel>)this.ViewData["Cities"])
+                        {
+                            <option class="@city.Name" id="@city.Name">@city.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w-50 mx-auto">
+                    <div class="text-left">
+                        <label asp-for="Neighbourhood"></label>
+                    </div>
+                    <select class="custom-select" id="Neighbourhood" name="Neighbourhood" asp-for="Neighbourhood">
+                        <option selected value="@Model.Neighbourhood"></option>
+                    </select>
+                    <span asp-validation-for="Neighbourhood" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Village" class="control-label"></label>
+                    <input asp-for="Village" class="form-control" />
+                    <span asp-validation-for="Village" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <textarea asp-for="Address" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w-50 mx-auto" id="buildingType">
+                    <div class="text-left">
+                        <label asp-for="BuildingType"></label>
+                        <span asp-validation-for="BuildingType" class="text-danger"></span>
+                    </div>
+                    <select class="custom-select" id="buildingType" asp-for="BuildingType">
+                        <option selected disabled>-- Изберете тип сграда --</option>
+                        //Add
+                        @foreach (var buildingType in (List<BuildingTypeViewModel>)this.ViewData["BuildingTypes"])
+                        {
+                            <option>@buildingType.Name</option>
+                        }
+                    </select>
                     <span asp-validation-for="BuildingType" class="text-danger"></span>
                 </div>
-                <select class="custom-select" id="buildingType" asp-for="BuildingType">
-                    <option selected disabled>-- Изберете тип сграда --</option>
-                    //Add
-                    @foreach (var buildingType in (List<BuildingTypeViewModel>)this.ViewData["BuildingTypes"])
-                    {
-                        <option>@buildingType.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="BuildingType" class="text-danger"></span>
-            </div>
 
-            <div class="form-group w-50 mx-auto" id="heatingSystem">
-                <div class="text-left">
-                    <label asp-for="HeatingSystem"></label>
+                <div class="form-group w-50 mx-auto" id="heatingSystem">
+                    <div class="text-left">
+                        <label asp-for="HeatingSystem"></label>
+                        <span asp-validation-for="HeatingSystem" class="text-danger"></span>
+                    </div>
+                    <select class="custom-select" id="heatingSystem" asp-for="HeatingSystem">
+                        <option selected disabled>-- Изберете типа отопление --</option>
+                        //Add
+                        @foreach (var heatingSystem in (List<HeatingSystemViewModel>)this.ViewData["HeatingSystems"])
+                        {
+                            <option>@heatingSystem.Name</option>
+                        }
+                    </select>
                     <span asp-validation-for="HeatingSystem" class="text-danger"></span>
                 </div>
-                <select class="custom-select" id="heatingSystem" asp-for="HeatingSystem">
-                    <option selected disabled>-- Изберете типа отопление --</option>
-                    //Add
-                    @foreach (var heatingSystem in (List<HeatingSystemViewModel>)this.ViewData["HeatingSystems"])
-                    {
-                        <option>@heatingSystem.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="HeatingSystem" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="FloorNumber" class="control-label"></label>
+                    <input asp-for="FloorNumber" class="form-control" id="FloorNumber" />
+                    <span asp-validation-for="FloorNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BuildingTotalFloors" class="control-label"></label>
+                    <input asp-for="BuildingTotalFloors" class="form-control" id="BuildingTotalFloors" />
+                    <span asp-validation-for="BuildingTotalFloors" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Year" class="control-label"></label>
+                    <input asp-for="Year" class="form-control" id="Year" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @if (Model.ParkingPlace == true)
+                        {
+                            <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" checked="checked" /><strong> Паркомясто</strong>
+
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" /><strong> Паркомясто</strong>
+                        }
+
+                    </label>
+                    <span asp-validation-for="ParkingPlace" class="text-danger"></span>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @if (Model.Yard == true)
+                        {
+                            <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true" checked="checked" /><strong> Двор</strong>
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true" /><strong> Двор</strong>
+                        }
+
+                    </label>
+                    <span asp-validation-for="Yard" class="text-danger"></span>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @if (Model.MetroNearBy == true)
+                        {
+                            <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" checked="checked" /><strong> Достъп до метро</strong>
+
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" /><strong> Достъп до метро</strong>
+                        }
+
+                    </label>
+                    <span asp-validation-for="MetroNearBy" class="text-danger"></span>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @if (Model.Balcony == true)
+                        {
+                            <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" checked="checked" /><strong> Тераса</strong>
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" /><strong> Тераса</strong>
+                        }
+
+
+                    </label>
+                    <span asp-validation-for="Balcony" class="text-danger"></span>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @if (Model.CellingOrBasement == true)
+                        {
+                            <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true" checked="checked" /><strong> Мазе/Таванско помещение</strong>
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true" /><strong> Мазе/Таванско помещение</strong>
+                        }
+
+                    </label>
+                    <span asp-validation-for="CellingOrBasement" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Запази" class="btn btn-info-h" />
+                </div>
+            </form>
+            <p>Полетата със * са задължителни!</p>
+
+            <div class=" container">
+                <a asp-area="Administrator" asp-controller="Home" asp-action="Index"><strong>Назад</strong></a>
             </div>
-            <div class="form-group">
-                <label asp-for="FloorNumber" class="control-label"></label>
-                <input asp-for="FloorNumber" class="form-control" id="FloorNumber" />
-                <span asp-validation-for="FloorNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BuildingTotalFloors" class="control-label"></label>
-                <input asp-for="BuildingTotalFloors" class="form-control" id="BuildingTotalFloors" />
-                <span asp-validation-for="BuildingTotalFloors" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" id="Year" />
-                <span asp-validation-for="Year" class="text-danger"></span>
-            </div>
-            <div class="checkbox">
-                <label>
-                    @if (Model.ParkingPlace == true)
-                    {
-                        <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" checked="checked" /><strong> Паркомясто</strong>
-
-                    }
-                    else
-                    {
-                        <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" /><strong> Паркомясто</strong>
-                    }
-
-                </label>
-                <span asp-validation-for="ParkingPlace" class="text-danger"></span>
-            </div>
-            <div class="checkbox">
-                <label>
-                    @if (Model.Yard == true)
-                    {
-                        <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true" checked="checked" /><strong> Двор</strong>
-                    }
-                    else
-                    {
-                        <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true"/><strong> Двор</strong>
-                    }
-
-                </label>
-                <span asp-validation-for="Yard" class="text-danger"></span>
-            </div>
-            <div class="checkbox">
-                <label>
-                    @if (Model.MetroNearBy == true)
-                    {
-                        <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" checked="checked" /><strong> Достъп до метро</strong>
-
-                    }
-                    else
-                    {
-                        <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" /><strong> Достъп до метро</strong>
-                    }
-
-                </label>
-                <span asp-validation-for="MetroNearBy" class="text-danger"></span>
-            </div>
-            <div class="checkbox">
-                <label>
-                    @if (Model.Balcony == true)
-                    {
-                        <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" checked="checked" /><strong> Тераса</strong>
-                    }
-                    else
-                    {
-                        <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" /><strong> Тераса</strong>
-                    }
-
-
-                </label>
-                <span asp-validation-for="Balcony" class="text-danger"></span>
-            </div>
-            <div class="checkbox">
-                <label>
-                    @if (Model.CellingOrBasement == true)
-                    {
-                        <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true" checked="checked" /><strong> Мазе/Таванско помещение</strong>
-                    }
-                    else
-                    {
-                        <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true"/><strong> Мазе/Таванско помещение</strong>
-                    }
-
-
-                </label>
-                <span asp-validation-for="CellingOrBasement" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Запази" class="btn btn-info-h" />
-            </div>
-        </form>
-
-        <p>Полетата със * са задължителни!</p>
-
-        <div class=" container">
-            <a asp-area="Administrator" asp-controller="Home" asp-action="Index"><strong>Назад</strong></a>
         </div>
+        <br />
+        <br />
+        <div class="col-md-7">
+            <h4>Актуални снимки на имота</h4>
+            @foreach (var image in Model.Images)
+            {
+                <img id="myImg" src="@image" class="myImages img-thumbnail img-h-block">
+                <div id="myModal" class="modal">
+                    <!-- The Close Button -->
+                    <span class="close">&times;</span>
+                    <!-- Modal Content (The Image) -->
+                    <img class="modal-content" id="img01">
+                    <!-- Modal Caption (Image Text) -->
+                    <div id="caption"></div>
+                </div>
+            }
+        </div>
+        <div class="container col-md-7">
+            <br />
+            <br />
+            <h4 style="text-align:center">Качи нови снимки</h4>
+
+            <form method="post" class="wrapper overflow-y-auto" enctype="multipart/form-data">
+                <div class="sm-upl-box">
+                    <div class="sm-js--image-preview"></div>
+                    <div class="sm-upload-options">
+                        <label>
+                            <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                        </label>
+                    </div>
+                </div>
+
+                <div class="sm-upl-box">
+                    <div class="sm-js--image-preview"></div>
+                    <div class="sm-upload-options">
+                        <label>
+                            <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                        </label>
+                    </div>
+                </div>
+
+                <div class="sm-upl-box">
+                    <div class="sm-js--image-preview"></div>
+                    <div class="sm-upload-options">
+                        <label>
+                            <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                        </label>
+                    </div>
+                </div>
+                <div class="sm-upl-box">
+                    <div class="sm-js--image-preview"></div>
+                    <div class="sm-upload-options">
+                        <label>
+                            <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                        </label>
+                    </div>
+                </div>
+                <div class="sm-upl-box">
+                    <div class="sm-js--image-preview"></div>
+                    <div class="sm-upload-options">
+                        <label>
+                            <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                        </label>
+                    </div>
+                </div>
+                <div class="sm-upl-box">
+                    <div class="sm-js--image-preview"></div>
+                    <div class="sm-upload-options">
+                        <label>
+                            <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                        </label>
+                    </div>
+                </div>
+                <div class="sm-upl-box">
+                    <div class="sm-js--image-preview"></div>
+                    <div class="sm-upload-options">
+                        <label>
+                            <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                        </label>
+                    </div>
+                </div>
+                <div class="sm-upl-box">
+                    <div class="sm-js--image-preview"></div>
+                    <div class="sm-upload-options">
+                        <label>
+                            <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                        </label>
+                    </div>
+                </div>
+                <div class="sm-upl-box">
+                    <div class="sm-js--image-preview"></div>
+                    <div class="sm-upload-options">
+                        <label>
+                            <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                        </label>
+                    </div>
+                </div>
+                <br />
+                <div class="col-sm-4" style="padding-top:30px">
+                    <input type="submit" value="Качи снимки" class="btn btn-blue-h" />
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 
 
+
 @section Scripts
 {
+    <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+
+    <script src="~/lib/assets/modal_images.js" asp-append-version="true"></script>
+    <script src="~/js/small-image-upload.js" asp-append-version="true"></script>
     <script src="~/js/CascadeDropdown.js" asp-append-version="true"></script>
     <script src="~/js/LockCreateRealEstateFields.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />

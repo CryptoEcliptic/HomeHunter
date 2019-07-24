@@ -9,6 +9,7 @@ namespace HomeHunter.Domain
         public RealEstate()
         {
             this.Offers = new List<Offer>();
+            this.Images = new List<Image>();
         }
 
         public string FloorNumber { get; set; } //Could be a Ground floor Or a Basement floor
