@@ -37,8 +37,9 @@ namespace HomeHunter.App.Controllers
         // GET: Offer
         public async Task<IActionResult> Index()
         {
-            var homeHunterDbContext = _context.Offers.Include(o => o.Author);
-            return View(await homeHunterDbContext.ToListAsync());
+            var homeHunterDbContext = await this.offerServices.GetAllActiveOffersAsync();
+            ;
+            return View(homeHunterDbContext);
         }
 
         // GET: Offer/Details/5
@@ -85,7 +86,7 @@ namespace HomeHunter.App.Controllers
 
             var authorId = this.userManager.GetUserId(this.principal);
             var mappedOffer = this.mapper.Map<OfferCreateServiceModel>(model);
-            var isOfferCreated = await this.offerServices.CreateOffer(authorId, id, mappedOffer);
+            var isOfferCreated = await this.offerServices.CreateOfferAsync(authorId, id, mappedOffer);
 
             if (!isOfferCreated)
             {

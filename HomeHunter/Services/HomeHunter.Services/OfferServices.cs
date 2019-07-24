@@ -3,7 +3,10 @@ using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Services
@@ -17,7 +20,7 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public async Task<bool> CreateOffer(string authorId, string estateId, OfferCreateServiceModel model)
+        public async Task<bool> CreateOfferAsync(string authorId, string estateId, OfferCreateServiceModel model)
         {
             if (model.OfferType == null || authorId == null || estateId == null)
             {
@@ -42,6 +45,27 @@ namespace HomeHunter.Services
             await this.context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync()
+        {
+            var activeOffers = await context.Offers
+               .Where(z => z.IsDeleted == false)
+               .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.RealEstateType)
+               .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.Address.City)
+               .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.Address.Neighbourhood)
+               .OrderByDescending(x => x.CreatedOn)
+               .ToListAsync();
+
+            ;
+
+
+            //var realEstatesServiceModel = this.mapper.Map<IEnumerable<RealEstateIndexServiceModel>>(realEstates);
+
+            return null;
         }
     }
 }
