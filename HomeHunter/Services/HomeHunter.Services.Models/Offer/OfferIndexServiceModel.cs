@@ -19,5 +19,7 @@
         public decimal Price { get; set; }
 
         public string Neighbourhood { get; set; }
+
+        public string Author { get; set; }
     }
 }

@@ -8,7 +8,7 @@
 <div class="index-table-container paddingElement">
     <h3>Активни обяви</h3>
     <p>
-        <a asp-action="Create">Създай нова обява</a>
+        <a asp-action="Create" asp-controller="RealEstates">Създай нова обява</a>
     </p>
 
     <table class="table table-fixed table-responsive-md hover-table">
@@ -20,10 +20,10 @@
                 <th class="col-md-2">
                     @Html.DisplayNameFor(model => model.ReferenceNumber)
                 </th>
-                <th class="col-md-2">
+                <th class="col-md-1">
                     @Html.DisplayNameFor(model => model.OfferType)
                 </th>
-                <th class="col-md-1">
+                <th class="col-md-2">
                     @Html.DisplayNameFor(model => model.RealEstateType)
                 </th>
                 <th class="col-md-1">
@@ -37,9 +37,6 @@
                 </th>
                 <th class="col-md-1">
                     @Html.DisplayNameFor(model => model.CreatedOn)
-                </th>
-                <th class="col-md-1">
-                    @Html.DisplayNameFor(model => model.ModifiedOn)
                 </th>
                 <th class="col-md-2">
                     Действия
@@ -59,10 +56,10 @@
                     <td class="col-md-2">
                         @Html.DisplayFor(modelItem => item.ReferenceNumber)
                     </td>
-                    <td class="col-md-2">
+                    <td class="col-md-1">
                         @Html.DisplayFor(modelItem => item.OfferType)
                     </td>
-                    <td class="col-md-1">
+                    <td class="col-md-2">
                         @Html.DisplayFor(modelItem => item.RealEstateType)
                     </td>
                     <td class="col-md-1">
@@ -77,10 +74,6 @@
                     <td class="col-md-1">
                         @Html.DisplayFor(modelItem => item.CreatedOn)
                     </td>
-                    <td class="col-md-1">
-                        @Html.DisplayFor(modelItem => item.ModifiedOn)
-                    </td>
-
                     <td class="col-md-2">
                         <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |

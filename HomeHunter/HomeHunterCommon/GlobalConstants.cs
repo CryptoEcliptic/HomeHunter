@@ -11,5 +11,8 @@ namespace HomeHunter.Common
         public const int UtcTimeCompensationZone = 2;
         public const string DateTimeVisualizationFormat = "dd-MM-yyyy HH:mm";
         public static int DefaultRealEstateYear = DateTime.UtcNow.Year;
+        public static string OfferTypeSaleName = "Продажба";
+        public static string OfferTypeRentName = "Наем";
+
     }
 }

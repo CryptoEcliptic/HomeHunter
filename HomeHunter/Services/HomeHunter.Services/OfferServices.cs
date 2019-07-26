@@ -1,4 +1,5 @@
-﻿using HomeHunter.Data;
+﻿using AutoMapper;
+using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
 using HomeHunter.Services.Contracts;
@@ -14,10 +15,12 @@ namespace HomeHunter.Services
     public class OfferServices : IOfferServices
     {
         private readonly HomeHunterDbContext context;
+        private readonly IMapper mapper;
 
-        public OfferServices(HomeHunterDbContext context)
+        public OfferServices(HomeHunterDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task<bool> CreateOfferAsync(string authorId, string estateId, OfferCreateServiceModel model)
@@ -30,6 +33,8 @@ namespace HomeHunter.Services
             OfferType parsedEnum = model.OfferType == "Продажба" ? OfferType.Sale : OfferType.Rental;
 
             string refereenceNumber = "A" + DateTime.UtcNow.ToString();
+
+            var author = await this.context.HomeHunterUsers.FirstOrDefaultAsync(x => x.Id == authorId);
 
             var offer = new Offer
             {
@@ -51,6 +56,7 @@ namespace HomeHunter.Services
         {
             var activeOffers = await context.Offers
                .Where(z => z.IsDeleted == false)
+               .Include(x => x.Author)
                .Include(r => r.RealEstate)
                     .ThenInclude(r => r.RealEstateType)
                .Include(r => r.RealEstate)
@@ -60,12 +66,37 @@ namespace HomeHunter.Services
                .OrderByDescending(x => x.CreatedOn)
                .ToListAsync();
 
-            ;
+            var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(activeOffers);
 
+            return offerIndexServiceModel;
+        }
 
-            //var realEstatesServiceModel = this.mapper.Map<IEnumerable<RealEstateIndexServiceModel>>(realEstates);
+        public async Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id)
+        {
+            var offer = await this.context.Offers
+                .Include(x => x.Author)
+                .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.RealEstateType)
+                .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.BuildingType)
+                .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.HeatingSystem)
+                .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.Images)
+                .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.Address.City)
+                .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.Address.Neighbourhood)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            return null;
+            if (offer == null)
+            {
+                return null;
+            }
+
+            var offerDetailsServiceModel = this.mapper.Map<OfferDetailsServiceModel>(offer);
+
+            return offerDetailsServiceModel;
         }
     }
 }

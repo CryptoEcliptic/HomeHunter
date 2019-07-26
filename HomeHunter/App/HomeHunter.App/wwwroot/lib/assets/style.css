@@ -1,7 +1,7 @@
 body {	color:#666;	font:300 15px/15px Roboto,Arial,Helvetica;background-color:#fff;-webkit-font-smoothing:antialiased;}
-
+/*#fff*/
 .home-hunter-center {
-    text-align:center;
+    text-align: center;
 }
 
 .details-real-estate-container {
@@ -20,6 +20,7 @@ body {	color:#666;	font:300 15px/15px Roboto,Arial,Helvetica;background-color:#f
     width: 100%;
     display: block;
     clear: both;
+    background-color:whitesmoke
 }
 
 .index-table-container {

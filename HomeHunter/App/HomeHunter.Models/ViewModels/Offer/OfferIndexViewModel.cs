@@ -12,7 +12,7 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Тип на обявата")]
         public string OfferType { get; set; }
 
-        [Display(Name = "Дата на публикуване")]
+        [Display(Name = "Публикувана")]
         public string CreatedOn { get; set; }
 
         [Display(Name = "Последна промяна")]
@@ -29,5 +29,8 @@ namespace HomeHunter.Models.ViewModels.Offer
 
         [Display(Name = "Квартал")]
         public string Neighbourhood { get; set; }
+
+        [Display(Name = "Създал")]
+        public string Author { get; set; }
     }
 }

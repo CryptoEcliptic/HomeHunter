@@ -8,5 +8,7 @@ namespace HomeHunter.Services.Contracts
     {
         Task<bool> CreateOfferAsync(string authotId, string estateId, OfferCreateServiceModel model);
         Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync();
+
+        Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id);
     }
 }
