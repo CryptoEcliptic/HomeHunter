@@ -29,7 +29,7 @@ h1 {
 .box {
     display: block;
     min-width: 320px;
-    height: 320px;
+    height: 300px;
     margin: 10px;
     background-color: white;
     border-radius: 5px;

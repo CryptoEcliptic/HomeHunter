@@ -9,7 +9,7 @@
     <div class="col-md-6 details-real-estate-container">
         <br />
         <br />
-        <h4 class="home-hunter-center">Детайли</h4>
+        <h4 class="offset-3 home-hunter-center">Детайли за обявата</h4>
         <table class="table table-estate-details table-responsive-md hover-table">
             <tbody>
                 <tr>
@@ -27,6 +27,17 @@
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.Neighbourhood)</th>
                     <td>@Html.DisplayFor(model => model.Neighbourhood)</td>
+                </tr>
+                @if (Model.Village != null)
+                {
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Village)</th>
+                        <td>@Html.DisplayFor(model => model.Village)</td>
+                    </tr>
+                }
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Address)</th>
+                    <td>@Html.DisplayFor(model => model.Address)</td>
                 </tr>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.RealEstateType)</th>
@@ -55,17 +66,6 @@
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.Year)</th>
                     <td>@Html.DisplayFor(model => model.Year)</td>
-                </tr>
-                @if (Model.Village != null)
-                {
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.Village)</th>
-                        <td>@Html.DisplayFor(model => model.Village)</td>
-                    </tr>
-                }
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Address)</th>
-                    <td>@Html.DisplayFor(model => model.Address)</td>
                 </tr>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.HeatingSystem)</th>
@@ -114,9 +114,9 @@
             </tbody>
         </table>
         <br />
-        <div class="col-md-offset-4">
-            <a type="button" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info-h btn-sm" style="border-radius:5px">Редактирай</a>
-            <a type="button" asp-action="Index" class="btn btn-info-h btn-sm" style="border-radius:5px">Назад</a>
+        <div class="col-md-offset-3" style="padding-left:50px">
+            <a type="button" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info-h btn-sm">Редактирай</a>
+            <a type="button" asp-action="Index" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
         </div>
     </div>
     <br />
@@ -143,12 +143,5 @@
 @section Scripts{
 
     <script src="~/lib/assets/modal_images.js" asp-append-version="true"></script>
-<script>
-    document.getTh('Village').onchange = function () {
-    if (this.value == "null") {
-
-        document.getElementById("Village").hidden = true;
-    }
-</script>
 }
 

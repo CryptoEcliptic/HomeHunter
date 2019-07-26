@@ -98,5 +98,15 @@ namespace HomeHunter.Services
 
             return offerDetailsServiceModel;
         }
+
+        public async Task<OfferEditServiceModel> GetOfferByIdAsync(string id)
+        {
+            var offerToEdit = await this.context.Offers
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            var offerEditServiceModel = this.mapper.Map<OfferEditServiceModel>(offerToEdit);
+
+            return offerEditServiceModel;
+        }
     }
 }

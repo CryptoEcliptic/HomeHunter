@@ -149,6 +149,7 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
     background: #428BCA;
     text-transform: uppercase;
     color: white;
+    width:auto
 }
 
     .btn-blue-h:hover {

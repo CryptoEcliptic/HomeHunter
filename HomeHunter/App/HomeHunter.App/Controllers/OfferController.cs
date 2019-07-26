@@ -103,13 +103,17 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            var offer = await _context.Offers.FindAsync(id);
+            var offer = await this.offerServices.GetOfferByIdAsync(id);
+
             if (offer == null)
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.HomeHunterUsers, "Id", "Id", offer.AuthorId);
-            return View(offer);
+
+            var offerEditViewModel = this.mapper.Map<OfferEditBindingModel>(offer);
+            
+
+            return View(offerEditViewModel);
         }
 
         // POST: Offer/Edit/5
