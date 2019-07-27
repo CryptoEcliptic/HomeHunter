@@ -89,7 +89,7 @@ namespace HomeHunter.App.Controllers
 
             if (!isOfferCreated)
             {
-                return View("Error");
+                return RedirectToAction("Error", "Home");
             }
 
             return RedirectToAction(nameof(Index));
@@ -117,40 +117,31 @@ namespace HomeHunter.App.Controllers
         }
 
         // POST: Offer/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("OfferType,ReferenceNumber,Comments,AuthorId,RealEstateId,Id,CreatedOn,ModifiedOn,IsDeleted,DeletedOn")] Offer offer)
-        //{
-        //    if (id != offer.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, OfferEditBindingModel model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(offer);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!OfferExists(offer.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["AuthorId"] = new SelectList(_context.HomeHunterUsers, "Id", "Id", offer.AuthorId);
-        //    return View(offer);
-        //}
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var offer = this.mapper.Map<OfferEditServiceModel>(model);
+            var isOfferEdited = await this.offerServices.EditOfferAsync(offer);
+
+            if (!isOfferEdited)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            return RedirectToAction(nameof(Index)); // TODO return edit pictures view
+
+        }
 
         //// GET: Offer/Delete/5
         //public async Task<IActionResult> Delete(int? id)

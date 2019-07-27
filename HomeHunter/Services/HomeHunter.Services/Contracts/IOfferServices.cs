@@ -12,6 +12,8 @@ namespace HomeHunter.Services.Contracts
 
         Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id);
 
-        Task<OfferEditServiceModel> GetOfferByIdAsync(string id);
+        Task<OfferPlainDetailsServiceModel> GetOfferByIdAsync(string id);
+
+        Task<bool> EditOfferAsync(OfferEditServiceModel model);
     }
 }

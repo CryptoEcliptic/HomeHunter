@@ -99,14 +99,42 @@ namespace HomeHunter.Services
             return offerDetailsServiceModel;
         }
 
-        public async Task<OfferEditServiceModel> GetOfferByIdAsync(string id)
+        public async Task<OfferPlainDetailsServiceModel> GetOfferByIdAsync(string id)
         {
             var offerToEdit = await this.context.Offers
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            var offerEditServiceModel = this.mapper.Map<OfferEditServiceModel>(offerToEdit);
+            var offerEditServiceModel = this.mapper.Map<OfferPlainDetailsServiceModel>(offerToEdit);
 
             return offerEditServiceModel;
+        }
+
+        public async Task<bool> EditOfferAsync(OfferEditServiceModel model)
+        {
+            var offer = await this.context.Offers
+                .FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            if (offer == null)
+            {
+                return false;
+            }
+
+            offer.ModifiedOn = DateTime.UtcNow;
+            offer.OfferType = model.OfferType == "Продажба" ? offer.OfferType = OfferType.Sale : OfferType.Rental;
+
+            this.mapper.Map<OfferEditServiceModel, Offer>(model, offer);
+
+            try
+            {
+                this.context.Update(offer);
+                await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

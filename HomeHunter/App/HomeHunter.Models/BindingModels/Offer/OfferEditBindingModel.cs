@@ -4,6 +4,8 @@ namespace HomeHunter.Models.BindingModels.Offer
 {
     public class OfferEditBindingModel
     {
+        public string Id { get; set; }
+
         [Display(Name = "Тип на обявата *")]
         [Required]
         public string OfferType { get; set; }

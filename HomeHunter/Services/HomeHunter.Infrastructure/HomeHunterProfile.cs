@@ -37,7 +37,7 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<RealEstateDetailsServiceModel, RealEstateEditBindingModel>();
             this.CreateMap<OfferCreateBindingModel, OfferCreateServiceModel>();
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsViewModel>();
-            this.CreateMap<OfferEditServiceModel, OfferEditBindingModel>();
+            this.CreateMap<OfferPlainDetailsServiceModel, OfferEditBindingModel>();
 
             this.CreateMap<OfferIndexServiceModel, OfferIndexViewModel>()
                 .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == "Sale" ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
@@ -122,9 +122,15 @@ namespace HomeHunter.Infrastructure
                 .ForMember(x => x.Author, y => y.MapFrom(z => z.Author.FirstName));
             ;
 
-            this.CreateMap<Offer, OfferEditServiceModel>()
+            this.CreateMap<OfferEditBindingModel, OfferEditServiceModel>();
+
+            this.CreateMap<Offer, OfferPlainDetailsServiceModel>()
                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == OfferType.Sale ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
 
+
+            this.CreateMap<OfferEditServiceModel, Offer>()
+                .ForMember(x => x.Id, y => y.Ignore())
+                .ForMember(x => x.OfferType, y => y.Ignore()); 
         }
     }
 }

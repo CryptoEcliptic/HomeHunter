@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace HomeHunter.Services.Models.Offer
+﻿namespace HomeHunter.Services.Models.Offer
 {
-    public class OfferEditServiceModel
+    public class OfferPlainDetailsServiceModel
     {
         public string Id { get; set; }
 
