@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Razor.TagHelpers;
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<link rel="stylesheet" href="~/lib/assets/modal_images.css">
+<br />
+<div class="row paddingElement">
+    <div class="container d-flex justify-content-center">
+        <br />
+        <br />
+        <h4 style="text-align:center">Редактиране на снимки</h4>
+        <vc:load-images id=@this.ViewData["Id"]></vc:load-images>
+    </div>
+</div>
+
+
+

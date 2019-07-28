@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\HomeHunterCommon\HomeHunter.Common.csproj" />
+    <ProjectReference Include="..\..\Services\HomeHunter.Services.Models\HomeHunter.Services.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

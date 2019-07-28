@@ -139,7 +139,8 @@ namespace HomeHunter.App.Controllers
                 return RedirectToAction("Error", "Home");
             }
 
-            return RedirectToAction(nameof(Index)); // TODO return edit pictures view
+            RedirectToActionResult redirectResult = new RedirectToActionResult("Edit", "Image", new { @Id = $"{id}" });
+            return redirectResult;
 
         }
 

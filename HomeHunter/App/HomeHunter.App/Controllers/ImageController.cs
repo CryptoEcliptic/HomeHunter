@@ -1,9 +1,12 @@
-﻿using HomeHunter.Infrastructure.CloudinaryServices;
+﻿using AutoMapper;
+using HomeHunter.Infrastructure.CloudinaryServices;
 using HomeHunter.Models.BindingModels.Image;
+using HomeHunter.Models.ViewModels.Image;
 using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HomeHunter.App.Controllers
@@ -13,11 +16,15 @@ namespace HomeHunter.App.Controllers
     {
         private readonly ICloudinaryService cloudinaryService;
         private readonly IImageServices imageServices;
+        private readonly IMapper mapper;
 
-        public ImageController(ICloudinaryService cloudinaryService, IImageServices imageServices)
+        public ImageController(ICloudinaryService cloudinaryService,
+            IImageServices imageServices,
+            IMapper mapper)
         {
             this.cloudinaryService = cloudinaryService;
             this.imageServices = imageServices;
+            this.mapper = mapper;
         }
 
         [HttpGet("/Image/Upload/{id}")]
@@ -50,6 +57,21 @@ namespace HomeHunter.App.Controllers
 
             RedirectToActionResult redirectResult = new RedirectToActionResult("Create", "Offer", new { @Id = $"{id}" });
             return redirectResult;
+        }
+
+        [HttpGet("/Image/Edit/{id}")]
+        public async Task<IActionResult> Edit(string id)
+        {
+            this.ViewData["Id"] = id;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(List<ImageLoadViewModel> model)
+        {
+            return View();
         }
 
     }
