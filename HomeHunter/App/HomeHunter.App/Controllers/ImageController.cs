@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using HomeHunter.Common;
 using HomeHunter.Infrastructure.CloudinaryServices;
 using HomeHunter.Models.BindingModels.Image;
 using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HomeHunter.App.Controllers
@@ -13,8 +13,6 @@ namespace HomeHunter.App.Controllers
     [Authorize]
     public class ImageController : Controller
     {
-        private const int ImageUploadLimit = 12;
-
         private readonly ICloudinaryService cloudinaryService;
         private readonly IImageServices imageServices;
         private readonly IRealEstateServices realEstateServices;
@@ -46,7 +44,7 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            if (this.imageServices.ImagesCount(id) > ImageUploadLimit)
+            if (this.imageServices.ImagesCount(id) > GlobalConstants.ImageUploadLimit)
             {
                 return RedirectToAction("Error", "Home");
             }

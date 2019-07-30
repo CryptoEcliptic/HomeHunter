@@ -36,6 +36,12 @@ namespace HomeHunter.Data
                 .HasForeignKey<Address>(x => x.RealEstateId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<RealEstate>()
+                .HasOne(x => x.Offer)
+                .WithOne(x => x.RealEstate)
+                .HasForeignKey<Offer>(x => x.RealEstateId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             base.OnModelCreating(builder);
         }

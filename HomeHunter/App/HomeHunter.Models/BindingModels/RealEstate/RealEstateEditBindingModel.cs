@@ -78,6 +78,5 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [Display(Name = "Квартал")]
         public string Neighbourhood { get; set; }
 
-        public List<string> Images { get; set; }
     }
 }

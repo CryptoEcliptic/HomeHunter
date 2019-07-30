@@ -118,7 +118,6 @@ namespace HomeHunter.Services
                 .Include(r => r.Address.City)
                 .Include(r => r.Address.Village)
                 .Include(r => r.Address.Neighbourhood)
-                .Include(r => r.Images)
                 .FirstOrDefaultAsync(x => x.Id == id);
             ;
 
@@ -205,10 +204,10 @@ namespace HomeHunter.Services
                 return null;
             }
 
-            var id = this.context
-                .Offers
-                .FirstOrDefault(x => x.Id == offerId)
-                .RealEstateId;
+            var id = this.context.RealEstates
+                .Include(x => x.Offer)
+                .FirstOrDefault(x => x.Offer.Id == offerId)
+                .Id;
 
             return id;     
         }

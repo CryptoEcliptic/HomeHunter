@@ -44,7 +44,5 @@ namespace HomeHunter.Services.Models.RealEstate
         public string CreatedOn { get; set; }
 
         public string ModifiedOn { get; set; }
-
-        public List<string> Images { get; set; }
     }
 }

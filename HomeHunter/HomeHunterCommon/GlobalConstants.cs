@@ -13,6 +13,7 @@ namespace HomeHunter.Common
         public static int DefaultRealEstateYear = DateTime.UtcNow.Year;
         public static string OfferTypeSaleName = "Продажба";
         public static string OfferTypeRentName = "Наем";
+        public static int ImageUploadLimit = 12;
 
     }
 }

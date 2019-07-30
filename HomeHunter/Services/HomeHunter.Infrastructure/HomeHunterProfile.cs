@@ -69,8 +69,8 @@ namespace HomeHunter.Infrastructure
                .ForMember(x => x.Address, y => y.MapFrom(z => z.Address.Description))
                .ForMember(x => x.Neighbourhood, y => y.MapFrom(z => z.Address.Neighbourhood.Name))
                .ForMember(x => x.HeatingSystem, y => y.MapFrom(z => z.HeatingSystem.Name))
-               .ForMember(x => x.Year, y => y.MapFrom(z => z.Year))
-               .ForMember(x => x.Images, y => y.MapFrom(z => z.Images.Select(u => u.Url)));
+               .ForMember(x => x.Year, y => y.MapFrom(z => z.Year));
+              
 
             this.CreateMap<RealEstateEditServiceModel, RealEstate>()
                 .ForMember(x => x.FloorNumber, y => y.MapFrom(z => z.FloorNumber))

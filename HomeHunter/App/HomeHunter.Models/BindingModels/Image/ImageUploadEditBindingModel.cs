@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace HomeHunter.Models.BindingModels.Image
@@ -16,6 +17,7 @@ namespace HomeHunter.Models.BindingModels.Image
 
         public string RealEstateId { get; set; }
 
+        [Url]
         public List<IFormFile> Images { get; set; }
     }
 }

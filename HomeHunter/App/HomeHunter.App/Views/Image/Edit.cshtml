@@ -1,11 +1,13 @@
 ﻿@model HomeHunter.Models.BindingModels.Image.ImageUploadEditBindingModel
 @using Microsoft.AspNetCore.Mvc;
 @using Microsoft.AspNetCore.Razor.TagHelpers;
+@using HomeHunter.Common
 @addTagHelper *, HomeHunter.App;
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 
 }
 
@@ -18,7 +20,7 @@
         <div class="row">
             @if (Model.AlreadyUploadedImagesCount > 0)
             {
-                <p style="text-align:center">Можете да добавите още @(12 - Model.AlreadyUploadedImagesCount) снимки!</p>
+                <p style="text-align:center">Можете да добавите още @(GlobalConstants.ImageUploadLimit - Model.AlreadyUploadedImagesCount) снимки!</p>
             }
             else
             {
@@ -38,6 +40,7 @@
                             <div class="sm-upload-options">
                                 <label>
                                     <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
+                                    <span asp-validation-for="Images" class="text-danger"></span>
                                 </label>
                             </div>
                         </div>

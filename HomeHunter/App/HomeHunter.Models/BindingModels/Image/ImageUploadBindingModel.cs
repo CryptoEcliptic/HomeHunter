@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomeHunter.Models.BindingModels.Image
 {
@@ -9,6 +10,8 @@ namespace HomeHunter.Models.BindingModels.Image
         {
             this.Images = new List<IFormFile>();
         }
+
+        [Url]
         public List<IFormFile> Images { get; set; } 
     }
 }
