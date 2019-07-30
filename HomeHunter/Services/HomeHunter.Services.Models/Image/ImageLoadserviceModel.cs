@@ -6,8 +6,8 @@ namespace HomeHunter.Services.Models.Image
     {
         public ImageLoadServiceModel()
         {
-            this.DelitableImages = new List<DelitableImageServiceModel>();
+            this.Images = new List<ImageChangeableServiceModel>();
         }
-        public List<DelitableImageServiceModel> DelitableImages { get; set; }
+        public List<ImageChangeableServiceModel> Images { get; set; }
     }
 }

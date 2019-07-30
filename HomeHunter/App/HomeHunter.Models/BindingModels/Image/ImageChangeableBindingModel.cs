@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace HomeHunter.Models.BindingModels.Image
 {
-    public class ImageDeleteBindingModel
+    public class ImageChangeableBindingModel
     {
-        public List<DelitableImageServiceModel> DelitableImages { get; set; }
+        public List<ImageChangeableServiceModel> Images { get; set; }
     }
 }

@@ -2,12 +2,12 @@
 using HomeHunter.Common;
 using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
+using HomeHunter.Models.BindingModels.Image;
 using HomeHunter.Models.BindingModels.Offer;
 using HomeHunter.Models.BindingModels.RealEstate;
 using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
 using HomeHunter.Models.ViewModels.HeatingSystem;
-using HomeHunter.Models.ViewModels.Image;
 using HomeHunter.Models.ViewModels.Neighbourhood;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Models.ViewModels.RealEstate;
@@ -42,8 +42,9 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<OfferCreateBindingModel, OfferCreateServiceModel>();
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsViewModel>();
             this.CreateMap<OfferPlainDetailsServiceModel, OfferEditBindingModel>();
-            this.CreateMap<Image, DelitableImageServiceModel>();
-            this.CreateMap<ImageLoadServiceModel, ImageLoadViewModel>();
+            this.CreateMap<Image, ImageChangeableServiceModel>();
+            this.CreateMap<ImageLoadServiceModel, ImageChangeableBindingModel>();
+            this.CreateMap<ImageUploadEditServiceModel, ImageUploadEditBindingModel>();
            
             this.CreateMap<OfferIndexServiceModel, OfferIndexViewModel>()
                 .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == "Sale" ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));

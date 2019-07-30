@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HomeHunter.Services.Models.Image
 {
-    public class DelitableImageServiceModel
+    public class ImageChangeableServiceModel
     {
         public string Url { get; set; }
 

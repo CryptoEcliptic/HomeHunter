@@ -4,7 +4,14 @@ body {	color:#666;	font:300 15px/15px Roboto,Arial,Helvetica;background-color:#f
     text-align: center;
 }
 
-.details-real-estate-container {
+.img-txt-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+   .details-real-estate-container {
     padding-left: 20px;
     padding-top: 80px;
     padding-bottom: 40px;

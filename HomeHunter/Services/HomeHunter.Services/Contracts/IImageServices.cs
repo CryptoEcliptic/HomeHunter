@@ -8,6 +8,10 @@ namespace HomeHunter.Services.Contracts
     {
         Task<bool> AddImageAsync(string url, string estateId);
 
-       ImageLoadServiceModel LoadImagesAsync(string offerId);
+        ImageLoadServiceModel LoadImagesAsync(string offerId);
+
+        Task<ImageUploadEditServiceModel> EditUploadAsync(string offerId);
+
+        int ImagesCount(string id);
     }
 }

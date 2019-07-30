@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using HomeHunter.Infrastructure.CloudinaryServices;
 using HomeHunter.Models.BindingModels.Image;
-using HomeHunter.Models.ViewModels.Image;
 using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,16 +13,21 @@ namespace HomeHunter.App.Controllers
     [Authorize]
     public class ImageController : Controller
     {
+        private const int ImageUploadLimit = 12;
+
         private readonly ICloudinaryService cloudinaryService;
         private readonly IImageServices imageServices;
+        private readonly IRealEstateServices realEstateServices;
         private readonly IMapper mapper;
 
         public ImageController(ICloudinaryService cloudinaryService,
             IImageServices imageServices,
+            IRealEstateServices realEstateServices,
             IMapper mapper)
         {
             this.cloudinaryService = cloudinaryService;
             this.imageServices = imageServices;
+            this.realEstateServices = realEstateServices;
             this.mapper = mapper;
         }
 
@@ -42,12 +46,17 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
+            if (this.imageServices.ImagesCount(id) > ImageUploadLimit)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
             foreach (var image in model.Images)
             {
                 var imageId = Guid.NewGuid().ToString();
-                var imageRrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
+                var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
 
-                var isImageAddedInDb = await this.imageServices.AddImageAsync(imageRrl, id);
+                var isImageAddedInDb = await this.imageServices.AddImageAsync(imageUrl, id);
 
                 if (!isImageAddedInDb)
                 {
@@ -62,16 +71,40 @@ namespace HomeHunter.App.Controllers
         [HttpGet("/Image/Edit/{id}")]
         public async Task<IActionResult> Edit(string id)
         {
-            this.ViewData["Id"] = id;
+            var imageUploadEditServiceModel = await this.imageServices.EditUploadAsync(id);
+            var imageUploadEditBindingModel = this.mapper.Map<ImageUploadEditBindingModel>(imageUploadEditServiceModel);
 
-            return View();
+            return View(imageUploadEditBindingModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(List<ImageLoadViewModel> model)
+        public async Task<IActionResult> Edit(string id, ImageUploadEditBindingModel model)
         {
-            return View();
+            if (string.IsNullOrWhiteSpace(id)) //OfferId
+            {
+                return NotFound();
+            }
+
+            var realEstateId = await this.realEstateServices.GetRealEstateIdByOfferId(id);
+
+            foreach (var image in model.Images)
+            {
+                var imageId = Guid.NewGuid().ToString();
+                var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
+
+                var isImageAddedInDb = await this.imageServices.AddImageAsync(imageUrl, realEstateId);
+
+                if (!isImageAddedInDb)
+                {
+                    throw new ArgumentNullException("Invalid Db input params!");
+                };
+            }
+
+
+
+            RedirectToActionResult redirectResult = new RedirectToActionResult("Edit", "RealEstates", new { @Id = $"{realEstateId}" });
+            return redirectResult;
         }
 
     }

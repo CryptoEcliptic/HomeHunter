@@ -64,7 +64,7 @@ namespace HomeHunter.App.Controllers
         [HttpGet("/Offer/Create/{estateId}")]
         public IActionResult Create(string estateId)
         {
-           //TODo OfferCreateBindingModel
+           
             if (estateId == null)
             {
                 return NotFound();

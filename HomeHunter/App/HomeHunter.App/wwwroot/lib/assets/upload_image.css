@@ -98,8 +98,19 @@ h1 {
         position: absolute;
         font-size: 2rem;
         color: #e6e6e6;
-        top: calc(60% - 2.5rem);
+        top: calc(52% - 2.5rem);
         left: calc(28% - 1.25rem);
+        z-index: 0;
+    }
+
+    .sm-uploaded-options label::after {
+        content: 'Добавена';
+        font-family: 'Material Icons';
+        position: absolute;
+        font-size: 3rem;
+        color:navy;
+        top: calc(60% - 2.5rem);
+        left: calc(32% - 1.25rem);
         z-index: 0;
     }
 

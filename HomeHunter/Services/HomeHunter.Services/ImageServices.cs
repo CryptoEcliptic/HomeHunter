@@ -13,11 +13,13 @@ namespace HomeHunter.Services
     {
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
+        private readonly IRealEstateServices realEstateServices;
 
-        public ImageServices(HomeHunterDbContext context, IMapper mapper)
+        public ImageServices(HomeHunterDbContext context, IMapper mapper, IRealEstateServices realEstateServices)
         {
             this.context = context;
             this.mapper = mapper;
+            this.realEstateServices = realEstateServices;
         }
 
         public async Task<bool> AddImageAsync(string url, string estateId)
@@ -39,25 +41,45 @@ namespace HomeHunter.Services
             return true;
         }
 
-        public ImageLoadServiceModel LoadImagesAsync(string offerId)
+        public ImageLoadServiceModel LoadImagesAsync(string realEstateId)
         {
-            var realEstateId = this.context.Offers
-                .FirstOrDefault(x => x.Id == offerId)
-                .RealEstateId;
-
             var images = this.context.Images
                 .Where(x => x.RealEstateId == realEstateId)
                 .ToList();
 
-            var imageDelitableServiceModel = this.mapper.Map<List<DelitableImageServiceModel>>(images);
+            var imageDelitableServiceModel = this.mapper.Map<List<ImageChangeableServiceModel>>(images);
 
             ImageLoadServiceModel imageLoadServiceModel = new ImageLoadServiceModel();
 
             foreach (var image in imageDelitableServiceModel)
             {
-                imageLoadServiceModel.DelitableImages.Add(image);
+                imageLoadServiceModel.Images.Add(image);
             }
             return imageLoadServiceModel;
         }
+
+        public async Task<ImageUploadEditServiceModel> EditUploadAsync(string offerId)
+        {
+            var realEstateId = await this.realEstateServices.GetRealEstateIdByOfferId(offerId);
+
+            var imagesCount = this.ImagesCount(realEstateId);
+
+            var imageUploadEditServiceModel = new ImageUploadEditServiceModel
+            {
+                RealEstateId = realEstateId,
+                AlreadyUploadedImagesCount = imagesCount,
+            };
+
+            return imageUploadEditServiceModel;
+        }
+
+        public int ImagesCount(string id)
+        {
+            return this.context.Images
+            .Where(x => x.RealEstateId == id)
+            .Count();
+        }
+
+
     }
 }

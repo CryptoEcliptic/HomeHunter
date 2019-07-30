@@ -198,5 +198,20 @@ namespace HomeHunter.Services
            
             return true;
         }
+        public async Task<string> GetRealEstateIdByOfferId(string offerId)
+        {
+            if (offerId == null)
+            {
+                return null;
+            }
+
+            var id = this.context
+                .Offers
+                .FirstOrDefault(x => x.Id == offerId)
+                .RealEstateId;
+
+            return id;     
+        }
+
     }
 }

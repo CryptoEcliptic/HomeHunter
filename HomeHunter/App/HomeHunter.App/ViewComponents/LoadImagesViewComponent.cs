@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HomeHunter.Models.ViewModels.Image;
+using HomeHunter.Models.BindingModels.Image;
 using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,11 +17,11 @@ namespace HomeHunter.App.ViewComponents
             this.mapper = mapper;
         }
 
-        public IViewComponentResult Invoke(string id)
+        public IViewComponentResult Invoke(string realEstateId)
         {
-            var imageLoadServiceModel = this.imageServices.LoadImagesAsync(id);
+            var imageLoadServiceModel = this.imageServices.LoadImagesAsync(realEstateId);
 
-            var imageLoadVewModel = this.mapper.Map<ImageLoadViewModel>(imageLoadServiceModel);
+            var imageLoadVewModel = this.mapper.Map<ImageChangeableBindingModel>(imageLoadServiceModel);
 
             return View(imageLoadVewModel);
         }
