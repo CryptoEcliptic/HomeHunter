@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HomeHunter.Common
 {
@@ -14,6 +15,11 @@ namespace HomeHunter.Common
         public static string OfferTypeSaleName = "Продажба";
         public static string OfferTypeRentName = "Наем";
         public static int ImageUploadLimit = 12;
+
+        public static List<string> AllowedFileExtensions = new List<string>
+        {
+            ".jpg", ".jpeg", ".png", ".bmp", ".gif"
+        };
 
     }
 }

@@ -87,6 +87,8 @@ namespace HomeHunter.Services
                     .ThenInclude(r => r.Address.City)
                 .Include(r => r.RealEstate)
                     .ThenInclude(r => r.Address.Neighbourhood)
+                .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.Address.Village)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (offer == null)
@@ -135,6 +137,21 @@ namespace HomeHunter.Services
             }
 
             return true;
+        }
+
+        public async Task<string> GetOfferIdByRealEstateIdAsync(string realEstateId)
+        {
+            if (realEstateId == null)
+            {
+                throw new ArgumentNullException("Invalid parameter RealEstateId!");
+            }
+
+            var offerId = this.context.Offers
+                .Include(x => x.RealEstate)
+                .SingleOrDefault(x => x.RealEstate.Id == realEstateId)
+                .Id;
+
+            return offerId;
         }
     }
 }

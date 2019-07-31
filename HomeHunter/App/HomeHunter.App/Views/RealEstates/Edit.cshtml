@@ -15,6 +15,7 @@
     <br />
     <h4>Информация за имота</h4>
     <hr />
+
     <div class="row">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -27,8 +28,8 @@
                         <option selected disabled>-- Изберете тип на имота --</option>
                         //Add
                         @foreach (var realEstateType in (IEnumerable
-                  <RealEstateTypeViewModel>
-                      )this.ViewData["RealEstateTypes"])
+               <RealEstateTypeViewModel>
+                   )this.ViewData["RealEstateTypes"])
                         {
                             <option value="@realEstateType.TypeName">@realEstateType.TypeName</option>
                         }
@@ -55,8 +56,8 @@
                         <option selected value=null>-- Изберете град --</option>
                         //Add
                         @foreach (var city in (List
-                  <CityViewModel>
-                      )this.ViewData["Cities"])
+               <CityViewModel>
+                   )this.ViewData["Cities"])
                         {
                             <option class="@city.Name" id="@city.Name">@city.Name</option>
                         }
@@ -94,8 +95,8 @@
                         <option selected disabled>-- Изберете тип сграда --</option>
                         //Add
                         @foreach (var buildingType in (List
-                 <BuildingTypeViewModel>
-                     )this.ViewData["BuildingTypes"])
+             <BuildingTypeViewModel>
+                 )this.ViewData["BuildingTypes"])
                         {
                             <option>@buildingType.Name</option>
                         }
@@ -112,8 +113,8 @@
                         <option selected disabled>-- Изберете типа отопление --</option>
                         //Add
                         @foreach (var heatingSystem in (List
-                 <HeatingSystemViewModel>
-                     )this.ViewData["HeatingSystems"])
+             <HeatingSystemViewModel>
+                 )this.ViewData["HeatingSystems"])
                         {
                             <option>@heatingSystem.Name</option>
                         }
@@ -137,39 +138,81 @@
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" /><strong> Паркомясто</strong>
+                        @if (Model.ParkingPlace == true)
+                        {
+                            <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" checked="checked" /><strong> Паркомясто</strong>
+
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" /><strong> Паркомясто</strong>
+                        }
+
                     </label>
                     <span asp-validation-for="ParkingPlace" class="text-danger"></span>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true" /><strong> Двор</strong>
+                        @if (Model.Yard == true)
+                        {
+                            <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true" checked="checked" /><strong> Двор</strong>
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true" /><strong> Двор</strong>
+                        }
+
                     </label>
                     <span asp-validation-for="Yard" class="text-danger"></span>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" /><strong> Достъп до метро</strong>
+                        @if (Model.MetroNearBy == true)
+                        {
+                            <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" checked="checked" /><strong> Достъп до метро</strong>
+
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" /><strong> Достъп до метро</strong>
+                        }
+
                     </label>
                     <span asp-validation-for="MetroNearBy" class="text-danger"></span>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" /><strong> Тераса</strong>
+                        @if (Model.Balcony == true)
+                        {
+                            <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" checked="checked" /><strong> Тераса</strong>
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" /><strong> Тераса</strong>
+                        }
+
+
                     </label>
                     <span asp-validation-for="Balcony" class="text-danger"></span>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true" /><strong> Мазе/Таванско помещение</strong>
+                        @if (Model.CellingOrBasement == true)
+                        {
+                            <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true" checked="checked" /><strong> Мазе/Таванско помещение</strong>
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true" /><strong> Мазе/Таванско помещение</strong>
+                        }
+
                     </label>
                     <span asp-validation-for="CellingOrBasement" class="text-danger"></span>
                 </div>
                 <br />
                 <br />
                 <div class="form-group d-flex justify-content-around">
-                    <a type="button" asp-controller="Offer" asp-action="Index" class="btn btn-alert-h" style="border-radius:5px; width:180px">Откажи</a>
-                    <input type="submit" value="Продължи" class="btn btn-info-h" />
+                    <input type="submit" value="Продължи" id="submit" class="btn btn-info-h" />
                 </div>
 
             </div>
@@ -186,5 +229,8 @@
     <script src="~/js/CascadeDropdown.js" asp-append-version="true"></script>
     <script src="~/js/LockCreateRealEstateFields.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
+
+
+    @*<script src="~/js/successfully-edited-offer-alert.js" asp-append-version="true"></script>*@
 }
 

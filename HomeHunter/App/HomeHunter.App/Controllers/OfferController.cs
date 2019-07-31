@@ -55,7 +55,7 @@ namespace HomeHunter.App.Controllers
             }
 
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offer);
-            //map
+            
 
             return View(offerDetailViewModel);
         }
@@ -64,7 +64,6 @@ namespace HomeHunter.App.Controllers
         [HttpGet("/Offer/Create/{estateId}")]
         public IActionResult Create(string estateId)
         {
-           
             if (estateId == null)
             {
                 return NotFound();
@@ -85,6 +84,7 @@ namespace HomeHunter.App.Controllers
 
             var authorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var mappedOffer = this.mapper.Map<OfferCreateServiceModel>(model);
+
             var isOfferCreated = await this.offerServices.CreateOfferAsync(authorId, id, mappedOffer);
 
             if (!isOfferCreated)
@@ -112,7 +112,6 @@ namespace HomeHunter.App.Controllers
 
             var offerEditViewModel = this.mapper.Map<OfferEditBindingModel>(offer);
             
-
             return View(offerEditViewModel);
         }
 

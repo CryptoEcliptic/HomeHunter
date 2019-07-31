@@ -10,7 +10,7 @@ namespace HomeHunter.Models.BindingModels.Offer
         [Required]
         public string OfferType { get; set; }
 
-        [Display(Name = "Допълнителни коментари")]
+        [Display(Name = "Допълнителна информация")]
         public string Comments { get; set; }
 
         [Display(Name = "Телефон за контакт")]

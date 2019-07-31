@@ -94,8 +94,8 @@
                             <option selected disabled>-- Изберете тип сграда --</option>
                             //Add
                             @foreach (var buildingType in (List
-                      <BuildingTypeViewModel>
-                          )this.ViewData["BuildingTypes"])
+                    <BuildingTypeViewModel>
+                        )this.ViewData["BuildingTypes"])
                             {
                                 <option>@buildingType.Name</option>
                             }
@@ -112,8 +112,8 @@
                             <option selected disabled>-- Изберете типа отопление --</option>
                             //Add
                             @foreach (var heatingSystem in (List
-                      <HeatingSystemViewModel>
-                          )this.ViewData["HeatingSystems"])
+                    <HeatingSystemViewModel>
+                        )this.ViewData["HeatingSystems"])
                             {
                                 <option>@heatingSystem.Name</option>
                             }
@@ -135,33 +135,77 @@
                         <input style="width:380px" asp-for="Year" class="form-control" id="Year" />
                         <span asp-validation-for="Year" class="text-danger"></span>
                     </div>
+                   
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" /><strong> Паркомясто</strong>
+                            @if (Model.ParkingPlace == true)
+                            {
+                                <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" checked="checked" /><strong> Паркомясто</strong>
+
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="ParkingPlace" key="ParkingPlace" name="ParkingPlace" value="true" /><strong> Паркомясто</strong>
+                            }
+
                         </label>
                         <span asp-validation-for="ParkingPlace" class="text-danger"></span>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true" /><strong> Двор</strong>
+                            @if (Model.Yard == true)
+                            {
+                                <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true" checked="checked" /><strong> Двор</strong>
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="Yard" key="Yard" name="Yard" value="true" /><strong> Двор</strong>
+                            }
+
                         </label>
                         <span asp-validation-for="Yard" class="text-danger"></span>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" /><strong> Достъп до метро</strong>
+                            @if (Model.MetroNearBy == true)
+                            {
+                                <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" checked="checked" /><strong> Достъп до метро</strong>
+
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="MetroNearBy" key="MetroNearBy" name="MetroNearBy" value="true" /><strong> Достъп до метро</strong>
+                            }
+
                         </label>
                         <span asp-validation-for="MetroNearBy" class="text-danger"></span>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" /><strong> Тераса</strong>
+                            @if (Model.Balcony == true)
+                            {
+                                <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" checked="checked" /><strong> Тераса</strong>
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="balcony" name="Balcony" key="Balcony" value="true" /><strong> Тераса</strong>
+                            }
+
+
                         </label>
                         <span asp-validation-for="Balcony" class="text-danger"></span>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true" /><strong> Мазе/Таванско помещение</strong>
+                            @if (Model.CellingOrBasement == true)
+                            {
+                                <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true" checked="checked" /><strong> Мазе/Таванско помещение</strong>
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="CellingOrBasement" key="CellingOrBasement" name="CellingOrBasement" value="true" /><strong> Мазе/Таванско помещение</strong>
+                            }
+
                         </label>
                         <span asp-validation-for="CellingOrBasement" class="text-danger"></span>
                     </div>
@@ -171,7 +215,7 @@
                         <a type="button" asp-area="Administrator" asp-controller="Home" asp-action="Index" class="btn btn-alert-h" style="border-radius:5px; width:180px">Откажи</a>
                         <input type="submit" value="Продължи" class="btn btn-info-h" />
                     </div>
-                    
+
                 </div>
             </form>
         </div>

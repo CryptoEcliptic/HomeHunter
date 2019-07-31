@@ -52,14 +52,19 @@ namespace HomeHunter.App.Controllers
             foreach (var image in model.Images)
             {
                 var imageId = Guid.NewGuid().ToString();
-                var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
 
-                var isImageAddedInDb = await this.imageServices.AddImageAsync(imageUrl, id);
-
-                if (!isImageAddedInDb)
+                try
                 {
-                    throw new ArgumentNullException("Invalid Db input params!");
-                };
+                    var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
+                    var isImageAddedInDb = await this.imageServices.AddImageAsync(imageUrl, id);
+
+                }
+                catch (FormatException)
+                {
+
+                    return RedirectToAction("Error", "Home");
+                }
+
             }
 
             RedirectToActionResult redirectResult = new RedirectToActionResult("Create", "Offer", new { @Id = $"{id}" });
@@ -69,7 +74,7 @@ namespace HomeHunter.App.Controllers
         [HttpGet("/Image/Edit/{id}")]
         public async Task<IActionResult> Edit(string id)
         {
-            var imageUploadEditServiceModel = await this.imageServices.EditUploadAsync(id);
+            var imageUploadEditServiceModel = await this.imageServices.GetImageDetailsAsync(id);
             var imageUploadEditBindingModel = this.mapper.Map<ImageUploadEditBindingModel>(imageUploadEditServiceModel);
 
             return View(imageUploadEditBindingModel);
@@ -86,21 +91,31 @@ namespace HomeHunter.App.Controllers
 
             var realEstateId = await this.realEstateServices.GetRealEstateIdByOfferId(id);
 
-            foreach (var image in model.Images)
+            if (model.Images.Count != 0)
             {
-                var imageId = Guid.NewGuid().ToString();
-                var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
 
-                var isImageAddedInDb = await this.imageServices.AddImageAsync(imageUrl, realEstateId);
-
-                if (!isImageAddedInDb)
+                foreach (var image in model.Images)
                 {
-                    throw new ArgumentNullException("Invalid Db input params!");
-                };
+                    var imageId = Guid.NewGuid().ToString();
+
+                    try
+                    {
+                        var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
+
+                        var hasOldImagesBeenRemoved = await this.imageServices.RemoveImages(realEstateId);
+                        var isImageAddedInDb = await this.imageServices.AddImageAsync(imageUrl, realEstateId);
+
+                    }
+                    catch (FormatException)
+                    {
+
+                        return RedirectToAction("Error", "Home");
+                    }
+
+                    
+                }
             }
-
-
-
+          
             RedirectToActionResult redirectResult = new RedirectToActionResult("Edit", "RealEstates", new { @Id = $"{realEstateId}" });
             return redirectResult;
         }

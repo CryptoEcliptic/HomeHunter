@@ -27,7 +27,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [Column(TypeName = "decimal(18,2)")]
         [Required(ErrorMessage = "Полето Цена е задължително")]
         [Display(Name = "Цена*")]
-        [Range(1, 10000000, ErrorMessage = "Цената не трябва да бъде по-малка от {1}.")]
+        [Range(1, 9000000, ErrorMessage = "Цената не трябва да бъде по-малка от {1}.")]
         public decimal Price { get; set; }
 
         [Display(Name = "Година")]

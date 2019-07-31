@@ -21,18 +21,16 @@ namespace HomeHunter.App.Controllers
     [Authorize]
     public class RealEstatesController : Controller
     {
+        private const string FloorNumbersError = "Етажът не може да бъде по-голям от общия брой етажи!";
+
         private readonly IRealEstateTypeServices realEstateTypeService;
         private readonly IHeatingSystemServices heatingSystemservices;
         private readonly IBuildingTypeServices buildingTypeServices;
         private readonly ICitiesServices citiesServices;
         private readonly IRealEstateServices realEstateServices;
         private readonly INeighbourhoodServices neighbourhoodServices;
-        private readonly IVillageServices villageServices;
-        private readonly IAddressServices addressServices;
-        private readonly IHeatingSystemServices heatingSystemServices;
-        private readonly IRealEstateTypeServices realEstateTypeServices;
+        private readonly IOfferServices offerServices;
         private readonly IMapper mapper;
-        private readonly HomeHunterDbContext _context;
 
         public RealEstatesController(
             IRealEstateTypeServices realEstateTypeService,
@@ -41,10 +39,7 @@ namespace HomeHunter.App.Controllers
             ICitiesServices citiesServices,
             IRealEstateServices realEstateServices,
             INeighbourhoodServices neighbourhoodServices,
-            IVillageServices villageServices,
-            IAddressServices addressServices,
-            IHeatingSystemServices heatingSystemServices,
-            IRealEstateTypeServices realEstateTypeServices,
+            IOfferServices offerServices,
             IMapper mapper)
         {
            
@@ -54,10 +49,7 @@ namespace HomeHunter.App.Controllers
             this.citiesServices = citiesServices;
             this.realEstateServices = realEstateServices;
             this.neighbourhoodServices = neighbourhoodServices;
-            this.villageServices = villageServices;
-            this.addressServices = addressServices;
-            this.heatingSystemServices = heatingSystemServices;
-            this.realEstateTypeServices = realEstateTypeServices;
+            this.offerServices = offerServices;
             this.mapper = mapper;
         }
 
@@ -94,10 +86,9 @@ namespace HomeHunter.App.Controllers
         // GET: RealEstates/Create
         public async Task<IActionResult> Create()
         {
-            
+          
             await this.LoadDropdownMenusData();
-
-            return View();
+            return View(new CreateRealEstateBindingModel());
         }
 
         // POST: RealEstates/Create
@@ -110,10 +101,8 @@ namespace HomeHunter.App.Controllers
             {
                 if (floor > model.BuildingTotalFloors)
                 {
-                    await this.LoadDropdownMenusData();
-                    return View(model ?? new CreateRealEstateBindingModel());
+                    ModelState.AddModelError("TotalFloors", FloorNumbersError);
                 }
-                
             }
 
             if (ModelState.IsValid)
@@ -124,11 +113,9 @@ namespace HomeHunter.App.Controllers
 
                 if (realEstateId == null)
                 {
-                    await this.LoadDropdownMenusData();
-                    return View(model ?? new CreateRealEstateBindingModel());
+                    return RedirectToAction("Error", "Home");
                 }
 
-                
                 RedirectToActionResult redirectResult = new RedirectToActionResult("Upload", "Image", new { @Id = $"{realEstateId}" });
                 return redirectResult;
             }
@@ -173,8 +160,7 @@ namespace HomeHunter.App.Controllers
             {
                 if (floor > model.BuildingTotalFloors)
                 {
-                    await this.LoadDropdownMenusData();
-                    return View(model ?? new RealEstateEditBindingModel());
+                    ModelState.AddModelError("TotalFloors", FloorNumbersError);
                 }
             }
 
@@ -186,14 +172,14 @@ namespace HomeHunter.App.Controllers
 
                 if (!isRealEstateEddited)
                 {
-                    await this.LoadDropdownMenusData();
-                    return View(model);
+                    return RedirectToAction("Error", "Home");
                 }
 
-                RedirectToActionResult redirectResult = new RedirectToActionResult("Details", "RealEstates", new { @Id = $"{realEstateToEdit.Id}" });
+                var offerId = await this.offerServices.GetOfferIdByRealEstateIdAsync(id);
+                RedirectToActionResult redirectResult = new RedirectToActionResult("Details", "Offer", new { @Id = $"{offerId}"});
                 return redirectResult;
-            }
 
+            }
             await this.LoadDropdownMenusData();
             return View(model);
         }
@@ -268,6 +254,7 @@ namespace HomeHunter.App.Controllers
             this.ViewData["HeatingSystems"] = heatingSystemsVewModel;
             this.ViewData["Cities"] = citiesVewModel;
             this.ViewData["BuildingTypes"] = buildingTypesVewModel;
+           
         }
         
     }
