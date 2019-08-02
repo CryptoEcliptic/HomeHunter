@@ -41,7 +41,7 @@ namespace HomeHunter.App.Controllers
         {
             if (string.IsNullOrWhiteSpace(id))
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             if (this.imageServices.ImagesCount(id) > GlobalConstants.ImageUploadLimit)
@@ -56,10 +56,15 @@ namespace HomeHunter.App.Controllers
                 try
                 {
                     var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
-                    var isImageAddedInDb = await this.imageServices.AddImageAsync(imageUrl, id);
+                    var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageUrl, id);
 
                 }
                 catch (FormatException)
+                {
+
+                    return RedirectToAction("Error", "Home");
+                }
+                catch (ArgumentNullException)
                 {
 
                     return RedirectToAction("Error", "Home");
@@ -86,13 +91,17 @@ namespace HomeHunter.App.Controllers
         {
             if (string.IsNullOrWhiteSpace(id)) //OfferId
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             var realEstateId = await this.realEstateServices.GetRealEstateIdByOfferId(id);
-
+            
             if (model.Images.Count != 0)
             {
+                var imageIdsToDelete = await this.imageServices.GetImageIds(realEstateId);
+
+                int removedImagesFromCloudinary = await this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDelete);
+                var hasOldImagesBeenRemoved = await this.imageServices.RemoveImages(realEstateId);
 
                 foreach (var image in model.Images)
                 {
@@ -101,24 +110,23 @@ namespace HomeHunter.App.Controllers
                     try
                     {
                         var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
-
-                        var hasOldImagesBeenRemoved = await this.imageServices.RemoveImages(realEstateId);
-                        var isImageAddedInDb = await this.imageServices.AddImageAsync(imageUrl, realEstateId);
-
+                        var isImageAddedInDb = await this.imageServices.EditImageAsync(imageId, imageUrl, realEstateId);
                     }
                     catch (FormatException)
                     {
 
                         return RedirectToAction("Error", "Home");
                     }
+                    catch (ArgumentNullException)
+                    {
 
-                    
+                        return RedirectToAction("Error", "Home");
+                    }
                 }
             }
           
             RedirectToActionResult redirectResult = new RedirectToActionResult("Edit", "RealEstates", new { @Id = $"{realEstateId}" });
             return redirectResult;
         }
-
     }
 }

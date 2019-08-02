@@ -153,5 +153,49 @@ namespace HomeHunter.Services
 
             return offerId;
         }
+
+        public async Task<bool> DeleteOfferAsync(string offerId)
+        {
+            var offer = await this.context.Offers
+                 .Include(x => x.Author)
+                 .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.RealEstateType)
+                 .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.BuildingType)
+                 .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.HeatingSystem)
+                 .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.Images)
+                 .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.Address.City)
+                 .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.Address.Neighbourhood)
+                 .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.Address.Village)
+                 .FirstOrDefaultAsync(x => x.Id == offerId);
+
+            if (offer == null)
+            {
+                throw new ArgumentNullException("No offer with such Id!");
+            }
+
+            return true;
+
+            
+        }
+
+        //private async Task<int> SoftDeleteEntity(Offer offer)
+        //{
+        //    offer.IsDeleted = true;
+        //    offer.RealEstate.IsDeleted = true;
+        //    offer.ModifiedOn = DateTime.UtcNow;
+        //    offer.RealEstate.Images.Clear();
+
+
+
+        //    this.context.Update(offer);
+        //    await this.context.SaveChangesAsync();
+
+        //}
     }
 }

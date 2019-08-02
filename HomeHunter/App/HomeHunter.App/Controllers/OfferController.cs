@@ -21,7 +21,7 @@ namespace HomeHunter.App.Controllers
         private readonly IMapper mapper;
         private readonly IOfferServices offerServices;
 
-        public OfferController(HomeHunterDbContext context, 
+        public OfferController(HomeHunterDbContext context,
             IMapper mapper,
             IOfferServices offerServices)
         {
@@ -48,14 +48,14 @@ namespace HomeHunter.App.Controllers
             }
 
             var offer = await this.offerServices.GetOfferDetailsAsync(id);
-           
+
             if (offer == null)
             {
                 return NotFound();
             }
 
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offer);
-            
+
 
             return View(offerDetailViewModel);
         }
@@ -68,7 +68,7 @@ namespace HomeHunter.App.Controllers
             {
                 return NotFound();
             }
-            
+
             return View();
         }
 
@@ -111,7 +111,7 @@ namespace HomeHunter.App.Controllers
             }
 
             var offerEditViewModel = this.mapper.Map<OfferEditBindingModel>(offer);
-            
+
             return View(offerEditViewModel);
         }
 
@@ -144,38 +144,37 @@ namespace HomeHunter.App.Controllers
         }
 
         //// GET: Offer/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var offer = await _context.Offers
-        //        .Include(o => o.Author)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (offer == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
 
-        //    return View(offer);
-        //}
+            if (offerDetailsServiceModel == null)
+            {
+                return NotFound();
+            }
+
+            var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
+
+
+            return View(offerDetailViewModel);
+          
+        }
 
         // POST: Offer/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var offer = await _context.Offers.FindAsync(id);
+
             _context.Offers.Remove(offer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        //private bool OfferExists(int id)
-        //{
-        //    return _context.Offers.Any(e => e.Id == id);
-        //}
     }
 }

@@ -1,10 +1,12 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using HomeHunter.Common;
+using HomeHunter.Domain;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Infrastructure.CloudinaryServices
@@ -42,12 +44,30 @@ namespace HomeHunter.Infrastructure.CloudinaryServices
                 {
                     Folder = "RealEstates",
                     File = new FileDescription(name, memoryStream),
+                    PublicId = name,
                 };
 
                 uploadResult = this.cloudinaryUtilities.Upload(uploadParams);
             }
 
             return uploadResult?.SecureUri.AbsoluteUri;
+        }
+
+        public async Task<int> DeleteCloudinaryImages(IEnumerable<string> imageIds)
+        {
+            if (imageIds.Count() != 0)
+            {
+                var delResParams = new DelResParams()
+                {
+                    PublicIds = imageIds.ToList(),
+                };
+              
+                this.cloudinaryUtilities.DeleteResources(delResParams);
+
+                return imageIds.Count();
+            }
+
+            return 0;
         }
     }
 }

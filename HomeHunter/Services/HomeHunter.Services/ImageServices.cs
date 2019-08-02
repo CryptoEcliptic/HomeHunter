@@ -13,6 +13,9 @@ namespace HomeHunter.Services
 {
     public class ImageServices : IImageServices
     {
+        private const string ClodinaryImageFolderName = "RealEstates/";
+        private const string InvalidImageParamsMessage = "Null image parameters!";
+
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
         private readonly IRealEstateServices realEstateServices;
@@ -24,17 +27,18 @@ namespace HomeHunter.Services
             this.realEstateServices = realEstateServices;
         }
 
-        public async Task<bool> AddImageAsync(string url, string estateId)
+        public async Task<bool> AddImageAsync(string publikKey, string url, string estateId)
         {
-            if (url == null || estateId == null)
+            if (url == null || estateId == null || publikKey == null)
             {
-                return false;
+                throw new ArgumentNullException(InvalidImageParamsMessage);
             }
 
             var image = new Image
             {
                 Url = url,
                 RealEstateId = estateId,
+                Id = publikKey,
             };
 
             await this.context.Images.AddAsync(image);
@@ -82,11 +86,11 @@ namespace HomeHunter.Services
             .Count();
         }
 
-        public async Task<bool> EditImageAsync(string url, string estateId)
+        public async Task<bool> EditImageAsync(string publicKey, string url, string estateId)
         {
-            if (url == null || estateId == null)
+            if (url == null || estateId == null || publicKey == null)
             {
-                throw new ArgumentNullException("Image url or Real estate identifier are null!");
+                throw new ArgumentNullException(InvalidImageParamsMessage);
             }
 
             var realEstate = this.context.RealEstates.FirstOrDefault(x => x.Id == estateId);
@@ -95,6 +99,7 @@ namespace HomeHunter.Services
             {
                 Url = url,
                 RealEstateId = estateId,
+                Id = publicKey,
             };
 
             await this.context.Images.AddAsync(image);
@@ -110,17 +115,30 @@ namespace HomeHunter.Services
                 .Where(x => x.RealEstateId == estateId)
                 .ToList();
             int affectedRows = 0;
-            try
-            {
-                this.context.Images.RemoveRange(realEstateImages);
-                affectedRows = await this.context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return 0;
-            }
 
+            if (realEstateImages.Count != 0)
+            {
+                try
+                {
+                    this.context.Images.RemoveRange(realEstateImages);
+                    affectedRows = await this.context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return 0;
+                }
+            }
             return affectedRows;
+        }
+
+        public async Task<IEnumerable<string>> GetImageIds(string realEstateId)
+        {
+            var imageIds = await this.context.Images
+                .Where(x => x.RealEstateId == realEstateId)
+                .Select(x => ClodinaryImageFolderName + x.Id)
+                .ToListAsync();
+                
+            return imageIds;
         }
     }
 }
