@@ -148,21 +148,19 @@ namespace HomeHunter.App.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
 
             if (offerDetailsServiceModel == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
 
-
             return View(offerDetailViewModel);
-          
         }
 
         // POST: Offer/Delete/5
@@ -170,10 +168,13 @@ namespace HomeHunter.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var offer = await _context.Offers.FindAsync(id);
+            var isOfferDeleted = await this.offerServices.DeleteOfferAsync(id);
 
-            _context.Offers.Remove(offer);
-            await _context.SaveChangesAsync();
+            if (!isOfferDeleted)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }

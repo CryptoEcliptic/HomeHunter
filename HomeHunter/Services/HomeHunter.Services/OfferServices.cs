@@ -2,6 +2,7 @@
 using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
+using HomeHunter.Infrastructure.CloudinaryServices;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +16,18 @@ namespace HomeHunter.Services
     public class OfferServices : IOfferServices
     {
         private readonly HomeHunterDbContext context;
+        private readonly IImageServices imageServices;
+        private readonly ICloudinaryService cloudinaryService;
         private readonly IMapper mapper;
 
-        public OfferServices(HomeHunterDbContext context, IMapper mapper)
+        public OfferServices(HomeHunterDbContext context,
+            IImageServices imageServices,
+            ICloudinaryService cloudinaryService,
+           IMapper mapper)
         {
             this.context = context;
+            this.imageServices = imageServices;
+            this.cloudinaryService = cloudinaryService;
             this.mapper = mapper;
         }
 
@@ -161,17 +169,9 @@ namespace HomeHunter.Services
                  .Include(r => r.RealEstate)
                      .ThenInclude(r => r.RealEstateType)
                  .Include(r => r.RealEstate)
-                     .ThenInclude(r => r.BuildingType)
-                 .Include(r => r.RealEstate)
-                     .ThenInclude(r => r.HeatingSystem)
-                 .Include(r => r.RealEstate)
                      .ThenInclude(r => r.Images)
                  .Include(r => r.RealEstate)
-                     .ThenInclude(r => r.Address.City)
-                 .Include(r => r.RealEstate)
-                     .ThenInclude(r => r.Address.Neighbourhood)
-                 .Include(r => r.RealEstate)
-                     .ThenInclude(r => r.Address.Village)
+                     .ThenInclude(r => r.Address)
                  .FirstOrDefaultAsync(x => x.Id == offerId);
 
             if (offer == null)
@@ -179,23 +179,45 @@ namespace HomeHunter.Services
                 throw new ArgumentNullException("No offer with such Id!");
             }
 
+            int deletionResult = await this.SoftDeleteEntity(offer);
+
+            if (deletionResult == 0)
+            {
+                return false;
+            }
+
             return true;
 
             
         }
 
-        //private async Task<int> SoftDeleteEntity(Offer offer)
-        //{
-        //    offer.IsDeleted = true;
-        //    offer.RealEstate.IsDeleted = true;
-        //    offer.ModifiedOn = DateTime.UtcNow;
-        //    offer.RealEstate.Images.Clear();
+        private async Task<int> SoftDeleteEntity(Offer offer)
+        {
+            offer.IsDeleted = true;
+            offer.RealEstate.IsDeleted = true;
+            offer.RealEstate.Address.IsDeleted = true;
+            offer.ModifiedOn = DateTime.UtcNow;
+            offer.RealEstate.ModifiedOn = DateTime.UtcNow;
+            offer.RealEstate.Address.ModifiedOn = DateTime.UtcNow;
 
+            var imageIdsToDeleteFromCloudinary = await this.imageServices.GetImageIds(offer.RealEstate.Id);
+            await this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDeleteFromCloudinary);
 
+            await this.imageServices.RemoveImages(offer.RealEstate.Id);
+            int changedRows = 0;
 
-        //    this.context.Update(offer);
-        //    await this.context.SaveChangesAsync();
+            try
+            {
+               this.context.Update(offer);
+               changedRows = await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
 
-        //}
+                return changedRows;
+            }
+
+            return changedRows;
+        }
     }
 }
