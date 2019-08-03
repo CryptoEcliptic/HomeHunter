@@ -1,9 +1,13 @@
 ﻿
 //Insert default item "Select" in dropdownlist on load
-$(document).ready(function () {
-    var items = "<option value='0'>Изберете квартал</option>";
-    $("#Neighbourhood").html(items);
-});
+//$("#city").ready(function () {
+//    var cityName = $("#city").val();
+//    var items = ""
+
+//        items = "<option value='0'>Изберете квартал</option>";
+//    
+//    $("#Neighbourhood").html(items);
+//});
 
 //Bind City dropdownlist
 $("#city").change(function () {
@@ -15,27 +19,26 @@ $("#city").change(function () {
         var item = "";
         $("#Neighbourhood").empty();
         $.each(data, function (i, Neighbourhood) {
-
             item += '<option>' + Neighbourhood.text + '</option>'
         });
         $("#Neighbourhood").html(item);
     });
 });
 
-$("#city").ready(function () {
+$("#Neighbourhood").hover(function () {
     var cityName = $("#city").val();
-
     var url = "/RealEstates/GetNeighbourhoodsList";
-
     $.getJSON(url, { CityName: cityName }, function (data) {
         var item = "";
-        $("#Neighbourhood").data;
+        $("#Neighbourhood").empty();
         $.each(data, function (i, Neighbourhood) {
-
             item += '<option>' + Neighbourhood.text + '</option>'
         });
+        
         $("#Neighbourhood").html(item);
     });
 });
+
+
 
 

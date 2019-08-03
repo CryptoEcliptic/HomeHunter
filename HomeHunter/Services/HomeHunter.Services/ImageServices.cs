@@ -61,6 +61,7 @@ namespace HomeHunter.Services
             {
                 imageLoadServiceModel.Images.Add(image);
             }
+
             return imageLoadServiceModel;
         }
 

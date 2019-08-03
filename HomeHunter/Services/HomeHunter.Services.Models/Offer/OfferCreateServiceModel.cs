@@ -11,7 +11,5 @@ namespace HomeHunter.Services.Models.Offer
         public string Comments { get; set; }
 
         public string ContactNumber { get; set; }
-
-
     }
 }

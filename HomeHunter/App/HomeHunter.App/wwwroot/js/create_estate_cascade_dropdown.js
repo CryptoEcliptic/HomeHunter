@@ -1,0 +1,14 @@
+﻿$("#city").change(function () {
+    var cityName = $("#city").val();
+
+    var url = "/RealEstates/GetNeighbourhoodsList";
+
+    $.getJSON(url, { CityName: cityName }, function (data) {
+        var item = "";
+        $("#Neighbourhood").empty();
+        $.each(data, function (i, Neighbourhood) {
+            item += '<option>' + Neighbourhood.text + '</option>'
+        });
+        $("#Neighbourhood").html(item);
+    });
+});

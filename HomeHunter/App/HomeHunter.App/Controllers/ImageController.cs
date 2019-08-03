@@ -61,7 +61,6 @@ namespace HomeHunter.App.Controllers
                 }
                 catch (FormatException)
                 {
-
                     return RedirectToAction("Error", "Home");
                 }
                 catch (ArgumentNullException)

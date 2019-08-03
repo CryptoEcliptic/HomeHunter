@@ -140,6 +140,8 @@ namespace HomeHunter.App.Controllers
             }
 
             var realEstateEditModel = this.mapper.Map<RealEstateEditBindingModel>(realEstate);
+            this.ViewData["Neighbourhood"] = realEstateEditModel.Neighbourhood;
+
 
             await this.LoadDropdownMenusData();
 
@@ -231,7 +233,6 @@ namespace HomeHunter.App.Controllers
 
             var neighbourhoodlist = new SelectList(neighbourhoodsVewModel.Select(x => x.Name));
             return Json(neighbourhoodlist);
-
         }
 
         [NonAction]

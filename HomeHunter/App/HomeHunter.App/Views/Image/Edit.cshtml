@@ -16,15 +16,24 @@
 <div class="row" style="padding-top:30px">
     <div class="container paddingElement">
         <div class="row text-center">
-            <div class="alert alert-danger alert-dismissible" role="alert" style=" position: sticky; top: 100px; left: 600px; right: 130px; z-index: 0; width: 60%">
-                Внимание, добавянето на нови снимки ще изтрие вече записаните такива!
-                <button type="button" class="close-h" style="font-size:30px" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="alert alert-danger alert-dismissible fade in text-center" role="alert">
+                            Внимание, добавянето на нови снимки ще изтрие вече записаните такива!
+                            <button type="button" class="close-h" style="font-size:30px; padding-right:30px" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <h4>Вече качени снимки</h4>
             <vc:load-images real-estate-id=@Model.RealEstateId></vc:load-images>
         </div>
+        
         <br />
         <br />
         <h4 style="text-align:center">Презапиши снимки</h4>

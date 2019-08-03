@@ -69,7 +69,10 @@
                     <div class="text-left">
                         <label asp-for="Neighbourhood"></label>
                     </div>
-                    <select style="width:270px" class="custom-select" id="Neighbourhood" name="Neighbourhood" asp-for="Neighbourhood"></select>
+                    <select style="width:270px" class="custom-select" id="Neighbourhood" name="Neighbourhood" asp-for="Neighbourhood">
+                        <option value="@this.ViewData["Neighbourhood"]">@this.ViewData["Neighbourhood"]</option>
+
+                    </select>
                     <span asp-validation-for="Neighbourhood" class="text-danger"></span>
                 </div>
 
