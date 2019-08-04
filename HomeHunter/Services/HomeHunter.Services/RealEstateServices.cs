@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using HomeHunter.Common;
 using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
@@ -92,7 +91,7 @@ namespace HomeHunter.Services
 
         public async Task<IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstatesAsync()
         {
-            var realEstates = context.RealEstates
+            var realEstates = await context.RealEstates
                 .Include(r => r.BuildingType)
                 .Include(r => r.HeatingSystem)
                 .Include(r => r.RealEstateType)
@@ -101,7 +100,7 @@ namespace HomeHunter.Services
                 .Include(r => r.Address.Neighbourhood)
                 .Where(x => x.IsDeleted == false)
                 .OrderByDescending(x => x.CreatedOn)
-                .ToList();
+                .ToListAsync();
 
 
             var realEstatesServiceModel =  this.mapper.Map<IEnumerable<RealEstateIndexServiceModel>>(realEstates);
@@ -169,34 +168,7 @@ namespace HomeHunter.Services
             return true;
         }
 
-        public async Task<bool> DeleteRealEstateAsync(string id)
-        {
-            var realEstate = await this.context.RealEstates
-                .Include(x => x.Address)
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (realEstate == null)
-            {
-                throw new ArgumentNullException($"Real estate with id {id} not found!");
-            }
-
-            await this.addressServices.DeleteAddressAsync(realEstate.Address.Id);
-
-            realEstate.IsDeleted = true;
-            realEstate.DeletedOn = DateTime.UtcNow;
-            try
-            {
-                this.context.Update(realEstate);
-                await this.context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-
-                return false;
-            }
-           
-            return true;
-        }
+        
         public async Task<string> GetRealEstateIdByOfferId(string offerId)
         {
             if (offerId == null)

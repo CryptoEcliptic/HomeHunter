@@ -14,8 +14,6 @@ namespace HomeHunter.Services.Contracts
 
         Task<bool> EditRealEstateAsync(RealEstateEditServiceModel model);
 
-        Task<bool> DeleteRealEstateAsync(string id);
-
         Task<string> GetRealEstateIdByOfferId(string offerId);
 
     }

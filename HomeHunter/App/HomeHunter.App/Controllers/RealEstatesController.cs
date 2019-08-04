@@ -63,30 +63,9 @@ namespace HomeHunter.App.Controllers
            
         }
 
-        //GET: RealEstates/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var realEstateServiceModel = await this.realEstateServices.GetDetailsAsync(id);
-
-            if (realEstateServiceModel == null)
-            {
-                return NotFound();
-            }
-
-            var reaiEstateDetailsViewModel = this.mapper.Map<RealEstateDetailsViewModel>(realEstateServiceModel);
-
-            return View(reaiEstateDetailsViewModel);
-        }
-
         // GET: RealEstates/Create
         public async Task<IActionResult> Create()
         {
-          
             await this.LoadDropdownMenusData();
             return View(new CreateRealEstateBindingModel());
         }
@@ -186,45 +165,6 @@ namespace HomeHunter.App.Controllers
             return View(model);
         }
 
-        //// GET: RealEstates/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var realEstate = await this.realEstateServices.GetDetailsAsync(id);
-
-            if (realEstate == null)
-            {
-                return NotFound();
-            }
-
-            var realEstateEditModel = this.mapper.Map<RealEstateDetailsViewModel>(realEstate);
-            return View(realEstateEditModel);
-        }
-
-        //// POST: RealEstates/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var isRealEstateDeleted = await this.realEstateServices.DeleteRealEstateAsync(id);
-
-            if (!isRealEstateDeleted)
-            {
-                return NotFound();
-            }
-           
-            return RedirectToAction(nameof(Index));
-        }
-
         [HttpGet]
         public async Task<JsonResult> GetNeighbourhoodsList(string cityName)
         {
@@ -257,6 +197,5 @@ namespace HomeHunter.App.Controllers
             this.ViewData["BuildingTypes"] = buildingTypesVewModel;
            
         }
-        
     }
 }
