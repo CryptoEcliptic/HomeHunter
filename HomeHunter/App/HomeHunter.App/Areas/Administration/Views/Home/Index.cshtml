@@ -3,17 +3,18 @@
     ViewData["Title"] = "Index";
 
 }
-    <link rel="stylesheet" href="~/lib/calendar/calendar.css" />
 <div class="process">
     <h3 class="text-center wowload fadeInUp">Process</h3>
     <ul class="row text-center list-inline  wowload bounceInUp">
         <li>
             <a class="nav-link text-dark" asp-area="" asp-controller="RealEstates" asp-action="Create">
-                <span><i class="fa fa-folder"></i><b>Създай обява</b></span></a>
+                <span><i class="fa fa-folder"></i><b>Създай обява</b></span>
+            </a>
         </li>
         <li>
             <a class="nav-link text-dark" asp-area="" asp-controller="Offer" asp-action="Index">
-                <span><i class="fa fa-list"></i><b>Активни обяви</b></span></a>
+                <span><i class="fa fa-list"></i><b>Активни обяви</b></span>
+            </a>
 
         </li>
         <li>
@@ -22,6 +23,11 @@
         </li>
         <li>
             <span><i class="fa fa-info-circle"></i><b>Статистики</b></span>
+        </li>
+        <li>
+            <a class="nav-link text-dark" asp-area="Administration" asp-controller="User" asp-action="Index">
+                <span><i class="fa fa-users"></i><b>Акаунти</b></span>
+            </a>
         </li>
     </ul>
 </div>

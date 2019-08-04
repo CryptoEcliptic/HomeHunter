@@ -1,0 +1,102 @@
+﻿@model IEnumerable<HomeHunter.Models.ViewModels.User.UserIndexViewModel>
+@using HomeHunter.Common
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Administration/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+<div class="index-table-container paddingElement">
+    <h3>Потребители</h3>
+    <p>
+        <a asp-action="Create" asp-controller="RealEstates">Създай нов потребител</a>
+    </p>
+
+    <table id="table_id" class="display">
+        <thead>
+            <tr>
+                <th>
+                    No
+                </th>
+                <th class="center-element-h">
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th class="center-element-h">
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th class="center-element-h">
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th class="center-element-h">
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th class="center-element-h">
+                    @Html.DisplayNameFor(model => model.EmailConfirmed)
+                </th>
+                <th class="center-element-h">
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th class="center-element-h">
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </th>
+                <th class="center-element-h">
+                    @Html.DisplayNameFor(model => model.LastLogin)
+                </th>
+                <th class="center-element-h">
+                    Действия
+                </th>
+
+            </tr>
+        </thead>
+        @{int index = 1;
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="text-align:center">
+                        <td>
+                            @(index++)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedOn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastLogin)
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Деактивирай</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable();
+        });
+    </script>
+}
+

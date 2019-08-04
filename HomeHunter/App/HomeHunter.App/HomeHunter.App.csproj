@@ -39,9 +39,4 @@
     <ProjectReference Include="..\HomeHunter.Models\HomeHunter.Models.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Areas\Administrator\ViewModels\" />
-  </ItemGroup>
-
 </Project>

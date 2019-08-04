@@ -12,6 +12,7 @@ using HomeHunter.Models.ViewModels.Neighbourhood;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Models.ViewModels.RealEstate;
 using HomeHunter.Models.ViewModels.RealEstateType;
+using HomeHunter.Models.ViewModels.User;
 using HomeHunter.Services.Models.BuildingType;
 using HomeHunter.Services.Models.City;
 using HomeHunter.Services.Models.HeatingSystem;
@@ -20,10 +21,9 @@ using HomeHunter.Services.Models.Neighbourhood;
 using HomeHunter.Services.Models.Offer;
 using HomeHunter.Services.Models.RealEstate;
 using HomeHunter.Services.Models.RealEstateType;
+using HomeHunter.Services.Models.User;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HomeHunter.Infrastructure
 {
@@ -62,7 +62,7 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<RealEstate, RealEstateDetailsServiceModel>()
                .ForMember(x => x.RealEstateType, y => y.MapFrom(z => z.RealEstateType.TypeName))
                .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))
-               .ForMember(x => x.ModifiedOn, y => y.MapFrom(z => z.ModifiedOn == null ? "n/a" : z.ModifiedOn.Value.ToString(GlobalConstants.DateTimeVisualizationFormat)))
+               .ForMember(x => x.ModifiedOn, y => y.MapFrom(z => z.ModifiedOn == null ? GlobalConstants.NotAvailableMessage : z.ModifiedOn.Value.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                .ForMember(x => x.BuildingType, y => y.MapFrom(z => z.BuildingType.Name))
                .ForMember(x => x.Village, y => y.MapFrom(z => z.Address.Village.Name))
                .ForMember(x => x.City, y => y.MapFrom(z => z.Address.City.Name))
@@ -91,13 +91,13 @@ namespace HomeHunter.Infrastructure
                 ;
 
             this.CreateMap<RealEstateDetailsServiceModel, RealEstateDetailsViewModel>()
-                .ForMember(x => x.Year, y => y.MapFrom(z => z.Year.ToString() == "0" ? "n/a" : z.Year.ToString()));
+                .ForMember(x => x.Year, y => y.MapFrom(z => z.Year.ToString() == "0" ? GlobalConstants.NotAvailableMessage : z.Year.ToString()));
 
             this.CreateMap<Offer, OfferIndexServiceModel>()
                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType.ToString()))
                .ForMember(x => x.Author, y => y.MapFrom(z => z.Author.FirstName))
                .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))
-               .ForMember(x => x.ModifiedOn, y => y.MapFrom(z => z.ModifiedOn == null ? "n/a" : z.ModifiedOn.Value.ToString(GlobalConstants.DateTimeVisualizationFormat)))
+               .ForMember(x => x.ModifiedOn, y => y.MapFrom(z => z.ModifiedOn == null ? GlobalConstants.NotAvailableMessage : z.ModifiedOn.Value.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                .ForMember(x => x.RealEstateType, y => y.MapFrom(z => z.RealEstate.RealEstateType.TypeName))
                .ForMember(x => x.City, y => y.MapFrom(z => z.RealEstate.Address.City.Name))
                .ForMember(x => x.Neighbourhood, y => y.MapFrom(z => z.RealEstate.Address.Neighbourhood.Name))
@@ -107,7 +107,7 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<Offer, OfferDetailsServiceModel>()
                 .ForMember(x => x.City, y => y.MapFrom(z => z.RealEstate.Address.City.Name))
                 .ForMember(x => x.Neighbourhood, y => y.MapFrom(z => z.RealEstate.Address.Neighbourhood.Name))
-                .ForMember(x => x.Village, y => y.MapFrom(z => z.RealEstate.Address.Village.Name == null ? "n/a" : z.RealEstate.Address.Village.Name))
+                .ForMember(x => x.Village, y => y.MapFrom(z => z.RealEstate.Address.Village.Name == null ? GlobalConstants.NotAvailableMessage : z.RealEstate.Address.Village.Name))
                 .ForMember(x => x.Address, y => y.MapFrom(z => z.RealEstate.Address.Description))
                 .ForMember(x => x.RealEstateType, y => y.MapFrom(z => z.RealEstate.RealEstateType.TypeName))
                 .ForMember(x => x.BuildingType, y => y.MapFrom(z => z.RealEstate.BuildingType.Name))
@@ -124,7 +124,7 @@ namespace HomeHunter.Infrastructure
                 .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.RealEstate.CellingOrBasement))
                 .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == OfferType.Sale ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName))
                 .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))
-                .ForMember(x => x.ModifiedOn, y => y.MapFrom(z => z.ModifiedOn == null ? "n/a" : z.ModifiedOn.Value.ToString(GlobalConstants.DateTimeVisualizationFormat)))
+                .ForMember(x => x.ModifiedOn, y => y.MapFrom(z => z.ModifiedOn == null ? GlobalConstants.NotAvailableMessage : z.ModifiedOn.Value.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                 .ForMember(x => x.Images, y => y.MapFrom(z => z.RealEstate.Images.Select(u => u.Url)))
                 .ForMember(x => x.Author, y => y.MapFrom(z => z.Author.FirstName));
             ;
@@ -137,7 +137,15 @@ namespace HomeHunter.Infrastructure
 
             this.CreateMap<OfferEditServiceModel, Offer>()
                 .ForMember(x => x.Id, y => y.Ignore())
-                .ForMember(x => x.OfferType, y => y.Ignore()); 
+                .ForMember(x => x.OfferType, y => y.Ignore());
+
+
+            this.CreateMap<HomeHunterUser, UserIndexServiceModel>()
+                .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))
+                .ForMember(x => x.LastLogin, y => y.MapFrom(z => z.LastLogin == DateTime.Parse(GlobalConstants.DefaultDateTimeDbValue) ? GlobalConstants.NotAvailableMessage : z.LastLogin.ToString(GlobalConstants.DateTimeVisualizationFormat)))
+                .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsDeleted == true ? "деактивиран" : "активен"))
+                .ForMember(x => x.EmailConfirmed, y => y.MapFrom(z => z.EmailConfirmed == true ? "потвърден" : "непотвърден"));
+            this.CreateMap<UserIndexServiceModel, UserIndexViewModel>();
         }
     }
 }

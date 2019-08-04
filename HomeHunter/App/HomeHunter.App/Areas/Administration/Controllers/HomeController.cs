@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HomeHunter.App.Areas.Administrator.Controllers
+namespace HomeHunter.App.Areas.Administration.Controllers
 {
-    public class HomeController : AdministratorController
+    public class HomeController : AdminController
     {
 
         public IActionResult Index()

@@ -18,11 +18,13 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<HomeHunterUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<HomeHunterUser> userManager;
 
-        public LoginModel(SignInManager<HomeHunterUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<HomeHunterUser> signInManager, ILogger<LoginModel> logger, UserManager<HomeHunterUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            this.userManager = userManager;
         }
 
         [BindProperty]
@@ -79,6 +81,14 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    var user = await this.userManager.FindByNameAsync(Input.Email);
+                    if (user == null)
+                    {
+                        return NotFound("Unable to load user for update last login.");
+                    }
+                    user.LastLogin = DateTime.UtcNow;
+                    var lastLoginResult = await this.userManager.UpdateAsync(user);
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

@@ -3,6 +3,9 @@ body {	color:#666;	font:300 15px/15px Roboto,Arial,Helvetica;background-color:#f
 .home-hunter-center {
     text-align: center;
 }
+.center-element-h {
+    text-align:center;
+}
 
 .close-h {
     float: right;

@@ -70,7 +70,6 @@ namespace HomeHunter.App
             services.AddSingleton(cloudinaryUtility);
 
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<IUsersServices, UsersServices>();
             services.AddTransient<IRealEstateTypeServices, RealEstateTypeServices>();
             services.AddTransient<IHeatingSystemServices, HeatingSystemServices>();
             services.AddTransient<IBuildingTypeServices, BuildingTypeServices>();
@@ -82,6 +81,7 @@ namespace HomeHunter.App
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IImageServices, ImageServices>();
             services.AddTransient<IOfferServices, OfferServices>();
+            services.AddTransient<IUserServices, UserServices>();
             services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
 

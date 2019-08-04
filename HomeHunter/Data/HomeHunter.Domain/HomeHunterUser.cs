@@ -26,6 +26,8 @@ namespace HomeHunter.Domain
 
         public DateTime? ModifiedOn { get; set; }
 
+        public DateTime LastLogin { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
