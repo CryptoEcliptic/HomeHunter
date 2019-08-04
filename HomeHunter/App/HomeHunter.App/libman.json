@@ -19,11 +19,16 @@
         "additional-methods.min.js",
         "additional-methods.js"
       ]
+    },
+    {
+      "library": "wow@1.1.2",
+      "destination": "wwwroot/lib/wow/"
     }
-  ,
+
+,
 {
-  "library": "wow@1.1.2",
-  "destination": "wwwroot/lib/wow/"
+  "library": "jquery.touchswipe@1.6.19",
+  "destination": "wwwroot/lib/jquery.touchswipe/"
 }
 ]
 }
