@@ -79,6 +79,7 @@ namespace HomeHunter.Services
                 Address = address,
                 BuildingType = buildingType,
                 HeatingSystem = heatingSystem,
+                PricePerSquareMeter = model.Price / (decimal)model.Area,
 
                 IsDeleted = false,
             };
@@ -87,25 +88,6 @@ namespace HomeHunter.Services
             await this.context.SaveChangesAsync();
 
             return realEstate.Id;
-        }
-
-        public async Task<IEnumerable<RealEstateIndexServiceModel>> GetAllRealEstatesAsync()
-        {
-            var realEstates = await context.RealEstates
-                .Include(r => r.BuildingType)
-                .Include(r => r.HeatingSystem)
-                .Include(r => r.RealEstateType)
-                .Include(r => r.Address.City)
-                .Include(r => r.Address.Village)
-                .Include(r => r.Address.Neighbourhood)
-                .Where(x => x.IsDeleted == false)
-                .OrderByDescending(x => x.CreatedOn)
-                .ToListAsync();
-
-
-            var realEstatesServiceModel =  this.mapper.Map<IEnumerable<RealEstateIndexServiceModel>>(realEstates);
-
-            return realEstatesServiceModel;
         }
 
         public async Task<RealEstateDetailsServiceModel> GetDetailsAsync(string id)
@@ -151,6 +133,7 @@ namespace HomeHunter.Services
             realEstateToEdit.HeatingSystem = heatingSystem;
             realEstateToEdit.RealEstateType = realEstateType;
             realEstateToEdit.Year = model.Year;
+            realEstateToEdit.PricePerSquareMeter = model.Price / (decimal)model.Area;
             realEstateToEdit.ModifiedOn = DateTime.UtcNow;
 
             this.mapper.Map<RealEstateEditServiceModel, RealEstate>(model, realEstateToEdit);

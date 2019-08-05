@@ -53,15 +53,6 @@ namespace HomeHunter.App.Controllers
             this.mapper = mapper;
         }
 
-        // GET: RealEstates
-        public async Task<IActionResult> Index()
-        {
-            var realEstates = await this.realEstateServices.GetAllRealEstatesAsync();
-            var realEstatesViewModel = this.mapper.Map<IEnumerable<RealEstateIndexViewModel>>(realEstates);
-
-            return View(realEstatesViewModel);
-           
-        }
 
         // GET: RealEstates/Create
         public async Task<IActionResult> Create()

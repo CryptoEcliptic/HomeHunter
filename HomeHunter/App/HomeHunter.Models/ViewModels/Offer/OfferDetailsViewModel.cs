@@ -82,6 +82,9 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Автор")]
         public string Author { get; set; }
 
+        [Display(Name = "Цена на квадратен метър")]
+        public decimal PricePerSquareMeter { get; set; }
+
         [Display(Name = "Снимки")]
         public List<string> Images { get; set; }
     }

@@ -114,6 +114,7 @@ namespace HomeHunter.Infrastructure
                 .ForMember(x => x.RealEstateType, y => y.MapFrom(z => z.RealEstate.RealEstateType.TypeName))
                 .ForMember(x => x.BuildingType, y => y.MapFrom(z => z.RealEstate.BuildingType.Name))
                 .ForMember(x => x.Price, y => y.MapFrom(z => z.RealEstate.Price))
+                .ForMember(x => x.PricePerSquareMeter, y => y.MapFrom(z => z.RealEstate.PricePerSquareMeter))
                 .ForMember(x => x.Area, y => y.MapFrom(z => z.RealEstate.Area))
                 .ForMember(x => x.Year, y => y.MapFrom(z => z.RealEstate.Year))
                 .ForMember(x => x.FloorNumber, y => y.MapFrom(z => z.RealEstate.FloorNumber))

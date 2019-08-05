@@ -29,6 +29,16 @@
     <Compile Remove="Migrations\20190724105753_OffersPropertyUpdate.Designer.cs" />
     <Compile Remove="Migrations\20190724110412_OffersPropertyUpdate.cs" />
     <Compile Remove="Migrations\20190724110412_OffersPropertyUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20190805161621_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805161621_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20190805162744_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805162744_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20190805164245_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805164245_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20190805164755_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805164755_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20190805170221_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805170221_PricePerSquMeterRealEstateProperty.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

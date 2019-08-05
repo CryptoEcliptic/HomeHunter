@@ -42,7 +42,6 @@ namespace HomeHunter.Data
                 .HasForeignKey<Offer>(x => x.RealEstateId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
             base.OnModelCreating(builder);
         }
     }

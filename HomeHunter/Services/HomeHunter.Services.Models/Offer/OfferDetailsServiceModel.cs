@@ -54,6 +54,8 @@ namespace HomeHunter.Services.Models.Offer
 
         public string Author { get; set; }
 
+        public decimal PricePerSquareMeter { get; set; }
+
         public List<string> Images { get; set; }
     }
 }

@@ -20,6 +20,9 @@ namespace HomeHunter.Domain
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal PricePerSquareMeter { get; set; }
+
         public int? Year { get; set; }
 
         public bool? ParkingPlace { get; set; }
