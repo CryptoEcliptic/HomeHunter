@@ -1,0 +1,52 @@
+﻿@model HomeHunter.Models.BindingModels.User.UserCreateBindingModel
+
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<div class="container">
+    <div class="register col-md-5 col-md-offset-3">
+        <form method="post">
+            <h4>Регистрирай потребител.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Email"></label>
+                <input asp-for="@Model.Email" class="form-control" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.PhoneNumber"></label>
+                <input asp-for="@Model.PhoneNumber" class="form-control" />
+                <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.FirstName"></label>
+                <input asp-for="@Model.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.LastName"></label>
+                <input asp-for="@Model.LastName" class="form-control" />
+                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Password"></label>
+                <input asp-for="@Model.Password" class="form-control" />
+                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ConfirmPassword"></label>
+                <input asp-for="@Model.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Изпрати</button>
+        </form>
+        <br />
+        Полетата, означени със * са задължителни.
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -9,5 +9,9 @@ namespace HomeHunter.Services.Contracts
         bool IsUserEmailAuthenticated(string userId);
 
         Task<IEnumerable<UserIndexServiceModel>> GetAllUsersAsync();
+
+        Task<UserReturnCreateServiceModel> CreateUser(UserCreateServiceModel model);
+
+        Task<bool> SendVerificationEmail(string callBackUrl, string email);
     }
 }
