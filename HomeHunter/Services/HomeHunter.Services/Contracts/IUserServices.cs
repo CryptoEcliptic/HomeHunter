@@ -13,5 +13,9 @@ namespace HomeHunter.Services.Contracts
         Task<UserReturnCreateServiceModel> CreateUser(UserCreateServiceModel model);
 
         Task<bool> SendVerificationEmail(string callBackUrl, string email);
+
+        Task<UserDetailsServiceModel> GetUserDetailsAsync(string userId);
+
+        Task<bool> SoftDeleteUserAsync(string userId);
     }
 }

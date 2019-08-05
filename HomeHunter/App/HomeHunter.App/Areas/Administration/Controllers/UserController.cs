@@ -66,6 +66,41 @@ namespace HomeHunter.App.Areas.Administration.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //// GET: Offer/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            var userDetailsServiceModel = await this.userServices.GetUserDetailsAsync(id);
+
+            if (userDetailsServiceModel == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            var userDetailsViewModel = this.mapper.Map<UserDetailsViewModel>(userDetailsServiceModel);
+
+            return View(userDetailsViewModel);
+        }
+
+        // POST: Offer/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+           var isUserDeleted = await this.userServices.SoftDeleteUserAsync(id);
+
+            if (!isUserDeleted)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
     }
 }

@@ -1,0 +1,62 @@
+﻿@model HomeHunter.Models.ViewModels.User.UserDetailsViewModel;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 details-real-estate-container">
+        <br />
+        <br />
+        <h4 class="offset-3 home-hunter-center">Деактивиране на потребител</h4>
+        <table class="table table-estate-details table-responsive-md hover-table">
+            <tbody>
+                <tr>
+                    <th class="col-md-2">@Html.DisplayNameFor(model => model.Id)</th>
+                    <td class="col-md-2">@Html.DisplayFor(model => model.Id)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                    <td>@Html.DisplayFor(model => model.FirstName)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                    <td>@Html.DisplayFor(model => model.LastName)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                    <td>@Html.DisplayFor(model => model.PhoneNumber)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <td>@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.EmailConfirmed)</th>
+                    <td>@Html.DisplayFor(model => model.EmailConfirmed)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.IsActive)</th>
+                    <td>@Html.DisplayFor(model => model.IsActive)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                    <td>@Html.DisplayFor(model => model.CreatedOn)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.LastLogin)</th>
+                    <td>@Html.DisplayFor(model => model.LastLogin)</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <div class="col-md-offset-3" style="padding-left:50px">
+            <form asp-action="Delete">
+                <a type="button" asp-action="Index" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
+                <input type="submit" value="Деактивирай" class="btn btn-alert-h btn-sm" />
+            </form>
+        </div>
+    </div>
+
+</div>
+

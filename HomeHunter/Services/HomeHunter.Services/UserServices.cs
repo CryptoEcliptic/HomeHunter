@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace HomeHunter.Services
 {
@@ -23,49 +22,36 @@ namespace HomeHunter.Services
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
         private readonly UserManager<HomeHunterUser> userManager;
-        private readonly SignInManager<HomeHunterUser> signInManager;
         private readonly ILogger<UserServices> logger;
         private readonly IEmailSender emailSender;
 
         public UserServices(HomeHunterDbContext context, 
             IMapper mapper,
             UserManager<HomeHunterUser> userManager,
-            SignInManager<HomeHunterUser> signInManager,
             ILogger<UserServices> logger,
             IEmailSender emailSender)
         {
             this.context = context;
             this.mapper = mapper;
             this.userManager = userManager;
-            this.signInManager = signInManager;
             this.logger = logger;
             this.emailSender = emailSender;
         }
 
         public async Task<IEnumerable<UserIndexServiceModel>> GetAllUsersAsync()
         {
-            var usersFromDb = await this.context.HomeHunterUsers.ToListAsync();
-
+            var usersFromDb = await this.userManager.Users
+                .Where(x => x.IsDeleted == false)
+                .ToListAsync();
+                
             var userIndexServiceModel = this.mapper.Map<IEnumerable<UserIndexServiceModel>>(usersFromDb);
 
             return userIndexServiceModel;
         }
 
-        public bool IsUserEmailAuthenticated(string userId)
-        {
-            var userFromDb = this.context.HomeHunterUsers.FirstOrDefault(x => x.Id == userId);
-            if (userFromDb != null)
-            {
-                if (userFromDb.EmailConfirmed == true)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         public async Task<UserReturnCreateServiceModel> CreateUser(UserCreateServiceModel model)
         {
+            //Create user
             var user = new HomeHunterUser
             {
                 UserName = model.Email,
@@ -74,12 +60,17 @@ namespace HomeHunter.Services
                 LastName = model.LastName,
                 CreatedOn = DateTime.UtcNow,
                 PhoneNumber = model.PhoneNumber,
-                IsDeleted = false
+                IsDeleted = false,
+                
             };
 
+            //Save user in the db via UserManager
             var result = await this.userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
+                //Adds User role
+                await userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
+
                 this.logger.LogInformation("User created a new account with password.");
                 var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
 
@@ -96,6 +87,69 @@ namespace HomeHunter.Services
             return null;
         }
 
+        public async Task<UserDetailsServiceModel> GetUserDetailsAsync(string userId)
+        {
+            var user = await this.userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null)
+            {
+                throw new ArgumentNullException("No such user found in the datbase");
+            }
+
+            var userDetailsServiceModel = this.mapper.Map<UserDetailsServiceModel>(user);
+
+            return userDetailsServiceModel;
+        }
+
+        public async Task<bool> SoftDeleteUserAsync(string userId)
+        {
+            var user = await this.userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            var roles = await this.userManager.GetRolesAsync(user);
+
+            if (roles.Contains(GlobalConstants.AdministratorRoleName))
+            { //TODO Error handling
+                return false;
+            }
+
+            user.IsDeleted = true;
+            user.Email = null;
+            user.FirstName = null;
+            user.LastName = null;
+            user.PhoneNumber = null;
+            user.NormalizedEmail = null;
+            user.NormalizedUserName = null;
+            user.UserName = null;
+            user.PasswordHash = null;
+            user.EmailConfirmed = false;
+            user.DeletedOn = DateTime.UtcNow;
+
+            user.ModifiedOn = DateTime.UtcNow;
+
+            try
+            {
+                this.context.Update(user);
+                await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool IsUserEmailAuthenticated(string userId)
+        {
+            var userFromDb = this.context.HomeHunterUsers.FirstOrDefault(x => x.Id == userId);
+            if (userFromDb != null)
+            {
+                if (userFromDb.EmailConfirmed == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public async Task<bool> SendVerificationEmail(string callBackUrl, string email)
         {
             try
@@ -109,8 +163,7 @@ namespace HomeHunter.Services
             {
                 return false;
             }
-           
-        }
 
+        }
     }
 }
