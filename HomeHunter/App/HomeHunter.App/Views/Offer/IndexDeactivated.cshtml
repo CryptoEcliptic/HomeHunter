@@ -1,15 +1,14 @@
-﻿@model IEnumerable<HomeHunter.Models.ViewModels.Offer.OfferIndexViewModel>
+﻿@model IEnumerable<HomeHunter.Models.ViewModels.Offer.OfferIndexDeactivatedViewModel>
 @using HomeHunter.Common
-
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "IndexDeactivated";
+    Layout = "~/Areas/Administration/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="index-table-container paddingElement">
-    <h3>Активни обяви</h3>
+    <h3>Свалени обяви</h3>
     <p>
-        <a asp-action="Create" asp-controller="RealEstates">Създай нова обява</a>
+        <a asp-area="Administration" asp-action="Index" asp-controller="Home">Назад</a>
     </p>
 
     <table id="table_id" class="display">
@@ -37,7 +36,7 @@
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
                 <th class="center-element-h">
-                    @Html.DisplayNameFor(model => model.CreatedOn)
+                    @Html.DisplayNameFor(model => model.DeletedOn)
                 </th>
                 <th class="center-element-h">
                     Действия
@@ -60,7 +59,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.OfferType)
                         </td>
-                        <td >
+                        <td>
                             @Html.DisplayFor(modelItem => item.RealEstateType)
                         </td>
                         <td>
@@ -72,13 +71,11 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Price)
                         </td>
-                        <td >
-                            @Html.DisplayFor(modelItem => item.CreatedOn)
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeletedOn)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                            <a asp-action="DetailsDeactivated" asp-route-id="@item.Id">Детайли</a>
                         </td>
                     </tr>
                 }

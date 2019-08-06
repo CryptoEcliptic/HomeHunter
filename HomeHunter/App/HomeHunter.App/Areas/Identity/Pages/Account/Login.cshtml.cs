@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using HomeHunter.Domain;
+using HomeHunter.Common;
 
 namespace HomeHunter.App.Areas.Identity.Pages.Account
 {
@@ -88,8 +89,18 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
                     }
                     user.LastLogin = DateTime.UtcNow;
                     var lastLoginResult = await this.userManager.UpdateAsync(user);
+                    var roles = await userManager.GetRolesAsync(user);
 
                     _logger.LogInformation("User logged in.");
+
+                    if (roles.Contains(GlobalConstants.AdministratorRoleName))
+                    {
+                        returnUrl = "~/Administration/Home/Index";
+                    }
+                    else if (roles.Contains(GlobalConstants.UserRoleName))
+                    {
+                        returnUrl = "~/Home/AuthenticatedIndex";
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

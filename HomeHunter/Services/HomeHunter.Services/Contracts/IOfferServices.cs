@@ -10,6 +10,8 @@ namespace HomeHunter.Services.Contracts
 
         Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync();
 
+        Task<IEnumerable<OfferIndexDeactivatedServiceModel>> GetAllDeactivatedOffersAsync();
+
         Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id);
 
         Task<OfferPlainDetailsServiceModel> GetOfferByIdAsync(string id);

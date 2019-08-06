@@ -1,0 +1,130 @@
+﻿@model HomeHunter.Models.ViewModels.Offer.OfferDetailsDeactivatedViewModel;
+@{
+    ViewData["Title"] = "DetailsDeactivated";
+    Layout = "~/Areas/Administration/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 details-real-estate-container">
+        <br />
+        <br />
+        <h4 class="offset-3 home-hunter-center">Детайли за обявата</h4>
+        <table class="table table-estate-details table-responsive-md hover-table">
+            <tbody>
+                <tr>
+                    <th class="col-md-2">@Html.DisplayNameFor(model => model.ReferenceNumber)</th>
+                    <td class="col-md-2">@Html.DisplayFor(model => model.ReferenceNumber)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.OfferType)</th>
+                    <td>@Html.DisplayFor(model => model.OfferType)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.City)</th>
+                    <td>@Html.DisplayFor(model => model.City)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Neighbourhood)</th>
+                    <td>@Html.DisplayFor(model => model.Neighbourhood)</td>
+                </tr>
+                @if (Model.Village != null)
+                {
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Village)</th>
+                        <td>@Html.DisplayFor(model => model.Village)</td>
+                    </tr>
+                }
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Address)</th>
+                    <td>@Html.DisplayFor(model => model.Address)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.RealEstateType)</th>
+                    <td>@Html.DisplayFor(model => model.RealEstateType)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.BuildingType)</th>
+                    <td>@Html.DisplayFor(model => model.BuildingType)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Area)</th>
+                    <td>@Html.DisplayFor(model => model.Area)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Price)</th>
+                    <td>@Html.DisplayFor(model => model.Price)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.PricePerSquareMeter)</th>
+                    <td>@Html.DisplayFor(model => model.PricePerSquareMeter)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FloorNumber)</th>
+                    <td>@Html.DisplayFor(model => model.FloorNumber)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.BuildingTotalFloors)</th>
+                    <td>@Html.DisplayFor(model => model.BuildingTotalFloors)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Year)</th>
+                    <td>@Html.DisplayFor(model => model.Year)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.HeatingSystem)</th>
+                    <td>@Html.DisplayFor(model => model.HeatingSystem)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ParkingPlace)</th>
+                    <td>@Html.DisplayFor(model => model.ParkingPlace)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Yard)</th>
+                    <td>@Html.DisplayFor(model => model.Yard)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.MetroNearBy)</th>
+                    <td>@Html.DisplayFor(model => model.MetroNearBy)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Balcony)</th>
+                    <td>@Html.DisplayFor(model => model.Balcony)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.CellingOrBasement)</th>
+                    <td>@Html.DisplayFor(model => model.CellingOrBasement)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Comments)</th>
+                    <td>@Html.DisplayFor(model => model.Comments)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ContactNumber)</th>
+                    <td>@Html.DisplayFor(model => model.ContactNumber)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Author)</th>
+                    <td>@Html.DisplayFor(model => model.Author)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                    <td>@Html.DisplayFor(model => model.CreatedOn)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ModifiedOn)</th>
+                    <td>@Html.DisplayFor(model => model.ModifiedOn)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.DeletedOn)</th>
+                    <td>@Html.DisplayFor(model => model.DeletedOn)</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <div class="col-md-offset-4" style="padding-left:50px">
+            <a type="button" asp-controller="Offer" asp-action="IndexDeactivated" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
+        </div>
+    </div>
+</div>
+
+

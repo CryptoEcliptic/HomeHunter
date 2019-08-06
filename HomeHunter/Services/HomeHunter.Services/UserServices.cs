@@ -89,7 +89,7 @@ namespace HomeHunter.Services
 
         public async Task<UserDetailsServiceModel> GetUserDetailsAsync(string userId)
         {
-            var user = await this.userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            var user = await this.GetUserById(userId);
 
             if (user == null)
             {
@@ -139,7 +139,7 @@ namespace HomeHunter.Services
 
         public bool IsUserEmailAuthenticated(string userId)
         {
-            var userFromDb = this.context.HomeHunterUsers.FirstOrDefault(x => x.Id == userId);
+            var userFromDb = this.userManager.Users.FirstOrDefault(x => x.Id == userId);
             if (userFromDb != null)
             {
                 if (userFromDb.EmailConfirmed == true)
@@ -164,6 +164,18 @@ namespace HomeHunter.Services
                 return false;
             }
 
+        }
+
+        public async Task<HomeHunterUser> GetUserById(string userId)
+        {
+            if (userId == null)
+            {
+                throw new ArgumentNullException("No such Id in the database");
+            }
+
+            var user = await this.userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+            return user;
         }
     }
 }

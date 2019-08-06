@@ -1,31 +1,27 @@
 ﻿using AutoMapper;
 using HomeHunter.Data;
-using HomeHunter.Domain;
 using HomeHunter.Models.BindingModels.Offer;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace HomeHunter.App.Controllers
 {
+    [Authorize]
     public class OfferController : Controller
     {
-        private readonly HomeHunterDbContext _context;
         private readonly IMapper mapper;
         private readonly IOfferServices offerServices;
 
-        public OfferController(HomeHunterDbContext context,
+        public OfferController(
             IMapper mapper,
             IOfferServices offerServices)
         {
-            _context = context;
             this.mapper = mapper;
             this.offerServices = offerServices;
         }
@@ -35,6 +31,17 @@ namespace HomeHunter.App.Controllers
         {
             var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync();
             var offers = this.mapper.Map<IEnumerable<OfferIndexViewModel>>(offerIndexServiceModel);
+
+            return View(offers);
+        }
+
+        // GET: DeactivatedOffers
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> IndexDeactivated()
+        {
+            var offerIndexServiceModel = await this.offerServices.GetAllDeactivatedOffersAsync();
+
+            var offers = this.mapper.Map<IEnumerable<OfferIndexDeactivatedViewModel>>(offerIndexServiceModel);
 
             return View(offers);
         }
@@ -56,6 +63,26 @@ namespace HomeHunter.App.Controllers
 
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offer);
 
+
+            return View(offerDetailViewModel);
+        }
+        //GET: Offer/Details/5
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DetailsDeactivated(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var offer = await this.offerServices.GetOfferDetailsAsync(id);
+
+            if (offer == null)
+            {
+                return NotFound();
+            }
+
+            var offerDetailViewModel = this.mapper.Map<OfferDetailsDeactivatedViewModel>(offer);
 
             return View(offerDetailViewModel);
         }

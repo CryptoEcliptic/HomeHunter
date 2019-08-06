@@ -4,6 +4,7 @@ using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomeHunter.App.Controllers
 {
@@ -19,18 +20,20 @@ namespace HomeHunter.App.Controllers
         }
         public IActionResult Index()
         {
-            if (this.User.Identity.IsAuthenticated)
-            {
-                var userId = this.userManager.GetUserId(this.User);
-                var isUseremailAuthenticated = this.usersService.IsUserEmailAuthenticated(userId)
-                    && this.User.Identity.IsAuthenticated;
-
-                return View(isUseremailAuthenticated);
-            }
-
             return View();
-            
         }
+
+        [Authorize(Roles = "User")]
+        public IActionResult AuthenticatedIndex()
+        {
+            var userId = this.userManager.GetUserId(this.User);
+            var isUseremailAuthenticated = this.usersService.IsUserEmailAuthenticated(userId)
+                && this.User.Identity.IsAuthenticated;
+
+            return View(isUseremailAuthenticated);
+        }
+
+
 
         public IActionResult Privacy()
         {

@@ -5,6 +5,7 @@ using HomeHunter.Domain.Enums;
 using HomeHunter.Infrastructure.CloudinaryServices;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,19 @@ namespace HomeHunter.Services
         private readonly HomeHunterDbContext context;
         private readonly IImageServices imageServices;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly IUserServices userServices;
         private readonly IMapper mapper;
 
         public OfferServices(HomeHunterDbContext context,
             IImageServices imageServices,
             ICloudinaryService cloudinaryService,
+           IUserServices userServices,
            IMapper mapper)
         {
             this.context = context;
             this.imageServices = imageServices;
             this.cloudinaryService = cloudinaryService;
+            this.userServices = userServices;
             this.mapper = mapper;
         }
 
@@ -42,11 +46,13 @@ namespace HomeHunter.Services
 
             string refereenceNumber = "A" + DateTime.UtcNow.ToString();
 
-            var author = await this.context.HomeHunterUsers.FirstOrDefaultAsync(x => x.Id == authorId);
+            //var author = await this.context.HomeHunterUsers.FirstOrDefaultAsync(x => x.Id == authorId); //TODO Remove
+            var author = await this.userServices.GetUserById(authorId);
 
             var offer = new Offer
             {
                 AuthorId = authorId,
+                Author = author,
                 RealEstateId = estateId,
                 Comments = model.Comments,
                 ContactNumber = model.ContactNumber,
@@ -77,6 +83,25 @@ namespace HomeHunter.Services
             var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(activeOffers);
 
             return offerIndexServiceModel;
+        }
+
+        public async Task<IEnumerable<OfferIndexDeactivatedServiceModel>> GetAllDeactivatedOffersAsync()
+        {
+            var activeOffers = await context.Offers
+                .Where(z => z.IsDeleted == true)
+                .Include(x => x.Author)
+                .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.RealEstateType)
+                .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.Address.City)
+                .Include(r => r.RealEstate)
+                     .ThenInclude(r => r.Address.Neighbourhood)
+                .OrderByDescending(x => x.CreatedOn)
+                .ToListAsync();
+
+            var offerIndexDeactivatedServiceModel = this.mapper.Map<IEnumerable<OfferIndexDeactivatedServiceModel>>(activeOffers);
+
+            return offerIndexDeactivatedServiceModel;
         }
 
         public async Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id)
@@ -187,8 +212,6 @@ namespace HomeHunter.Services
             }
 
             return true;
-
-            
         }
 
         private async Task<int> SoftDeleteEntity(Offer offer)
@@ -196,9 +219,9 @@ namespace HomeHunter.Services
             offer.IsDeleted = true;
             offer.RealEstate.IsDeleted = true;
             offer.RealEstate.Address.IsDeleted = true;
-            offer.ModifiedOn = DateTime.UtcNow;
-            offer.RealEstate.ModifiedOn = DateTime.UtcNow;
-            offer.RealEstate.Address.ModifiedOn = DateTime.UtcNow;
+            offer.DeletedOn = DateTime.UtcNow;
+            offer.RealEstate.DeletedOn = DateTime.UtcNow;
+            offer.RealEstate.Address.DeletedOn = DateTime.UtcNow;
 
             var imageIdsToDeleteFromCloudinary = await this.imageServices.GetImageIds(offer.RealEstate.Id);
             await this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDeleteFromCloudinary);

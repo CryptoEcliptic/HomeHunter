@@ -46,6 +46,8 @@ namespace HomeHunter.Services.Models.Offer
 
         public string ModifiedOn { get; set; }
 
+        public string DeletedOn { get; set; }
+
         public string OfferType { get; set; }
 
         public string Comments { get; set; }
