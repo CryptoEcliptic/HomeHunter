@@ -8,6 +8,10 @@
 {
     if (User.IsInRole("Admin"))
     {
+        <!-- Logo Starts -->
+        <a class="navbar-brand" asp-area="Administration" asp-controller="Home" asp-action="Index"><img src="~/lib/images/logo.png" alt="logo"></a>
+        <!-- #Logo Ends -->
+
         <ul class="nav navbar-nav navbar-left scroll">
             <li class="nav-item">
                 <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Администратор: @UserManager.GetUserName(User)!</a>
@@ -26,6 +30,10 @@
     }
     else
     {
+        <!-- Logo Starts -->
+        <a class="navbar-brand" asp-controller="Home" asp-action="AuthenticatedIndex"><img src="~/lib/images/logo.png" alt="logo"></a>
+        <!-- #Logo Ends -->
+
         <ul class="nav navbar-nav navbar-left scroll">
             <li class="nav-item">
                 <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Потребител: @UserManager.GetUserName(User)!</a>
@@ -41,6 +49,10 @@
 }
 else
 {
+    <!-- Logo Starts -->
+    <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/lib/images/logo.png" alt="logo"></a>
+    <!-- #Logo Ends -->
+
     <ul class="nav navbar-nav navbar-right scroll">
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">За нас</a>

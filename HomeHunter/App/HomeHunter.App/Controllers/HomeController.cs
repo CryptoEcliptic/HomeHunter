@@ -33,8 +33,6 @@ namespace HomeHunter.App.Controllers
             return View(isUseremailAuthenticated);
         }
 
-
-
         public IActionResult Privacy()
         {
             return View();
