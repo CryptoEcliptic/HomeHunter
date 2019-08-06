@@ -1,4 +1,14 @@
-body {	color:#666;	font:300 15px/15px Roboto,Arial,Helvetica;background-color:#fff;-webkit-font-smoothing:antialiased;}
+body {
+    color: #666;
+    font: 300 15px/15px Roboto,Arial,Helvetica;
+    background-color: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container-fluid-navpg {
+    height: 850px;
+    background-image: url('../images/61589_indoor_skyscraper_apartment.jpg');
+}
 /*#fff*/
 .home-hunter-center {
     text-align: center;
@@ -59,6 +69,16 @@ a.close.disabled {
     transform: translate(-50%, -50%);
 }
 
+.awsome-ic {
+    width: 10em;
+    height: 10em;
+    padding: 0;
+    border-radius: 50%;
+    margin: 0 1.25em;
+    line-height: 13.0em;
+    color: #4ef1fc;
+    font-size: 16px
+}
    .details-real-estate-container {
     padding-left: 30px;
     padding-top: 80px;
