@@ -8,7 +8,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
     {
 
         [Display(Name = "Етаж")]
-        [StringLength(10, ErrorMessage = "Полето {0} не трябва да надвишава {1} символа.")]
+        [StringLength(7, ErrorMessage = "Полето {0} не трябва да надвишава {1} символа.")]
         public string FloorNumber { get; set; }
 
 
@@ -16,9 +16,9 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [Range(1, 50, ErrorMessage = "Броят на етажите не трябва да бъде по-малък от {1}.")]
         public int? BuildingTotalFloors { get; set; }
 
-        [Required(ErrorMessage = "Полето Площ е задължително")]
+        [Required(ErrorMessage = "Полето {0} е задължително")]
         [Display(Name = "Площ*")]
-        [Range(1, 1000000, ErrorMessage = "Площта не трябва да бъде по-малка от {1}.")]
+        [Range(1, 1000000, ErrorMessage = "Площта не трябва да бъде по-малка от {1} и да надвишава {2}!")]
         public double Area { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
@@ -46,9 +46,10 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [Display(Name = "Мазе/Таван")]
         public bool CellingOrBasement { get; set; }
 
-        [Required(ErrorMessage = "Полето Адрес/Местоположение е задължително")]
+
         [Display(Name = "Адрес/Местоположение*")]
-        [MinLength(5, ErrorMessage = "Полето Адрес/Местоположение трябва да съдържа поне 5 символа")]
+        [Required(ErrorMessage = "Полето Адрес/Местоположение е задължително")]
+        [StringLength(256, ErrorMessage = "Полето {0} трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 3)]
         public string Address { get; set; }
 
         [MaxLength(32)]
@@ -67,8 +68,8 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [Display(Name = "Град")]
         public string City { get; set; }
 
-        [MaxLength(32)]
         [Display(Name = "Село")]
+        [StringLength(32, ErrorMessage = "Полето {0} трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 3)]
         public string Village { get; set; }
 
         [MaxLength(64)]

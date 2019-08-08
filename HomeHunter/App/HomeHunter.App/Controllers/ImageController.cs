@@ -13,6 +13,9 @@ namespace HomeHunter.App.Controllers
     [Authorize]
     public class ImageController : Controller
     {
+        private const string InvalidFormatImageMessage = @"Системата каза НЕ! Част от файловете са с невалидно разширение. Можете да качвате само файлове със следните разширения: .jpg .jpeg .png .bmp .gif";
+
+
         private readonly ICloudinaryService cloudinaryService;
         private readonly IImageServices imageServices;
         private readonly IRealEstateServices realEstateServices;
@@ -44,32 +47,40 @@ namespace HomeHunter.App.Controllers
                 return RedirectToAction("Error", "Home");
             }
 
-            if (this.imageServices.ImagesCount(id) > GlobalConstants.ImageUploadLimit)
+            if (!this.ModelState.IsValid)
             {
-                return RedirectToAction("Error", "Home");
+                this.ViewData["ErrorMessage"] = InvalidFormatImageMessage;
+                return View(model ?? new ImageUploadBindingModel());
             }
-
-            foreach (var image in model.Images)
+            if (model.Images.Count > 0)
             {
-                var imageId = Guid.NewGuid().ToString();
-
-                try
-                {
-                    var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
-                    var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageUrl, id);
-
-                }
-                catch (FormatException)
+                if (this.imageServices.ImagesCount(id) >= GlobalConstants.ImageUploadLimit)
                 {
                     return RedirectToAction("Error", "Home");
                 }
-                catch (ArgumentNullException)
+
+                foreach (var image in model.Images)
                 {
+                    var imageId = Guid.NewGuid().ToString();
 
-                    return RedirectToAction("Error", "Home");
+                    try
+                    {
+                        var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
+                        var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageUrl, id);
+
+                    }
+                    catch (FormatException)
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                    catch (ArgumentNullException)
+                    {
+
+                        return RedirectToAction("Error", "Home");
+                    }
                 }
-
             }
+           
 
             RedirectToActionResult redirectResult = new RedirectToActionResult("Create", "Offer", new { @Id = $"{id}" });
             return redirectResult;
@@ -97,6 +108,14 @@ namespace HomeHunter.App.Controllers
             
             if (model.Images.Count != 0)
             {
+                if (!this.ModelState.IsValid)
+                {
+                    var imageUploadEditServiceModel = await this.imageServices.GetImageDetailsAsync(id);
+                    var imageUploadEditBindingModel = this.mapper.Map<ImageUploadEditBindingModel>(imageUploadEditServiceModel);
+                    this.ViewData["ErrorMessage"] = InvalidFormatImageMessage;
+                    return this.View(imageUploadEditBindingModel);
+                }
+
                 var imageIdsToDelete = await this.imageServices.GetImageIds(realEstateId);
 
                 int removedImagesFromCloudinary = await this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDelete);
@@ -113,12 +132,10 @@ namespace HomeHunter.App.Controllers
                     }
                     catch (FormatException)
                     {
-
                         return RedirectToAction("Error", "Home");
                     }
                     catch (ArgumentNullException)
                     {
-
                         return RedirectToAction("Error", "Home");
                     }
                 }

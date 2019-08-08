@@ -20,6 +20,14 @@ namespace HomeHunter.App.Controllers
         }
         public IActionResult Index()
         {
+            if (this.User.IsInRole("User"))
+            {
+                return RedirectToAction("AuthenticatedIndex", "Home");
+            }
+            else if (this.User.IsInRole("Admin"))
+            {
+                return LocalRedirect("~/Administration");
+            }
             return View();
         }
 

@@ -10,6 +10,18 @@
     <div class="container d-flex justify-content-around">
         <br />
         <br />
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="col-md-10 col-md-offset-1">
+                <div class="alert alert-danger alert-dismissible fade in text-center" role="alert">
+                    <strong>@ViewData["ErrorMessage"]</strong>
+                    <button type="button" class="close-h" style="font-size:30px; padding-right:30px" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div style="padding-bottom:85px"></div>
+        }
         <h4 style="text-align:center">Качване на снимки</h4>
 
         <form method="post" class="wrapper overflow-y-auto" enctype="multipart/form-data">
@@ -18,7 +30,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -28,7 +39,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -38,7 +48,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -47,7 +56,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -56,7 +64,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -65,7 +72,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -74,7 +80,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -83,7 +88,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -92,7 +96,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -101,7 +104,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -110,7 +112,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -119,7 +120,6 @@
                 <div class="sm-upload-options">
                     <label>
                         <input type="file" asp-for="Images" class="image-upload" accept="image/*" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
                     </label>
                 </div>
             </div>
@@ -136,4 +136,5 @@
     <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
 
     <script src="~/js/small-image-upload.js" asp-append-version="true"></script>
+    <script src="~/js/image_upload_error_message.js" asp-append-version="true"></script>
 }

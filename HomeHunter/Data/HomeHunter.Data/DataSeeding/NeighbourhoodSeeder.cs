@@ -9,6 +9,7 @@ namespace HomeHunter.Data.DataSeeding
     public class NeighbourhoodSeeder : ISeeder
     {
         private readonly string[] SofiaNeighbourhoods = new string[] {
+            "",
             "Абдовица",
             "Банишора",
             "Барите",

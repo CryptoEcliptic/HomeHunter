@@ -1,11 +1,10 @@
 ﻿
 //Insert default item "Select" in dropdownlist on load
-//$("#city").ready(function () {
+//$("#city").select(function () {
 //    var cityName = $("#city").val();
 //    var items = ""
-
 //        items = "<option value='0'>Изберете квартал</option>";
-//    
+    
 //    $("#Neighbourhood").html(items);
 //});
 

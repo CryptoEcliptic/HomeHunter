@@ -17,11 +17,15 @@ namespace HomeHunter.Common
         public const int ImageUploadLimit = 12;
         public const string DefaultDateTimeDbValue = "0001-01-01 00:00:00.0000000";
         public const string NotAvailableMessage= "n/a";
+        public const string PhoneValidationRegex = @"^([0-9]{10})$|^\+[0-9]{3}[0-9]{9}$|^\+[0-9]{3} [0-9]{3} [0-9]{3} [0-9]{3}$|^\+[0-9]{3} [0-9]{9}$|^[0-9]{4} [0-9]{3} [0-9]{3}$";
+        public const string AllowedFileExtensionsAsString = ".jpg, .jpeg, .png, .bmp, .gif";
 
         public static List<string> AllowedFileExtensions = new List<string>
         {
             ".jpg", ".jpeg", ".png", ".bmp", ".gif"
         };
+
+       
 
     }
 }
