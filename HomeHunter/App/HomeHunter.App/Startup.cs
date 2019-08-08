@@ -21,6 +21,7 @@ using CloudinaryDotNet;
 using HomeHunter.Infrastructure.CloudinaryServices;
 using System.Security.Claims;
 using System.Security.Principal;
+using System.Threading.Tasks;
 
 namespace HomeHunter.App
 {
@@ -134,10 +135,12 @@ namespace HomeHunter.App
 
             if (env.IsDevelopment())
             {
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
@@ -158,6 +161,12 @@ namespace HomeHunter.App
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.Run(context =>
+            {
+                context.Response.StatusCode = 404;
+                return Task.FromResult(0);
             });
         }
         //TODO Seed All bulgarian cities in the db
