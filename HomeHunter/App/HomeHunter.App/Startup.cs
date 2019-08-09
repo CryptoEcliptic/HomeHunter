@@ -135,13 +135,15 @@ namespace HomeHunter.App
 
             if (env.IsDevelopment())
             {
-                app.UseStatusCodePagesWithRedirects("/Error/{0}");
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/Error"); //TODO REMOVE AFTER TESTING
+                app.UseStatusCodePagesWithReExecute("/Error/{0}"); //TODO REMOVE AFTER TESTING
+                //app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseStatusCodePagesWithRedirects("/Error/{0}");
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                
                 app.UseHsts();
             }
 

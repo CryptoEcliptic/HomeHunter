@@ -25,4 +25,8 @@
     <Folder Include="ViewModels\Image\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.8.4" />
+  </ItemGroup>
+
 </Project>
