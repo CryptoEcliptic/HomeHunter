@@ -224,7 +224,7 @@ namespace HomeHunter.Services
             offer.RealEstate.Address.DeletedOn = DateTime.UtcNow;
 
             var imageIdsToDeleteFromCloudinary = await this.imageServices.GetImageIds(offer.RealEstate.Id);
-            await this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDeleteFromCloudinary);
+            this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDeleteFromCloudinary);
 
             await this.imageServices.RemoveImages(offer.RealEstate.Id);
             int changedRows = 0;

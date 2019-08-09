@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using HomeHunter.Models;
+﻿using HomeHunter.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace HomeHunter.App.Controllers
 {
     public class ErrorController : Controller
     {
         private readonly string Error404Message = "Error 404: Страницата не може да бъде намерена!";
+        private readonly string Error405Message = "Error 405: Непълен Url адрес!";
         private readonly string GeneralErrorMessage= "Възникна грешка! Работим за отстраняване на проблема. Моля, опитайте по-късно!";
 
         [Route("Error/{statusCode}")]
@@ -24,7 +21,9 @@ namespace HomeHunter.App.Controllers
                 case 404:
                     this.ViewData["Error"] = Error404Message;
                     break;
-
+                case 405:
+                    this.ViewData["Error"] = Error405Message;
+                    break;
                 default:
                     break;
             }

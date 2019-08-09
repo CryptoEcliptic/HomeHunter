@@ -8,6 +8,6 @@ namespace HomeHunter.Infrastructure.CloudinaryServices
     {
         Task<string> UploadPictureAsync(IFormFile pictureFile, string name);
 
-        Task<int> DeleteCloudinaryImages(IEnumerable<string> imageIds);
+       int DeleteCloudinaryImages(IEnumerable<string> imageIds);
     }
 }

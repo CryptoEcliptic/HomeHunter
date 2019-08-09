@@ -50,10 +50,15 @@ namespace HomeHunter.Infrastructure.CloudinaryServices
                 uploadResult = this.cloudinaryUtilities.Upload(uploadParams);
             }
 
+            if (uploadResult == null)
+            {
+                throw new InvalidOperationException("Unsuccessful Cloudinary upload!");
+            }
+
             return uploadResult?.SecureUri.AbsoluteUri;
         }
 
-        public async Task<int> DeleteCloudinaryImages(IEnumerable<string> imageIds)
+        public int DeleteCloudinaryImages(IEnumerable<string> imageIds)
         {
             if (imageIds.Count() != 0)
             {
@@ -62,7 +67,12 @@ namespace HomeHunter.Infrastructure.CloudinaryServices
                     PublicIds = imageIds.ToList(),
                 };
               
-                this.cloudinaryUtilities.DeleteResources(delResParams);
+                var deletionResult = this.cloudinaryUtilities.DeleteResources(delResParams);
+
+                if (deletionResult == null)
+                {
+                    throw new InvalidOperationException("No images deleted from Cloudinary!");
+                }
 
                 return imageIds.Count();
             }

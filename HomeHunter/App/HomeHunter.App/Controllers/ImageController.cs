@@ -42,45 +42,25 @@ namespace HomeHunter.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Upload(string id, ImageUploadBindingModel model)
         {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                return RedirectToAction("Error", "Home");
-            }
-
             if (!this.ModelState.IsValid)
             {
                 this.ViewData["ErrorMessage"] = InvalidFormatImageMessage;
                 return View(model ?? new ImageUploadBindingModel());
             }
+
             if (model.Images.Count > 0)
             {
-                if (this.imageServices.ImagesCount(id) >= GlobalConstants.ImageUploadLimit)
+                if (this.imageServices.ImagesCount(id) < GlobalConstants.ImageUploadLimit)
                 {
-                    return RedirectToAction("Error", "Home");
-                }
-
-                foreach (var image in model.Images)
-                {
-                    var imageId = Guid.NewGuid().ToString();
-
-                    try
+                    foreach (var image in model.Images)
                     {
+                        var imageId = Guid.NewGuid().ToString();
+
                         var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
                         var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageUrl, id);
-
-                    }
-                    catch (FormatException)
-                    {
-                        return RedirectToAction("Error", "Home");
-                    }
-                    catch (ArgumentNullException)
-                    {
-
-                        return RedirectToAction("Error", "Home");
                     }
                 }
             }
-           
 
             RedirectToActionResult redirectResult = new RedirectToActionResult("Create", "Offer", new { @Id = $"{id}" });
             return redirectResult;
@@ -99,13 +79,9 @@ namespace HomeHunter.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, ImageUploadEditBindingModel model)
         {
-            if (string.IsNullOrWhiteSpace(id)) //OfferId
-            {
-                return RedirectToAction("Error", "Home");
-            }
 
             var realEstateId = await this.realEstateServices.GetRealEstateIdByOfferId(id);
-            
+
             if (model.Images.Count != 0)
             {
                 if (!this.ModelState.IsValid)
@@ -118,29 +94,18 @@ namespace HomeHunter.App.Controllers
 
                 var imageIdsToDelete = await this.imageServices.GetImageIds(realEstateId);
 
-                int removedImagesFromCloudinary = await this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDelete);
+                int removedImagesFromCloudinary = this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDelete);
                 var hasOldImagesBeenRemoved = await this.imageServices.RemoveImages(realEstateId);
 
                 foreach (var image in model.Images)
                 {
                     var imageId = Guid.NewGuid().ToString();
 
-                    try
-                    {
-                        var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
-                        var isImageAddedInDb = await this.imageServices.EditImageAsync(imageId, imageUrl, realEstateId);
-                    }
-                    catch (FormatException)
-                    {
-                        return RedirectToAction("Error", "Home");
-                    }
-                    catch (ArgumentNullException)
-                    {
-                        return RedirectToAction("Error", "Home");
-                    }
+                    var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
+                    var isImageAddedInDb = await this.imageServices.EditImageAsync(imageId, imageUrl, realEstateId);
                 }
             }
-          
+
             RedirectToActionResult redirectResult = new RedirectToActionResult("Edit", "RealEstates", new { @Id = $"{realEstateId}" });
             return redirectResult;
         }

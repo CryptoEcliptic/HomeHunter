@@ -82,9 +82,16 @@ namespace HomeHunter.Services
 
         public int ImagesCount(string id)
         {
-            return this.context.Images
+            if (!this.context.RealEstates.Any(x => x.Id == id))
+            {
+                throw new ArgumentException("Invalid real estate Id!");
+            }
+
+            var imageCount = this.context.Images
             .Where(x => x.RealEstateId == id)
             .Count();
+
+            return imageCount;
         }
 
         public async Task<bool> EditImageAsync(string publicKey, string url, string estateId)
@@ -115,8 +122,8 @@ namespace HomeHunter.Services
                 .Images
                 .Where(x => x.RealEstateId == estateId)
                 .ToList();
-            int affectedRows = 0;
 
+            int affectedRows = 0;
             if (realEstateImages.Count != 0)
             {
                 try
@@ -134,6 +141,11 @@ namespace HomeHunter.Services
 
         public async Task<IEnumerable<string>> GetImageIds(string realEstateId)
         {
+            if (realEstateId == null)
+            {
+                throw new ArgumentNullException("Real estate id could not be null!");
+            }
+
             var imageIds = await this.context.Images
                 .Where(x => x.RealEstateId == realEstateId)
                 .Select(x => ClodinaryImageFolderName + x.Id)

@@ -156,16 +156,21 @@ namespace HomeHunter.Services
         {
             if (offerId == null)
             {
-                return null;
+                throw new ArgumentNullException("Invalid offer Id!");
             }
 
-            var id = this.context.RealEstates
+            var realEstate = await this.context.RealEstates
                 .Include(x => x.Offer)
-                .FirstOrDefault(x => x.Offer.Id == offerId)
-                .Id;
+                .FirstOrDefaultAsync(x => x.Offer.Id == offerId);
 
-            return id;     
+            if (realEstate == null)
+            {
+                throw new ArgumentNullException("Invalid Real Estate Id!");
+            }
+
+            return realEstate.Id;     
         }
 
+       
     }
 }
