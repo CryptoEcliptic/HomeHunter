@@ -46,7 +46,6 @@ namespace HomeHunter.Services
 
             string refereenceNumber = "A" + DateTime.UtcNow.ToString();
 
-            //var author = await this.context.HomeHunterUsers.FirstOrDefaultAsync(x => x.Id == authorId); //TODO Remove
             var author = await this.userServices.GetUserById(authorId);
 
             var offer = new Offer
@@ -61,9 +60,15 @@ namespace HomeHunter.Services
             };
 
             await this.context.Offers.AddAsync(offer);
-            await this.context.SaveChangesAsync();
+            var changedRows = await this.context.SaveChangesAsync();
+
+            if (changedRows == 0)
+            {
+                throw new InvalidOperationException("Offer not created!");
+            }
 
             return true;
+
         }
 
         public async Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync()
@@ -126,7 +131,7 @@ namespace HomeHunter.Services
 
             if (offer == null)
             {
-                return null;
+                throw new ArgumentNullException("No offer found!");
             }
 
             var offerDetailsServiceModel = this.mapper.Map<OfferDetailsServiceModel>(offer);
@@ -138,6 +143,11 @@ namespace HomeHunter.Services
         {
             var offerToEdit = await this.context.Offers
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (offerToEdit == null)
+            {
+                throw new ArgumentNullException("No offer found!");
+            }
 
             var offerEditServiceModel = this.mapper.Map<OfferPlainDetailsServiceModel>(offerToEdit);
 
@@ -151,7 +161,7 @@ namespace HomeHunter.Services
 
             if (offer == null)
             {
-                return false;
+                throw new ArgumentNullException("No offer found!");
             }
 
             offer.ModifiedOn = DateTime.UtcNow;
@@ -159,14 +169,11 @@ namespace HomeHunter.Services
 
             this.mapper.Map<OfferEditServiceModel, Offer>(model, offer);
 
-            try
+            this.context.Update(offer);
+            int chandedRows = await this.context.SaveChangesAsync();
+            if (chandedRows == 0)
             {
-                this.context.Update(offer);
-                await this.context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return false;
+                throw new InvalidOperationException("Offer not updated!");
             }
 
             return true;
@@ -208,7 +215,7 @@ namespace HomeHunter.Services
 
             if (deletionResult == 0)
             {
-                return false;
+                throw new InvalidOperationException("Offer not deleted!");
             }
 
             return true;
@@ -231,8 +238,8 @@ namespace HomeHunter.Services
 
             try
             {
-               this.context.Update(offer);
-               changedRows = await this.context.SaveChangesAsync();
+                this.context.Update(offer);
+                changedRows = await this.context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

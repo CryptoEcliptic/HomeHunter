@@ -12,6 +12,7 @@ using HomeHunter.Services.Models.RealEstate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -81,11 +82,6 @@ namespace HomeHunter.App.Controllers
 
                 var realEstateId = await this.realEstateServices.CreateRealEstateAsync(realEstate);
 
-                if (realEstateId == null)
-                {
-                    return RedirectToAction("Error", "Home");
-                }
-
                 RedirectToActionResult redirectResult = new RedirectToActionResult("Upload", "Image", new { @Id = $"{realEstateId}" });
                 return redirectResult;
             }
@@ -141,11 +137,6 @@ namespace HomeHunter.App.Controllers
                 var realEstateToEdit = this.mapper.Map<RealEstateEditServiceModel>(model);
 
                 var isRealEstateEddited = await this.realEstateServices.EditRealEstateAsync(realEstateToEdit);
-
-                if (!isRealEstateEddited)
-                {
-                    return RedirectToAction("Error", "Home");
-                }
 
                 var offerId = await this.offerServices.GetOfferIdByRealEstateIdAsync(id);
                 RedirectToActionResult redirectResult = new RedirectToActionResult("Details", "Offer", new { @Id = $"{offerId}"});

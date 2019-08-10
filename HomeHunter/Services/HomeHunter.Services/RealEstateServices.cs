@@ -85,8 +85,12 @@ namespace HomeHunter.Services
             };
 
             await this.context.RealEstates.AddAsync(realEstate);
-            await this.context.SaveChangesAsync();
+            int affectedRows = await this.context.SaveChangesAsync();
 
+            if (affectedRows == 0)
+            {
+                throw new InvalidOperationException("No real estate created!");
+            }
             return realEstate.Id;
         }
 
@@ -102,6 +106,11 @@ namespace HomeHunter.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
             ;
 
+            if (realEstate == null)
+            {
+                throw new ArgumentNullException("No  real estate with such Id!");
+            }
+
             var realEstateServiceModel = this.mapper.Map<RealEstateDetailsServiceModel>(realEstate);
 
             return realEstateServiceModel;
@@ -111,7 +120,7 @@ namespace HomeHunter.Services
         {
             if (!this.context.RealEstates.Any(x => x.Id == model.Id))
             {
-                return false;
+                throw new ArgumentNullException("No real estate with such Id!");
             }
 
             var realEstateToEdit = await this.context.RealEstates

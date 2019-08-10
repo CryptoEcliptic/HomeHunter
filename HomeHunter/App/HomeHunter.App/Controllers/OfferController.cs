@@ -6,6 +6,7 @@ using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -55,14 +56,7 @@ namespace HomeHunter.App.Controllers
             }
 
             var offer = await this.offerServices.GetOfferDetailsAsync(id);
-
-            if (offer == null)
-            {
-                return NotFound();
-            }
-
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offer);
-
 
             return View(offerDetailViewModel);
         }
@@ -76,12 +70,6 @@ namespace HomeHunter.App.Controllers
             }
 
             var offer = await this.offerServices.GetOfferDetailsAsync(id);
-
-            if (offer == null)
-            {
-                return NotFound();
-            }
-
             var offerDetailViewModel = this.mapper.Map<OfferDetailsDeactivatedViewModel>(offer);
 
             return View(offerDetailViewModel);
@@ -110,14 +98,15 @@ namespace HomeHunter.App.Controllers
             }
 
             var authorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (authorId == null)
+            {
+                return NotFound();
+            }
+
             var mappedOffer = this.mapper.Map<OfferCreateServiceModel>(model);
 
             var isOfferCreated = await this.offerServices.CreateOfferAsync(authorId, id, mappedOffer);
-
-            if (!isOfferCreated)
-            {
-                return RedirectToAction("Error", "Home");
-            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -160,11 +149,6 @@ namespace HomeHunter.App.Controllers
             var offer = this.mapper.Map<OfferEditServiceModel>(model);
             var isOfferEdited = await this.offerServices.EditOfferAsync(offer);
 
-            if (!isOfferEdited)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-
             RedirectToActionResult redirectResult = new RedirectToActionResult("Edit", "Image", new { @Id = $"{id}" });
             return redirectResult;
 
@@ -175,15 +159,10 @@ namespace HomeHunter.App.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Error", "Home");
+                return NotFound();
             }
 
             var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
-
-            if (offerDetailsServiceModel == null)
-            {
-                return RedirectToAction("Error", "Home");
-            }
 
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
 
@@ -195,12 +174,11 @@ namespace HomeHunter.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var isOfferDeleted = await this.offerServices.DeleteOfferAsync(id);
-
-            if (!isOfferDeleted)
+            if (id == null)
             {
-                return RedirectToAction("Error", "Home");
+                return NotFound();
             }
+            var isOfferDeleted = await this.offerServices.DeleteOfferAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
