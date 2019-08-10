@@ -45,11 +45,6 @@ namespace HomeHunter.App.Areas.Administration.Controllers
             var userCreateServiceModel = this.mapper.Map<UserCreateServiceModel>(model);
             var userData = await this.userServices.CreateUser(userCreateServiceModel);
 
-            if (userData == null)
-            {
-                //TODO Handle Error
-            }
-
             var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
@@ -58,49 +53,37 @@ namespace HomeHunter.App.Areas.Administration.Controllers
 
             var isVerificationEmailSent = await this.userServices.SendVerificationEmail(callbackUrl, userData.Email);
 
-            if (isVerificationEmailSent)
-            {
-                //TODO Handle Error
-            }
-
             return RedirectToAction(nameof(Index));
         }
 
-        //// GET: Offer/Delete/5
+        //// GET: User/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
-                return RedirectToAction("Error", "Home");
+                return NotFound();
             }
 
             var userDetailsServiceModel = await this.userServices.GetUserDetailsAsync(id);
-
-            if (userDetailsServiceModel == null)
-            {
-                return RedirectToAction("Error", "Home");
-            }
 
             var userDetailsViewModel = this.mapper.Map<UserDetailsViewModel>(userDetailsServiceModel);
 
             return View(userDetailsViewModel);
         }
 
-        // POST: Offer/Delete/5
+        // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-           var isUserDeleted = await this.userServices.SoftDeleteUserAsync(id);
-
-            if (!isUserDeleted)
+            if (id == null)
             {
-                return RedirectToAction("Error", "Home");
+                return NotFound();
             }
+
+            var isUserDeleted = await this.userServices.SoftDeleteUserAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
-
-
     }
 }

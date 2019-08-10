@@ -22,19 +22,16 @@ namespace HomeHunter.Services
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
         private readonly UserManager<HomeHunterUser> userManager;
-        private readonly ILogger<UserServices> logger;
         private readonly IEmailSender emailSender;
 
         public UserServices(HomeHunterDbContext context, 
             IMapper mapper,
             UserManager<HomeHunterUser> userManager,
-            ILogger<UserServices> logger,
             IEmailSender emailSender)
         {
             this.context = context;
             this.mapper = mapper;
             this.userManager = userManager;
-            this.logger = logger;
             this.emailSender = emailSender;
         }
 
@@ -71,7 +68,6 @@ namespace HomeHunter.Services
                 //Adds User role
                 await userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
 
-                this.logger.LogInformation("User created a new account with password.");
                 var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
 
                 var userReturnModel = new UserReturnCreateServiceModel
@@ -83,8 +79,10 @@ namespace HomeHunter.Services
                 };
                 return userReturnModel;
             }
-
-            return null;
+            else
+            {
+                throw new InvalidOperationException("User was not created!");
+            }
         }
 
         public async Task<UserDetailsServiceModel> GetUserDetailsAsync(string userId)
@@ -104,11 +102,17 @@ namespace HomeHunter.Services
         public async Task<bool> SoftDeleteUserAsync(string userId)
         {
             var user = await this.userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null)
+            {
+                throw new ArgumentNullException("No such user found in the datbase");
+            }
+
             var roles = await this.userManager.GetRolesAsync(user);
 
             if (roles.Contains(GlobalConstants.AdministratorRoleName))
-            { //TODO Error handling
-                return false;
+            {
+                throw new InvalidOperationException("Cannot delete Admin user!");
             }
 
             user.IsDeleted = true;
@@ -156,13 +160,13 @@ namespace HomeHunter.Services
             {
                 await this.emailSender.SendEmailAsync(email, $"Потвърждаване на регистрацията Ви в {GlobalConstants.CompanyName}",
                $"Благодарим Ви, че се регистрирахте в интернет страницата на {GlobalConstants.CompanyName}! За да потвърдите валидността на email-a си, моля последвайте <a href='{HtmlEncoder.Default.Encode(callBackUrl)}'>линка</a>.");
-
-                return true;
             }
             catch (Exception)
             {
                 return false;
             }
+
+            return true;
 
         }
 
