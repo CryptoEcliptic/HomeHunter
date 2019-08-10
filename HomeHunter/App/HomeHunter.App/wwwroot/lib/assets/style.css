@@ -9,6 +9,11 @@ body {
     height: 850px;
     background-image: url('../images/61589_indoor_skyscraper_apartment.jpg');
 }
+
+.container-fluid-index-h {
+    height: 667px;
+    padding-bottom: 25px;
+}
 /*#fff*/
 .home-hunter-center {
     text-align: center;
@@ -287,11 +292,6 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 
 
 
-
-
-
-
-
 /*contact*/
 #contact{background-color: #f5f5f5;}
 .contactform textarea,.contactform input{width: 100%;padding:1em;border:1px solid #ccc;margin-bottom: 1em;border-radius: 0;outline: none;}
@@ -304,7 +304,7 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 .gototop{position: fixed;bottom: 20px; right: 20px;background: rgba(0,0,0,0.5);padding: 10px;color: #fff;}
 .gototop i{line-height: 0.5em;}
 
-
+   
 @media (max-width: 1200px) {
 	body{font:300 13px/13px Roboto,Arial,Helvetica;}
 	.navbar-brand{padding-top: 11px;}
