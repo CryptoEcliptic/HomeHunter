@@ -10,6 +10,14 @@ body {
     background-image: url('../images/61589_indoor_skyscraper_apartment.jpg');
 }
 
+.scrollable-index-sales {
+    height: 650px;
+    overflow-y: auto;
+    width: 100%;
+    display: block;
+    clear: both;
+}
+
 .container-fluid-index-h {
     height: 667px;
     padding-bottom: 25px;
@@ -89,7 +97,14 @@ a.close.disabled {
     padding-top: 80px;
     padding-bottom: 40px;
 }
+.max-lines {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* number of lines to show */
 
+}
 .img-h-block {
     height:150px;
     width:150px;
@@ -101,6 +116,14 @@ a.close.disabled {
     display: block;
     clear: both;
     background-color:whitesmoke
+}
+
+.sales-index-guest {
+    height: 550px;
+    overflow-y: auto;
+    width: 100%;
+    display: block;
+    clear: both;
 }
 
 .index-table-container {

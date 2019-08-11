@@ -249,5 +249,26 @@ namespace HomeHunter.Services
 
             return changedRows;
         }
+
+        public async Task<IEnumerable<OfferIndexServiceModel>> GetAllSalesOffersAsync()
+        {
+            var salesOffers = await context.Offers
+               .Where(z => z.IsDeleted == false && z.OfferType == OfferType.Sale)
+               .Include(x => x.Author)
+               .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.RealEstateType)
+               .Include(x => x.RealEstate)
+                    .ThenInclude(x => x.Images)
+               .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.Address.City)
+               .Include(r => r.RealEstate)
+                    .ThenInclude(r => r.Address.Neighbourhood)
+               .OrderByDescending(x => x.CreatedOn)
+               .ToListAsync();
+
+            var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(salesOffers);
+
+            return offerIndexServiceModel;
+        }
     }
 }

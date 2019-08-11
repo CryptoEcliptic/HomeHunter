@@ -54,12 +54,18 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<OfferPlainDetailsServiceModel, OfferEditBindingModel>();
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsDeactivatedViewModel>();
 
+            this.CreateMap<OfferIndexServiceModel, OfferIndexSalesViewModel>()
+                .ForMember(x => x.Images, y => y.MapFrom(z => z.Images));
+
             this.CreateMap<OfferIndexServiceModel, OfferIndexViewModel>()
                 .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == "Sale" ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
 
             this.CreateMap<Offer, OfferIndexServiceModel>()
                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType.ToString()))
+               .ForMember(x => x.Area, y => y.MapFrom(z => z.RealEstate.Area))
+               .ForMember(x => x.Images, y => y.MapFrom(z => z.RealEstate.Images.Select(u => u.Url)))
                .ForMember(x => x.Author, y => y.MapFrom(z => z.Author.FirstName))
+               .ForMember(x => x.BuildingType, y => y.MapFrom(z => z.RealEstate.BuildingType.Name))
                .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                .ForMember(x => x.ModifiedOn, y => y.MapFrom(z => z.ModifiedOn == null ? GlobalConstants.NotAvailableMessage : z.ModifiedOn.Value.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                .ForMember(x => x.RealEstateType, y => y.MapFrom(z => z.RealEstate.RealEstateType.TypeName))

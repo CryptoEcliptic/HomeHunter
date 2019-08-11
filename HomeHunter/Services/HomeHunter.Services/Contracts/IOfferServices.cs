@@ -21,5 +21,7 @@ namespace HomeHunter.Services.Contracts
         Task<string> GetOfferIdByRealEstateIdAsync(string realEstateId);
 
         Task<bool> DeleteOfferAsync(string offerId);
+
+        Task<IEnumerable<OfferIndexServiceModel>> GetAllSalesOffersAsync();
     }
 }

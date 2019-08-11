@@ -1,10 +1,8 @@
-﻿using HomeHunter.Models;
-using HomeHunter.Domain;
+﻿using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
 
 namespace HomeHunter.App.Controllers
 {

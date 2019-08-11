@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HomeHunter.Data;
+using HomeHunter.Infrastructure;
 using HomeHunter.Models.BindingModels.Offer;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -16,6 +18,7 @@ namespace HomeHunter.App.Controllers
     [Authorize]
     public class OfferController : Controller
     {
+        private const int DefaultPageSize = 8;
         private readonly IMapper mapper;
         private readonly IOfferServices offerServices;
 
@@ -27,6 +30,7 @@ namespace HomeHunter.App.Controllers
             this.offerServices = offerServices;
         }
 
+        
         // GET: Offer
         public async Task<IActionResult> Index()
         {
@@ -36,7 +40,16 @@ namespace HomeHunter.App.Controllers
             return View(offers);
         }
 
-        // GET: DeactivatedOffers
+        [AllowAnonymous]
+        public async Task<IActionResult> IndexSales(int? pageNumber)
+        {
+            var offerIndexServiceModel = await this.offerServices.GetAllSalesOffersAsync();
+            var offers = this.mapper.Map<IEnumerable<OfferIndexSalesViewModel>>(offerIndexServiceModel).ToList();
+
+            return View(PaginationList<OfferIndexSalesViewModel>.Create(offers, pageNumber ?? 1, DefaultPageSize));
+        }
+
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexDeactivated()
         {

@@ -1,0 +1,106 @@
+﻿@using HomeHunter.Infrastructure
+@using HomeHunter.Models.ViewModels.Offer
+
+@model PaginationList<OfferIndexSalesViewModel>
+@{
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/lib/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="~/css/guest-inedx-css.css">
+
+<div class="row" style="padding-top:40px">
+    <div class="container container-pad" id="property-listings">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-4">
+                <h1>Имоти за продажба</h1>
+            </div>
+        </div>
+        <div class="container-fluid scrollable-index-sales">
+            @foreach (var offer in Model)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Begin Listing: 609 W GRAVERS LN-->
+                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing"  style="border-radius:7px">
+                            <div class="media">
+                                <a class="pull-left" href="#" target="_parent">
+                                    @if (offer.Images.Count() == 0)
+                                    {
+                                        <img alt="image" class="img-responsive img-thumbnail" src="~/lib/images/no-image-icon-0.jpg" style="width:150px; height:150px">
+                                    }
+                                    else
+                                    {
+                                        <img alt="image" class="img-responsive img-thumbnail" src="@offer.Images.FirstOrDefault()" style="width:150px; height:150px">
+                                    }
+                                </a>
+                                <div class="clearfix visible-sm"></div>
+
+                                <div class="media-body fnt-smaller">
+                                    <a href="#" target="_parent"></a>
+
+                                    <h4 class="media-heading">
+                                        <a href="#" target="_parent">€ @offer.Price <small class="pull-right"><strong>@offer.City</strong></small></a>
+                                    </h4>
+                                    <h4 class="media-heading">
+                                        <a href="#" target="_parent"><small class="pull-right"><strong>@offer.Neighbourhood</strong></small></a>
+                                    </h4>
+
+
+                                    <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                        <li>Площ: @offer.Area кв. м.</li>
+
+                                        <li style="list-style: none"></li>
+
+                                        <li>@offer.RealEstateType</li>
+
+                                        <li style="list-style: none"></li>
+
+                                        <li>@offer.BuildingType</li>
+                                    </ul>
+
+                                    <p class="hidden-xs max-lines">
+                                        @offer.Comments
+                                    </p>
+                                    <span class="fnt-smaller fnt-lighter fnt-arial">
+                                        Референтен номер: @offer.ReferenceNumber
+                                    </span> |
+                                    <span class="fnt-smaller fnt-lighter fnt-arial pull-right">
+                                        Публикувана на: @offer.CreatedOn
+                                    </span>
+                                </div>
+                            </div>
+                        </div><!-- End Listing-->
+                    </div>
+                </div>
+            }
+        </div>
+
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+    <div style="padding-left:20px">
+        <a asp-action="IndexSales"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-blue-h @prevDisabled">
+            Предишна
+        </a>
+        <a asp-action="IndexSales"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-blue-h @nextDisabled">
+            Следваща
+        </a>
+    </div>
+        </div> <!-- End container -->
+</div>
+
+
+
+
+
+
