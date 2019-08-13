@@ -18,18 +18,19 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Град")]
         public string City { get; set; }
 
-        [Display(Name = "Цена")]
+        [Display(Name = "Цена €")]
         public decimal Price { get; set; }
 
         [Display(Name = "Квартал")]
         public string Neighbourhood { get; set; }
 
-        [Display(Name = "Площ")]
+        [Display(Name = "Площ кв. м.")]
         public double Area { get; set; }
 
         [Display(Name = "Тип сграда")]
         public string BuildingType { get; set; }
 
+        [Display(Name = "Снимки")]
         public List<string> Images { get; set; }
 
         [Display(Name = "Коментари")]

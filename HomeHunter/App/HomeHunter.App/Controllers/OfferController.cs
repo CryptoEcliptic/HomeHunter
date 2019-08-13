@@ -41,12 +41,12 @@ namespace HomeHunter.App.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> IndexSales(int? pageNumber)
+        public async Task<IActionResult> IndexSales()
         {
             var offerIndexServiceModel = await this.offerServices.GetAllSalesOffersAsync();
             var offers = this.mapper.Map<IEnumerable<OfferIndexSalesViewModel>>(offerIndexServiceModel).ToList();
 
-            return View(PaginationList<OfferIndexSalesViewModel>.Create(offers, pageNumber ?? 1, DefaultPageSize));
+            return View(offers);
         }
 
 

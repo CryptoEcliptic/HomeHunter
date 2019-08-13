@@ -1,104 +1,159 @@
 ﻿@using HomeHunter.Infrastructure
 @using HomeHunter.Models.ViewModels.Offer
 
-@model PaginationList<OfferIndexSalesViewModel>
+@model IEnumerable<OfferIndexSalesViewModel>
 @{
-     Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/lib/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="~/css/guest-inedx-css.css">
+<br />
+<br />
+<div class="container-fluid paddingElement center-element-h backgr-img">
+    <h2>Продажби</h2>
+    <div class="container col-md-12" id="property-listings" style="border-radius:7px">
+        <table id="table_id" class="display scrollable-index-sales">
+            <thead>
+                <tr class="active-datatable-color">
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.Images)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.ReferenceNumber)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.RealEstateType)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.BuildingType)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.Neighbourhood)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.Area)
+                    </th>
+                    <th class="col-md-3 center-element-h">
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.CreatedOn)
+                    </th>
+                    <th class="center-element-h">
+                        Детайли
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="text-align:center; background-color: aliceblue">
+                        <td>
+                            @if (item.Images.Count == 0)
+                            {
+                                <img class="img-responsive img-thumbnail" style="width:180px; height:130px" src="~/lib/images/no-image-icon-0.jpg">
+                            }
+                            else
+                            {
+                                <img class="img-responsive img-thumbnail" style="width:180px; height:130px" src="@item.Images.FirstOrDefault()">
+                            }
 
-<div class="row" style="padding-top:40px">
-    <div class="container container-pad" id="property-listings">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-4">
-                <h1>Имоти за продажба</h1>
-            </div>
-        </div>
-        <div class="container-fluid scrollable-index-sales">
-            @foreach (var offer in Model)
-            {
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Begin Listing: 609 W GRAVERS LN-->
-                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing"  style="border-radius:7px">
-                            <div class="media">
-                                <a class="pull-left" href="#" target="_parent">
-                                    @if (offer.Images.Count() == 0)
-                                    {
-                                        <img alt="image" class="img-responsive img-thumbnail" src="~/lib/images/no-image-icon-0.jpg" style="width:150px; height:150px">
-                                    }
-                                    else
-                                    {
-                                        <img alt="image" class="img-responsive img-thumbnail" src="@offer.Images.FirstOrDefault()" style="width:150px; height:150px">
-                                    }
-                                </a>
-                                <div class="clearfix visible-sm"></div>
-
-                                <div class="media-body fnt-smaller">
-                                    <a href="#" target="_parent"></a>
-
-                                    <h4 class="media-heading">
-                                        <a href="#" target="_parent">€ @offer.Price <small class="pull-right"><strong>@offer.City</strong></small></a>
-                                    </h4>
-                                    <h4 class="media-heading">
-                                        <a href="#" target="_parent"><small class="pull-right"><strong>@offer.Neighbourhood</strong></small></a>
-                                    </h4>
-
-
-                                    <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                        <li>Площ: @offer.Area кв. м.</li>
-
-                                        <li style="list-style: none"></li>
-
-                                        <li>@offer.RealEstateType</li>
-
-                                        <li style="list-style: none"></li>
-
-                                        <li>@offer.BuildingType</li>
-                                    </ul>
-
-                                    <p class="hidden-xs max-lines">
-                                        @offer.Comments
-                                    </p>
-                                    <span class="fnt-smaller fnt-lighter fnt-arial">
-                                        Референтен номер: @offer.ReferenceNumber
-                                    </span> |
-                                    <span class="fnt-smaller fnt-lighter fnt-arial pull-right">
-                                        Публикувана на: @offer.CreatedOn
-                                    </span>
-                                </div>
-                            </div>
-                        </div><!-- End Listing-->
-                    </div>
-                </div>
-            }
-        </div>
-
-            @{
-                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-            }
-    <div style="padding-left:20px">
-        <a asp-action="IndexSales"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
-           asp-route-pageNumber="@(Model.PageIndex - 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-blue-h @prevDisabled">
-            Предишна
-        </a>
-        <a asp-action="IndexSales"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
-           asp-route-pageNumber="@(Model.PageIndex + 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-blue-h @nextDisabled">
-            Следваща
-        </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReferenceNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RealEstateType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BuildingType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Neighbourhood)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Area)
+                        </td>
+                        <td class="col-md-3">
+                            <p class="hidden-xs max-lines">
+                                @item.Comments;
+                            </p>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedOn)
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <thead>
+                <tr class="active-datatable-color">
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.Images)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.ReferenceNumber)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.RealEstateType)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.BuildingType)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.Neighbourhood)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.Area)
+                    </th>
+                    <th class="col-md-3 center-element-h">
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.CreatedOn)
+                    </th>
+                    <th class="center-element-h">
+                        Детайли
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
-        </div> <!-- End container -->
 </div>
 
+
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+            });
+        });
+</script>
+
+}
 
 
 

@@ -1,13 +1,25 @@
 ﻿/**** BASE ****/
 body {
     color: #888;
-    background-image: url('../lib/images/areal-architecture.jpg');
-    height:850px;
 }
 
 a {
     color: #03a1d1;
     text-decoration: none !important;
+}
+
+
+/*Pagination buttons**/
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+    border-radius: 50%;
+}
+
+.next {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 80%;
 }
 
 /**** LAYOUT ****/
@@ -49,7 +61,7 @@ a {
 }
 
 .mrg-0 {
-    margin: 0 !important;
+    margin: 0px !important;
 }
 
 .btm-mrg-10 {
@@ -65,7 +77,9 @@ a {
     color: #535353;
 }
 
-
+.search {
+   color:cadetblue
+}
 
 
 /**** MEDIA QUERIES ****/
