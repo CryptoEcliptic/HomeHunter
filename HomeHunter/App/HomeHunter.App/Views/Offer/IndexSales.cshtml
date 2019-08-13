@@ -15,7 +15,7 @@
         <table id="table_id" class="display scrollable-index-sales">
             <thead>
                 <tr class="active-datatable-color">
-                    <th class="center-element-h">
+                    <th class="center-element-h col-md-2">
                         @Html.DisplayNameFor(model => model.Images)
                     </th>
                     <th class="center-element-h">
@@ -39,7 +39,7 @@
                     <th class="center-element-h">
                         @Html.DisplayNameFor(model => model.Area)
                     </th>
-                    <th class="col-md-3 center-element-h">
+                    <th class="center-element-h col-md-2">
                         @Html.DisplayNameFor(model => model.Comments)
                     </th>
                     <th class="center-element-h">
@@ -54,14 +54,14 @@
                 @foreach (var item in Model)
                 {
                     <tr style="text-align:center; background-color: aliceblue">
-                        <td>
+                        <td class="col-md-2">
                             @if (item.Images.Count == 0)
                             {
-                                <img class="img-responsive img-thumbnail" style="width:180px; height:130px" src="~/lib/images/no-image-icon-0.jpg">
+                                <img class="img-responsive img-thumbnail" style="width:180px; height:150px" src="~/lib/images/no-image-icon-0.jpg">
                             }
                             else
                             {
-                                <img class="img-responsive img-thumbnail" style="width:180px; height:130px" src="@item.Images.FirstOrDefault()">
+                                <img class="img-responsive img-thumbnail" style="width:180px; height:150px" src="@item.Images.FirstOrDefault()">
                             }
 
                         </td>
@@ -86,7 +86,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Area)
                         </td>
-                        <td class="col-md-3">
+                        <td class="col-md-2">
                             <p class="hidden-xs max-lines">
                                 @item.Comments;
                             </p>
@@ -102,7 +102,7 @@
             </tbody>
             <thead>
                 <tr class="active-datatable-color">
-                    <th class="center-element-h">
+                    <th class="center-element-h col-md-2">
                         @Html.DisplayNameFor(model => model.Images)
                     </th>
                     <th class="center-element-h">
@@ -126,7 +126,7 @@
                     <th class="center-element-h">
                         @Html.DisplayNameFor(model => model.Area)
                     </th>
-                    <th class="col-md-3 center-element-h">
+                    <th class="center-element-h col-md-2">
                         @Html.DisplayNameFor(model => model.Comments)
                     </th>
                     <th class="center-element-h">
@@ -151,6 +151,10 @@
             $('#table_id').DataTable({
             });
         });
+</script>
+
+<script>
+   
 </script>
 
 }

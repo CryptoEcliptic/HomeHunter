@@ -18,7 +18,9 @@ body {
     background-image: url('../images/neveroqtna-vila-v-planinata-na_widen.jpg');
 }
 
-
+.datatable-larger-font {
+    font-size: 120%;
+}
 
 .scrollable-index-sales {
     height: 700px;
@@ -28,6 +30,7 @@ body {
     display: block;
     border-radius:7px;
     clear: both;
+
 }
 
 .active-datatable-color {
@@ -111,7 +114,7 @@ a.close.disabled {
    .details-real-estate-container {
     padding-left: 30px;
     padding-top: 80px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 }
 
 .details-real-estate-container-guest {
@@ -148,6 +151,8 @@ a.close.disabled {
     width: 100%;
     display: block;
     clear: both;
+    font-size: 120%;
+
 }
 
 .index-table-container {
@@ -341,7 +346,7 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 
 /*contact*/
 #contact{background-color: #f5f5f5;}
-.contactform textarea,.contactform input{width: 100%;padding:1em;border:1px solid #ccc;margin-bottom: 1em;border-radius: 0;outline: none;}
+.contactform textarea,.contactform input{width: 100%;padding:0.5em;border:1px solid #ccc;margin-bottom: 1em;border-radius: 0;outline: none;}
 /*contact*/
 
 
