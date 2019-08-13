@@ -60,6 +60,7 @@ namespace HomeHunter.App.Controllers
             return View(offers);
         }
 
+        [AllowAnonymous]
         //GET: Offer/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -69,8 +70,15 @@ namespace HomeHunter.App.Controllers
             }
 
             var offer = await this.offerServices.GetOfferDetailsAsync(id);
-            var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offer);
+           
 
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                var offerDetailsGuestViewModel = this.mapper.Map<OfferDetailsGuestViewModel>(offer);
+                return View("DetailsGuest", offerDetailsGuestViewModel);
+            }
+
+            var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offer);
             return View(offerDetailViewModel);
         }
         //GET: Offer/Details/5

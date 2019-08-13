@@ -53,6 +53,7 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsViewModel>();
             this.CreateMap<OfferPlainDetailsServiceModel, OfferEditBindingModel>();
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsDeactivatedViewModel>();
+            this.CreateMap<OfferDetailsServiceModel, OfferDetailsGuestViewModel>();
 
             this.CreateMap<OfferIndexServiceModel, OfferIndexSalesViewModel>()
                 .ForMember(x => x.Images, y => y.MapFrom(z => z.Images));

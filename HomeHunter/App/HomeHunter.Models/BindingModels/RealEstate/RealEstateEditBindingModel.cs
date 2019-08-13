@@ -65,7 +65,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         public string RealEstateType { get; set; }
 
         [MaxLength(32)]
-        [Display(Name = "Тип на сградата")]
+        [Display(Name = "Тип строителство")]
         public string BuildingType { get; set; }
 
         [MaxLength(32)]

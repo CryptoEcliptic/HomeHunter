@@ -28,7 +28,7 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Тип имот")]
         public string RealEstateType { get; set; }
 
-        [Display(Name = "Тип сграда")]
+        [Display(Name = "Тип строителство")]
         public string BuildingType { get; set; }
 
         [Display(Name = "Площ")]

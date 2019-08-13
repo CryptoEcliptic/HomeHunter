@@ -14,6 +14,10 @@ body {
     background-image: url('../images/areal-architecture.jpg');
 }
 
+.backgr-img-details {
+    background-image: url('../images/neveroqtna-vila-v-planinata-na_widen.jpg');
+}
+
 
 
 .scrollable-index-sales {
@@ -109,6 +113,14 @@ a.close.disabled {
     padding-top: 80px;
     padding-bottom: 40px;
 }
+
+.details-real-estate-container-guest {
+    line-height:500px;
+    padding-left: 30px;
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+
 .max-lines {
     overflow: hidden;
     text-overflow: ellipsis;

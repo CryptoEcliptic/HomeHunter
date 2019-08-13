@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomeHunter.Models.ViewModels.Offer
 {
-    public class OfferDetailsDeactivatedViewModel
+    public class OfferDetailsGuestViewModel
     {
-        [Display(Name = "Id")]
-        public string Id { get; set; }
 
         [Display(Name = "Референтен номер")]
         public string ReferenceNumber { get; set; }
@@ -28,10 +27,10 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Тип строителство")]
         public string BuildingType { get; set; }
 
-        [Display(Name = "Площ")]
+        [Display(Name = "Площ кв. м.")]
         public double Area { get; set; }
 
-        [Display(Name = "Цена")]
+        [Display(Name = "Цена €")]
         public decimal Price { get; set; }
 
         [Display(Name = "Година")]
@@ -64,12 +63,6 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Дата на публикуване")]
         public string CreatedOn { get; set; }
 
-        [Display(Name = "Дата на премахване")]
-        public string DeletedOn { get; set; }
-
-        [Display(Name = "Дата на последна промята")]
-        public string ModifiedOn { get; set; }
-
         [Display(Name = "Тип на обявата")]
         public string OfferType { get; set; }
 
@@ -79,10 +72,10 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Телефон за контакт")]
         public string ContactNumber { get; set; }
 
-        [Display(Name = "Автор")]
-        public string Author { get; set; }
-
         [Display(Name = "Цена на квадратен метър")]
         public decimal PricePerSquareMeter { get; set; }
+
+        [Display(Name = "Снимки")]
+        public List<string> Images { get; set; }
     }
 }

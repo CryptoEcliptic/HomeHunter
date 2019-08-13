@@ -13,7 +13,7 @@ namespace HomeHunter.Models.ViewModels.RealEstate
         [Display(Name = "Тип на имота")]
         public string RealEstateType { get; set; }
 
-        [Display(Name = "Тип на сградата")]
+        [Display(Name = "Тип строителство")]
         public string BuildingType { get; set; }
 
         [Display(Name = "Площ")]

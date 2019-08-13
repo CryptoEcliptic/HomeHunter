@@ -27,7 +27,7 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Площ кв. м.")]
         public double Area { get; set; }
 
-        [Display(Name = "Тип сграда")]
+        [Display(Name = "Тип строителство")]
         public string BuildingType { get; set; }
 
         [Display(Name = "Снимки")]
