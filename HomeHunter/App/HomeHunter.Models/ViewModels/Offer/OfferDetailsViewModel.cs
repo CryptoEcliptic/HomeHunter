@@ -50,19 +50,19 @@ namespace HomeHunter.Models.ViewModels.Offer
         public string HeatingSystem { get; set; }
 
         [Display(Name = "Паркомясто/Гараж")]
-        public bool ParkingPlace { get; set; }
+        public string ParkingPlace { get; set; }
 
         [Display(Name = "Двор")]
-        public bool Yard { get; set; }
+        public string Yard { get; set; }
 
         [Display(Name = "Достъп до метро")]
-        public bool MetroNearBy { get; set; }
+        public string MetroNearBy { get; set; }
 
         [Display(Name = "Тераса")]
-        public bool Balcony { get; set; }
+        public string Balcony { get; set; }
 
         [Display(Name = "Мазе/Таван")]
-        public bool CellingOrBasement { get; set; }
+        public string CellingOrBasement { get; set; }
 
         [Display(Name = "Дата на публикуване")]
         public string CreatedOn { get; set; }

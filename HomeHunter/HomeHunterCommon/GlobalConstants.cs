@@ -19,6 +19,9 @@ namespace HomeHunter.Common
         public const string NotAvailableMessage= "n/a";
         public const string PhoneValidationRegex = @"^([0-9]{10})$|^\+[0-9]{3}[0-9]{9}$|^\+[0-9]{3} [0-9]{3} [0-9]{3} [0-9]{3}$|^\+[0-9]{3} [0-9]{9}$|^[0-9]{4} [0-9]{3} [0-9]{3}$";
         public const string AllowedFileExtensionsAsString = ".jpg, .jpeg, .png, .bmp, .gif";
+        public const string BoolTrueStringValue = "ДА";
+        public const string BoolFalseStringValue = "НЕ";
+
 
         public static List<string> AllowedFileExtensions = new List<string>
         {

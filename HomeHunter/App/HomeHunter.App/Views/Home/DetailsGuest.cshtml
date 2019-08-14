@@ -1,5 +1,4 @@
 ﻿@model HomeHunter.Models.ViewModels.Offer.OfferDetailsGuestViewModel
-@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -8,11 +7,23 @@
     <div class="col-md-6 details-real-estate-container">
         <br />
         <br />
+        @if (this.TempData["SuccessfullSubmition"] != null)
+        {
+            <div class="col-md-10 col-md-offset-1 pad">
+                <div class="alert alert-info alert-dismissible fade in text-center" role="alert">
+                    <strong>@TempData["SuccessfullSubmition"]</strong>
+                    <button type="button" class="close-h" style="font-size:30px; padding-right:30px" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        }
         <h4 class="offset-3 home-hunter-center" style="color:brown"><strong>@Model.RealEstateType, @Model.Area кв. м., @Model.Neighbourhood, Цена € @Model.Price</strong></h4>
+
         <table class="table table-estate-details table-responsive-md hover-table">
             <tbody style="background-color: aliceblue">
                 <tr>
-                    <th class="col-md-2">@Html.DisplayNameFor(model => model.ReferenceNumber)</th>
+                    <th>@Html.DisplayNameFor(model => model.ReferenceNumber)</th>
                     <td class="col-md-2">@Html.DisplayFor(model => model.ReferenceNumber)</td>
                 </tr>
                 <tr>
@@ -55,7 +66,7 @@
                     <td>@Html.DisplayFor(model => model.PricePerSquareMeter)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.FloorNumber)</th>
+                    <th class="col-md-1">@Html.DisplayNameFor(model => model.FloorNumber)</th>
                     <td>@Html.DisplayFor(model => model.FloorNumber)</td>
                 </tr>
                 <tr>
@@ -63,35 +74,35 @@
                     <td>@Html.DisplayFor(model => model.BuildingTotalFloors)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Year)</th>
+                    <th >@Html.DisplayNameFor(model => model.Year)</th>
                     <td>@Html.DisplayFor(model => model.Year)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.HeatingSystem)</th>
+                    <th >@Html.DisplayNameFor(model => model.HeatingSystem)</th>
                     <td>@Html.DisplayFor(model => model.HeatingSystem)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.ParkingPlace)</th>
+                    <th >@Html.DisplayNameFor(model => model.ParkingPlace)</th>
                     <td>@Html.DisplayFor(model => model.ParkingPlace)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Yard)</th>
+                    <th >@Html.DisplayNameFor(model => model.Yard)</th>
                     <td>@Html.DisplayFor(model => model.Yard)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.MetroNearBy)</th>
+                    <th >@Html.DisplayNameFor(model => model.MetroNearBy)</th>
                     <td>@Html.DisplayFor(model => model.MetroNearBy)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Balcony)</th>
+                    <th >@Html.DisplayNameFor(model => model.Balcony)</th>
                     <td>@Html.DisplayFor(model => model.Balcony)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.CellingOrBasement)</th>
+                    <th >@Html.DisplayNameFor(model => model.CellingOrBasement)</th>
                     <td>@Html.DisplayFor(model => model.CellingOrBasement)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Comments)</th>
+                    <th >@Html.DisplayNameFor(model => model.Comments)</th>
                     <td>@Html.DisplayFor(model => model.Comments)</td>
                 </tr>
                 <tr>
@@ -99,7 +110,7 @@
                     <td>@Html.DisplayFor(model => model.ContactNumber)</td>
                 </tr>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                    <th >@Html.DisplayNameFor(model => model.CreatedOn)</th>
                     <td>@Html.DisplayFor(model => model.CreatedOn)</td>
                 </tr>
             </tbody>
@@ -111,8 +122,6 @@
     </div>
     <br />
     <br />
-
-
 
     <div class="col-md-6 details-real-estate-container paddingElement" style="padding-right:20px;">
 
@@ -132,29 +141,52 @@
     </div>
 </div>
 <!--Contact Starts-->
-<div id="contact">
-    <br />
-    <br />
-    <div class="container contactform center">
-        <h4 class="text-center wowload fadeInUp">Направете запитване за тази обява</h4>
-        <div class="row wowload fadeInLeftBig">
-            <div class="col-sm-6 col-sm-offset-3 col-xs-12">
-                <input type="text" disabled value="@Model.ReferenceNumber">
-                <input type="text" placeholder="Email">
-                <input type="text" placeholder="Име">
-                <textarea rows="5" placeholder="Съобщение"></textarea>
-                <button class="btn btn-primary" style="border-radius:5px"><i class="fa fa-paper-plane"></i> Изпрати</button>
+@{
+    string offerId = Model.Id;
+    string refNumber = Model.ReferenceNumber;
+
+
+    <div id="contact">
+        <br />
+        <br />
+        <div class="container contactform center">
+            <h4 class="text-center wowload fadeInUp">Направете запитване за тази обява</h4>
+            <div class="row wowload fadeInLeftBig">
+                <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+                    <form asp-controller="Home" asp-action="Contact" method="post">
+                        <input type="text" readonly asp-for="@Model.ContactFormBindingModel.ReferenceNumber" value="@refNumber">
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" asp-for="@Model.ContactFormBindingModel.Email" class="form-control" id="Email" />
+                            <span asp-validation-for="@Model.ContactFormBindingModel.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Име" asp-for="@Model.ContactFormBindingModel.Name" class="form-control" id="Name" />
+                            <span asp-validation-for="@Model.ContactFormBindingModel.Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder="Съобщение" asp-for="@Model.ContactFormBindingModel.Message" class="form-control" rows="5"></textarea>
+                            <span asp-validation-for="@Model.ContactFormBindingModel.Message" class="text-danger"></span>
+                        </div>
+                        <input type="hidden" asp-for="@Model.ContactFormBindingModel.OfferId
+                               " value="@offerId" />
+                        <button type="submit" class="btn btn-primary" style="border-radius:5px"><i class="fa fa-paper-plane"></i> Изпрати</button>
+                    </form>
+                </div>
             </div>
         </div>
+        <br />
     </div>
-    <br />
-</div>
+}
 <!--Contact Ends-->
 
 
 @section Scripts{
 
     <script src="~/lib/assets/modal_images.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial" />
+
+
 }
 
 

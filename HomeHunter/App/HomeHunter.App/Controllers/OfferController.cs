@@ -1,15 +1,11 @@
 ﻿using AutoMapper;
-using HomeHunter.Data;
-using HomeHunter.Infrastructure;
 using HomeHunter.Models.BindingModels.Offer;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -18,7 +14,6 @@ namespace HomeHunter.App.Controllers
     [Authorize]
     public class OfferController : Controller
     {
-        private const int DefaultPageSize = 8;
         private readonly IMapper mapper;
         private readonly IOfferServices offerServices;
 
@@ -40,16 +35,7 @@ namespace HomeHunter.App.Controllers
             return View(offers);
         }
 
-        [AllowAnonymous]
-        public async Task<IActionResult> IndexSales()
-        {
-            var offerIndexServiceModel = await this.offerServices.GetAllSalesOffersAsync();
-            var offers = this.mapper.Map<IEnumerable<OfferIndexSalesViewModel>>(offerIndexServiceModel).ToList();
-
-            return View(offers);
-        }
-
-
+      
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexDeactivated()
         {
@@ -60,7 +46,6 @@ namespace HomeHunter.App.Controllers
             return View(offers);
         }
 
-        [AllowAnonymous]
         //GET: Offer/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -71,13 +56,6 @@ namespace HomeHunter.App.Controllers
 
             var offer = await this.offerServices.GetOfferDetailsAsync(id);
            
-
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                var offerDetailsGuestViewModel = this.mapper.Map<OfferDetailsGuestViewModel>(offer);
-                return View("DetailsGuest", offerDetailsGuestViewModel);
-            }
-
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offer);
             return View(offerDetailViewModel);
         }

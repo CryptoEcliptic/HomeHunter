@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using HomeHunter.Models.BindingModels.Home;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HomeHunter.Models.ViewModels.Offer
 {
     public class OfferDetailsGuestViewModel
     {
+        public OfferDetailsGuestViewModel()
+        {
+            this.ContactFormBindingModel = new ContactFormBindingModel();
+        }
+
+        public string Id { get; set; }
 
         [Display(Name = "Референтен номер")]
         public string ReferenceNumber { get; set; }
@@ -46,19 +53,19 @@ namespace HomeHunter.Models.ViewModels.Offer
         public string HeatingSystem { get; set; }
 
         [Display(Name = "Паркомясто/Гараж")]
-        public bool ParkingPlace { get; set; }
+        public string ParkingPlace { get; set; }
 
         [Display(Name = "Двор")]
-        public bool Yard { get; set; }
+        public string Yard { get; set; }
 
         [Display(Name = "Достъп до метро")]
-        public bool MetroNearBy { get; set; }
+        public string MetroNearBy { get; set; }
 
         [Display(Name = "Тераса")]
-        public bool Balcony { get; set; }
+        public string Balcony { get; set; }
 
         [Display(Name = "Мазе/Таван")]
-        public bool CellingOrBasement { get; set; }
+        public string CellingOrBasement { get; set; }
 
         [Display(Name = "Дата на публикуване")]
         public string CreatedOn { get; set; }
@@ -77,5 +84,8 @@ namespace HomeHunter.Models.ViewModels.Offer
 
         [Display(Name = "Снимки")]
         public List<string> Images { get; set; }
+
+        public ContactFormBindingModel ContactFormBindingModel { get; set; }
+
     }
 }

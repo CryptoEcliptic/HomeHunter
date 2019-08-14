@@ -2,6 +2,7 @@
 using HomeHunter.Common;
 using HomeHunter.Data;
 using HomeHunter.Domain;
+using HomeHunter.Infrastructure.EmailSender;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.User;
 using Microsoft.AspNetCore.Identity;
@@ -22,12 +23,12 @@ namespace HomeHunter.Services
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
         private readonly UserManager<HomeHunterUser> userManager;
-        private readonly IEmailSender emailSender;
+        private readonly IApplicationEmailSender emailSender;
 
         public UserServices(HomeHunterDbContext context, 
             IMapper mapper,
             UserManager<HomeHunterUser> userManager,
-            IEmailSender emailSender)
+            IApplicationEmailSender emailSender)
         {
             this.context = context;
             this.mapper = mapper;

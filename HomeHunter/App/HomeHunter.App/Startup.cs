@@ -70,7 +70,7 @@ namespace HomeHunter.App
             Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentails);
             services.AddSingleton(cloudinaryUtility);
 
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IApplicationEmailSender, EmailSender>();
             services.AddTransient<IRealEstateTypeServices, RealEstateTypeServices>();
             services.AddTransient<IHeatingSystemServices, HeatingSystemServices>();
             services.AddTransient<IBuildingTypeServices, BuildingTypeServices>();

@@ -272,5 +272,6 @@ namespace HomeHunter.Services
 
             return offerIndexServiceModel;
         }
+
     }
 }

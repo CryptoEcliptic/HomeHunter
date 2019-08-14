@@ -50,10 +50,29 @@ namespace HomeHunter.Infrastructure
             #region Offer Mappings
 
             this.CreateMap<OfferCreateBindingModel, OfferCreateServiceModel>();
-            this.CreateMap<OfferDetailsServiceModel, OfferDetailsViewModel>();
             this.CreateMap<OfferPlainDetailsServiceModel, OfferEditBindingModel>();
-            this.CreateMap<OfferDetailsServiceModel, OfferDetailsDeactivatedViewModel>();
-            this.CreateMap<OfferDetailsServiceModel, OfferDetailsGuestViewModel>();
+
+            this.CreateMap<OfferDetailsServiceModel, OfferDetailsViewModel>()
+                .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.CellingOrBasement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue));
+
+            this.CreateMap<OfferDetailsServiceModel, OfferDetailsDeactivatedViewModel>()
+                .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.CellingOrBasement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                ;
+
+            this.CreateMap<OfferDetailsServiceModel, OfferDetailsGuestViewModel>()
+                .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.CellingOrBasement ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue));
 
             this.CreateMap<OfferIndexServiceModel, OfferIndexSalesViewModel>()
                 .ForMember(x => x.Images, y => y.MapFrom(z => z.Images));
@@ -100,7 +119,6 @@ namespace HomeHunter.Infrastructure
                 .ForMember(x => x.ModifiedOn, y => y.MapFrom(z => z.ModifiedOn == null ? GlobalConstants.NotAvailableMessage : z.ModifiedOn.Value.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                 .ForMember(x => x.Images, y => y.MapFrom(z => z.RealEstate.Images.Select(u => u.Url)))
                 .ForMember(x => x.Author, y => y.MapFrom(z => z.Author.FirstName));
-            ;
 
             this.CreateMap<Offer, OfferIndexDeactivatedServiceModel>()
                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType.ToString()))
@@ -110,8 +128,7 @@ namespace HomeHunter.Infrastructure
                .ForMember(x => x.RealEstateType, y => y.MapFrom(z => z.RealEstate.RealEstateType.TypeName))
                .ForMember(x => x.City, y => y.MapFrom(z => z.RealEstate.Address.City.Name))
                .ForMember(x => x.Neighbourhood, y => y.MapFrom(z => z.RealEstate.Address.Neighbourhood.Name))
-               .ForMember(x => x.Price, y => y.MapFrom(z => z.RealEstate.Price))
-              ;
+               .ForMember(x => x.Price, y => y.MapFrom(z => z.RealEstate.Price));
 
             this.CreateMap<OfferIndexDeactivatedServiceModel, OfferIndexDeactivatedViewModel>()
                 .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == "Sale" ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName)); ;
@@ -120,7 +137,6 @@ namespace HomeHunter.Infrastructure
 
             this.CreateMap<Offer, OfferPlainDetailsServiceModel>()
                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == OfferType.Sale ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
-
 
             this.CreateMap<OfferEditServiceModel, Offer>()
                 .ForMember(x => x.Id, y => y.Ignore())
