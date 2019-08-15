@@ -29,7 +29,7 @@ namespace HomeHunter.App.Controllers
         // GET: Offer
         public async Task<IActionResult> Index()
         {
-            var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync();
+            var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(null);
             var offers = this.mapper.Map<IEnumerable<OfferIndexViewModel>>(offerIndexServiceModel);
 
             return View(offers);

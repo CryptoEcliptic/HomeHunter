@@ -1,7 +1,7 @@
 ﻿@using HomeHunter.Infrastructure
 @using HomeHunter.Models.ViewModels.Offer
 
-@model IEnumerable<OfferIndexSalesViewModel>
+@model IEnumerable<OfferIndexGuestViewModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -10,7 +10,15 @@
 <br />
 <br />
 <div class="container-fluid paddingElement center-element-h backgr-img">
-    <h2>Продажби</h2>
+    @if ((string)this.ViewData["Title"] == "Sales")
+    {
+        <h2>Продажби</h2>
+    }
+    else
+    {
+        <h2>Наеми</h2>
+    }
+
     <div class="container col-md-12" id="property-listings" style="border-radius:7px">
         <table id="table_id" class="display scrollable-index-sales">
             <thead>
@@ -140,9 +148,6 @@
         </table>
     </div>
 </div>
-
-
-
 
 
 @section Scripts{

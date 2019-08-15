@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HomeHunter.Domain;
+using HomeHunter.Domain.Enums;
 using HomeHunter.Infrastructure.EmailSender;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
@@ -15,6 +16,7 @@ namespace HomeHunter.App.Controllers
     public class HomeController : Controller
     {
         private const string SuccessfullySentQuestionMessage = "Успешно изпратихте запитване към служителите ни!";
+
         private readonly IUserServices usersService;
         private readonly UserManager<HomeHunterUser> userManager;
         private readonly IOfferServices offerServices;
@@ -61,10 +63,23 @@ namespace HomeHunter.App.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> IndexSales()
         {
-            var offerIndexServiceModel = await this.offerServices.GetAllSalesOffersAsync();
-            var offers = this.mapper.Map<IEnumerable<OfferIndexSalesViewModel>>(offerIndexServiceModel).ToList();
+            var condition = OfferType.Sale;
 
-            return View(offers);
+            var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
+            var offers = this.mapper.Map<IEnumerable<OfferIndexGuestViewModel>>(offerIndexServiceModel).ToList();
+            this.ViewData["Title"] = "Sales";
+            return View("IndexOffers", offers);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> IndexRentals()
+        {
+            var condition = OfferType.Rental;
+
+            var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
+            var offers = this.mapper.Map<IEnumerable<OfferIndexGuestViewModel>>(offerIndexServiceModel).ToList();
+
+            return View("IndexOffers", offers);
         }
 
         [AllowAnonymous]
@@ -99,7 +114,6 @@ namespace HomeHunter.App.Controllers
 
             this.TempData["SuccessfullSubmition"] = SuccessfullySentQuestionMessage;
 
-           //return new RedirectToActionResult("Details", "Home", new { @Id = $"{model.OfferId}" });
             return Redirect($"/Home/Details/{model.OfferId}");
         }
 

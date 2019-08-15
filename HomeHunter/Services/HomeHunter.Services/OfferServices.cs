@@ -71,13 +71,19 @@ namespace HomeHunter.Services
 
         }
 
-        public async Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync()
+        public async Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync(OfferType? condition = null)
         {
-            var activeOffers = await context.Offers
-               .Where(z => z.IsDeleted == false)
+            if (condition != null)
+            {
+                var salesOffers = await context.Offers
+               .Where(z => z.IsDeleted == false && z.OfferType == condition)
                .Include(x => x.Author)
                .Include(r => r.RealEstate)
                     .ThenInclude(r => r.RealEstateType)
+               .Include(x => x.RealEstate)
+                    .ThenInclude(x => x.BuildingType)
+               .Include(x => x.RealEstate)
+                    .ThenInclude(x => x.Images)
                .Include(r => r.RealEstate)
                     .ThenInclude(r => r.Address.City)
                .Include(r => r.RealEstate)
@@ -85,9 +91,28 @@ namespace HomeHunter.Services
                .OrderByDescending(x => x.CreatedOn)
                .ToListAsync();
 
-            var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(activeOffers);
+                var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(salesOffers);
+                return offerIndexServiceModel;
+            }
+           
+            else
+            {
+              var activeOffers = await context.Offers
+              .Where(z => z.IsDeleted == false)
+              .Include(x => x.Author)
+              .Include(r => r.RealEstate)
+                   .ThenInclude(r => r.RealEstateType)
+              .Include(r => r.RealEstate)
+                   .ThenInclude(r => r.Address.City)
+              .Include(r => r.RealEstate)
+                   .ThenInclude(r => r.Address.Neighbourhood)
+              .OrderByDescending(x => x.CreatedOn)
+              .ToListAsync();
 
-            return offerIndexServiceModel;
+                var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(activeOffers);
+
+                return offerIndexServiceModel;
+            }
         }
 
         public async Task<IEnumerable<OfferIndexDeactivatedServiceModel>> GetAllDeactivatedOffersAsync()
@@ -249,29 +274,5 @@ namespace HomeHunter.Services
 
             return changedRows;
         }
-
-        public async Task<IEnumerable<OfferIndexServiceModel>> GetAllSalesOffersAsync()
-        {
-            var salesOffers = await context.Offers
-               .Where(z => z.IsDeleted == false && z.OfferType == OfferType.Sale)
-               .Include(x => x.Author)
-               .Include(r => r.RealEstate)
-                    .ThenInclude(r => r.RealEstateType)
-               .Include(x => x.RealEstate)
-                    .ThenInclude(x => x.BuildingType)
-               .Include(x => x.RealEstate)
-                    .ThenInclude(x => x.Images)
-               .Include(r => r.RealEstate)
-                    .ThenInclude(r => r.Address.City)
-               .Include(r => r.RealEstate)
-                    .ThenInclude(r => r.Address.Neighbourhood)
-               .OrderByDescending(x => x.CreatedOn)
-               .ToListAsync();
-
-            var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(salesOffers);
-
-            return offerIndexServiceModel;
-        }
-
     }
 }

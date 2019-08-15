@@ -8,17 +8,20 @@
         <br />
         <br />
         @if (this.TempData["SuccessfullSubmition"] != null)
-        {
-            <div class="col-md-10 col-md-offset-1 pad">
-                <div class="alert alert-info alert-dismissible fade in text-center" role="alert">
-                    <strong>@TempData["SuccessfullSubmition"]</strong>
-                    <button type="button" class="close-h" style="font-size:30px; padding-right:30px" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        {<div class="row">
+                <div class="col-md-10 col-md-offset-1 pad">
+                    <div class="alert alert-info alert-dismissible fade in text-center" role="alert">
+                        <strong>@TempData["SuccessfullSubmition"]</strong>
+                        <button type="button" class="close-h" style="font-size:30px; padding-right:30px" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         }
-        <h4 class="offset-3 home-hunter-center" style="color:brown"><strong>@Model.RealEstateType, @Model.Area кв. м., @Model.Neighbourhood, Цена € @Model.Price</strong></h4>
+        <div class="row">
+            <h4 class="offset-3 home-hunter-center" style="color:brown"><strong>@Model.RealEstateType, @Model.Area кв. м., @Model.Neighbourhood, Цена € @Model.Price</strong></h4>
+        </div>
 
         <table class="table table-estate-details table-responsive-md hover-table">
             <tbody style="background-color: aliceblue">
@@ -74,35 +77,35 @@
                     <td>@Html.DisplayFor(model => model.BuildingTotalFloors)</td>
                 </tr>
                 <tr>
-                    <th >@Html.DisplayNameFor(model => model.Year)</th>
+                    <th>@Html.DisplayNameFor(model => model.Year)</th>
                     <td>@Html.DisplayFor(model => model.Year)</td>
                 </tr>
                 <tr>
-                    <th >@Html.DisplayNameFor(model => model.HeatingSystem)</th>
+                    <th>@Html.DisplayNameFor(model => model.HeatingSystem)</th>
                     <td>@Html.DisplayFor(model => model.HeatingSystem)</td>
                 </tr>
                 <tr>
-                    <th >@Html.DisplayNameFor(model => model.ParkingPlace)</th>
+                    <th>@Html.DisplayNameFor(model => model.ParkingPlace)</th>
                     <td>@Html.DisplayFor(model => model.ParkingPlace)</td>
                 </tr>
                 <tr>
-                    <th >@Html.DisplayNameFor(model => model.Yard)</th>
+                    <th>@Html.DisplayNameFor(model => model.Yard)</th>
                     <td>@Html.DisplayFor(model => model.Yard)</td>
                 </tr>
                 <tr>
-                    <th >@Html.DisplayNameFor(model => model.MetroNearBy)</th>
+                    <th>@Html.DisplayNameFor(model => model.MetroNearBy)</th>
                     <td>@Html.DisplayFor(model => model.MetroNearBy)</td>
                 </tr>
                 <tr>
-                    <th >@Html.DisplayNameFor(model => model.Balcony)</th>
+                    <th>@Html.DisplayNameFor(model => model.Balcony)</th>
                     <td>@Html.DisplayFor(model => model.Balcony)</td>
                 </tr>
                 <tr>
-                    <th >@Html.DisplayNameFor(model => model.CellingOrBasement)</th>
+                    <th>@Html.DisplayNameFor(model => model.CellingOrBasement)</th>
                     <td>@Html.DisplayFor(model => model.CellingOrBasement)</td>
                 </tr>
                 <tr>
-                    <th >@Html.DisplayNameFor(model => model.Comments)</th>
+                    <th>@Html.DisplayNameFor(model => model.Comments)</th>
                     <td>@Html.DisplayFor(model => model.Comments)</td>
                 </tr>
                 <tr>
@@ -110,14 +113,22 @@
                     <td>@Html.DisplayFor(model => model.ContactNumber)</td>
                 </tr>
                 <tr>
-                    <th >@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                    <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
                     <td>@Html.DisplayFor(model => model.CreatedOn)</td>
                 </tr>
             </tbody>
         </table>
         <br />
         <div class="col-md-offset-4" style="padding-left:50px">
-            <a type="button" asp-action="IndexSales" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
+            @if (Model.OfferType == "Продажба")
+            {
+                <a type="button" asp-action="IndexSales" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
+            }
+            else
+            {
+                <a type="button" asp-action="IndexRentals" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
+            }
+
         </div>
     </div>
     <br />

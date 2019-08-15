@@ -1,4 +1,5 @@
-﻿using HomeHunter.Services.Models.Offer;
+﻿using HomeHunter.Domain.Enums;
+using HomeHunter.Services.Models.Offer;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace HomeHunter.Services.Contracts
     {
         Task<bool> CreateOfferAsync(string authotId, string estateId, OfferCreateServiceModel model);
 
-        Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync();
+        Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync(OfferType? condition = null);
 
         Task<IEnumerable<OfferIndexDeactivatedServiceModel>> GetAllDeactivatedOffersAsync();
 
@@ -22,6 +23,6 @@ namespace HomeHunter.Services.Contracts
 
         Task<bool> DeleteOfferAsync(string offerId);
 
-        Task<IEnumerable<OfferIndexServiceModel>> GetAllSalesOffersAsync();
+        //Task<IEnumerable<OfferIndexServiceModel>> GetAllSalesOffersAsync();
     }
 }

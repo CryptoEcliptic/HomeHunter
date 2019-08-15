@@ -14,6 +14,7 @@ namespace HomeHunter.App.Controllers
     public class ImageController : Controller
     {
         private const string InvalidFormatImageMessage = @"Системата каза НЕ! Част от файловете са с невалидно разширение. Можете да качвате само файлове със следните разширения: .jpg .jpeg .png .bmp .gif";
+        private const string ImageReplacementwarningMesssage = @"Внимание, добавянето на нови снимки ще изтрие вече записаните такива!";
 
 
         private readonly ICloudinaryService cloudinaryService;
@@ -71,7 +72,7 @@ namespace HomeHunter.App.Controllers
         {
             var imageUploadEditServiceModel = await this.imageServices.GetImageDetailsAsync(id);
             var imageUploadEditBindingModel = this.mapper.Map<ImageUploadEditBindingModel>(imageUploadEditServiceModel);
-
+            this.ViewData["ImageReplacementwarningMesssage"] = ImageReplacementwarningMesssage;
             return View(imageUploadEditBindingModel);
         }
 

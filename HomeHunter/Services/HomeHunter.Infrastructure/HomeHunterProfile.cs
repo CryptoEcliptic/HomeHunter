@@ -38,7 +38,6 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<CityServiceModel, CityViewModel>();
             this.CreateMap<NeighbourhoodServiceModel, NeighbourhoodViewModel>();
 
-
             #region Image Mappings
 
             this.CreateMap<Image, ImageChangeableServiceModel>();
@@ -74,7 +73,7 @@ namespace HomeHunter.Infrastructure
                 .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
                 .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue));
 
-            this.CreateMap<OfferIndexServiceModel, OfferIndexSalesViewModel>()
+            this.CreateMap<OfferIndexServiceModel, OfferIndexGuestViewModel>()
                 .ForMember(x => x.Images, y => y.MapFrom(z => z.Images));
 
             this.CreateMap<OfferIndexServiceModel, OfferIndexViewModel>()

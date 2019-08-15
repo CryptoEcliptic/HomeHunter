@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HomeHunter.Models.ViewModels.Offer
 {
-    public class OfferIndexSalesViewModel
+    public class OfferIndexGuestViewModel
     {
         public string Id { get; set; }
 
