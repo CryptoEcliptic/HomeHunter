@@ -9,6 +9,7 @@ using HomeHunter.Models.BindingModels.User;
 using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
 using HomeHunter.Models.ViewModels.HeatingSystem;
+using HomeHunter.Models.ViewModels.Image;
 using HomeHunter.Models.ViewModels.Neighbourhood;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Models.ViewModels.RealEstate;
@@ -38,11 +39,14 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<CityServiceModel, CityViewModel>();
             this.CreateMap<NeighbourhoodServiceModel, NeighbourhoodViewModel>();
 
+
             #region Image Mappings
 
             this.CreateMap<Image, ImageChangeableServiceModel>();
             this.CreateMap<ImageLoadServiceModel, ImageChangeableBindingModel>();
             this.CreateMap<ImageUploadEditServiceModel, ImageUploadEditBindingModel>();
+            this.CreateMap<ImageIndexServiceModel, ImageIndexViewModel>();
+            this.CreateMap<Image, ImageIndexServiceModel>();
 
             #endregion
 
@@ -84,7 +88,7 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<Offer, OfferIndexServiceModel>()
                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType.ToString()))
                .ForMember(x => x.Area, y => y.MapFrom(z => z.RealEstate.Area))
-               .ForMember(x => x.Images, y => y.MapFrom(z => z.RealEstate.Images.Select(u => u.Url)))
+               .ForMember(x => x.Images, y => y.MapFrom(z => z.RealEstate.Images))
                .ForMember(x => x.Author, y => y.MapFrom(z => z.Author.FirstName))
                .ForMember(x => x.BuildingType, y => y.MapFrom(z => z.RealEstate.BuildingType.Name))
                .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))

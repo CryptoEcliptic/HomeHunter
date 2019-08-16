@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HomeHunter.Services.Models.Image;
+using System.Collections.Generic;
 
 namespace HomeHunter.Services.Models.Offer
 {
@@ -30,6 +31,7 @@ namespace HomeHunter.Services.Models.Offer
 
         public string Comments { get; set; }
 
-        public List<string> Images { get; set; }
+        public List<ImageIndexServiceModel> Images { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeHunter.Models.ViewModels.Image;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -30,8 +31,8 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Тип строителство")]
         public string BuildingType { get; set; }
 
-        [Display(Name = "Снимки")]
-        public List<string> Images { get; set; }
+        [Display(Name = "Снимка")]
+        public List<ImageIndexViewModel> Images { get; set; }
 
         [Display(Name = "Коментари")]
         public string Comments { get; set; }

@@ -81,15 +81,15 @@ namespace HomeHunter.Services
                               .ThenInclude(r => r.RealEstateType)
                         .Include(x => x.RealEstate)
                               .ThenInclude(x => x.BuildingType)
-                        .Include(x => x.RealEstate)
-                              .ThenInclude(x => x.Images)
                         .Include(r => r.RealEstate)
                               .ThenInclude(r => r.Address.City)
                         .Include(r => r.RealEstate)
                               .ThenInclude(r => r.Address.Neighbourhood)
+                        .Include(x => x.RealEstate)
+                             .ThenInclude(x => x.Images)
                         .OrderByDescending(x => x.CreatedOn)
                         .ToListAsync();
-
+                
                 var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(salesOffers);
                 return offerIndexServiceModel;
             }
