@@ -63,7 +63,7 @@
                 {
                     <tr style="text-align:center; background-color: aliceblue">
                         <td class="col-md-2">
-                            @if (item.Images.Count == 0)
+                            @if (item.Images.Count() == 0)
                             {
                                 <img class="img-responsive img-thumbnail" style="width:180px; height:150px" src="~/lib/images/no-image-icon-0.jpg">
                             }
@@ -94,7 +94,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Area)
                         </td>
-                        <td class="col-md-2">
+                        <td class="col-md-3">
                             <p class="hidden-xs max-lines">
                                 @item.Comments;
                             </p>

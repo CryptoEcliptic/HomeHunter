@@ -5,7 +5,6 @@ using HomeHunter.Domain.Enums;
 using HomeHunter.Infrastructure.CloudinaryServices;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -76,41 +75,40 @@ namespace HomeHunter.Services
             if (condition != null)
             {
                 var salesOffers = await context.Offers
-               .Where(z => z.IsDeleted == false && z.OfferType == condition)
-               .Include(x => x.Author)
-               .Include(r => r.RealEstate)
-                    .ThenInclude(r => r.RealEstateType)
-               .Include(x => x.RealEstate)
-                    .ThenInclude(x => x.BuildingType)
-               .Include(x => x.RealEstate)
-                    .ThenInclude(x => x.Images)
-               .Include(r => r.RealEstate)
-                    .ThenInclude(r => r.Address.City)
-               .Include(r => r.RealEstate)
-                    .ThenInclude(r => r.Address.Neighbourhood)
-               .OrderByDescending(x => x.CreatedOn)
-               .ToListAsync();
+                        .Where(z => z.IsDeleted == false && z.OfferType == condition)
+                        .Include(x => x.Author)
+                        .Include(r => r.RealEstate)
+                              .ThenInclude(r => r.RealEstateType)
+                        .Include(x => x.RealEstate)
+                              .ThenInclude(x => x.BuildingType)
+                        .Include(x => x.RealEstate)
+                              .ThenInclude(x => x.Images)
+                        .Include(r => r.RealEstate)
+                              .ThenInclude(r => r.Address.City)
+                        .Include(r => r.RealEstate)
+                              .ThenInclude(r => r.Address.Neighbourhood)
+                        .OrderByDescending(x => x.CreatedOn)
+                        .ToListAsync();
 
                 var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(salesOffers);
                 return offerIndexServiceModel;
             }
-           
+
             else
             {
-              var activeOffers = await context.Offers
-              .Where(z => z.IsDeleted == false)
-              .Include(x => x.Author)
-              .Include(r => r.RealEstate)
-                   .ThenInclude(r => r.RealEstateType)
-              .Include(r => r.RealEstate)
-                   .ThenInclude(r => r.Address.City)
-              .Include(r => r.RealEstate)
-                   .ThenInclude(r => r.Address.Neighbourhood)
-              .OrderByDescending(x => x.CreatedOn)
-              .ToListAsync();
+                var activeOffers = await context.Offers
+                    .Where(z => z.IsDeleted == false)
+                    .Include(x => x.Author)
+                    .Include(r => r.RealEstate)
+                        .ThenInclude(r => r.RealEstateType)
+                    .Include(r => r.RealEstate)
+                        .ThenInclude(r => r.Address.City)
+                    .Include(r => r.RealEstate)
+                        .ThenInclude(r => r.Address.Neighbourhood)
+                    .OrderByDescending(x => x.CreatedOn)
+                    .ToListAsync();
 
                 var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(activeOffers);
-
                 return offerIndexServiceModel;
             }
         }

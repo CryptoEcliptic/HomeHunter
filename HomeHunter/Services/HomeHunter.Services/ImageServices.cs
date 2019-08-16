@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HomeHunter.Common;
 using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
@@ -27,7 +28,7 @@ namespace HomeHunter.Services
             this.realEstateServices = realEstateServices;
         }
 
-        public async Task<bool> AddImageAsync(string publikKey, string url, string estateId)
+        public async Task<bool> AddImageAsync(string publikKey, string url, string estateId, bool isIndexImage)
         {
             if (url == null || estateId == null || publikKey == null)
             {
@@ -39,7 +40,10 @@ namespace HomeHunter.Services
                 Url = url,
                 RealEstateId = estateId,
                 Id = publikKey,
+                IsIndexPicture = isIndexImage,
             };
+
+           
 
             await this.context.Images.AddAsync(image);
             await this.context.SaveChangesAsync();

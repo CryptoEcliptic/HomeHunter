@@ -50,6 +50,8 @@ namespace HomeHunter.Infrastructure
 
             this.CreateMap<OfferCreateBindingModel, OfferCreateServiceModel>();
             this.CreateMap<OfferPlainDetailsServiceModel, OfferEditBindingModel>();
+            this.CreateMap<OfferIndexDeactivatedServiceModel, OfferIndexViewModel>()
+                 .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == "Sale" ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
 
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsViewModel>()
                 .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
@@ -128,9 +130,6 @@ namespace HomeHunter.Infrastructure
                .ForMember(x => x.City, y => y.MapFrom(z => z.RealEstate.Address.City.Name))
                .ForMember(x => x.Neighbourhood, y => y.MapFrom(z => z.RealEstate.Address.Neighbourhood.Name))
                .ForMember(x => x.Price, y => y.MapFrom(z => z.RealEstate.Price));
-
-            this.CreateMap<OfferIndexDeactivatedServiceModel, OfferIndexDeactivatedViewModel>()
-                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == "Sale" ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName)); ;
 
             this.CreateMap<OfferEditBindingModel, OfferEditServiceModel>();
 

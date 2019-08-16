@@ -6,6 +6,7 @@ using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.App.Controllers
@@ -15,7 +16,6 @@ namespace HomeHunter.App.Controllers
     {
         private const string InvalidFormatImageMessage = @"Системата каза НЕ! Част от файловете са с невалидно разширение. Можете да качвате само файлове със следните разширения: .jpg .jpeg .png .bmp .gif";
         private const string ImageReplacementwarningMesssage = @"Внимание, добавянето на нови снимки ще изтрие вече записаните такива!";
-
 
         private readonly ICloudinaryService cloudinaryService;
         private readonly IImageServices imageServices;
@@ -53,12 +53,20 @@ namespace HomeHunter.App.Controllers
             {
                 if (this.imageServices.ImagesCount(id) < GlobalConstants.ImageUploadLimit)
                 {
+                    int index = 1;
                     foreach (var image in model.Images)
                     {
                         var imageId = Guid.NewGuid().ToString();
+                        bool isIndexImage = false;
 
+                        if (index == 1)
+                        {
+                            isIndexImage = true;
+                        }
                         var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
-                        var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageUrl, id);
+                        var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageUrl, id, isIndexImage);
+
+                        index++;
                     }
                 }
             }

@@ -32,6 +32,7 @@ namespace HomeHunter.App.Controllers
             var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(null);
             var offers = this.mapper.Map<IEnumerable<OfferIndexViewModel>>(offerIndexServiceModel);
 
+            this.ViewData["Deactivated"] = false;
             return View(offers);
         }
 
@@ -41,9 +42,10 @@ namespace HomeHunter.App.Controllers
         {
             var offerIndexServiceModel = await this.offerServices.GetAllDeactivatedOffersAsync();
 
-            var offers = this.mapper.Map<IEnumerable<OfferIndexDeactivatedViewModel>>(offerIndexServiceModel);
+            var offerIndexViewModel = this.mapper.Map<IEnumerable<OfferIndexViewModel>>(offerIndexServiceModel);
+            this.ViewData["Deactivated"] = true;
 
-            return View(offers);
+            return View("Index", offerIndexViewModel);
         }
 
         //GET: Offer/Details/5
@@ -54,9 +56,9 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            var offer = await this.offerServices.GetOfferDetailsAsync(id);
+            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
            
-            var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offer);
+            var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
             return View(offerDetailViewModel);
         }
         //GET: Offer/Details/5
@@ -68,8 +70,8 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            var offer = await this.offerServices.GetOfferDetailsAsync(id);
-            var offerDetailViewModel = this.mapper.Map<OfferDetailsDeactivatedViewModel>(offer);
+            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
+            var offerDetailViewModel = this.mapper.Map<OfferDetailsDeactivatedViewModel>(offerDetailsServiceModel);
 
             return View(offerDetailViewModel);
         }

@@ -6,6 +6,8 @@ namespace HomeHunter.Domain
     {
         public string Url { get; set; }
 
+        public bool IsIndexPicture { get; set; }
+
         public string RealEstateId { get; set; }
         public RealEstate RealEstate { get; set; }
     }

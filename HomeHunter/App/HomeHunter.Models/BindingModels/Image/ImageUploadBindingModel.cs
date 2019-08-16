@@ -15,5 +15,7 @@ namespace HomeHunter.Models.BindingModels.Image
         [CustomFileExtensions(GlobalConstants.AllowedFileExtensionsAsString)]
         public List<IFormFile> Images { get; set; }
 
+        public bool IsIndexImage { get; set; }
+
     }
 }
