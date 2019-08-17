@@ -106,12 +106,23 @@ namespace HomeHunter.App.Controllers
                 int removedImagesFromCloudinary = this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDelete);
                 var hasOldImagesBeenRemoved = await this.imageServices.RemoveImages(realEstateId);
 
+                int index = 1;
                 foreach (var image in model.Images)
                 {
                     var imageId = Guid.NewGuid().ToString();
+                    bool isIndexImage = false;
+
+                    if (index == 1)
+                    {
+                        isIndexImage = true;
+                    }
+
+                    
 
                     var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
-                    var isImageAddedInDb = await this.imageServices.EditImageAsync(imageId, imageUrl, realEstateId);
+                    var isImageAddedInDb = await this.imageServices.EditImageAsync(imageId, imageUrl, realEstateId, isIndexImage);
+
+                    index++;
                 }
             }
 

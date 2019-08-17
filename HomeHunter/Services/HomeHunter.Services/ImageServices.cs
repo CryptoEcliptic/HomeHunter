@@ -98,7 +98,7 @@ namespace HomeHunter.Services
             return imageCount;
         }
 
-        public async Task<bool> EditImageAsync(string publicKey, string url, string estateId)
+        public async Task<bool> EditImageAsync(string publicKey, string url, string estateId, bool isIndexImage)
         {
             if (url == null || estateId == null || publicKey == null)
             {
@@ -112,6 +112,7 @@ namespace HomeHunter.Services
                 Url = url,
                 RealEstateId = estateId,
                 Id = publicKey,
+                IsIndexPicture = isIndexImage,
             };
 
             await this.context.Images.AddAsync(image);

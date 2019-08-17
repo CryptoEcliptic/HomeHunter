@@ -15,7 +15,7 @@ namespace HomeHunter.Services.Contracts
 
         int ImagesCount(string id);
 
-        Task<bool> EditImageAsync(string publicKey, string url, string estateId);
+        Task<bool> EditImageAsync(string publicKey, string url, string estateId, bool isIndexImage);
 
         Task<int> RemoveImages(string estateId);
 
