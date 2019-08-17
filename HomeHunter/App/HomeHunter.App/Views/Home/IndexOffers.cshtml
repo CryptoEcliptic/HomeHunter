@@ -10,15 +10,21 @@
 <br />
 <br />
 <div class="container-fluid paddingElement center-element-h backgr-img">
-    @if ((string)this.ViewData["Title"] == "Sales")
-    {
-        <h2>Продажби</h2>
-    }
-    else
-    {
-        <h2>Наеми</h2>
-    }
+    <div class="row">
+        @if ((string)this.ViewData["Title"] == "Sales")
+        {
+            <h2>Продажби</h2>
+        }
+        else
+        {
+            <h2>Наеми</h2>
+        }
 
+
+        <p class="col-md-1" style="font-size:14pt">
+            <a asp-action="Index" asp-controller="Home"><strong>Назад</strong></a>
+        </p>
+    </div>
     <div class="container col-md-12" id="property-listings" style="border-radius:7px">
         <table id="table_id" class="display scrollable-index-sales">
             <thead>
@@ -156,11 +162,11 @@
             $('#table_id').DataTable({
             });
         });
-</script>
+    </script>
 
-<script>
-   
-</script>
+    <script>
+
+    </script>
 
 }
 

@@ -23,7 +23,7 @@ body {
 }
 
 .scrollable-index-sales {
-    height: 700px;
+    max-height:670px;
     width: 1250px;
     overflow-y: auto;
     width: 100%;
