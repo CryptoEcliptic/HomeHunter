@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
+using HomeHunter.Domain;
+using HomeHunter.Domain.Enums;
 using HomeHunter.Models.BindingModels.Offer;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -16,16 +20,19 @@ namespace HomeHunter.App.Controllers
     {
         private readonly IMapper mapper;
         private readonly IOfferServices offerServices;
+        private readonly SignInManager<HomeHunterUser> signInManager;
 
         public OfferController(
             IMapper mapper,
-            IOfferServices offerServices)
+            IOfferServices offerServices,
+            SignInManager<HomeHunterUser> signInManager)
         {
             this.mapper = mapper;
             this.offerServices = offerServices;
+            this.signInManager = signInManager;
         }
 
-        
+
         // GET: Offer
         public async Task<IActionResult> Index()
         {
@@ -36,7 +43,7 @@ namespace HomeHunter.App.Controllers
             return View(offers);
         }
 
-      
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexDeactivated()
         {
@@ -48,7 +55,31 @@ namespace HomeHunter.App.Controllers
             return View("Index", offerIndexViewModel);
         }
 
+
+        [AllowAnonymous]
+        public async Task<IActionResult> IndexSales()
+        {
+            var condition = OfferType.Sale;
+
+            var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
+            var offersIndexGuestViewModel = this.mapper.Map<IEnumerable<OfferIndexGuestViewModel>>(offerIndexServiceModel).ToList();
+            this.ViewData["Title"] = "Sales";
+            return View("IndexOffers", offersIndexGuestViewModel);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> IndexRentals()
+        {
+            var condition = OfferType.Rental;
+
+            var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
+            var offersIndexGuestViewModel = this.mapper.Map<IEnumerable<OfferIndexGuestViewModel>>(offerIndexServiceModel).ToList();
+
+            return View("IndexOffers", offersIndexGuestViewModel);
+        }
+
         //GET: Offer/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -57,7 +88,13 @@ namespace HomeHunter.App.Controllers
             }
 
             var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
-           
+
+            if (!this.signInManager.IsSignedIn(User))
+            {
+                var offerDetailsGuestViewModel = this.mapper.Map<OfferDetailsGuestViewModel>(offerDetailsServiceModel);
+                return View("DetailsGuest", offerDetailsGuestViewModel);
+            }
+
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
             return View(offerDetailViewModel);
         }

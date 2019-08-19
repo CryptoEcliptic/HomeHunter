@@ -59,45 +59,7 @@ namespace HomeHunter.App.Controllers
             return View(isUserEmailAuthenticated);
         }
 
-
-        [AllowAnonymous]
-        public async Task<IActionResult> IndexSales()
-        {
-            var condition = OfferType.Sale;
-
-            var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
-            var offers = this.mapper.Map<IEnumerable<OfferIndexGuestViewModel>>(offerIndexServiceModel).ToList();
-            this.ViewData["Title"] = "Sales";
-            return View("IndexOffers", offers);
-        }
-
-        [AllowAnonymous]
-        public async Task<IActionResult> IndexRentals()
-        {
-            var condition = OfferType.Rental;
-
-            var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
-            var offers = this.mapper.Map<IEnumerable<OfferIndexGuestViewModel>>(offerIndexServiceModel).ToList();
-
-            return View("IndexOffers", offers);
-        }
-
-        [AllowAnonymous]
-        //GET: Offer/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
-            var offerDetailsGuestViewModel = this.mapper.Map<OfferDetailsGuestViewModel>(offerDetailsServiceModel);
-
-            return View("DetailsGuest", offerDetailsGuestViewModel);
-
-        }
-
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
