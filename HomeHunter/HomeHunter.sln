@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Services.Models"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHunter.Services.Mappings", "Services\HomeHunter.Services.Mappings\HomeHunter.Services.Mappings.csproj", "{0702E0DF-C3DF-4E4E-B76C-77F6956D8E72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHunter.Infrastructure", "App\HomeHunter.Infrastructure\HomeHunter.Infrastructure.csproj", "{80CC2475-4971-4876-80CD-68F4F6724B40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{0702E0DF-C3DF-4E4E-B76C-77F6956D8E72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0702E0DF-C3DF-4E4E-B76C-77F6956D8E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0702E0DF-C3DF-4E4E-B76C-77F6956D8E72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80CC2475-4971-4876-80CD-68F4F6724B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80CC2475-4971-4876-80CD-68F4F6724B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80CC2475-4971-4876-80CD-68F4F6724B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80CC2475-4971-4876-80CD-68F4F6724B40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{4C851892-7A63-4024-AF74-130B07D50BDB} = {067F9FC0-31BB-4B76-994A-76E97D2E2BF5}
 		{37845D17-3D33-44D5-A93F-E326376183D7} = {A6E452FD-6C83-4F80-ABD8-D2E506F5C327}
 		{0702E0DF-C3DF-4E4E-B76C-77F6956D8E72} = {A6E452FD-6C83-4F80-ABD8-D2E506F5C327}
+		{80CC2475-4971-4876-80CD-68F4F6724B40} = {386472B7-2282-456C-896A-03C387421BD6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4988E08-8564-4FF7-9343-647C497E401B}

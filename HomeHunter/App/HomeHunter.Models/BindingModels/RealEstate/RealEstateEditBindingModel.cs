@@ -1,5 +1,5 @@
 ﻿using HomeHunter.Common;
-using HomeHunter.Models.CustomValidationAttributse;
+using HomeHunter.Infrastructure.ValidationAttributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

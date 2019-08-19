@@ -1,5 +1,5 @@
 ﻿using HomeHunter.Common;
-using HomeHunter.Models.CustomValidationAttributse;
+using HomeHunter.Infrastructure.ValidationAttributes;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +18,7 @@ namespace HomeHunter.Models.BindingModels.Image
         public string RealEstateId { get; set; }
 
 
-        [CustomFileExtensions(GlobalConstants.AllowedFileExtensionsAsString)]
+        [AllowedFileExtensionAttribute(GlobalConstants.AllowedFileExtensionsAsString)]
         public List<IFormFile> Images { get; set; }
 
 

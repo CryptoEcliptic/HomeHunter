@@ -1,5 +1,5 @@
 ﻿using HomeHunter.Common;
-using HomeHunter.Models.CustomValidationAttributse;
+using HomeHunter.Infrastructure.ValidationAttributes;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
@@ -12,7 +12,7 @@ namespace HomeHunter.Models.BindingModels.Image
             this.Images = new List<IFormFile>();
         }
 
-        [CustomFileExtensions(GlobalConstants.AllowedFileExtensionsAsString)]
+        [AllowedFileExtensionAttribute(GlobalConstants.AllowedFileExtensionsAsString)]
         public List<IFormFile> Images { get; set; }
 
         public bool IsIndexImage { get; set; }

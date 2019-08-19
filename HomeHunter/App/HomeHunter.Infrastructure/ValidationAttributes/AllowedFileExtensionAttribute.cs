@@ -1,22 +1,20 @@
-﻿using System;
-using System.Web;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 
-namespace HomeHunter.Models.CustomValidationAttributse
+namespace HomeHunter.Infrastructure.ValidationAttributes
 {
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-    public class CustomFileExtensionsAttribute : ValidationAttribute
+    public class AllowedFileExtensionAttribute : ValidationAttribute
     {
         private List<string> AllowedExtensions { get; set; }
 
-        public CustomFileExtensionsAttribute(string allowedExtensions)
+        public AllowedFileExtensionAttribute(string allowedExtensions)
         {
-            AllowedExtensions = allowedExtensions.Split(new string[] {", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            AllowedExtensions = allowedExtensions.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 
         public override bool IsValid(object value)
