@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HomeHunter.Common;
-using HomeHunter.Infrastructure.CloudinaryServices;
 using HomeHunter.Models.BindingModels.Image;
+using HomeHunter.Services.CloudinaryServices;
 using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

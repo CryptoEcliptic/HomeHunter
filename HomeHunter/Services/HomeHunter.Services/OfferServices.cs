@@ -2,7 +2,7 @@
 using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
-using HomeHunter.Infrastructure.CloudinaryServices;
+using HomeHunter.Services.CloudinaryServices;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
 using Microsoft.EntityFrameworkCore;

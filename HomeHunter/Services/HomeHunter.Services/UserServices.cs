@@ -2,14 +2,12 @@
 using HomeHunter.Common;
 using HomeHunter.Data;
 using HomeHunter.Domain;
-using HomeHunter.Infrastructure.EmailSender;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.EmailSender;
 using HomeHunter.Services.Models.User;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

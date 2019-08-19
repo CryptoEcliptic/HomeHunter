@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.8.0" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
@@ -25,7 +26,6 @@
     <ProjectReference Include="..\..\Data\HomeHunter.Data\HomeHunter.Data.csproj" />
     <ProjectReference Include="..\..\Data\HomeHunter.Domain\HomeHunter.Domain.csproj" />
     <ProjectReference Include="..\..\HomeHunterCommon\HomeHunter.Common.csproj" />
-    <ProjectReference Include="..\HomeHunter.Infrastructure\HomeHunter.Infrastructure.csproj" />
     <ProjectReference Include="..\HomeHunter.Services.Models\HomeHunter.Services.Models.csproj" />
   </ItemGroup>
 

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
-using HomeHunter.Infrastructure.EmailSender;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

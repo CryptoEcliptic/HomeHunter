@@ -71,11 +71,12 @@
                         <td class="col-md-2">
                             @if (item.Images.Count() == 0)
                             {
-                                <img class="img-responsive img-thumbnail" style="width:180px; height:150px" src="~/lib/images/no-image-icon-0.jpg">
+                                <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="~/lib/images/no-image-icon-0.jpg"></a>
                             }
                             else
                             {
-                                <img class="img-responsive img-thumbnail" style="width:180px; height:150px" src="@item.Images.FirstOrDefault(x => x.IsIndexPicture == true).Url">
+                                <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="@item.Images.FirstOrDefault(x => x.IsIndexPicture == true).Url"></a>
+
                             }
 
                         </td>

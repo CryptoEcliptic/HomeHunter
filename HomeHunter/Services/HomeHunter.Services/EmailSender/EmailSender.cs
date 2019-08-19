@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿
+using Microsoft.Extensions.Configuration;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.UI.Services;
 
-
-namespace HomeHunter.Infrastructure.EmailSender
+namespace HomeHunter.Services.EmailSender
 {
     public class EmailSender : IApplicationEmailSender
     {

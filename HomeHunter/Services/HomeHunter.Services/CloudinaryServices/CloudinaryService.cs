@@ -1,7 +1,6 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using HomeHunter.Common;
-using HomeHunter.Domain;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HomeHunter.Infrastructure.CloudinaryServices
+namespace HomeHunter.Services.CloudinaryServices
 {
     public class CloudinaryService : ICloudinaryService
     {
@@ -66,7 +65,7 @@ namespace HomeHunter.Infrastructure.CloudinaryServices
                 {
                     PublicIds = imageIds.ToList(),
                 };
-              
+
                 var deletionResult = this.cloudinaryUtilities.DeleteResources(delResParams);
 
                 if (deletionResult == null)

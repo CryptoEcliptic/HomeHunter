@@ -8,6 +8,10 @@ namespace HomeHunter.Models.ViewModels.Offer
 {
     public class OfferIndexGuestViewModel
     {
+        public OfferIndexGuestViewModel()
+        {
+            this.Images = new List<ImageIndexViewModel>();
+        }
         public string Id { get; set; }
 
         [Display(Name = "Референтен номер")]

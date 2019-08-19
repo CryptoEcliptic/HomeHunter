@@ -73,11 +73,11 @@ namespace HomeHunter.Infrastructure
                 ;
 
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsGuestViewModel>()
-                .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.CellingOrBasement ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony ==  true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue));
+                .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.CellingOrBasement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue));
 
             this.CreateMap<OfferIndexServiceModel, OfferIndexGuestViewModel>()
                 .ForMember(x => x.Images, y => y.MapFrom(z => z.Images));
@@ -172,7 +172,7 @@ namespace HomeHunter.Infrastructure
                .ForMember(x => x.Neighbourhood, y => y.MapFrom(z => z.Address.Neighbourhood.Name))
                .ForMember(x => x.HeatingSystem, y => y.MapFrom(z => z.HeatingSystem.Name))
                .ForMember(x => x.Year, y => y.MapFrom(z => z.Year));
-              
+
 
             this.CreateMap<RealEstateEditServiceModel, RealEstate>()
                 .ForMember(x => x.FloorNumber, y => y.MapFrom(z => z.FloorNumber))
