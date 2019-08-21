@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
+using HomeHunter.Models.BindingModels.Home;
+using HomeHunter.Models.MLModels;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.ML;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,21 +22,21 @@ namespace HomeHunter.App.Controllers
 
         private readonly IUserServices usersService;
         private readonly UserManager<HomeHunterUser> userManager;
-        private readonly IOfferServices offerServices;
-        private readonly IMapper mapper;
         private readonly IApplicationEmailSender emailSender;
+        private readonly PredictionEnginePool<ModelInput, ModelOutput> predictionEngine;
+        private readonly IMapper mapper;
 
         public HomeController(IUserServices usersService,
             UserManager<HomeHunterUser> userManager,
-            IOfferServices offerServices,
-            IMapper mapper,
-            IApplicationEmailSender emailSender)
+            IApplicationEmailSender emailSender,
+            PredictionEnginePool<ModelInput, ModelOutput> predictionEngine,
+            IMapper mapper)
         {
             this.usersService = usersService;
             this.userManager = userManager;
-            this.offerServices = offerServices;
-            this.mapper = mapper;
             this.emailSender = emailSender;
+            this.predictionEngine = predictionEngine;
+            this.mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -57,6 +60,24 @@ namespace HomeHunter.App.Controllers
                 && this.User.Identity.IsAuthenticated;
 
             return View(isUserEmailAuthenticated);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult PredictPrice()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public IActionResult PredictPrice(PricePredictionBindingModel model)
+        {
+            var input = this.mapper.Map<ModelInput>(model);
+            var output = this.predictionEngine.Predict(input);
+
+            return this.Content(output.Score.ToString());
         }
 
       

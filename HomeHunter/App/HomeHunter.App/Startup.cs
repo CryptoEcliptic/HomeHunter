@@ -4,6 +4,7 @@ using HomeHunter.Data;
 using HomeHunter.Data.DataSeeding;
 using HomeHunter.Domain;
 using HomeHunter.Infrastructure;
+using HomeHunter.Models.MLModels;
 using HomeHunter.Services;
 using HomeHunter.Services.CloudinaryServices;
 using HomeHunter.Services.Contracts;
@@ -17,9 +18,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.ML;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace HomeHunter.App
 {
@@ -65,6 +68,11 @@ namespace HomeHunter.App
                 this.Configuration["Cloudinary:ApiKey"],
                 this.Configuration["Cloudinary:ApiSecret"]
                 );
+
+            //ML Regression Price prediction
+            services.AddPredictionEnginePool<ModelInput, ModelOutput>()
+                .FromFile(@"..\HomeHunter.Models\MLModels\MLModel.zip");
+
             Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentails);
             services.AddSingleton(cloudinaryUtility);
 
@@ -93,7 +101,7 @@ namespace HomeHunter.App
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
                 })
                 .AddMvcOptions(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
-            
+
             // Cookie settings
             services
                .ConfigureApplicationCookie(options =>
@@ -121,7 +129,7 @@ namespace HomeHunter.App
                     dbContext.Database.EnsureCreated();
 
                 }
-                
+
                 //Database initial seeding functionality
                 new RolesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
                 new RealEstateTypesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
@@ -141,7 +149,7 @@ namespace HomeHunter.App
             {
                 app.UseExceptionHandler("/Error");
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                
+
                 app.UseHsts();
             }
 
@@ -150,7 +158,7 @@ namespace HomeHunter.App
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-           
+
 
             app.UseMvc(routes =>
             {
