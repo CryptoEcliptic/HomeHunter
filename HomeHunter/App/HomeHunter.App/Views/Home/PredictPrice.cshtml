@@ -1,0 +1,129 @@
+﻿@model HomeHunter.Models.BindingModels.Home.PricePredictionBindingModel;
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<link rel="stylesheet" href="~/lib/assets/modal_images.css">
+<div class="row backgr-img-details paddingElement" style="height:720px">
+
+    <form method="post" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div id="name-and-price-holder" class="d-flex justify-content-between">
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Size" class="text-primary h5">Площ *</label>
+                </div>
+                <input type="text"
+                       class="form-control text-primary text-center"
+                       id="Size"
+                       placeholder="Площ..."
+                       asp-for="Size">
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Floor" class="text-primary h5">Етаж</label>
+                </div>
+                <input type="number"
+                       class="form-control text-primary text-center"
+                       id="floor"
+                       placeholder="Етаж..."
+                       asp-for="Floor">
+                <span asp-validation-for="Floor" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="TotalFloors" class="text-primary h5">Брой етажи</label>
+                </div>
+                <input type="number"
+                       class="form-control text-primary text-center"
+                       id="totalFloors"
+                       placeholder="Брой етажи..."
+                       asp-for="TotalFloors">
+                <span asp-validation-for="TotalFloors" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="TotalFloors" class="text-primary h5">Брой етажи</label>
+                </div>
+                <input type="number"
+                       class="form-control text-primary text-center"
+                       id="totalFloors"
+                       placeholder="Брой етажи..."
+                       asp-for="TotalFloors">
+                <span asp-validation-for="TotalFloors" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="District" class="text-primary h5">Район</label>
+                </div>
+                <select class="form-control text-primary" id="type" asp-for="District">
+                    <option selected disabled>--- Select Product Type ---</option>
+                    @foreach (var type in (IEnumerable<string>)this.ViewData["Districts"])
+                    {
+                        <option value="@type">@type</option>
+                    }
+                </select>
+                <span asp-validation-for="District" class="text-danger"></span>
+            </div>
+        </div>
+        @*<div id="date-and-picture-holder" class="d-flex justify-content-between">
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="ManufacturedOn" class="text-primary h5">Manufactured On</label>
+                </div>
+                <input type="text"
+                       class="form-control text-primary text-center"
+                       id="manufacturedOn"
+                       placeholder="Manufactured On..."
+                       asp-for="ManufacturedOn">
+                <span asp-validation-for="ManufacturedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Picture" class="text-primary h5">Picture</label>
+                </div>
+                <input type="file"
+                       class="form-control text-primary text-center"
+                       id="picture"
+                       placeholder="Picture..."
+                       asp-for="Picture">
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+        </div>
+        <hr class="hr-2 bg-primary mt-4">
+        <div class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for="ProductType" class="text-primary h5">Product Type</label>
+            </div>
+            <select class="form-control text-primary" id="type" asp-for="ProductType">
+                <option selected disabled>--- Select Product Type ---</option>
+                @foreach (var type in (IEnumerable<ProductCreateProductTypeViewModel>)this.ViewData["types"])
+                {
+                    <option value="@type.Name">@type.Name</option>
+                }
+            </select>
+            <span asp-validation-for="ProductType" class="text-danger"></span>
+        </div>*@
+        <hr class="hr-2 bg-primary mt-4">
+        <div class="d-flex justify-content-center mt-3">
+            <button class="btn btn-primary font-weight-bold">Create Product</button>
+        </div>
+    </form>
+
+
+
+
+</div>
+
+
+
+@section Scripts{
+
+    <script src="~/lib/assets/modal_images.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial" />
+
+
+}
+
+
