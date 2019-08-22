@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using HomeHunter.Models.MLModels;
 using Microsoft.ML;
 using Microsoft.ML.Data;
-using HomeHunterML.Model.DataModels;
 using Microsoft.ML.Trainers.LightGbm;
 
 namespace HomeHunterML.ConsoleApp

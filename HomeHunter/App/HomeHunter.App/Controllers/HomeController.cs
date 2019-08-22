@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HomeHunter.Common;
 using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
 using HomeHunter.Models.BindingModels.Home;
@@ -66,6 +67,7 @@ namespace HomeHunter.App.Controllers
         [HttpGet]
         public IActionResult PredictPrice()
         {
+            LoadDropdownMenusData();
             return this.View();
         }
 
@@ -77,7 +79,10 @@ namespace HomeHunter.App.Controllers
             var input = this.mapper.Map<ModelInput>(model);
             var output = this.predictionEngine.Predict(input);
 
-            return this.Content(output.Score.ToString());
+            LoadDropdownMenusData();
+            model.Price = output.Score;
+
+            return this.View(model);
         }
 
       
@@ -103,6 +108,14 @@ namespace HomeHunter.App.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [NonAction]
+        private void LoadDropdownMenusData()
+        {
+            this.ViewData["AppartmentTypes"] = GlobalConstants.ImotBgAppartmentTypes;
+            this.ViewData["Districts"] = GlobalConstants.ImotBgSofiaDistricts;
+            this.ViewData["BuildingTypes"] = GlobalConstants.ImotBgBuildingTypes;
         }
     }
 }

@@ -31,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Services.Mapping
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Infrastructure", "App\HomeHunter.Infrastructure\HomeHunter.Infrastructure.csproj", "{80CC2475-4971-4876-80CD-68F4F6724B40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunterML.Model", "HomeHunterML.Model\HomeHunterML.Model.csproj", "{60A2DB18-B5EC-47DA-A95E-F6D84E0D8EFB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunterML.ConsoleApp", "HomeHunterML.ConsoleApp\HomeHunterML.ConsoleApp.csproj", "{407F12A7-701A-40DA-8913-6072A0753F7E}"
 EndProject
 Global
@@ -81,10 +79,6 @@ Global
 		{80CC2475-4971-4876-80CD-68F4F6724B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80CC2475-4971-4876-80CD-68F4F6724B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80CC2475-4971-4876-80CD-68F4F6724B40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60A2DB18-B5EC-47DA-A95E-F6D84E0D8EFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60A2DB18-B5EC-47DA-A95E-F6D84E0D8EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60A2DB18-B5EC-47DA-A95E-F6D84E0D8EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60A2DB18-B5EC-47DA-A95E-F6D84E0D8EFB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{407F12A7-701A-40DA-8913-6072A0753F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{407F12A7-701A-40DA-8913-6072A0753F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{407F12A7-701A-40DA-8913-6072A0753F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU

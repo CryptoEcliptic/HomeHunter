@@ -31,5 +31,7 @@ namespace HomeHunter.Models.BindingModels.Home
         [Display(Name = "Тип сграда")]
         public string BuildingType { get; set; }
 
+        public float Price { get; set; }
+
     }
 }
