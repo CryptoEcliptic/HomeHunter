@@ -1,0 +1,60 @@
+﻿@model HomeHunter.Models.ViewModels.Statistics.StatisticsViewModel;
+@{
+    ViewData["Title"] = "DetailsDeactivated";
+    Layout = "~/Areas/Administration/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 details-real-estate-container">
+        <br />
+        <br />
+        <h4 class="offset-3 home-hunter-center">Детайли за обявата</h4>
+        <table class="table table-estate-details table-responsive-md hover-table">
+            <tbody>
+                <tr>
+                    <th class="col-md-2">@Html.DisplayNameFor(model => model.ActiveOffersCount)</th>
+                    <td class="col-md-2">@Html.DisplayFor(model => model.ActiveOffersCount)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ActiveRentalsCount)</th>
+                    <td>@Html.DisplayFor(model => model.ActiveRentalsCount)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ActiveSalesCount)</th>
+                    <td>@Html.DisplayFor(model => model.ActiveSalesCount)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.AverageSaleTotalPrice)</th>
+                    <td>@Html.DisplayFor(model => model.AverageSaleTotalPrice)</td>
+                </tr>
+               
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.AverageSalePricePerSqMeter)</th>
+                    <td>@Html.DisplayFor(model => model.AverageSalePricePerSqMeter)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.AverageRentTotalPrice)</th>
+                    <td>@Html.DisplayFor(model => model.AverageRentTotalPrice)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.AverageRentPricePerSqMeter)</th>
+                    <td>@Html.DisplayFor(model => model.AverageRentPricePerSqMeter)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.DeactivatedOffersCount)</th>
+                    <td>@Html.DisplayFor(model => model.DeactivatedOffersCount)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.UsersCount)</th>
+                    <td>@Html.DisplayFor(model => model.UsersCount)</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <div class="col-md-offset-4" style="padding-left:50px">
+            <a type="button" asp-controller="Offer" asp-action="IndexDeactivated" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
+        </div>
+    </div>
+</div>
+
+

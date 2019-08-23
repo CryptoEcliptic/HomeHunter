@@ -89,6 +89,7 @@ namespace HomeHunter.App
             services.AddTransient<IImageServices, ImageServices>();
             services.AddTransient<IOfferServices, OfferServices>();
             services.AddTransient<IUserServices, UserServices>();
+            services.AddTransient<IStatisticServices, StatisticServices>();
             services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
 
