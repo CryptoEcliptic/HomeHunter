@@ -21,7 +21,7 @@ namespace HomeHunter.Models.BindingModels.Home
         public string District { get; set; }
 
         [Display(Name = "Година")]
-        public float Year { get; set; }
+        public float? Year { get; set; }
 
         [Required]
         [Display(Name = "Вид имот")]
@@ -30,6 +30,9 @@ namespace HomeHunter.Models.BindingModels.Home
         [Required]
         [Display(Name = "Тип сграда")]
         public string BuildingType { get; set; }
+
+        [Display(Name = "ТЕЦ")]
+        public string CentralHeating { get; set; }
 
         public float Price { get; set; }
 

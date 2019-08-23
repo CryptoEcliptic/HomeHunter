@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Microsoft.ML;
+using HomeHunterML.Model.DataModels;
 using HomeHunter.Models.MLModels;
 
 namespace HomeHunterML.ConsoleApp
@@ -18,7 +19,7 @@ namespace HomeHunterML.ConsoleApp
         private const string MODEL_FILEPATH = @"MLModel.zip";
 
         //Dataset to use for predictions 
-        private const string DATA_FILEPATH = @"C:\Users\Name\Desktop\WebsiteProjectData\imot.bg-data-2019-08-21.csv";
+        private const string DATA_FILEPATH = @"C:\Users\Name\Desktop\ReposForitHub\HomeHunter\HomeHunter\Services\HomeHunter.Services.MLDataGather\imot.bg-cleared-data-2019-08-23.csv";
 
         static void Main(string[] args)
         {

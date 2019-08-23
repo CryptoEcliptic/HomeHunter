@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="~/lib/assets/modal_images.css">
 <div class="row backgr-img-details paddingElement" style="height:730px">
     <br />
-    <div class="jumbotron jumbotron-fluid col-md-5 col-md-offset-6">
+    <div class="jumbotron jumbotron-fluid col-md-5 col-md-offset-6" style="border-radius:5px;">
         <div class="container">
             <h4>Колко струва апартаментът ми?</h4>
             <p style="font-size:13pt;">Чрез попълване на формата отдолу можете да получите информация за проблизителната цена на апартамена Ви. Моля, имайте предвид, че изчисляването на цената става на базата на математически модел и точността не е гарантирана. Към момента услугата е налична само за София-град.</p>
@@ -40,6 +40,16 @@
                                placeholder="Брой етажи..."
                                asp-for="TotalFloors">
                         <span asp-validation-for="TotalFloors" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mx-auto w-45">
+                        <select class="form-control text-primary" id="centralHeating" asp-for="CentralHeating">
+                            <option selected disabled>--- Има ли ТЕЦ ---</option>
+                            <option>ДА</option>
+                            <option>НЕ</option>
+                            <option>Лок.отопл.</option>
+                           
+                        </select>
+                        <span asp-validation-for="District" class="text-danger"></span>
                     </div>
                 </div>
             </div>

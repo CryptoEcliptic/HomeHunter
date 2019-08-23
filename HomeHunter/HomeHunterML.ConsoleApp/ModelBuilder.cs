@@ -8,16 +8,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using HomeHunter.Models.MLModels;
 using Microsoft.ML;
 using Microsoft.ML.Data;
-using Microsoft.ML.Trainers.LightGbm;
+using HomeHunterML.Model.DataModels;
+using Microsoft.ML.Trainers.FastTree;
+using HomeHunter.Models.MLModels;
 
 namespace HomeHunterML.ConsoleApp
 {
     public static class ModelBuilder
     {
-        private static string TRAIN_DATA_FILEPATH = @"C:\Users\Name\Desktop\WebsiteProjectData\imot.bg-data-2019-08-21.csv";
+        private static string TRAIN_DATA_FILEPATH = @"C:\Users\Name\Desktop\ReposForitHub\HomeHunter\HomeHunter\Services\HomeHunter.Services.MLDataGather\imot.bg-cleared-data-2019-08-23.csv";
         private static string MODEL_FILEPATH = @"../../../../HomeHunterML.Model/MLModel.zip";
 
         // Create MLContext to be shared across the model creation workflow objects 
@@ -50,11 +51,11 @@ namespace HomeHunterML.ConsoleApp
         public static IEstimator<ITransformer> BuildTrainingPipeline(MLContext mlContext)
         {
             // Data process configuration with pipeline data transformations 
-            var dataProcessPipeline = mlContext.Transforms.Categorical.OneHotEncoding(new[] { new InputOutputColumnPair("District", "District"), new InputOutputColumnPair("Type", "Type"), new InputOutputColumnPair("BuildingType", "BuildingType") })
-                                      .Append(mlContext.Transforms.Concatenate("Features", new[] { "District", "Type", "BuildingType", "Id", "Size", "Floor", "TotalFloors", "Year" }));
+            var dataProcessPipeline = mlContext.Transforms.Categorical.OneHotEncoding(new[] { new InputOutputColumnPair("CentralHeating", "CentralHeating"), new InputOutputColumnPair("District", "District"), new InputOutputColumnPair("Type", "Type"), new InputOutputColumnPair("BuildingType", "BuildingType") })
+                                      .Append(mlContext.Transforms.Concatenate("Features", new[] { "CentralHeating", "District", "Type", "BuildingType", "Size", "Floor", "TotalFloors", "Year" }));
 
             // Set the training algorithm 
-            var trainer = mlContext.Regression.Trainers.LightGbm(new LightGbmRegressionTrainer.Options() { NumberOfIterations = 100, LearningRate = 0.2179164f, NumberOfLeaves = 30, MinimumExampleCountPerLeaf = 1, UseCategoricalSplit = true, HandleMissingValue = false, MinimumExampleCountPerGroup = 200, MaximumCategoricalSplitPointCount = 32, CategoricalSmoothing = 10, L2CategoricalRegularization = 0.5, Booster = new GradientBooster.Options() { L2Regularization = 0, L1Regularization = 0 }, LabelColumnName = "Price", FeatureColumnName = "Features" });
+            var trainer = mlContext.Regression.Trainers.FastTreeTweedie(new FastTreeTweedieTrainer.Options() { NumberOfLeaves = 27, MinimumExampleCountPerLeaf = 10, NumberOfTrees = 500, LearningRate = 0.0967647f, Shrinkage = 2.3243f, LabelColumnName = "Price", FeatureColumnName = "Features" });
             var trainingPipeline = dataProcessPipeline.Append(trainer);
 
             return trainingPipeline;

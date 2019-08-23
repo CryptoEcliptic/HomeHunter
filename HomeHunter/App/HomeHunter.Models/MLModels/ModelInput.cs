@@ -10,20 +10,21 @@ namespace HomeHunter.Models.MLModels
 {
     public class ModelInput
     {
-        [ColumnName("Id"), LoadColumn(0)]
-        public float Id { get; set; }
 
-
-        [ColumnName("Size"), LoadColumn(1)]
+        [ColumnName("Size"), LoadColumn(0)]
         public float Size { get; set; }
 
 
-        [ColumnName("Floor"), LoadColumn(2)]
+        [ColumnName("Floor"), LoadColumn(1)]
         public float Floor { get; set; }
 
 
-        [ColumnName("TotalFloors"), LoadColumn(3)]
+        [ColumnName("TotalFloors"), LoadColumn(2)]
         public float TotalFloors { get; set; }
+
+
+        [ColumnName("CentralHeating"), LoadColumn(3)]
+        public string CentralHeating { get; set; }
 
 
         [ColumnName("District"), LoadColumn(4)]
@@ -44,7 +45,5 @@ namespace HomeHunter.Models.MLModels
 
         [ColumnName("Price"), LoadColumn(8)]
         public float Price { get; set; }
-
-
     }
 }
