@@ -8,6 +8,7 @@ using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.ML;
@@ -24,23 +25,34 @@ namespace HomeHunter.App.Controllers
         private readonly IUserServices usersService;
         private readonly UserManager<HomeHunterUser> userManager;
         private readonly IApplicationEmailSender emailSender;
+        private readonly IVisitorSessionServices visitorSessionServices;
         private readonly PredictionEnginePool<ModelInput, ModelOutput> predictionEngine;
+        private readonly IHttpContextAccessor accessor;
         private readonly IMapper mapper;
 
         public HomeController(IUserServices usersService,
             UserManager<HomeHunterUser> userManager,
             IApplicationEmailSender emailSender,
+            IVisitorSessionServices visitorSessionServices,
             PredictionEnginePool<ModelInput, ModelOutput> predictionEngine,
+            IHttpContextAccessor accessor,
             IMapper mapper)
         {
             this.usersService = usersService;
             this.userManager = userManager;
             this.emailSender = emailSender;
+            this.visitorSessionServices = visitorSessionServices;
             this.predictionEngine = predictionEngine;
+            this.accessor = accessor;
             this.mapper = mapper;
         }
         public IActionResult Index()
         {
+            var ip = this.accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            string visitorId = HttpContext.Request.Cookies["VisitorId"];
+            
+            this.visitorSessionServices.AddSessionInTheDb(ip, visitorId);
+
             if (this.User.IsInRole("User"))
             {
                 return RedirectToAction("AuthenticatedIndex", "Home");

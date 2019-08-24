@@ -77,6 +77,8 @@ namespace HomeHunter.App
             Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentails);
             services.AddSingleton(cloudinaryUtility);
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddTransient<IApplicationEmailSender, EmailSender>();
             services.AddTransient<IRealEstateTypeServices, RealEstateTypeServices>();
             services.AddTransient<IHeatingSystemServices, HeatingSystemServices>();
@@ -90,8 +92,8 @@ namespace HomeHunter.App
             services.AddTransient<IImageServices, ImageServices>();
             services.AddTransient<IOfferServices, OfferServices>();
             services.AddTransient<IUserServices, UserServices>();
-            services.AddTransient<IStatisticServices, StatisticServices>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IStatisticServices, StatisticServices>();       
+            services.AddTransient<IVisitorSessionServices, VisitorSessionServices>();
             services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
 
