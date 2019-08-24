@@ -10,7 +10,6 @@ using System.IO;
 using System.Linq;
 using Microsoft.ML;
 using Microsoft.ML.Data;
-using HomeHunterML.Model.DataModels;
 using Microsoft.ML.Trainers.FastTree;
 using HomeHunter.Models.MLModels;
 

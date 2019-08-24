@@ -8,7 +8,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Microsoft.ML;
-using HomeHunterML.Model.DataModels;
 using HomeHunter.Models.MLModels;
 
 namespace HomeHunterML.ConsoleApp
