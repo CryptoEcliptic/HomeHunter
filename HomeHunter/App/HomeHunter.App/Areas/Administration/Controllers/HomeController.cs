@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using HomeHunter.Infrastructure.Middlewares;
 using HomeHunter.Models.ViewModels.Statistics;
 using HomeHunter.Services.Contracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -25,7 +27,7 @@ namespace HomeHunter.App.Areas.Administration.Controllers
         {
             var statisticsServiceModel = await this.statisticServices.GetAdministrationStatistics();
             var statisticsViewModel = this.mapper.Map<StatisticsViewModel>(statisticsServiceModel);
-
+ 
             return View(statisticsViewModel);
         }
     }

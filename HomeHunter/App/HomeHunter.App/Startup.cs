@@ -4,6 +4,7 @@ using HomeHunter.Data;
 using HomeHunter.Data.DataSeeding;
 using HomeHunter.Domain;
 using HomeHunter.Infrastructure;
+using HomeHunter.Infrastructure.Middlewares;
 using HomeHunter.Models.MLModels;
 using HomeHunter.Services;
 using HomeHunter.Services.CloudinaryServices;
@@ -90,6 +91,7 @@ namespace HomeHunter.App
             services.AddTransient<IOfferServices, OfferServices>();
             services.AddTransient<IUserServices, UserServices>();
             services.AddTransient<IStatisticServices, StatisticServices>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
 
@@ -117,7 +119,6 @@ namespace HomeHunter.App
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             // Seed data on application startup
@@ -160,6 +161,8 @@ namespace HomeHunter.App
 
             app.UseAuthentication();
 
+            //MiddleWare for counting visitors
+            app.UseMiddleware(typeof(VisitorCounterMiddleware));
 
             app.UseMvc(routes =>
             {

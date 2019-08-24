@@ -20,6 +20,7 @@ namespace HomeHunter.Data
         public DbSet<RealEstateType> RealEstateTypes { get; set; }
         public DbSet<BuildingType> BuildingTypes { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<VisitorSession> VisitorsSessions { get; set; }
 
 
         public HomeHunterDbContext(DbContextOptions<HomeHunterDbContext> options)
