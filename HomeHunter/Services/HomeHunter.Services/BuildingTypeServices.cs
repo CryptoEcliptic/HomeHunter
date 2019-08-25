@@ -2,6 +2,7 @@
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.BuildingType;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +26,6 @@ namespace HomeHunter.Services
                     Name = x.Name,
                 }));
               
-
             return await buildingTypes;
         }
 

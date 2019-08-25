@@ -1,39 +1,81 @@
-﻿using NUnit.Framework;
+﻿using HomeHunter.Data;
+using HomeHunter.Domain;
+using HomeHunter.Services;
+using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
+using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using HomeHunter.Services.Models.BuildingType;
+using AutoMapper;
+using HomeHunter.Models.ViewModels.BuildingType;
+using HomeHunter.Infrastructure;
+using HomeHunter.Tsets.Common;
+using System;
 
 namespace HomeHunter.Tsets
 {
-    [TestFixture]
     public class BuildingTypeServicesTests
     {
-        [SetUp]
-        public void Setup()
-        {
+       
 
+        private List<BuildingType> TestData = new List<BuildingType>
+        {
+            new BuildingType { Name = "ЕПК", Id = RandomIdGenerator()},
+            new BuildingType { Name = "Панел", Id = RandomIdGenerator()},
+            new BuildingType { Name = "Тухла", Id = RandomIdGenerator()},
+        };
+
+        public BuildingTypeServicesTests()
+        {
+            MapperInitializer.InitializeMapper();
+            this.SeedData();
         }
 
-        //[Test]
-        //public void GetAllBuildingTypesCountShouldReturnTwo()
-        //{
-        //    var options = new DbContextOptionsBuilder<HomeHunterDbContext>()
-        //           .UseInMemoryDatabase(databaseName: "BuildingType_Database")
-        //           .Options;
+        [Test]
+        public async Task GetAllBuildingTypesCountShouldReturnTwo()
+        {
+            //await this.SeedData();
+            var context = InMemoryDatabase.GetDbContext();
 
-        //    var context = new HomeHunterDbContext(options);
-        //    var expectedResultCount = 2;
-        //    var buildingTypeInput = new List<BuildingType>()
-        //    {
-        //        new BuildingType { Name = "ЕПК"},
-        //        new BuildingType { Name = "Панелка баце"}
-        //    };
+            var buildingTypesService = new BuildingTypeServices(context);
+            var buildingTypes = await buildingTypesService.GetAllBuildingTypesAsync();
 
-        //    context.BuildingTypes.AddRange(buildingTypeInput);
-        //    context.SaveChanges();
+            int numberOftypes = buildingTypes.AsQueryable().Count();
+            var expectedResultCount = 3;
 
-        //    var buildingTypesService = new BuildingTypeServices(context);
-        //    var actualResult = buildingTypesService.GetAllBuildingTypes();
+            Assert.That(numberOftypes, Is.EqualTo(expectedResultCount));
+        }
 
-        //    Assert.That(actualResult.Count, Is.EqualTo(expectedResultCount));
-        //}
+        [Test]
+        [TestCase("ЕПК")]
+        [TestCase(null)]
+        public async Task GetBuildingTypeByNameShouldReturnTrue(string type)
+        {
+            var context = InMemoryDatabase.GetDbContext();
+            var expectedResult = type != null ? "ЕПК" : null;
+
+            var buildingTypesService = new BuildingTypeServices(context);
+            var buildingType = await buildingTypesService.GetBuildingTypeAsync(type);
+
+            string actualResult = buildingType != null ? buildingType.Name : null;
+           
+            Assert.That(actualResult, Is.EqualTo(expectedResult));
+        }
+
+        private void SeedData()
+        {
+            var context = InMemoryDatabase.GetDbContext();
+            context.BuildingTypes.AddRange(TestData);
+            context.SaveChanges();
+        }
+
+        private static int RandomIdGenerator()
+        {
+            Random rnd = new Random();
+            int id = rnd.Next(1, 100000);
+
+            return id;
+        }
     }
 }
