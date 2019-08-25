@@ -5,5 +5,7 @@ namespace HomeHunter.Services.Contracts
     public interface IVisitorSessionServices
     {
         Task AddSessionInTheDb(string ipAddress, string visitorId);
+
+        Task<long> UniqueVisitorsCount();
     }
 }

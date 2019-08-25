@@ -97,6 +97,7 @@ namespace HomeHunter.App.Controllers
                 {
                     var imageUploadEditServiceModel = await this.imageServices.GetImageDetailsAsync(id);
                     var imageUploadEditBindingModel = this.mapper.Map<ImageUploadEditBindingModel>(imageUploadEditServiceModel);
+                    this.ViewData["ImageReplacementwarningMesssage"] = ImageReplacementwarningMesssage;
                     this.ViewData["ErrorMessage"] = InvalidFormatImageMessage;
                     return this.View(imageUploadEditBindingModel);
                 }

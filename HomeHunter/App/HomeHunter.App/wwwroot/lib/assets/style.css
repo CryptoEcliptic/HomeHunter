@@ -145,6 +145,15 @@ a.close.disabled {
     background-color:whitesmoke
 }
 
+.table-statistic-details {
+    height: 500px;
+    overflow-y: auto;
+    width: 100%;
+    display: block;
+    clear: both;
+    background-color: whitesmoke
+}
+
 .sales-index-guest {
     height: 550px;
     overflow-y: auto;

@@ -32,8 +32,14 @@ namespace HomeHunter.Services
 
                 this.context.VisitorsSessions.Add(visitorSession);
                 await this.context.SaveChangesAsync();
-            }
-           
+            }  
+        }
+
+        public async Task<long> UniqueVisitorsCount()
+        {
+            var visitorsCount = await Task.Run(() => this.context.VisitorsSessions.Count());
+
+            return visitorsCount;
         }
     }
 }

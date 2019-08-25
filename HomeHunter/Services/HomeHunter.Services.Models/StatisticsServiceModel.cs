@@ -23,5 +23,7 @@ namespace HomeHunter.Services.Models
         public int DeactivatedOffersCount { get; set; }
 
         public int UsersCount { get; set; }
+
+        public long UniqueVisitorsCount { get; set; }
     }
 }

@@ -25,10 +25,13 @@ namespace HomeHunter.Models.ViewModels.Statistics
         [Display(Name = "Средна цена на кв. м. (наеми) в Евро")]
         public decimal AverageRentPricePerSqMeter { get; set; }
 
-        [Display(Name = "Неактивни обяви")]
+        [Display(Name = "Общ брой неактивни обяви")]
         public int DeactivatedOffersCount { get; set; }
 
-        [Display(Name = "Брой потребители")]
+        [Display(Name = "Брой регистрирани потребители")]
         public int UsersCount { get; set; }
+
+        [Display(Name = "Брой уникални посещения")]
+        public long UniqueVisitorsCount { get; set; }
     }
 }
