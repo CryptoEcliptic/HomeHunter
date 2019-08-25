@@ -1,40 +1,90 @@
-﻿
+﻿using AutoMapper;
+using HomeHunter.Domain;
+using HomeHunter.Infrastructure;
+using HomeHunter.Models.ViewModels.HeatingSystem;
+using HomeHunter.Services;
+using HomeHunter.Services.Models.HeatingSystem;
+using HomeHunter.Tsets.Common;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HomeHunter.Tsets
 {
     [TestFixture]
     public class HeatingSystemServiceTests
     {
-        [SetUp]
-        public void Setup()
+        private List<HeatingSystem> TestData = new List<HeatingSystem>
         {
+            new HeatingSystem { Name = "ТЕЦ", Id = RandomIdGenerator()},
+            new HeatingSystem { Name = "Ток", Id = RandomIdGenerator()},
+            new HeatingSystem { Name = "Локално отопление", Id = RandomIdGenerator()},
+        };
 
+        public HeatingSystemServiceTests()
+        {
+            MapperInitializer.InitializeMapper();
+            this.SeedData();
         }
 
-        //[Test]
-        //public void GetAllHeatingSystemCountShouldReturnTwo()
-        //{
-        //    var options = new DbContextOptionsBuilder<HomeHunterDbContext>()
-        //           .UseInMemoryDatabase(databaseName: "HeatingSystems_Database")
-        //           .Options;
+        [Test]
+        public async Task GetAllHeatingSystemTypesCountShouldReturnTwo()
+        {
+            var context = InMemoryDatabase.GetDbContext();
+            var mapper = this.GetMapper();
 
-        //    var context = new HomeHunterDbContext(options);
-        //    var expectedResultCount = 2;
-        //    var heatingSystemsInput = new List<HeatingSystem>()
-        //    {
-        //        new HeatingSystem {  Name = "ТЕЦ"},
-        //        new HeatingSystem { Name = "Бойлер на дърва"}
-        //    };
+            var heatingSystemService = new HeatingSystemServices(context);
+            var heatingSystemTypes = await heatingSystemService.GetAllHeatingSystemsAsync();
+            var heatingSystemViewModel = mapper.Map<List<HeatingSystemViewModel>>(heatingSystemTypes);
 
-        //    context.HeatingSystems.AddRange(heatingSystemsInput);
-        //    context.SaveChanges();
+            int numberOftypes = heatingSystemViewModel.Count();
+            var expectedResultCount = 3;
+            Assert.That(numberOftypes, Is.EqualTo(expectedResultCount));
+        }
 
-        //    var heatingSystemsTypesService = new HeatingSystemServices(context);
-        //    var actualResult = heatingSystemsTypesService.GetAllHeatingSystems();
 
-        //    Assert.That(actualResult.Count, Is.EqualTo(expectedResultCount));
-        //}
+        [Test]
+        [TestCase("ТЕЦ")]
+        [TestCase(null)]
+        public async Task GetHeatingSystemTypeByNameShouldReturnTrue(string type)
+        {
+            var context = InMemoryDatabase.GetDbContext();
+            var expectedResult = type != null ? "ТЕЦ" : null;
+
+            var heatingSystemService = new HeatingSystemServices(context);
+            var heatingSystemType = await heatingSystemService.GetHeatingSystemAsync(type);
+            
+            string actualResult = heatingSystemType != null ? heatingSystemType.Name : null;
+
+            Assert.That(actualResult, Is.EqualTo(expectedResult));
+        }
+
+        private static int RandomIdGenerator()
+        {
+            Random rnd = new Random();
+            int id = rnd.Next(1, 100000);
+
+            return id;
+        }
+
+        private void SeedData()
+        {
+            var context = InMemoryDatabase.GetDbContext();
+            context.HeatingSystems.AddRange(TestData);
+            context.SaveChanges();
+        }
+
+        private IMapper GetMapper()
+        {
+            var configuration = new MapperConfiguration(x =>
+            {
+                x.CreateMap<HeatingSystemServiceModel, HeatingSystemViewModel>();
+            });
+
+            var mapper = new Mapper(configuration);
+            return mapper;
+        }
     }
 }

@@ -28,14 +28,12 @@ namespace HomeHunter.Tsets
 
         public BuildingTypeServicesTests()
         {
-            MapperInitializer.InitializeMapper();
             this.SeedData();
         }
 
         [Test]
         public async Task GetAllBuildingTypesCountShouldReturnTwo()
         {
-            //await this.SeedData();
             var context = InMemoryDatabase.GetDbContext();
 
             var buildingTypesService = new BuildingTypeServices(context);

@@ -26,14 +26,12 @@ namespace HomeHunter.Services
                 }));
 
             return await heatingSystems;
-
         }
 
         public async Task<HeatingSystem> GetHeatingSystemAsync(string systemName)
         {
             var heatingSystem = Task.Run(() =>  this.context.HeatingSystems
-            .FirstOrDefault(x => x.Name == systemName))
-                ;
+            .FirstOrDefault(x => x.Name == systemName));
 
             return await heatingSystem;
         }
