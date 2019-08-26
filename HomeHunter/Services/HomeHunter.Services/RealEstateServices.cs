@@ -48,7 +48,7 @@ namespace HomeHunter.Services
         {
             var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
 
-            if (realEstateType == null || model.Area <=0 || model.Price <= 0 || model.Address == null)
+            if (realEstateType == null || model.Area <= 0 || model.Price <= 0 || model.Address == null)
             {
                 return null;
             }

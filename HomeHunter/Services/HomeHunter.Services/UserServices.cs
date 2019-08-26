@@ -18,6 +18,8 @@ namespace HomeHunter.Services
 {
     public class UserServices : PageModel, IUserServices
     {
+        private const string InvalidUserParamMessage = "Invlid parameters for user registration";
+
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
         private readonly UserManager<HomeHunterUser> userManager;
@@ -40,7 +42,7 @@ namespace HomeHunter.Services
                 .Where(x => x.IsDeleted == false)
                 .ToListAsync();
                 
-            var userIndexServiceModel = this.mapper.Map<IEnumerable<UserIndexServiceModel>>(usersFromDb);
+            var userIndexServiceModel = this.mapper.Map<List<UserIndexServiceModel>>(usersFromDb);
 
             return userIndexServiceModel;
         }

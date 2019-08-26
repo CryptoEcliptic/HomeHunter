@@ -16,21 +16,23 @@ namespace HomeHunter.Tsets
     [TestFixture]
     public class HeatingSystemServiceTests
     {
+        private const string ResultCountMismatchMessage = "Expected test result should be 3";
+        private const string ExpectedTrueResultMessage = "Expected result should return true, but it is false!";
+
         private List<HeatingSystem> TestData = new List<HeatingSystem>
         {
-            new HeatingSystem { Name = "ТЕЦ", Id = RandomIdGenerator()},
-            new HeatingSystem { Name = "Ток", Id = RandomIdGenerator()},
-            new HeatingSystem { Name = "Локално отопление", Id = RandomIdGenerator()},
+            new HeatingSystem { Name = "ТЕЦ", Id = RandomIdGenerator.GenerateRandomIntId()},
+            new HeatingSystem { Name = "Ток", Id = RandomIdGenerator.GenerateRandomIntId()},
+            new HeatingSystem { Name = "Локално отопление", Id = RandomIdGenerator.GenerateRandomIntId()},
         };
 
         public HeatingSystemServiceTests()
         {
-            MapperInitializer.InitializeMapper();
             this.SeedData();
         }
 
         [Test]
-        public async Task GetAllHeatingSystemTypesCountShouldReturnTwo()
+        public async Task GetAllHeatingSystemTypesCountShouldReturnThree()
         {
             var context = InMemoryDatabase.GetDbContext();
             var mapper = this.GetMapper();
@@ -41,7 +43,7 @@ namespace HomeHunter.Tsets
 
             int numberOftypes = heatingSystemViewModel.Count();
             var expectedResultCount = 3;
-            Assert.That(numberOftypes, Is.EqualTo(expectedResultCount));
+            Assert.That(numberOftypes, Is.EqualTo(expectedResultCount), ResultCountMismatchMessage);
         }
 
 
@@ -58,15 +60,7 @@ namespace HomeHunter.Tsets
             
             string actualResult = heatingSystemType != null ? heatingSystemType.Name : null;
 
-            Assert.That(actualResult, Is.EqualTo(expectedResult));
-        }
-
-        private static int RandomIdGenerator()
-        {
-            Random rnd = new Random();
-            int id = rnd.Next(1, 100000);
-
-            return id;
+            Assert.That(actualResult, Is.EqualTo(expectedResult), ExpectedTrueResultMessage);
         }
 
         private void SeedData()

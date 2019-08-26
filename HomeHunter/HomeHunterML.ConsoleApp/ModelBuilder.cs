@@ -10,14 +10,14 @@ using System.IO;
 using System.Linq;
 using Microsoft.ML;
 using Microsoft.ML.Data;
+using HomeHunterML.Model.DataModels;
 using Microsoft.ML.Trainers.FastTree;
-using HomeHunter.Models.MLModels;
 
 namespace HomeHunterML.ConsoleApp
 {
     public static class ModelBuilder
     {
-        private static string TRAIN_DATA_FILEPATH = @"C:\Users\Name\Desktop\ReposForitHub\HomeHunter\HomeHunter\Services\HomeHunter.Services.MLDataGather\imot.bg-cleared-data-2019-08-23.csv";
+        private static string TRAIN_DATA_FILEPATH = @"C:\Users\Name\Desktop\ReposForitHub\HomeHunter\HomeHunter\Services\HomeHunter.Services.ML\SourceData\imot.bg-data-2019-08-21.csv";
         private static string MODEL_FILEPATH = @"../../../../HomeHunterML.Model/MLModel.zip";
 
         // Create MLContext to be shared across the model creation workflow objects 
@@ -50,11 +50,11 @@ namespace HomeHunterML.ConsoleApp
         public static IEstimator<ITransformer> BuildTrainingPipeline(MLContext mlContext)
         {
             // Data process configuration with pipeline data transformations 
-            var dataProcessPipeline = mlContext.Transforms.Categorical.OneHotEncoding(new[] { new InputOutputColumnPair("CentralHeating", "CentralHeating"), new InputOutputColumnPair("District", "District"), new InputOutputColumnPair("Type", "Type"), new InputOutputColumnPair("BuildingType", "BuildingType") })
-                                      .Append(mlContext.Transforms.Concatenate("Features", new[] { "CentralHeating", "District", "Type", "BuildingType", "Size", "Floor", "TotalFloors", "Year" }));
+            var dataProcessPipeline = mlContext.Transforms.Categorical.OneHotEncoding(new[] { new InputOutputColumnPair("District", "District"), new InputOutputColumnPair("Type", "Type"), new InputOutputColumnPair("BuildingType", "BuildingType") })
+                                      .Append(mlContext.Transforms.Concatenate("Features", new[] { "District", "Type", "BuildingType", "Id", "Size", "Floor", "TotalFloors", "Year" }));
 
             // Set the training algorithm 
-            var trainer = mlContext.Regression.Trainers.FastTreeTweedie(new FastTreeTweedieTrainer.Options() { NumberOfLeaves = 27, MinimumExampleCountPerLeaf = 10, NumberOfTrees = 500, LearningRate = 0.0967647f, Shrinkage = 2.3243f, LabelColumnName = "Price", FeatureColumnName = "Features" });
+            var trainer = mlContext.Regression.Trainers.FastTree(new FastTreeRegressionTrainer.Options() { NumberOfLeaves = 20, MinimumExampleCountPerLeaf = 1, NumberOfTrees = 100, LearningRate = 0.2643847f, Shrinkage = 0.5576438f, LabelColumnName = "Price", FeatureColumnName = "Features" });
             var trainingPipeline = dataProcessPipeline.Append(trainer);
 
             return trainingPipeline;

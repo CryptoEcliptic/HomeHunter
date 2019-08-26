@@ -17,13 +17,14 @@ namespace HomeHunter.Tsets
 {
     public class BuildingTypeServicesTests
     {
-       
+        private const string ResultCountMismatchMessage = "Expected test result should be 3";
+        private const string ExpectedTrueResultMessage = "Expected result should return true, but it is false!";
 
         private List<BuildingType> TestData = new List<BuildingType>
         {
-            new BuildingType { Name = "ЕПК", Id = RandomIdGenerator()},
-            new BuildingType { Name = "Панел", Id = RandomIdGenerator()},
-            new BuildingType { Name = "Тухла", Id = RandomIdGenerator()},
+            new BuildingType { Name = "ЕПК", },
+            new BuildingType { Name = "Панел", Id = RandomIdGenerator.GenerateRandomIntId()},
+            new BuildingType { Name = "Тухла", Id = RandomIdGenerator.GenerateRandomIntId()},
         };
 
         public BuildingTypeServicesTests()
@@ -32,7 +33,7 @@ namespace HomeHunter.Tsets
         }
 
         [Test]
-        public async Task GetAllBuildingTypesCountShouldReturnTwo()
+        public async Task GetAllBuildingTypesCountShouldReturnThree()
         {
             var context = InMemoryDatabase.GetDbContext();
 
@@ -42,7 +43,7 @@ namespace HomeHunter.Tsets
             int numberOftypes = buildingTypes.AsQueryable().Count();
             var expectedResultCount = 3;
 
-            Assert.That(numberOftypes, Is.EqualTo(expectedResultCount));
+            Assert.That(numberOftypes, Is.EqualTo(expectedResultCount), ResultCountMismatchMessage);
         }
 
         [Test]
@@ -58,7 +59,7 @@ namespace HomeHunter.Tsets
 
             string actualResult = buildingType != null ? buildingType.Name : null;
            
-            Assert.That(actualResult, Is.EqualTo(expectedResult));
+            Assert.That(actualResult, Is.EqualTo(expectedResult), ExpectedTrueResultMessage);
         }
 
         private void SeedData()
@@ -66,14 +67,6 @@ namespace HomeHunter.Tsets
             var context = InMemoryDatabase.GetDbContext();
             context.BuildingTypes.AddRange(TestData);
             context.SaveChanges();
-        }
-
-        private static int RandomIdGenerator()
-        {
-            Random rnd = new Random();
-            int id = rnd.Next(1, 100000);
-
-            return id;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace HomeHunter.App.Areas.Administration.Controllers
             return View(userIndexViewModel);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }

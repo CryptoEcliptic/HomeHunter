@@ -1,6 +1,7 @@
 ﻿using HomeHunter.Domain;
 using HomeHunter.Services.Models.User;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Services.Contracts
@@ -9,7 +10,7 @@ namespace HomeHunter.Services.Contracts
     {
         bool IsUserEmailAuthenticated(string userId);
 
-        Task<IEnumerable<UserIndexServiceModel>> GetAllUsersAsync();
+       Task<IEnumerable<UserIndexServiceModel>> GetAllUsersAsync();
 
         Task<UserReturnCreateServiceModel> CreateUser(UserCreateServiceModel model);
 
