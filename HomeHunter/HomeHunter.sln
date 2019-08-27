@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Common", "HomeHunterCommon\HomeHunter.Common.csproj", "{71D84CCC-C2D9-4023-9ED0-869E9CBA87D8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{067F9FC0-31BB-4B76-994A-76E97D2E2BF5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{1A35FB9F-ADE2-4FFE-BB4A-763C0D44BFFC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Data", "Data\HomeHunter.Data\HomeHunter.Data.csproj", "{044A81F3-C1B5-4153-9F62-44BC1A133140}"
@@ -23,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Models", "App\Ho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Services", "Services\HomeHunter.Services\HomeHunter.Services.csproj", "{14016004-7C7C-4EF0-A6ED-9F0B80B8A4EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Tsets", "Tests\HomeHunter.Tsets\HomeHunter.Tsets.csproj", "{4C851892-7A63-4024-AF74-130B07D50BDB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Services.Models", "Services\HomeHunter.Services.Models\HomeHunter.Services.Models.csproj", "{37845D17-3D33-44D5-A93F-E326376183D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Services.Mappings", "Services\HomeHunter.Services.Mappings\HomeHunter.Services.Mappings.csproj", "{0702E0DF-C3DF-4E4E-B76C-77F6956D8E72}"
@@ -32,6 +28,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Infrastructure", "App\HomeHunter.Infrastructure\HomeHunter.Infrastructure.csproj", "{80CC2475-4971-4876-80CD-68F4F6724B40}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeHunter.Services.MLDataGather", "Services\HomeHunter.Services.MLDataGather\HomeHunter.Services.MLDataGather.csproj", "{5E67E023-87FD-45BB-ACA5-21BFC12963AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BF31306B-597B-4AD4-A061-2E6298A1C059}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHunterTests", "Tests\HomeHunterTests\HomeHunterTests.csproj", "{B2DDAF4F-EF51-476D-B5FD-A9BC0DACA9E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +63,6 @@ Global
 		{14016004-7C7C-4EF0-A6ED-9F0B80B8A4EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14016004-7C7C-4EF0-A6ED-9F0B80B8A4EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14016004-7C7C-4EF0-A6ED-9F0B80B8A4EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C851892-7A63-4024-AF74-130B07D50BDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C851892-7A63-4024-AF74-130B07D50BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C851892-7A63-4024-AF74-130B07D50BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C851892-7A63-4024-AF74-130B07D50BDB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37845D17-3D33-44D5-A93F-E326376183D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{37845D17-3D33-44D5-A93F-E326376183D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37845D17-3D33-44D5-A93F-E326376183D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,6 +79,10 @@ Global
 		{5E67E023-87FD-45BB-ACA5-21BFC12963AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E67E023-87FD-45BB-ACA5-21BFC12963AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E67E023-87FD-45BB-ACA5-21BFC12963AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2DDAF4F-EF51-476D-B5FD-A9BC0DACA9E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2DDAF4F-EF51-476D-B5FD-A9BC0DACA9E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2DDAF4F-EF51-476D-B5FD-A9BC0DACA9E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2DDAF4F-EF51-476D-B5FD-A9BC0DACA9E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,11 +93,11 @@ Global
 		{DE77751F-C5ED-47D0-AB5B-42BF5A990F85} = {386472B7-2282-456C-896A-03C387421BD6}
 		{F42B68C0-0736-4E4B-85B1-39D186F8635F} = {386472B7-2282-456C-896A-03C387421BD6}
 		{14016004-7C7C-4EF0-A6ED-9F0B80B8A4EE} = {A6E452FD-6C83-4F80-ABD8-D2E506F5C327}
-		{4C851892-7A63-4024-AF74-130B07D50BDB} = {067F9FC0-31BB-4B76-994A-76E97D2E2BF5}
 		{37845D17-3D33-44D5-A93F-E326376183D7} = {A6E452FD-6C83-4F80-ABD8-D2E506F5C327}
 		{0702E0DF-C3DF-4E4E-B76C-77F6956D8E72} = {A6E452FD-6C83-4F80-ABD8-D2E506F5C327}
 		{80CC2475-4971-4876-80CD-68F4F6724B40} = {386472B7-2282-456C-896A-03C387421BD6}
 		{5E67E023-87FD-45BB-ACA5-21BFC12963AC} = {A6E452FD-6C83-4F80-ABD8-D2E506F5C327}
+		{B2DDAF4F-EF51-476D-B5FD-A9BC0DACA9E7} = {BF31306B-597B-4AD4-A061-2E6298A1C059}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4988E08-8564-4FF7-9343-647C497E401B}

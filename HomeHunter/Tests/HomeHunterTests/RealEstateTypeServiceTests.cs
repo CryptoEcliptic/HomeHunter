@@ -1,16 +1,17 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using HomeHunter.Domain;
 using HomeHunter.Models.ViewModels.RealEstateType;
 using HomeHunter.Services;
 using HomeHunter.Services.Models.RealEstateType;
-using HomeHunter.Tsets.Common;
+using HomeHunterTests.Common;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeHunter.Tsets
+namespace HomeHunterTests
 {
     [TestFixture]
     public class RealEstateTypeServiceTests
@@ -20,9 +21,9 @@ namespace HomeHunter.Tsets
 
         private List<RealEstateType> TestData = new List<RealEstateType>
         {
-            new RealEstateType { TypeName = "Едностаен апартамент", Id = RandomIdGenerator.GenerateRandomIntId()},
-            new RealEstateType { TypeName = "Двустаен апартамент", Id = RandomIdGenerator.GenerateRandomIntId()},
-            new RealEstateType { TypeName = "Тристаен апартамент", Id = RandomIdGenerator.GenerateRandomIntId()},
+            new RealEstateType { TypeName = "Едностаен апартамент", Id = 1},
+            new RealEstateType { TypeName = "Двустаен апартамент", Id = 2},
+            new RealEstateType { TypeName = "Тристаен апартамент", Id = 3},
         };
 
         public RealEstateTypeServiceTests()

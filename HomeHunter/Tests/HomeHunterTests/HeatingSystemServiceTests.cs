@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using HomeHunter.Domain;
-using HomeHunter.Infrastructure;
 using HomeHunter.Models.ViewModels.HeatingSystem;
 using HomeHunter.Services;
 using HomeHunter.Services.Models.HeatingSystem;
-using HomeHunter.Tsets.Common;
+using HomeHunterTests.Common;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeHunter.Tsets
+namespace HomeHunterTests
 {
     [TestFixture]
     public class HeatingSystemServiceTests
@@ -21,9 +21,9 @@ namespace HomeHunter.Tsets
 
         private List<HeatingSystem> TestData = new List<HeatingSystem>
         {
-            new HeatingSystem { Name = "ТЕЦ", Id = RandomIdGenerator.GenerateRandomIntId()},
-            new HeatingSystem { Name = "Ток", Id = RandomIdGenerator.GenerateRandomIntId()},
-            new HeatingSystem { Name = "Локално отопление", Id = RandomIdGenerator.GenerateRandomIntId()},
+            new HeatingSystem { Name = "ТЕЦ", Id = 1},
+            new HeatingSystem { Name = "Ток", Id = 2},
+            new HeatingSystem { Name = "Локално отопление", Id = 3},
         };
 
         public HeatingSystemServiceTests()
@@ -57,7 +57,7 @@ namespace HomeHunter.Tsets
 
             var heatingSystemService = new HeatingSystemServices(context);
             var heatingSystemType = await heatingSystemService.GetHeatingSystemAsync(type);
-            
+
             string actualResult = heatingSystemType != null ? heatingSystemType.Name : null;
 
             Assert.That(actualResult, Is.EqualTo(expectedResult), ExpectedTrueResultMessage);

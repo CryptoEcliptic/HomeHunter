@@ -27,8 +27,7 @@ namespace HomeHunter.Services
                 Neighbourhood = neighbourhood
             };
 
-            //await this.context.Addresses.AddAsync(address);
-          
+            await this.context.Addresses.AddAsync(address);
             return address;
         }
 
@@ -68,7 +67,6 @@ namespace HomeHunter.Services
 
         public async Task<bool> DeleteAddressAsync(int id)
         {
-
             var address = await this.context.Addresses.FirstOrDefaultAsync(x => x.Id == id);
 
             if (address == null)

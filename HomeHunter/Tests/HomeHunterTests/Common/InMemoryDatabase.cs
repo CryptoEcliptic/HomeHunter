@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HomeHunter.Tsets.Common
+namespace HomeHunterTests.Common
 {
     public class InMemoryDatabase
     {

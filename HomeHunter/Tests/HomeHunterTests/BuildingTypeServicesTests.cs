@@ -1,19 +1,14 @@
-﻿using HomeHunter.Data;
-using HomeHunter.Domain;
+﻿using HomeHunter.Domain;
 using HomeHunter.Services;
-using Microsoft.EntityFrameworkCore;
+using HomeHunterTests.Common;
 using NUnit.Framework;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using HomeHunter.Services.Models.BuildingType;
-using AutoMapper;
-using HomeHunter.Models.ViewModels.BuildingType;
-using HomeHunter.Infrastructure;
-using HomeHunter.Tsets.Common;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HomeHunter.Tsets
+namespace HomeHunterTests
 {
     public class BuildingTypeServicesTests
     {
@@ -22,9 +17,9 @@ namespace HomeHunter.Tsets
 
         private List<BuildingType> TestData = new List<BuildingType>
         {
-            new BuildingType { Name = "ЕПК", },
-            new BuildingType { Name = "Панел", Id = RandomIdGenerator.GenerateRandomIntId()},
-            new BuildingType { Name = "Тухла", Id = RandomIdGenerator.GenerateRandomIntId()},
+            new BuildingType { Name = "ЕПК", Id = 1},
+            new BuildingType { Name = "Панел", Id = 2},
+            new BuildingType { Name = "Тухла", Id = 3},
         };
 
         public BuildingTypeServicesTests()
@@ -58,7 +53,7 @@ namespace HomeHunter.Tsets
             var buildingType = await buildingTypesService.GetBuildingTypeAsync(type);
 
             string actualResult = buildingType != null ? buildingType.Name : null;
-           
+
             Assert.That(actualResult, Is.EqualTo(expectedResult), ExpectedTrueResultMessage);
         }
 

@@ -18,8 +18,6 @@ namespace HomeHunter.Services
 {
     public class UserServices : PageModel, IUserServices
     {
-        private const string InvalidUserParamMessage = "Invlid parameters for user registration";
-
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
         private readonly UserManager<HomeHunterUser> userManager;
@@ -89,12 +87,7 @@ namespace HomeHunter.Services
         public async Task<UserDetailsServiceModel> GetUserDetailsAsync(string userId)
         {
             var user = await this.GetUserById(userId);
-
-            if (user == null)
-            {
-                throw new ArgumentNullException("No such user found in the datbase");
-            }
-
+            
             var userDetailsServiceModel = this.mapper.Map<UserDetailsServiceModel>(user);
 
             return userDetailsServiceModel;
@@ -106,7 +99,7 @@ namespace HomeHunter.Services
 
             if (user == null)
             {
-                throw new ArgumentNullException("No such user found in the datbase");
+                return false;
             }
 
             var roles = await this.userManager.GetRolesAsync(user);
@@ -175,12 +168,21 @@ namespace HomeHunter.Services
         {
             if (userId == null)
             {
-                throw new ArgumentNullException("No such Id in the database");
+                throw new ArgumentNullException("Id Is not valid");
             }
+            else
+            {
+                var user = await this.userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
 
-            var user = await this.userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
-
-            return user;
+                if (user == null)
+                {
+                    throw new ArgumentNullException("No such Id in the database");
+                }
+                else
+                {
+                    return user;
+                }
+            }
         }
     }
 }
