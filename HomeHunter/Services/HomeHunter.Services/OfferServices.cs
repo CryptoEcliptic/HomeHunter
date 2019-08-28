@@ -246,6 +246,10 @@ namespace HomeHunter.Services
 
         private async Task<int> SoftDeleteEntity(Offer offer)
         {
+            if (offer == null)
+            {
+                throw new ArgumentNullException("No offer with such Id exists!");
+            }
             offer.IsDeleted = true;
             offer.RealEstate.IsDeleted = true;
             offer.RealEstate.Address.IsDeleted = true;

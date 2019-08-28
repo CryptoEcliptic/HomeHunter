@@ -17,7 +17,7 @@ namespace HomeHunter.Services
 
         public async Task<Village> CreateVillageAsync(string name)
         {
-            if (name == null)
+            if (string.IsNullOrEmpty(name))
             {
                 return null;
             }

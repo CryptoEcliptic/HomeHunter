@@ -24,11 +24,20 @@ namespace HomeHunter.Services
 
         public async Task<Neighbourhood> GetNeighbourhoodByNameAsync(string name)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
             return await Task.Run(() => this.context.Neighbourhoods.FirstOrDefault(x => x.Name == name));
         }
 
         public async Task<IQueryable<NeighbourhoodServiceModel>> GetNeighbourhoodsByCityAsync(string cityName)
         {
+            if (string.IsNullOrEmpty(cityName))
+            {
+                return null;
+            }
+
             var neighbourhoodsFromDb = Task.Run(() =>  this.context.Neighbourhoods
                 .Where(x => x.City.Name == cityName)
                 .Select(x => new NeighbourhoodServiceModel

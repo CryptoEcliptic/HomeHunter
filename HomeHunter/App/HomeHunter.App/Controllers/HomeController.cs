@@ -107,14 +107,14 @@ namespace HomeHunter.App.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                return new RedirectToActionResult("Home", "Details", model.OfferId);
+                return new RedirectToActionResult("Offer", "Details", model.OfferId);
             }
 
             await this.emailSender.SendContactFormEmailAsync(model.Email, model.Name + " " + model.ReferenceNumber, model.Message);
 
             this.TempData["SuccessfullSubmition"] = SuccessfullySentQuestionMessage;
 
-            return Redirect($"/Home/Details/{model.OfferId}");
+            return Redirect($"/Offer/Details/{model.OfferId}");
         }
 
         public IActionResult Privacy()

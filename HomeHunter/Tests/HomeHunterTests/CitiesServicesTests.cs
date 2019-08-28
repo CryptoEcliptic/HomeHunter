@@ -15,7 +15,7 @@ namespace HomeHunterTests
     {
         private const string ResultCountMismatchMessage = "Expected test result should be 3";
         private const string CityNameMismatchMessage = "Returned city name does not match with the expected one!";
-        private const string ResultShouldBNullMessage = "Actual result should be null, but it is not!";
+
         private List<City> TestData = new List<City>
         { 
             new City { Name = "София", Id = 1, },
@@ -44,25 +44,17 @@ namespace HomeHunterTests
         }
 
         [Test]
-        [TestCase("Враца")]
-        [TestCase("Бацова маала")]
-        [TestCase(null)]
-        public async Task GetCityByNameShouldReturnCityIfValidNameProvidedOrNullIfInvalidName(string cityName)
+        [TestCase("Враца", "Враца")]
+        [TestCase("Бацова маала", null)]
+        [TestCase(null, null)]
+        public async Task GetCityByNameShouldReturnCityIfValidNameProvidedOrNullIfInvalidName(string cityName, string expectedResult)
         {
             var context = InMemoryDatabase.GetDbContext();
             var service = new CitiesServices(context);
             var city = await service.GetByNameAsync(cityName);
             var actualResult = city == null ? null : city.Name;
 
-            if (actualResult == null && cityName != null)
-            {
-                Assert.That(actualResult == null, ResultShouldBNullMessage);
-            }
-            else
-            {
-                Assert.That(actualResult == cityName, CityNameMismatchMessage);
-            }   
-            
+            Assert.That(actualResult == expectedResult, CityNameMismatchMessage);
         }
 
         private void SeedData()

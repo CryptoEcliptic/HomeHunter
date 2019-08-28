@@ -43,8 +43,6 @@ namespace HomeHunter.Services
                 IsIndexPicture = isIndexImage,
             };
 
-           
-
             await this.context.Images.AddAsync(image);
             await this.context.SaveChangesAsync();
 
@@ -53,6 +51,7 @@ namespace HomeHunter.Services
 
         public ImageLoadServiceModel LoadImagesAsync(string realEstateId)
         {
+
             var images = this.context.Images
                 .Where(x => x.RealEstateId == realEstateId)
                 .ToList();
@@ -100,13 +99,11 @@ namespace HomeHunter.Services
 
         public async Task<bool> EditImageAsync(string publicKey, string url, string estateId, bool isIndexImage)
         {
-            if (url == null || estateId == null || publicKey == null)
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(estateId) || string.IsNullOrEmpty(publicKey))
             {
                 throw new ArgumentNullException(InvalidImageParamsMessage);
             }
 
-            var realEstate = this.context.RealEstates.FirstOrDefault(x => x.Id == estateId);
-            
             var image = new Image
             {
                 Url = url,
@@ -123,6 +120,11 @@ namespace HomeHunter.Services
 
         public async Task<int> RemoveImages(string estateId)
         {
+            if (string.IsNullOrEmpty(estateId))
+            {
+                throw new InvalidOperationException("Real estate Id is invalid!");
+            }
+
             var realEstateImages = this.context
                 .Images
                 .Where(x => x.RealEstateId == estateId)
@@ -146,7 +148,7 @@ namespace HomeHunter.Services
 
         public async Task<IEnumerable<string>> GetImageIds(string realEstateId)
         {
-            if (realEstateId == null)
+            if (string.IsNullOrEmpty(realEstateId))
             {
                 throw new ArgumentNullException("Real estate id could not be null!");
             }

@@ -48,12 +48,11 @@ namespace HomeHunterTests
 
 
         [Test]
-        [TestCase("ТЕЦ")]
-        [TestCase(null)]
-        public async Task GetHeatingSystemTypeByNameShouldReturnTrue(string type)
+        [TestCase("ТЕЦ", "ТЕЦ")]
+        [TestCase(null, null)]
+        public async Task GetHeatingSystemTypeByNameShouldReturnTrue(string type, string expectedResult)
         {
             var context = InMemoryDatabase.GetDbContext();
-            var expectedResult = type != null ? "ТЕЦ" : null;
 
             var heatingSystemService = new HeatingSystemServices(context);
             var heatingSystemType = await heatingSystemService.GetHeatingSystemAsync(type);

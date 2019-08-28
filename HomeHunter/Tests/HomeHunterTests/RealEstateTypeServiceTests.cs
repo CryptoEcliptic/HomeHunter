@@ -48,13 +48,12 @@ namespace HomeHunterTests
         }
 
         [Test]
-        [TestCase("Едностаен апартамент")]
-        [TestCase(null)]
-        public async Task GetRealEstateTypeByNameShouldReturnTrue(string type)
+        [TestCase("Едностаен апартамент", "Едностаен апартамент")]
+        [TestCase(null, null)]
+        public async Task GetRealEstateTypeByNameShouldReturnTrue(string type, string expectedResult)
         {
             var context = InMemoryDatabase.GetDbContext();
-            var expectedResult = type != null ? "Едностаен апартамент" : null;
-
+  
             var realEstateTypeService = new RealEstateTypeServices(context);
             var realEstateType = await realEstateTypeService.GetRealEstateTypeByNameAsync(type);
 
