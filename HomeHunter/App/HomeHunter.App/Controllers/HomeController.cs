@@ -75,7 +75,7 @@ namespace HomeHunter.App.Controllers
             return View(isUserEmailAuthenticated);
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public IActionResult PredictPrice()
         {
@@ -85,7 +85,7 @@ namespace HomeHunter.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public IActionResult PredictPrice(PricePredictionBindingModel model)
         {
             var input = this.mapper.Map<ModelInput>(model);
@@ -97,7 +97,7 @@ namespace HomeHunter.App.Controllers
             return this.View(model);
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
