@@ -23,6 +23,7 @@ namespace HomeHunterTests
         private const string InvalidAddressExceptionMessage = "Argument null exception should be thrown because parameter Address is invalid";
         private const string ParameterValueMismatchMessage = "Actual return parameter is different from the expected one!";
         private const string NonExistingRealEstateMessage = "Argument null exception should be thrown because no real estate with such Id in the database.";
+
         private readonly HomeHunterDbContext context;
 
         private readonly Mock<IRealEstateTypeServices> realEstateTypeServices;

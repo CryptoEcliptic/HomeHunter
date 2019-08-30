@@ -138,7 +138,7 @@ namespace HomeHunter.App.Controllers
 
                 var isRealEstateEddited = await this.realEstateServices.EditRealEstateAsync(realEstateToEdit);
 
-                var offerId = await this.offerServices.GetOfferIdByRealEstateIdAsync(id);
+                var offerId = this.offerServices.GetOfferIdByRealEstateIdAsync(id);
                 RedirectToActionResult redirectResult = new RedirectToActionResult("Details", "Offer", new { @Id = $"{offerId}"});
                 return redirectResult;
 

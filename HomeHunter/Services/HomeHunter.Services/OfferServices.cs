@@ -36,7 +36,7 @@ namespace HomeHunter.Services
 
         public async Task<bool> CreateOfferAsync(string authorId, string estateId, OfferCreateServiceModel model)
         {
-            if (model.OfferType == null || authorId == null || estateId == null)
+            if (model.OfferType == null || string.IsNullOrEmpty(authorId) || string.IsNullOrEmpty(estateId))
             {
                 throw new ArgumentNullException("Invalid data provided");
             }
@@ -202,9 +202,9 @@ namespace HomeHunter.Services
             return true;
         }
 
-        public async Task<string> GetOfferIdByRealEstateIdAsync(string realEstateId)
+        public string GetOfferIdByRealEstateIdAsync(string realEstateId)
         {
-            if (realEstateId == null)
+            if (string.IsNullOrEmpty(realEstateId))
             {
                 throw new ArgumentNullException("Invalid parameter RealEstateId!");
             }
@@ -216,6 +216,7 @@ namespace HomeHunter.Services
 
             return offerId;
         }
+
 
         public async Task<bool> DeleteOfferAsync(string offerId)
         {
@@ -250,6 +251,7 @@ namespace HomeHunter.Services
             {
                 throw new ArgumentNullException("No offer with such Id exists!");
             }
+
             offer.IsDeleted = true;
             offer.RealEstate.IsDeleted = true;
             offer.RealEstate.Address.IsDeleted = true;

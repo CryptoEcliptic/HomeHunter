@@ -15,11 +15,11 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public async Task AddSessionInTheDb(string ipAddress, string visitorId)
+        public async Task<bool> AddSessionInTheDb(string ipAddress, string visitorId)
         {
-            if (ipAddress == null || visitorId == null)
+            if (string.IsNullOrEmpty(ipAddress) || string.IsNullOrEmpty(visitorId))
             {
-                return;
+                return false;
             }
 
             if (visitorId != null && !this.context.VisitorsSessions.Any(x => x.VisitorId == visitorId))
@@ -32,7 +32,11 @@ namespace HomeHunter.Services
 
                 this.context.VisitorsSessions.Add(visitorSession);
                 await this.context.SaveChangesAsync();
-            }  
+
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<long> UniqueVisitorsCount()

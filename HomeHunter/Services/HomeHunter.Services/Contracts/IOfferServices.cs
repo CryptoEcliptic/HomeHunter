@@ -19,7 +19,7 @@ namespace HomeHunter.Services.Contracts
 
         Task<bool> EditOfferAsync(OfferEditServiceModel model);
 
-        Task<string> GetOfferIdByRealEstateIdAsync(string realEstateId);
+        string GetOfferIdByRealEstateIdAsync(string realEstateId);
 
         Task<bool> DeleteOfferAsync(string offerId);
 
