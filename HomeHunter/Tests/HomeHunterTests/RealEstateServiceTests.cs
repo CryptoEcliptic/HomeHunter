@@ -45,7 +45,6 @@ namespace HomeHunterTests
             PricePerSquareMeter = 200,
             FloorNumber = "2",
             BuildingTotalFloors = 5,
-
             },
 
             new RealEstate {
@@ -71,7 +70,12 @@ namespace HomeHunterTests
             Price = 65000,
             Area = 65,
             PricePerSquareMeter = 1000 },
+        };
 
+        private Offer TestOffer = new Offer
+        {
+            Id = "coolOfferId1797",
+            RealEstateId = "myRealEstateId1",
         };
 
         public RealEstateServiceTests()
@@ -238,10 +242,41 @@ namespace HomeHunterTests
             Assert.ThrowsAsync<ArgumentNullException>(async () => await serviceInstance.EditRealEstateAsync(nonExistingRealEstate), NonExistingRealEstateMessage);
         }
 
+        [Test]
+        public async Task GetRealEstateIDByOfferIdShouldReturnRealEstateId()
+        {
+            var offer = this.TestOffer;
+            var offerId = offer.Id;
+            var expectedId = offer.RealEstateId;
+
+            var serviceInstance = new Mock<IRealEstateServices>();
+            serviceInstance.Setup(x => x.GetRealEstateIdByOfferId(offerId)).ReturnsAsync(expectedId);
+            var service = serviceInstance.Object;
+            var actualResult = await service.GetRealEstateIdByOfferId(offerId);
+
+            Assert.IsTrue(actualResult.Equals(expectedId));
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("invalidOfferId")]
+        public void GetRealEstateIDByOfferIdShouldThrowException(string offerId)
+        {
+            var serviceInstance = new RealEstateServices(context,
+                realEstateTypeServices.Object,
+                citiesServices.Object,
+                neighbourhoodServices.Object,
+                addressServices.Object,
+                villageServices.Object,
+                buildingTypeServices.Object,
+                heatingSystemServices.Object,
+                mapper);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await serviceInstance.GetRealEstateIdByOfferId(offerId), NonExistingRealEstateMessage);
+        }
+
         private IMapper GetMapper()
         {
-            //Mapper.Reset();
-
             var configuration = new MapperConfiguration(x =>
             {
                 x.CreateMap<RealEstate, RealEstateDetailsServiceModel>();
@@ -257,6 +292,7 @@ namespace HomeHunterTests
         private void SeedData()
         {
             context.RealEstates.AddRange(TestData);
+            context.Offers.Add(TestOffer);
             context.SaveChanges();
         }
     }

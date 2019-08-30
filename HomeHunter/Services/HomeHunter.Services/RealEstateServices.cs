@@ -170,7 +170,7 @@ namespace HomeHunter.Services
         
         public async Task<string> GetRealEstateIdByOfferId(string offerId)
         {
-            if (offerId == null)
+            if (string.IsNullOrEmpty(offerId))
             {
                 throw new ArgumentNullException("Invalid offer Id!");
             }

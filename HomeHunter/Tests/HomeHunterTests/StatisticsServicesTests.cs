@@ -63,7 +63,7 @@ namespace HomeHunterTests
       
         public StatisticsServicesTests()
         {
-            this.context = InMemoryDatabase.GetDbContext();
+            this.context = this.GetDbContext();
             this.SeedData();  
         }
 
@@ -87,6 +87,16 @@ namespace HomeHunterTests
             context.RealEstates.AddRange(testRealEsatates);
             context.Offers.AddRange(testOffers);
             context.SaveChanges();
+        }
+
+        public HomeHunterDbContext GetDbContext()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<HomeHunterDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new HomeHunterDbContext(optionsBuilder.Options);
+
+            return context;
         }
     }
 }
