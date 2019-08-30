@@ -47,7 +47,7 @@ namespace HomeHunterTests
             Assert.That(TestDataNeibourhoods.FirstOrDefault().Name == allNeighbourhoods.FirstOrDefault().Name);
         }
 
-        [Test]
+        [Theory]
         [TestCase("Младост", "Младост")]
         [TestCase("Бруклин", null)]
         [TestCase(null, null)]
@@ -60,7 +60,7 @@ namespace HomeHunterTests
             Assert.That(actualResult == expectedResult, NeighbourhoodNameMismatchMessage);
         }
 
-        [Test]
+        [Theory]
         [TestCase("София", 2)]
         [TestCase("Париж", 0)]
         [TestCase(null, 0)]

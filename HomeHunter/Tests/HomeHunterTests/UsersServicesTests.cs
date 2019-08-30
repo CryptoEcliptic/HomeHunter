@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace HomeHunterTests
 {
-    public class UsersServiceTests
+    public class UsersServicesTests
     {
         private const string EmailMismatchMessage = "Emails do not match";
         private const string ArgumentNullExceptionMessage = "Argument null exception should be thrown!";
@@ -38,7 +38,7 @@ namespace HomeHunterTests
 
         };
         private HomeHunterDbContext context;
-        public UsersServiceTests()
+        public UsersServicesTests()
         {
             this.context = InMemoryDatabase.GetDbContext();
         }

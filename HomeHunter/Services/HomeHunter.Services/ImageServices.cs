@@ -30,7 +30,7 @@ namespace HomeHunter.Services
 
         public async Task<bool> AddImageAsync(string publikKey, string url, string estateId, bool isIndexImage)
         {
-            if (url == null || estateId == null || publikKey == null)
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(estateId) || string.IsNullOrEmpty(publikKey))
             {
                 throw new ArgumentNullException(InvalidImageParamsMessage);
             }

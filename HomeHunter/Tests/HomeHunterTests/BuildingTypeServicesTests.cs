@@ -45,7 +45,7 @@ namespace HomeHunterTests
             Assert.That(numberOftypes, Is.EqualTo(expectedResultCount), ResultCountMismatchMessage);
         }
 
-        [Test]
+        [Theory]
         [TestCase("ЕПК")]
         [TestCase(null)]
         public async Task GetBuildingTypeByNameShouldReturnTrue(string type)

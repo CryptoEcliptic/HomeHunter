@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace HomeHunterTests
 {
     [TestFixture]
-    public class OfferServiceTests
+    public class OfferServicesTests
     {
         private const string ExpectedTrueTestResultMessage = "The expected test result should be true, but it was false!";
         private const string ArgumentNullExceptonMessage = "ArgumentNull exception should have been thrown due to invalid method parameter.";
@@ -36,7 +36,7 @@ namespace HomeHunterTests
         private readonly Mock<IUserServices> userServices;
         private readonly IMapper mapper;
 
-        public OfferServiceTests()
+        public OfferServicesTests()
         {
             this.context = InMemoryDatabase.GetDbContext();
             this.mapper = this.GetMapper();

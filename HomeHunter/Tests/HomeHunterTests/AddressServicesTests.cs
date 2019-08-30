@@ -47,7 +47,7 @@ namespace HomeHunterTests
             Assert.IsTrue(actualResult.Equals(expectedResult), ShouldReturnTrueMessage);
         }
 
-        [Test]
+        [Theory]
         [TestCase(2)]
         [TestCase(55)]
         public async Task EditAddressToShouldReturnTrue(int addressId)

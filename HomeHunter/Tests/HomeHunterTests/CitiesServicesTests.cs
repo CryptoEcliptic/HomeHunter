@@ -46,7 +46,7 @@ namespace HomeHunterTests
             Assert.That(TestData.FirstOrDefault().Name == cities.FirstOrDefault().Name);
         }
 
-        [Test]
+        [Theory]
         [TestCase("Враца", "Враца")]
         [TestCase("Бацова маала", null)]
         [TestCase(null, null)]

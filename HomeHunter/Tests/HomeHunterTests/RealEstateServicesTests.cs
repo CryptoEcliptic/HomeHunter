@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace HomeHunterTests
 {
     [TestFixture]
-    public class RealEstateServiceTests
+    public class RealEstateServicesTests
     {
         private const string InvalidReturnIdMessage = "Actual return Id is different from the expected one!";
         private const string InvalidAddressExceptionMessage = "Argument null exception should be thrown because parameter Address is invalid";
@@ -79,7 +79,7 @@ namespace HomeHunterTests
             RealEstateId = "myRealEstateId1",
         };
 
-        public RealEstateServiceTests()
+        public RealEstateServicesTests()
         {
             this.context = InMemoryDatabase.GetDbContext();
             this.SeedData();
@@ -258,7 +258,7 @@ namespace HomeHunterTests
             Assert.IsTrue(actualResult.Equals(expectedId));
         }
 
-        [Test]
+        [Theory]
         [TestCase("")]
         [TestCase("invalidOfferId")]
         public void GetRealEstateIDByOfferIdShouldThrowException(string offerId)

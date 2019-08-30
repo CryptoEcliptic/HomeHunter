@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace HomeHunterTests
 {
     [TestFixture]
-    public class HeatingSystemServiceTests
+    public class HeatingSystemServicesTests
     {
         private const string ResultCountMismatchMessage = "Expected test result should be 3";
         private const string ExpectedTrueResultMessage = "Expected result should return true, but it is false!";
@@ -28,7 +28,7 @@ namespace HomeHunterTests
             new HeatingSystem { Name = "Локално отопление", Id = 3},
         };
         private HomeHunterDbContext context;
-        public HeatingSystemServiceTests()
+        public HeatingSystemServicesTests()
         {
             context = InMemoryDatabase.GetDbContext();
             this.SeedData();
@@ -49,7 +49,7 @@ namespace HomeHunterTests
         }
 
 
-        [Test]
+        [Theory]
         [TestCase("ТЕЦ", "ТЕЦ")]
         [TestCase(null, null)]
         public async Task GetHeatingSystemTypeByNameShouldReturnTrue(string type, string expectedResult)

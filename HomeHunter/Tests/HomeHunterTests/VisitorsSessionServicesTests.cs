@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace HomeHunterTests
 {
     [TestFixture]
-    public class VisitorsSessionServiceTests
+    public class VisitorsSessionServicesTests
     {
         private const string ExpectedTrueTestResultMessage = "The expected test result should be true, but it was false!";
 
@@ -34,7 +34,7 @@ namespace HomeHunterTests
 
         private readonly HomeHunterDbContext context;
 
-        public VisitorsSessionServiceTests()
+        public VisitorsSessionServicesTests()
         {
             this.context = InMemoryDatabase.GetDbContext();
             this.SeedData();
