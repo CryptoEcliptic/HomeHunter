@@ -1,6 +1,8 @@
-﻿using HomeHunter.Domain;
+﻿using HomeHunter.Data;
+using HomeHunter.Domain;
 using HomeHunter.Services;
 using HomeHunterTests.Common;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -21,16 +23,18 @@ namespace HomeHunterTests
             new BuildingType { Name = "Панел", Id = 2},
             new BuildingType { Name = "Тухла", Id = 3},
         };
+        private HomeHunterDbContext context;
 
         public BuildingTypeServicesTests()
         {
+            this.context = InMemoryDatabase.GetDbContext();
             this.SeedData();
+
         }
 
         [Test]
         public async Task GetAllBuildingTypesCountShouldReturnThree()
         {
-            var context = InMemoryDatabase.GetDbContext();
 
             var buildingTypesService = new BuildingTypeServices(context);
             var buildingTypes = await buildingTypesService.GetAllBuildingTypesAsync();
@@ -46,7 +50,6 @@ namespace HomeHunterTests
         [TestCase(null)]
         public async Task GetBuildingTypeByNameShouldReturnTrue(string type)
         {
-            var context = InMemoryDatabase.GetDbContext();
             var expectedResult = type != null ? "ЕПК" : null;
 
             var buildingTypesService = new BuildingTypeServices(context);

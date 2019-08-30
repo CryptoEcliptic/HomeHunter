@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Models.ViewModels.RealEstateType;
 using HomeHunter.Services;
 using HomeHunter.Services.Models.RealEstateType;
 using HomeHunterTests.Common;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -26,15 +28,17 @@ namespace HomeHunterTests
             new RealEstateType { TypeName = "Тристаен апартамент", Id = 3},
         };
 
+        private HomeHunterDbContext context;
+
         public RealEstateTypeServiceTests()
         {
+            this.context = InMemoryDatabase.GetDbContext();
             this.SeedData();
         }
 
         [Test]
         public async Task GetAllRealEstateTypesCountShouldReturnThree()
         {
-            var context = InMemoryDatabase.GetDbContext();
             var mapper = this.GetMapper();
 
             var realEstateTypeService = new RealEstateTypeServices(context);
@@ -52,8 +56,6 @@ namespace HomeHunterTests
         [TestCase(null, null)]
         public async Task GetRealEstateTypeByNameShouldReturnTrue(string type, string expectedResult)
         {
-            var context = InMemoryDatabase.GetDbContext();
-  
             var realEstateTypeService = new RealEstateTypeServices(context);
             var realEstateType = await realEstateTypeService.GetRealEstateTypeByNameAsync(type);
 
@@ -64,7 +66,6 @@ namespace HomeHunterTests
 
         private void SeedData()
         {
-            var context = InMemoryDatabase.GetDbContext();
             context.RealEstateTypes.AddRange(TestData);
             context.SaveChanges();
         }

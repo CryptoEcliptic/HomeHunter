@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Models.ViewModels.User;
 using HomeHunter.Services;
@@ -7,6 +8,7 @@ using HomeHunter.Services.EmailSender;
 using HomeHunter.Services.Models.User;
 using HomeHunterTests.Common;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -35,16 +37,15 @@ namespace HomeHunterTests
             new HomeHunterUser { Email = "gosho@abv.bg", FirstName = "Gosho", LastName = "Goshov", Id = "coolUniqueId3" },
 
         };
-
+        private HomeHunterDbContext context;
         public UsersServiceTests()
         {
-            this.SeedData();
+            this.context = InMemoryDatabase.GetDbContext();
         }
 
         [Test]
         public async Task GetAllUsersShouldReturnCorrectEmails()
         {
-            var context = InMemoryDatabase.GetDbContext();
             var mapper = this.GetMapper();
 
             var usersFromDb = GetTestData;
@@ -70,7 +71,6 @@ namespace HomeHunterTests
         [Test]
         public async Task NoUsersInTheDatabaseShouldReturnZero()
         {
-            var context = InMemoryDatabase.GetDbContext();
             var mapper = this.GetMapper();
 
             List<HomeHunterUser> usersFromDb = null;
@@ -92,7 +92,6 @@ namespace HomeHunterTests
         public async Task GetUsersDetailsShouldReturnCorrectUserId()
         {
             string testId = "coolUniqueId2";
-            var context = InMemoryDatabase.GetDbContext();
             var mapper = this.GetMapper();
 
             var usersFromDb = GetTestData.FirstOrDefault(x => x.Id == testId);
@@ -113,7 +112,6 @@ namespace HomeHunterTests
         public void UsersByIdShouldThrowExceptionIfUserIdIsNullOrInvalid()
         {
             string userId = null;
-            var context = InMemoryDatabase.GetDbContext();
             var mapper = this.GetMapper();
             var store = new Mock<IUserStore<HomeHunterUser>>();
             var userManager = new Mock<UserManager<HomeHunterUser>>(store.Object, null, null, null, null, null, null, null, null);
@@ -174,7 +172,6 @@ namespace HomeHunterTests
 
         private void SeedData()
         {
-            var context = InMemoryDatabase.GetDbContext();
             context.HomeHunterUsers.AddRange(GetTestData);
             context.SaveChanges();
         }

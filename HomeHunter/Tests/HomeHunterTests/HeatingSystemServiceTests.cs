@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Models.ViewModels.HeatingSystem;
 using HomeHunter.Services;
 using HomeHunter.Services.Models.HeatingSystem;
 using HomeHunterTests.Common;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -25,16 +27,16 @@ namespace HomeHunterTests
             new HeatingSystem { Name = "Ток", Id = 2},
             new HeatingSystem { Name = "Локално отопление", Id = 3},
         };
-
+        private HomeHunterDbContext context;
         public HeatingSystemServiceTests()
         {
+            context = InMemoryDatabase.GetDbContext();
             this.SeedData();
         }
 
         [Test]
         public async Task GetAllHeatingSystemTypesCountShouldReturnThree()
         {
-            var context = InMemoryDatabase.GetDbContext();
             var mapper = this.GetMapper();
 
             var heatingSystemService = new HeatingSystemServices(context);
@@ -52,7 +54,6 @@ namespace HomeHunterTests
         [TestCase(null, null)]
         public async Task GetHeatingSystemTypeByNameShouldReturnTrue(string type, string expectedResult)
         {
-            var context = InMemoryDatabase.GetDbContext();
 
             var heatingSystemService = new HeatingSystemServices(context);
             var heatingSystemType = await heatingSystemService.GetHeatingSystemAsync(type);
@@ -64,7 +65,6 @@ namespace HomeHunterTests
 
         private void SeedData()
         {
-            var context = InMemoryDatabase.GetDbContext();
             context.HeatingSystems.AddRange(TestData);
             context.SaveChanges();
         }

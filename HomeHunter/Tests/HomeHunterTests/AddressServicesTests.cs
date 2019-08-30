@@ -1,7 +1,9 @@
-﻿using HomeHunter.Domain;
+﻿using HomeHunter.Data;
+using HomeHunter.Domain;
 using HomeHunter.Services;
 using HomeHunter.Services.Contracts;
 using HomeHunterTests.Common;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;

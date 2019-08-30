@@ -2,6 +2,8 @@
 {
     public class RealEstateCreateServiceModel
     {
+        public string Id { get; set; }
+
         public string FloorNumber { get; set; }
 
         public int? BuildingTotalFloors { get; set; }

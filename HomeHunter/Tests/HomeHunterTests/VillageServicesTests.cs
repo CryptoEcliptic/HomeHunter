@@ -1,6 +1,8 @@
-﻿using HomeHunter.Domain;
+﻿using HomeHunter.Data;
+using HomeHunter.Domain;
 using HomeHunter.Services;
 using HomeHunterTests.Common;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -23,8 +25,11 @@ namespace HomeHunterTests
             new Village { Name = "Ново Село", Id = 3, },
         };
 
+        private HomeHunterDbContext context;
+
         public VillageServicesTests()
         {
+            this.context = InMemoryDatabase.GetDbContext();
             this.SeedData();
         }
 
@@ -34,7 +39,7 @@ namespace HomeHunterTests
             var expectedResult = new Village { Id = 1, Name = "Бацова маала" };
             var newVillageName = "Бацова маала";
 
-            var context = InMemoryDatabase.GetDbContext();
+            var context = this.GetDbContext();
 
             var villageServices = new VillageServices(context);
             var actualResult = await villageServices.CreateVillageAsync(newVillageName);
@@ -49,8 +54,6 @@ namespace HomeHunterTests
         {
             var newVillageName = "";
 
-            var context = InMemoryDatabase.GetDbContext();
-
             var villageServices = new VillageServices(context);
             var actualResult = await villageServices.CreateVillageAsync(newVillageName);
 
@@ -64,8 +67,6 @@ namespace HomeHunterTests
             var existingVillageName = "Пасарел";
             var expectedVillageToBeReturned = TestData.FirstOrDefault(x => x.Name == existingVillageName);
 
-            var context = InMemoryDatabase.GetDbContext();
-
             var villageServices = new VillageServices(context);
             var actualResult = await villageServices.CreateVillageAsync(existingVillageName);
             ;
@@ -76,9 +77,18 @@ namespace HomeHunterTests
 
         private void SeedData()
         {
-            var context = InMemoryDatabase.GetDbContext();
             context.Villages.AddRange(TestData);
             context.SaveChanges();
+        }
+
+        private HomeHunterDbContext GetDbContext()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<HomeHunterDbContext>()
+                .UseInMemoryDatabase("TestDb");
+
+            var context = new HomeHunterDbContext(optionsBuilder.Options);
+
+            return context;
         }
     }
 }

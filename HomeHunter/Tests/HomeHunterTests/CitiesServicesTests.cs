@@ -1,6 +1,8 @@
-﻿using HomeHunter.Domain;
+﻿using HomeHunter.Data;
+using HomeHunter.Domain;
 using HomeHunter.Services;
 using HomeHunterTests.Common;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -22,16 +24,17 @@ namespace HomeHunterTests
             new City { Name = "Враца", Id = 2,},
             new City { Name = "Ботевград", Id = 3, },
         };
+        private HomeHunterDbContext context;
 
         public CitiesServicesTests()
         {
-            this.SeedData();
+            this.context = InMemoryDatabase.GetDbContext();
+            this.SeedData(); 
         }
 
         [Test]
         public async Task GetAllCitiesCountShouldReturnThree()
         {
-            var context = InMemoryDatabase.GetDbContext();
 
             var service = new CitiesServices(context);
             var cities = await service.GetAllCitiesAsync();
@@ -49,7 +52,6 @@ namespace HomeHunterTests
         [TestCase(null, null)]
         public async Task GetCityByNameShouldReturnCityIfValidNameProvidedOrNullIfInvalidName(string cityName, string expectedResult)
         {
-            var context = InMemoryDatabase.GetDbContext();
             var service = new CitiesServices(context);
             var city = await service.GetByNameAsync(cityName);
             var actualResult = city == null ? null : city.Name;
@@ -59,9 +61,9 @@ namespace HomeHunterTests
 
         private void SeedData()
         {
-            var context = InMemoryDatabase.GetDbContext();
             context.Cities.AddRange(TestData);
             context.SaveChanges();
         }
+
     }
 }

@@ -5,6 +5,7 @@ using HomeHunter.Services;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Image;
 using HomeHunterTests.Common;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -230,5 +231,6 @@ namespace HomeHunterTests
             var mapper = new Mapper(configuration);
             return mapper;
         }
+
     }
 }

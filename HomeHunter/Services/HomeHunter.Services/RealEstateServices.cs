@@ -44,13 +44,15 @@ namespace HomeHunter.Services
             this.mapper = mapper;
         }
 
+        
+
         public async Task<string> CreateRealEstateAsync(RealEstateCreateServiceModel model)
         {
             var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
 
-            if (realEstateType == null || model.Area <= 0 || model.Price <= 0 || model.Address == null)
+            if ( model.Area <= 0 || model.Price <= 0 || string.IsNullOrEmpty(model.Address))
             {
-                return null;
+                throw new ArgumentNullException("Some of the input parameters are not valid!");
             }
 
             var city = await this.citiesServices.GetByNameAsync(model.City);
@@ -83,6 +85,11 @@ namespace HomeHunter.Services
 
                 IsDeleted = false,
             };
+
+            if (model.Id != null)
+            {
+                realEstate.Id = model.Id;
+            }
 
             await this.context.RealEstates.AddAsync(realEstate);
             int affectedRows = await this.context.SaveChangesAsync();
@@ -136,7 +143,7 @@ namespace HomeHunter.Services
             var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
             var buildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType);
             var heatingSystem = await this.heatingSystemServices.GetHeatingSystemAsync(model.HeatingSystem);
-
+            realEstateToEdit.Area = model.Area;
             realEstateToEdit.Address = address;
             realEstateToEdit.BuildingType = buildingType;
             realEstateToEdit.HeatingSystem = heatingSystem;
