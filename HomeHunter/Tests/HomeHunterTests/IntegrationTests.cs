@@ -46,5 +46,15 @@ namespace HomeHunterTests
             response.EnsureSuccessStatusCode();
             StringAssert.Contains(expectedHtml, html);
         }
+
+        [Test]
+        public async Task OfferIndexSaleInvalidUrlShouldReturn404NotFound()
+        {
+            var testAddress = "/Offer/IndexSale";
+
+            var response = await client.GetAsync(testAddress);
+            response.StatusCode.Equals(404);
+
+        }
     }
 }
