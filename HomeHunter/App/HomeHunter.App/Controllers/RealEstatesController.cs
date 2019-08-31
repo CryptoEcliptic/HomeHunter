@@ -1,18 +1,15 @@
 ﻿using AutoMapper;
-using HomeHunter.Data;
 using HomeHunter.Models.BindingModels.RealEstate;
 using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
 using HomeHunter.Models.ViewModels.HeatingSystem;
 using HomeHunter.Models.ViewModels.Neighbourhood;
-using HomeHunter.Models.ViewModels.RealEstate;
 using HomeHunter.Models.ViewModels.RealEstateType;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.RealEstate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -177,7 +174,6 @@ namespace HomeHunter.App.Controllers
             this.ViewData["HeatingSystems"] = heatingSystemsVewModel;
             this.ViewData["Cities"] = citiesVewModel;
             this.ViewData["BuildingTypes"] = buildingTypesVewModel;
-           
         }
     }
 }

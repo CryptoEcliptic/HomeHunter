@@ -143,9 +143,9 @@ namespace HomeHunter.App
 
             if (env.IsDevelopment())
             {
-                //app.UseExceptionHandler("/Error"); //TODO REMOVE AFTER TESTING
-                //app.UseStatusCodePagesWithReExecute("/Error/{0}"); //TODO REMOVE AFTER TESTING
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/Error"); //TODO REMOVE AFTER TESTING
+                app.UseStatusCodePagesWithReExecute("/Error/{0}"); //TODO REMOVE AFTER TESTING
+                //app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -181,6 +181,5 @@ namespace HomeHunter.App
                 return Task.FromResult(0);
             });
         }
-        //TODO Seed All bulgarian cities in the db
     }
 }

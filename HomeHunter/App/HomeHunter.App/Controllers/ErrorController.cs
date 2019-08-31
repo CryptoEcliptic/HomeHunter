@@ -13,6 +13,7 @@ namespace HomeHunter.App.Controllers
         private readonly string GeneralErrorMessage= "Възникна грешка! Работим за отстраняване на проблема. Моля, опитайте по-късно!";
 
         [Route("Error/{statusCode}")]
+        [AllowAnonymous]
         public IActionResult HttpStatusCodeHandler(int statusCode)
         {
             var statusCodeResult = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();

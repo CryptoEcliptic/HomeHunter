@@ -6,7 +6,6 @@ using HomeHunter.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.App.Controllers
@@ -34,7 +33,7 @@ namespace HomeHunter.App.Controllers
         }
 
         [HttpGet("/Image/Upload/{id}")]
-        public async Task<IActionResult> Upload(string id)
+        public IActionResult Upload(string id)
         {
             return View();
         }

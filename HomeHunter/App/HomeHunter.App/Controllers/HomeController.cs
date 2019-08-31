@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using HomeHunter.Common;
 using HomeHunter.Domain;
-using HomeHunter.Domain.Enums;
 using HomeHunter.Models.BindingModels.Home;
 using HomeHunter.Models.MLModels;
 using HomeHunter.Models.ViewModels.Offer;
@@ -12,8 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.ML;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeHunter.App.Controllers
@@ -75,7 +72,7 @@ namespace HomeHunter.App.Controllers
             return View(isUserEmailAuthenticated);
         }
 
-        //[AllowAnonymous]
+        
         [HttpGet]
         public IActionResult PredictPrice()
         {
@@ -85,7 +82,6 @@ namespace HomeHunter.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[AllowAnonymous]
         public IActionResult PredictPrice(PricePredictionBindingModel model)
         {
             var input = this.mapper.Map<ModelInput>(model);
@@ -100,7 +96,6 @@ namespace HomeHunter.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
         public async Task<IActionResult> Contact(OfferDetailsGuestViewModel returnModel)
         {
             var model = returnModel.ContactFormBindingModel;

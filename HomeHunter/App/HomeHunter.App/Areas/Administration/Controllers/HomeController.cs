@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using HomeHunter.Infrastructure.Middlewares;
 using HomeHunter.Models.ViewModels.Statistics;
 using HomeHunter.Services.Contracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
