@@ -40,6 +40,7 @@ namespace HomeHunter.Services
 
             var neighbourhoodsFromDb = Task.Run(() =>  this.context.Neighbourhoods
                 .Where(x => x.City.Name == cityName)
+                .OrderBy(x => x.Name)
                 .Select(x => new NeighbourhoodServiceModel
                 {
                     Name = x.Name,
