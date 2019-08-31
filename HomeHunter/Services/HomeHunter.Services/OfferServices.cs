@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HomeHunter.Common;
 using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
@@ -15,6 +16,12 @@ namespace HomeHunter.Services
 {
     public class OfferServices : IOfferServices
     {
+        private const string InvlidMethodParameterMessage = "Invalid data provided";
+        private const string UnsuccessfullOfferCreationMessage = "Offer not created!";
+        private const string OfferNotFoundMessage = "No offer found!";
+        private const string UnsuccessfullyDeletedOfferMessage = "Offer not deleted!";
+        private const string UnsuccessfullyUpdatedOfferMessage = "Offer not updated!";
+
         private readonly HomeHunterDbContext context;
         private readonly IImageServices imageServices;
         private readonly ICloudinaryService cloudinaryService;
@@ -38,12 +45,12 @@ namespace HomeHunter.Services
         {
             if (model.OfferType == null || string.IsNullOrEmpty(authorId) || string.IsNullOrEmpty(estateId))
             {
-                throw new ArgumentNullException("Invalid data provided");
+                throw new ArgumentNullException(InvlidMethodParameterMessage);
             }
 
-            OfferType parsedEnum = model.OfferType == "Продажба" ? OfferType.Sale : OfferType.Rental;
+            OfferType parsedEnum = model.OfferType == GlobalConstants.OfferTypeSaleName ? OfferType.Sale : OfferType.Rental;
 
-            string refereenceNumber = "A" + DateTime.UtcNow.ToString();
+            string referenceNumber = this.GenerateOfferId(model.OfferType);
 
             var author = await this.userServices.GetUserById(authorId);
 
@@ -55,7 +62,7 @@ namespace HomeHunter.Services
                 Comments = model.Comments,
                 ContactNumber = model.ContactNumber,
                 OfferType = parsedEnum,
-                ReferenceNumber = refereenceNumber,
+                ReferenceNumber = referenceNumber,
             };
 
             await this.context.Offers.AddAsync(offer);
@@ -63,7 +70,7 @@ namespace HomeHunter.Services
 
             if (changedRows == 0)
             {
-                throw new InvalidOperationException("Offer not created!");
+                throw new InvalidOperationException(UnsuccessfullOfferCreationMessage);
             }
 
             return true;
@@ -154,7 +161,7 @@ namespace HomeHunter.Services
 
             if (offer == null)
             {
-                throw new ArgumentNullException("No offer found!");
+                throw new ArgumentNullException(OfferNotFoundMessage);
             }
 
             var offerDetailsServiceModel = this.mapper.Map<OfferDetailsServiceModel>(offer);
@@ -169,7 +176,7 @@ namespace HomeHunter.Services
 
             if (offerToEdit == null)
             {
-                throw new ArgumentNullException("No offer found!");
+                throw new ArgumentNullException(OfferNotFoundMessage);
             }
 
             var offerEditServiceModel = this.mapper.Map<OfferPlainDetailsServiceModel>(offerToEdit);
@@ -184,11 +191,11 @@ namespace HomeHunter.Services
 
             if (offer == null)
             {
-                throw new ArgumentNullException("No offer found!");
+                throw new ArgumentNullException(OfferNotFoundMessage);
             }
 
             offer.ModifiedOn = DateTime.UtcNow;
-            offer.OfferType = model.OfferType == "Продажба" ? offer.OfferType = OfferType.Sale : OfferType.Rental;
+            offer.OfferType = model.OfferType == GlobalConstants.OfferTypeSaleName ? offer.OfferType = OfferType.Sale : OfferType.Rental;
 
             this.mapper.Map<OfferEditServiceModel, Offer>(model, offer);
 
@@ -196,7 +203,7 @@ namespace HomeHunter.Services
             int chandedRows = await this.context.SaveChangesAsync();
             if (chandedRows == 0)
             {
-                throw new InvalidOperationException("Offer not updated!");
+                throw new InvalidOperationException(UnsuccessfullyUpdatedOfferMessage);
             }
 
             return true;
@@ -206,7 +213,7 @@ namespace HomeHunter.Services
         {
             if (string.IsNullOrEmpty(realEstateId))
             {
-                throw new ArgumentNullException("Invalid parameter RealEstateId!");
+                throw new ArgumentNullException(InvlidMethodParameterMessage);
             }
 
             var offerId = this.context.Offers
@@ -232,14 +239,14 @@ namespace HomeHunter.Services
 
             if (offer == null)
             {
-                throw new ArgumentNullException("No offer with such Id!");
+                throw new ArgumentNullException(OfferNotFoundMessage);
             }
 
             int deletionResult = await this.SoftDeleteEntity(offer);
 
             if (deletionResult == 0)
             {
-                throw new InvalidOperationException("Offer not deleted!");
+                throw new InvalidOperationException(UnsuccessfullyDeletedOfferMessage);
             }
 
             return true;
@@ -249,7 +256,7 @@ namespace HomeHunter.Services
         {
             if (offer == null)
             {
-                throw new ArgumentNullException("No offer with such Id exists!");
+                throw new ArgumentNullException(OfferNotFoundMessage);
             }
 
             offer.IsDeleted = true;
@@ -277,6 +284,25 @@ namespace HomeHunter.Services
             }
 
             return changedRows;
+        }
+
+        private string GenerateOfferId(string offerType)
+        {
+            string id = null;
+            string saleIndexLetter = "П";
+            string rentIndexLetter = "Н";
+            Random rnd = new Random();
+
+            if (offerType == GlobalConstants.OfferTypeSaleName)
+            {
+                id = saleIndexLetter + rnd.Next(1, 1000);
+                return id;
+            }
+            else
+            {
+                id = rentIndexLetter + rnd.Next(1, 1000);
+                return id;
+            }
         }
     }
 }

@@ -18,6 +18,11 @@ namespace HomeHunter.Services
 {
     public class UserServices : PageModel, IUserServices
     {
+        private const string UnsuccessfullyCreatedUserMessage = "User was not created!";
+        private const string DeleteAdminDenialMessage = "Cannot delete Admin user!";
+        private const string InvalidUserIdMessage = "User id is not valid";
+        private const string UserNotFoundMessage = "No user with such Id in the database!";
+
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
         private readonly UserManager<HomeHunterUser> userManager;
@@ -80,7 +85,7 @@ namespace HomeHunter.Services
             }
             else
             {
-                throw new InvalidOperationException("User was not created!");
+                throw new InvalidOperationException(UnsuccessfullyCreatedUserMessage);
             }
         }
 
@@ -106,7 +111,7 @@ namespace HomeHunter.Services
 
             if (roles.Contains(GlobalConstants.AdministratorRoleName))
             {
-                throw new InvalidOperationException("Cannot delete Admin user!");
+                throw new InvalidOperationException(DeleteAdminDenialMessage);
             }
 
             user.IsDeleted = true;
@@ -168,7 +173,7 @@ namespace HomeHunter.Services
         {
             if (userId == null)
             {
-                throw new ArgumentNullException("Id Is not valid");
+                throw new ArgumentNullException(InvalidUserIdMessage);
             }
             else
             {
@@ -176,7 +181,7 @@ namespace HomeHunter.Services
 
                 if (user == null)
                 {
-                    throw new ArgumentNullException("No such Id in the database");
+                    throw new ArgumentNullException(UserNotFoundMessage);
                 }
                 else
                 {

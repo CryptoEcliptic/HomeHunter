@@ -10,6 +10,7 @@ namespace HomeHunter.Services
 {
     public class AddressServices : IAddressServices
     {
+        private const string AddressNotFoundMessage = "No such address in the database!";
         private readonly HomeHunterDbContext context;
 
         public AddressServices(HomeHunterDbContext context)
@@ -41,7 +42,7 @@ namespace HomeHunter.Services
 
             if (address == null)
             {
-                throw new ArgumentNullException("No such address in the database!");
+                throw new ArgumentNullException(AddressNotFoundMessage);
             }
 
             address.City = city;

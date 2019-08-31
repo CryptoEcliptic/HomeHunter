@@ -5,7 +5,6 @@ using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.RealEstate;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +12,12 @@ namespace HomeHunter.Services
 {
     public class RealEstateServices : IRealEstateServices
     {
+        private const string InvalidMethodParametersMessage = "Some of the input parameters are not valid!";
+        private const string UnsuccessfullyCreatedRealEstateMessage = "No real estate created!";
+        private const string UnexistingRealEstateMessage = "No real estate with such Id!";
+        private const string InvalidOfferIdMessage = "Invalid offer Id!";
+        private const string InvalidRealEstateIdMessage = "Invalid Real Estate Id!";
+
         private readonly HomeHunterDbContext context;
         private readonly IRealEstateTypeServices realEstateTypeServices;
         private readonly ICitiesServices citiesServices;
@@ -52,7 +57,7 @@ namespace HomeHunter.Services
 
             if ( model.Area <= 0 || model.Price <= 0 || string.IsNullOrEmpty(model.Address))
             {
-                throw new ArgumentNullException("Some of the input parameters are not valid!");
+                throw new ArgumentNullException(InvalidMethodParametersMessage);
             }
 
             var city = await this.citiesServices.GetByNameAsync(model.City);
@@ -96,7 +101,7 @@ namespace HomeHunter.Services
 
             if (affectedRows == 0)
             {
-                throw new InvalidOperationException("No real estate created!");
+                throw new InvalidOperationException(UnsuccessfullyCreatedRealEstateMessage);
             }
             return realEstate.Id;
         }
@@ -115,7 +120,7 @@ namespace HomeHunter.Services
 
             if (realEstate == null)
             {
-                throw new ArgumentNullException("No  real estate with such Id!");
+                throw new ArgumentNullException(UnexistingRealEstateMessage);
             }
 
             var realEstateServiceModel = this.mapper.Map<RealEstateDetailsServiceModel>(realEstate);
@@ -127,7 +132,7 @@ namespace HomeHunter.Services
         {
             if (!this.context.RealEstates.Any(x => x.Id == model.Id))
             {
-                throw new ArgumentNullException("No real estate with such Id!");
+                throw new ArgumentNullException(UnexistingRealEstateMessage);
             }
 
             var realEstateToEdit = await this.context.RealEstates
@@ -172,7 +177,7 @@ namespace HomeHunter.Services
         {
             if (string.IsNullOrEmpty(offerId))
             {
-                throw new ArgumentNullException("Invalid offer Id!");
+                throw new ArgumentNullException(InvalidOfferIdMessage);
             }
 
             var realEstate = await this.context.RealEstates
@@ -181,7 +186,7 @@ namespace HomeHunter.Services
 
             if (realEstate == null)
             {
-                throw new ArgumentNullException("Invalid Real Estate Id!");
+                throw new ArgumentNullException(InvalidRealEstateIdMessage);
             }
 
             return realEstate.Id;     

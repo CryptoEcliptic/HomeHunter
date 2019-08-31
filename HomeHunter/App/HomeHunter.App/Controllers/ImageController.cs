@@ -117,8 +117,6 @@ namespace HomeHunter.App.Controllers
                         isIndexImage = true;
                     }
 
-                    
-
                     var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
                     var isImageAddedInDb = await this.imageServices.EditImageAsync(imageId, imageUrl, realEstateId, isIndexImage);
 

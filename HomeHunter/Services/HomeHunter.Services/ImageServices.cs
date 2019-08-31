@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using HomeHunter.Common;
 using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
@@ -16,6 +15,7 @@ namespace HomeHunter.Services
     {
         private const string ClodinaryImageFolderName = "RealEstates/";
         private const string InvalidImageParamsMessage = "Null image parameters!";
+        private const string InvalidRealEstateIdMessage = "Invalid real estate Id!";
 
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
@@ -87,7 +87,7 @@ namespace HomeHunter.Services
         {
             if (!this.context.RealEstates.Any(x => x.Id == id))
             {
-                throw new ArgumentException("Invalid real estate Id!");
+                throw new ArgumentException(InvalidRealEstateIdMessage);
             }
 
             var imageCount = this.context.Images
@@ -122,7 +122,7 @@ namespace HomeHunter.Services
         {
             if (string.IsNullOrEmpty(estateId))
             {
-                throw new InvalidOperationException("Real estate Id is invalid!");
+                throw new InvalidOperationException(InvalidRealEstateIdMessage);
             }
 
             var realEstateImages = this.context
@@ -150,7 +150,7 @@ namespace HomeHunter.Services
         {
             if (string.IsNullOrEmpty(realEstateId))
             {
-                throw new ArgumentNullException("Real estate id could not be null!");
+                throw new ArgumentNullException(InvalidRealEstateIdMessage);
             }
 
             var imageIds = await this.context.Images
