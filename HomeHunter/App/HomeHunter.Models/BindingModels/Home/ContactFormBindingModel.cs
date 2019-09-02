@@ -4,6 +4,8 @@ namespace HomeHunter.Models.BindingModels.Home
 {
     public class ContactFormBindingModel
     {
+        private const string MessageLengthRequirementMessage = "Полето {0} трябва да бъде от поне {2} и да не надвишава {1} символа.";
+
         public string OfferId { get; set; }
 
         [Required]
@@ -12,7 +14,7 @@ namespace HomeHunter.Models.BindingModels.Home
 
         [Required]
         [Display(Name = "Съобщение")]
-        [StringLength(2408, ErrorMessage = "Полето {0} трябва да бъде от поне {2} и да не надвишава {1} символа.", MinimumLength = 16)]
+        [StringLength(2500, ErrorMessage = MessageLengthRequirementMessage, MinimumLength = 16)]
         public string Message { get; set; }
 
         public string Name { get; set; }

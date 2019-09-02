@@ -143,8 +143,8 @@ namespace HomeHunter.App
 
             if (env.IsDevelopment())
             {
-                app.UseExceptionHandler("/Error"); //TODO REMOVE AFTER TESTING
-                app.UseStatusCodePagesWithReExecute("/Error/{0}"); //TODO REMOVE AFTER TESTING
+                app.UseExceptionHandler("/Error"); 
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 //app.UseDeveloperExceptionPage();
             }
             else
