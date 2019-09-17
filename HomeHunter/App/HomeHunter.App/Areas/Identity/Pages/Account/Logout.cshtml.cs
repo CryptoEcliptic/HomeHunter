@@ -11,6 +11,8 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
+        private const string UserLoggedOutLogMessage = "User logged out.";
+
         private readonly SignInManager<HomeHunterUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
 
@@ -23,7 +25,7 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnGet()
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            _logger.LogInformation(UserLoggedOutLogMessage);
 
             return Redirect("/");
         }
@@ -31,7 +33,7 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            _logger.LogInformation(UserLoggedOutLogMessage);
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);

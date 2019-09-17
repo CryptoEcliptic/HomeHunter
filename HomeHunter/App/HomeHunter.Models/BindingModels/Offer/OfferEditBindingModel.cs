@@ -8,10 +8,11 @@ namespace HomeHunter.Models.BindingModels.Offer
         private const string FieldLengthRequirementMessage = "Полето \"{0}\" не може да бъде повече от {1} символа";
         private const string ValidPhoneNumberErrorMessage = "Моля, въведете валиден {0}!";
 
+        private const string FieldIsRequiredMessage = "Полето {0} е задължително";
         public string Id { get; set; }
 
         [Display(Name = "Тип на обявата *")]
-        [Required(ErrorMessage = GlobalConstants.RequiredFieldMessage)]
+        [Required(ErrorMessage = FieldIsRequiredMessage)]
         public string OfferType { get; set; }
 
         [Display(Name = "Допълнителна информация")]

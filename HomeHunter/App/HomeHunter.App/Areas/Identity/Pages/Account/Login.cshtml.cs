@@ -17,6 +17,10 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
+        private const string NotLoadUserErrorMessage = "Unable to load user for update last login.";
+        private const string AccountLockedOutMessage = "User account locked out.";
+        private const string InvalidUserDataErrorMessage = "Невалидни потребителски данни.";
+        private const string UserLoggedInLogMessage = "User logged in.";
         private readonly SignInManager<HomeHunterUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly UserManager<HomeHunterUser> userManager;
@@ -85,13 +89,13 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
                     var user = await this.userManager.FindByNameAsync(Input.Email);
                     if (user == null)
                     {
-                        return NotFound("Unable to load user for update last login.");
+                        return NotFound(NotLoadUserErrorMessage);
                     }
                     user.LastLogin = DateTime.UtcNow;
                     var lastLoginResult = await this.userManager.UpdateAsync(user);
                     var roles = await userManager.GetRolesAsync(user);
 
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation(UserLoggedInLogMessage);
 
                     if (roles.Contains(GlobalConstants.AdministratorRoleName))
                     {
@@ -109,12 +113,12 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning(AccountLockedOutMessage);
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Невалидни потребителски данни.");
+                    ModelState.AddModelError(string.Empty, InvalidUserDataErrorMessage);
                     return Page();
                 }
             }

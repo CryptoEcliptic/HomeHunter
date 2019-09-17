@@ -21,7 +21,6 @@ namespace HomeHunter.Common
         public const string AllowedFileExtensionsAsString = ".jpg, .jpeg, .png, .bmp, .gif";
         public const string BoolTrueStringValue = "ДА";
         public const string BoolFalseStringValue = "НЕ";
-        public const string RequiredFieldMessage = "Полето {0} e задължително!";
 
         public static List<string> AllowedFileExtensions = new List<string>
         {
