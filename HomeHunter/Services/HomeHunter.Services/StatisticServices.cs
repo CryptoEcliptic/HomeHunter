@@ -1,8 +1,10 @@
 ﻿using HomeHunter.Data;
+using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,36 +30,14 @@ namespace HomeHunter.Services
             var offers = this.context.Offers.
                 Include(x => x.RealEstate)
                 .ToList();
-            var users = await this.userServices.GetAllUsersAsync();
-            var usersCount = users.Count();
-           
-            var averageSaleTotalPrice = offers
-                    .Where(x => x.OfferType == OfferType.Sale).Count() == 0 ? 0 :
-               offers
-                    .Where(x => x.OfferType == OfferType.Sale)
-                    .Select(x => x.RealEstate.Price)
-                    .Average();
 
-            var averageSalePricePerSqMeter = offers
-                    .Where(x => x.OfferType == OfferType.Sale).Count() == 0 ? 0 :
-              offers
-                    .Where(x => x.OfferType == OfferType.Sale)
-                    .Select(x => x.RealEstate.PricePerSquareMeter)
-                    .Average();
+            int usersCount = await GetUsersCount();
 
-            var averageRentTotalPrice = offers
-                    .Where(x => x.OfferType == OfferType.Rental).Count() == 0 ? 0 :
-              offers
-                    .Where(x => x.OfferType == OfferType.Rental)
-                    .Select(x => x.RealEstate.Price)
-                    .Average();
+            decimal averageSaleTotalPrice = GetAverageSaleTotalPrice(offers);
+            decimal averageSalePricePerSqMeter = GetAverageSalePricePerSquareMeter(offers);
 
-            var averageRentPricePerSqMeter = offers
-                    .Where(x => x.OfferType == OfferType.Rental).Count() == 0 ? 0 :
-              offers
-                    .Where(x => x.OfferType == OfferType.Rental)
-                    .Select(x => x.RealEstate.PricePerSquareMeter)
-                    .Average();
+            decimal averageRentTotalPrice = GetAverageRentTotalPrice(offers);
+            decimal averageRentPricePerSqMeter = GetAverageRentPricePerSquareMeter(offers);
 
             var statisticsServiceModel = new StatisticsServiceModel
             {
@@ -72,11 +52,57 @@ namespace HomeHunter.Services
                 AverageRentPricePerSqMeter = averageRentPricePerSqMeter,
 
                 UsersCount = usersCount,
-
                 UniqueVisitorsCount = await this.visitorSessionServices.UniqueVisitorsCount(),
             };
 
             return statisticsServiceModel;
+        }
+
+        private static decimal GetAverageRentPricePerSquareMeter(List<Offer> offers)
+        {
+            return offers
+                    .Where(x => x.OfferType == OfferType.Rental).Count() == 0 ? 0 :
+              offers
+                    .Where(x => x.OfferType == OfferType.Rental)
+                    .Select(x => x.RealEstate.PricePerSquareMeter)
+                    .Average();
+        }
+
+        private static decimal GetAverageRentTotalPrice(List<Offer> offers)
+        {
+            return offers
+                    .Where(x => x.OfferType == OfferType.Rental).Count() == 0 ? 0 :
+              offers
+                    .Where(x => x.OfferType == OfferType.Rental)
+                    .Select(x => x.RealEstate.Price)
+                    .Average();
+        }
+
+        private static decimal GetAverageSalePricePerSquareMeter(List<Offer> offers)
+        {
+            return offers
+                    .Where(x => x.OfferType == OfferType.Sale).Count() == 0 ? 0 :
+              offers
+                    .Where(x => x.OfferType == OfferType.Sale)
+                    .Select(x => x.RealEstate.PricePerSquareMeter)
+                    .Average();
+        }
+
+        private static decimal GetAverageSaleTotalPrice(List<Offer> offers)
+        {
+            return offers
+                    .Where(x => x.OfferType == OfferType.Sale).Count() == 0 ? 0 :
+               offers
+                    .Where(x => x.OfferType == OfferType.Sale)
+                    .Select(x => x.RealEstate.Price)
+                    .Average();
+        }
+
+        private async Task<int> GetUsersCount()
+        {
+            var users = await this.userServices.GetAllUsersAsync();
+            var usersCount = users.Count();
+            return usersCount;
         }
     }
 }
