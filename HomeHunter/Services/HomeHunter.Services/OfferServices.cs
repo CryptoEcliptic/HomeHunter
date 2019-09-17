@@ -51,7 +51,6 @@ namespace HomeHunter.Services
             OfferType parsedEnum = model.OfferType == GlobalConstants.OfferTypeSaleName ? OfferType.Sale : OfferType.Rental;
 
             string referenceNumber = this.GenerateOfferId(model.OfferType);
-
             var author = await this.userServices.GetUserById(authorId);
 
             var offer = new Offer
@@ -74,7 +73,6 @@ namespace HomeHunter.Services
             }
 
             return true;
-
         }
 
         public async Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync(OfferType? condition = null)
@@ -223,7 +221,6 @@ namespace HomeHunter.Services
 
             return offerId;
         }
-
 
         public async Task<bool> DeleteOfferAsync(string offerId)
         {

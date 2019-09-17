@@ -143,9 +143,9 @@ namespace HomeHunter.App
 
             if (env.IsDevelopment())
             {
-                app.UseExceptionHandler("/Error"); 
-                app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                //app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/Error"); 
+                //app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                app.UseDeveloperExceptionPage();
             }
             else
             {

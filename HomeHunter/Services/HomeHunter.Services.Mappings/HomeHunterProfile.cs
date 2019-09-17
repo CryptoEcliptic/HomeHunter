@@ -200,6 +200,13 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<RealEstateDetailsServiceModel, RealEstateDetailsViewModel>()
                 .ForMember(x => x.Year, y => y.MapFrom(z => z.Year.ToString() == "0" ? GlobalConstants.NotAvailableMessage : z.Year.ToString()));
 
+            this.CreateMap<RealEstateCreateServiceModel, RealEstate>()
+                .ForMember(x => x.Address, y => y.Ignore())
+                .ForMember(x => x.BuildingType, y => y.Ignore())
+                .ForMember(x => x.RealEstateType, y => y.Ignore())
+                .ForMember(x => x.HeatingSystem, y => y.Ignore())
+                .ForMember(x => x.PricePerSquareMeter, y => y.Ignore());
+
             #endregion
 
             #region User Mappings

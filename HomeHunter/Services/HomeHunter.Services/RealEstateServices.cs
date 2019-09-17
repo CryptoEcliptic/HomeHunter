@@ -53,57 +53,32 @@ namespace HomeHunter.Services
 
         public async Task<string> CreateRealEstateAsync(RealEstateCreateServiceModel model)
         {
-            var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
-
-            if ( model.Area <= 0 || model.Price <= 0 || string.IsNullOrEmpty(model.Address))
+            if (model.Area <= 0 || model.Price <= 0 || string.IsNullOrEmpty(model.Address))
             {
                 throw new ArgumentNullException(InvalidMethodParametersMessage);
             }
 
+            var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
+
             var city = await this.citiesServices.GetByNameAsync(model.City);
             var village = await this.villageServices.CreateVillageAsync(model.Village);
-
             var neighbourhood = await this.neighbourhoodServices.GetNeighbourhoodByNameAsync(model.Neighbourhood);
             var address = await this.addressServices.CreateAddressAsync(city, model.Address, village, neighbourhood);
-
             var buildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType);
             var heatingSystem = await this.heatingSystemServices.GetHeatingSystemAsync(model.HeatingSystem);
 
             var realEstate = new RealEstate
             {
-                Area = model.Area,
-                Price = model.Price,
-                Yard = model.Yard,
-                Year = model.Year,
-                FloorNumber = model.FloorNumber,
-                ParkingPlace = model.ParkingPlace,
-                Balcony = model.Balcony,
-                MetroNearBy = model.MetroNearBy,
-                BuildingTotalFloors = model.BuildingTotalFloors,
-                CellingOrBasement = model.CellingOrBasement,
-
                 RealEstateType = realEstateType,
                 Address = address,
                 BuildingType = buildingType,
                 HeatingSystem = heatingSystem,
-                PricePerSquareMeter = model.Price / (decimal)model.Area,
-
-                IsDeleted = false,
+                PricePerSquareMeter = model.Price / (decimal)model.Area
             };
+            this.mapper.Map<RealEstateCreateServiceModel, RealEstate>(model, realEstate);
 
-            if (model.Id != null)
-            {
-                realEstate.Id = model.Id;
-            }
-
-            await this.context.RealEstates.AddAsync(realEstate);
-            int affectedRows = await this.context.SaveChangesAsync();
-
-            if (affectedRows == 0)
-            {
-                throw new InvalidOperationException(UnsuccessfullyCreatedRealEstateMessage);
-            }
-            return realEstate.Id;
+            var realEstateIdResult = await AddRealEstateToTheDb(realEstate);
+            return realEstateIdResult;
         }
 
         public async Task<RealEstateDetailsServiceModel> GetDetailsAsync(string id)
@@ -124,7 +99,6 @@ namespace HomeHunter.Services
             }
 
             var realEstateServiceModel = this.mapper.Map<RealEstateDetailsServiceModel>(realEstate);
-
             return realEstateServiceModel;
         }
 
@@ -192,6 +166,16 @@ namespace HomeHunter.Services
             return realEstate.Id;     
         }
 
-       
+        private async Task<string> AddRealEstateToTheDb(RealEstate realEstate)
+        {
+            await this.context.RealEstates.AddAsync(realEstate);
+            int affectedRows = await this.context.SaveChangesAsync();
+
+            if (affectedRows == 0)
+            {
+                throw new InvalidOperationException(UnsuccessfullyCreatedRealEstateMessage);
+            }
+            return realEstate.Id;
+        }
     }
 }
