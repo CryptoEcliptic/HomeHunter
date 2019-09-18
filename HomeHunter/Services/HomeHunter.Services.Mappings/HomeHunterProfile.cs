@@ -180,21 +180,10 @@ namespace HomeHunter.Infrastructure
 
 
             this.CreateMap<RealEstateEditServiceModel, RealEstate>()
-                .ForMember(x => x.FloorNumber, y => y.MapFrom(z => z.FloorNumber))
-                .ForMember(x => x.BuildingTotalFloors, y => y.MapFrom(z => z.BuildingTotalFloors))
-                .ForMember(x => x.Area, y => y.MapFrom(z => z.Area))
-                .ForMember(x => x.Price, y => y.MapFrom(z => z.Price))
-                .ForMember(x => x.Year, y => y.MapFrom(z => z.Year))
-                .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace))
-                .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard))
-                .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy))
-                .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony))
-                .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.CellingOrBasement))
                 .ForMember(x => x.Address, y => y.Ignore())
                 .ForMember(x => x.BuildingType, y => y.Ignore())
                 .ForMember(x => x.RealEstateType, y => y.Ignore())
                 .ForMember(x => x.HeatingSystem, y => y.Ignore())
-                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 ;
 
             this.CreateMap<RealEstateDetailsServiceModel, RealEstateDetailsViewModel>()

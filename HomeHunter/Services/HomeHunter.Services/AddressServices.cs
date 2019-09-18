@@ -47,7 +47,6 @@ namespace HomeHunter.Services
 
             address.City = city;
             address.CityId = city == null ? address.CityId = null : address.CityId = city.Id;
-
             address.Village = village;
             address.Neighbourhood = neighbourhood;
 

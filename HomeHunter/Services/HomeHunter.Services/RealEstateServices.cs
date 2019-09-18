@@ -113,26 +113,27 @@ namespace HomeHunter.Services
                 .Include(x => x.Address)
                 .FirstOrDefaultAsync(x => x.Id == model.Id);
 
+            //Edit Address nav properties
             var city = await this.citiesServices.GetByNameAsync(model.City);
             var neighbourhood = await this.neighbourhoodServices.GetNeighbourhoodByNameAsync(model.Neighbourhood);
             var village = await this.villageServices.CreateVillageAsync(model.Village);
             var addressId = realEstateToEdit.Address.Id;
-            var address = await this.addressServices.EditAddressAsync(addressId, city, model.Address, village, neighbourhood);
 
-            var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
-            var buildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType);
-            var heatingSystem = await this.heatingSystemServices.GetHeatingSystemAsync(model.HeatingSystem);
-            realEstateToEdit.Area = model.Area;
-            realEstateToEdit.Address = address;
-            realEstateToEdit.BuildingType = buildingType;
-            realEstateToEdit.HeatingSystem = heatingSystem;
-            realEstateToEdit.RealEstateType = realEstateType;
-            realEstateToEdit.Year = model.Year;
+            //Edit the address with already edited nav properties
+            realEstateToEdit.Address = await this.addressServices.EditAddressAsync(addressId, city, model.Address, village, neighbourhood);
+
+            realEstateToEdit.RealEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
+            realEstateToEdit.BuildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType);
+            realEstateToEdit.HeatingSystem = await this.heatingSystemServices.GetHeatingSystemAsync(model.HeatingSystem);
             realEstateToEdit.PricePerSquareMeter = model.Price / (decimal)model.Area;
             realEstateToEdit.ModifiedOn = DateTime.UtcNow;
 
             this.mapper.Map<RealEstateEditServiceModel, RealEstate>(model, realEstateToEdit);
+            return await UpdateRealEstateInTheDb(realEstateToEdit);
+        }
 
+        private async Task<bool> UpdateRealEstateInTheDb(RealEstate realEstateToEdit)
+        {
             try
             {
                 this.context.Update(realEstateToEdit);
@@ -146,7 +147,6 @@ namespace HomeHunter.Services
             return true;
         }
 
-        
         public async Task<string> GetRealEstateIdByOfferId(string offerId)
         {
             if (string.IsNullOrEmpty(offerId))
