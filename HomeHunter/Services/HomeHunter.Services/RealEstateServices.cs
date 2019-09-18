@@ -49,8 +49,6 @@ namespace HomeHunter.Services
             this.mapper = mapper;
         }
 
-        
-
         public async Task<string> CreateRealEstateAsync(RealEstateCreateServiceModel model)
         {
             if (model.Area <= 0 || model.Price <= 0 || string.IsNullOrEmpty(model.Address))
@@ -58,21 +56,16 @@ namespace HomeHunter.Services
                 throw new ArgumentNullException(InvalidMethodParametersMessage);
             }
 
-            var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType);
-
             var city = await this.citiesServices.GetByNameAsync(model.City);
             var village = await this.villageServices.CreateVillageAsync(model.Village);
             var neighbourhood = await this.neighbourhoodServices.GetNeighbourhoodByNameAsync(model.Neighbourhood);
-            var address = await this.addressServices.CreateAddressAsync(city, model.Address, village, neighbourhood);
-            var buildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType);
-            var heatingSystem = await this.heatingSystemServices.GetHeatingSystemAsync(model.HeatingSystem);
 
             var realEstate = new RealEstate
             {
-                RealEstateType = realEstateType,
-                Address = address,
-                BuildingType = buildingType,
-                HeatingSystem = heatingSystem,
+                RealEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(model.RealEstateType),
+                Address = await this.addressServices.CreateAddressAsync(city, model.Address, village, neighbourhood),
+                BuildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType),
+                HeatingSystem = await this.heatingSystemServices.GetHeatingSystemAsync(model.HeatingSystem),
                 PricePerSquareMeter = model.Price / (decimal)model.Area
             };
             this.mapper.Map<RealEstateCreateServiceModel, RealEstate>(model, realEstate);
@@ -91,7 +84,6 @@ namespace HomeHunter.Services
                 .Include(r => r.Address.Village)
                 .Include(r => r.Address.Neighbourhood)
                 .FirstOrDefaultAsync(x => x.Id == id);
-            ;
 
             if (realEstate == null)
             {
@@ -132,21 +124,6 @@ namespace HomeHunter.Services
             return await UpdateRealEstateInTheDb(realEstateToEdit);
         }
 
-        private async Task<bool> UpdateRealEstateInTheDb(RealEstate realEstateToEdit)
-        {
-            try
-            {
-                this.context.Update(realEstateToEdit);
-                await this.context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         public async Task<string> GetRealEstateIdByOfferId(string offerId)
         {
             if (string.IsNullOrEmpty(offerId))
@@ -176,6 +153,21 @@ namespace HomeHunter.Services
                 throw new InvalidOperationException(UnsuccessfullyCreatedRealEstateMessage);
             }
             return realEstate.Id;
+        }
+
+        private async Task<bool> UpdateRealEstateInTheDb(RealEstate realEstateToEdit)
+        {
+            try
+            {
+                this.context.Update(realEstateToEdit);
+                await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
