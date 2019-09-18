@@ -4,6 +4,7 @@ using HomeHunter.Models.ViewModels.User;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.User;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -82,6 +83,11 @@ namespace HomeHunter.App.Areas.Administration.Controllers
             }
 
             var isUserDeleted = await this.userServices.SoftDeleteUserAsync(id);
+
+            if (!isUserDeleted)
+            {
+                return Redirect($"/User/Delete/{id}");
+            }
 
             return RedirectToAction(nameof(Index));
         }

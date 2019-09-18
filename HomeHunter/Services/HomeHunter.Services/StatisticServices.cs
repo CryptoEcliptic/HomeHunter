@@ -31,14 +31,6 @@ namespace HomeHunter.Services
                 Include(x => x.RealEstate)
                 .ToList();
 
-            int usersCount = await GetUsersCount();
-
-            decimal averageSaleTotalPrice = GetAverageSaleTotalPrice(offers);
-            decimal averageSalePricePerSqMeter = GetAverageSalePricePerSquareMeter(offers);
-
-            decimal averageRentTotalPrice = GetAverageRentTotalPrice(offers);
-            decimal averageRentPricePerSqMeter = GetAverageRentPricePerSquareMeter(offers);
-
             var statisticsServiceModel = new StatisticsServiceModel
             {
                 ActiveOffersCount = offers.Where(x => x.IsDeleted == false).Count(),
@@ -46,12 +38,12 @@ namespace HomeHunter.Services
                 ActiveSalesCount = offers.Where(x => x.IsDeleted == false && x.OfferType == OfferType.Sale).Count(),
                 DeactivatedOffersCount = offers.Where(x => x.IsDeleted == true).Count(),
 
-                AverageSaleTotalPrice = averageSaleTotalPrice,
-                AverageSalePricePerSqMeter = averageSalePricePerSqMeter,
-                AverageRentTotalPrice = averageRentTotalPrice,
-                AverageRentPricePerSqMeter = averageRentPricePerSqMeter,
+                AverageSaleTotalPrice = GetAverageSaleTotalPrice(offers),
+                AverageSalePricePerSqMeter = GetAverageSalePricePerSquareMeter(offers),
+                AverageRentTotalPrice = GetAverageRentTotalPrice(offers),
+                AverageRentPricePerSqMeter = GetAverageRentPricePerSquareMeter(offers),
 
-                UsersCount = usersCount,
+                UsersCount = await GetUsersCount(),
                 UniqueVisitorsCount = await this.visitorSessionServices.UniqueVisitorsCount(),
             };
 

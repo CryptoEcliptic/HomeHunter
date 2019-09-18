@@ -1,4 +1,6 @@
-﻿namespace HomeHunter.Services.Models.User
+﻿using System;
+
+namespace HomeHunter.Services.Models.User
 {
     public class UserCreateServiceModel
     {
@@ -13,5 +15,7 @@
         public string Password { get; set; }
 
         public string ConfirmPassword { get; set; }
+
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
     }
 }

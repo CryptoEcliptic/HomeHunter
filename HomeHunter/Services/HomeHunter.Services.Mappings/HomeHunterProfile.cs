@@ -202,14 +202,17 @@ namespace HomeHunter.Infrastructure
 
             this.CreateMap<UserCreateBindingModel, UserCreateServiceModel>();
             this.CreateMap<UserDetailsServiceModel, UserDetailsViewModel>();
+            this.CreateMap<UserIndexServiceModel, UserIndexViewModel>();
+
+            this.CreateMap<UserCreateServiceModel, HomeHunterUser>()
+               .ForMember(x => x.UserName, y => y.MapFrom(z => z.Email));
 
             this.CreateMap<HomeHunterUser, UserIndexServiceModel>()
                 .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                 .ForMember(x => x.LastLogin, y => y.MapFrom(z => z.LastLogin == DateTime.Parse(GlobalConstants.DefaultDateTimeDbValue) ? GlobalConstants.NotAvailableMessage : z.LastLogin.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                 .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsDeleted == true ? "деактивиран" : "активен"))
                 .ForMember(x => x.EmailConfirmed, y => y.MapFrom(z => z.EmailConfirmed == true ? "потвърден" : "непотвърден"));
-            this.CreateMap<UserIndexServiceModel, UserIndexViewModel>();
-
+           
             this.CreateMap<HomeHunterUser, UserDetailsServiceModel>()
                 .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsDeleted == true ? "деактивиран" : "активен"))
                 .ForMember(x => x.EmailConfirmed, y => y.MapFrom(z => z.EmailConfirmed == true ? "потвърден" : "непотвърден"))

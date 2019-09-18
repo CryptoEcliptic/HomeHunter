@@ -52,18 +52,8 @@ namespace HomeHunter.Services
 
         public async Task<UserReturnCreateServiceModel> CreateUser(UserCreateServiceModel model)
         {
-            //Create user
-            var user = new HomeHunterUser
-            {
-                UserName = model.Email,
-                Email = model.Email,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                CreatedOn = DateTime.UtcNow,
-                PhoneNumber = model.PhoneNumber,
-                IsDeleted = false,
-                
-            };
+            //Map user data and create user
+            var user = this.mapper.Map<HomeHunterUser>(model);
 
             //Save user in the db via UserManager
             var result = await this.userManager.CreateAsync(user, model.Password);
@@ -92,7 +82,7 @@ namespace HomeHunter.Services
         public async Task<UserDetailsServiceModel> GetUserDetailsAsync(string userId)
         {
             var user = await this.GetUserById(userId);
-            
+
             var userDetailsServiceModel = this.mapper.Map<UserDetailsServiceModel>(user);
 
             return userDetailsServiceModel;
@@ -100,12 +90,7 @@ namespace HomeHunter.Services
 
         public async Task<bool> SoftDeleteUserAsync(string userId)
         {
-            var user = await this.userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return false;
-            }
+            var user = await this.GetUserById(userId);
 
             var roles = await this.userManager.GetRolesAsync(user);
 
@@ -114,30 +99,7 @@ namespace HomeHunter.Services
                 throw new InvalidOperationException(DeleteAdminDenialMessage);
             }
 
-            user.IsDeleted = true;
-            user.Email = null;
-            user.FirstName = null;
-            user.LastName = null;
-            user.PhoneNumber = null;
-            user.NormalizedEmail = null;
-            user.NormalizedUserName = null;
-            user.UserName = null;
-            user.PasswordHash = null;
-            user.EmailConfirmed = false;
-            user.DeletedOn = DateTime.UtcNow;
-
-            user.ModifiedOn = DateTime.UtcNow;
-
-            try
-            {
-                this.context.Update(user);
-                await this.context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return false;
-            }
-            return true;
+            return await SetUserPropertiesToNull(user);
         }
 
         public bool IsUserEmailAuthenticated(string userId)
@@ -188,6 +150,34 @@ namespace HomeHunter.Services
                     return user;
                 }
             }
+        }
+
+        private async Task<bool> SetUserPropertiesToNull(HomeHunterUser user)
+        {
+            user.IsDeleted = true;
+            user.Email = null;
+            user.FirstName = null;
+            user.LastName = null;
+            user.PhoneNumber = null;
+            user.NormalizedEmail = null;
+            user.NormalizedUserName = null;
+            user.UserName = null;
+            user.PasswordHash = null;
+            user.EmailConfirmed = false;
+            user.DeletedOn = DateTime.UtcNow;
+
+            user.ModifiedOn = DateTime.UtcNow;
+
+            try
+            {
+                this.context.Update(user);
+                await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
