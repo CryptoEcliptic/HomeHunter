@@ -17,9 +17,6 @@ namespace HomeHunter.Domain
         [MaxLength(32)]
         public string Name { get; set; }
 
-        public int? MunicipalityId { get; set; }
-        public Municipality Municipality { get; set; }
-
         public ICollection<Address> Addresses { get; set; }
         public ICollection<Neighbourhood> Neighbourhoods { get; set; }
     }
