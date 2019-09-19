@@ -19,6 +19,7 @@ namespace HomeHunter.Services
         public async Task<IQueryable<RealEstateTypeServiceModel>> GetAllTypesAsync()
         {
            var types = Task.Run(() => this.context.RealEstateTypes
+                .OrderBy(x => x.CreatedOn)
                 .Select(x => new RealEstateTypeServiceModel
                 {
                     TypeName = x.TypeName,
