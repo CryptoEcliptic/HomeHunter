@@ -5,6 +5,7 @@ using HomeHunter.Domain.Enums;
 using HomeHunter.Services;
 using HomeHunter.Services.CloudinaryServices;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.Helpers;
 using HomeHunter.Services.Models.Offer;
 using HomeHunterTests.Common;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +35,8 @@ namespace HomeHunterTests
         private readonly Mock<IImageServices> imageServices;
         private readonly Mock<ICloudinaryService> cloudinaryServices;
         private readonly Mock<IUserServices> userServices;
+        private readonly Mock<IReferenceNumberGenerator> referenceNumberGenerator;
+        private readonly Mock<IRealEstateServices> realEstateServices;
         private readonly IMapper mapper;
 
         public OfferServicesTests()
@@ -43,16 +46,21 @@ namespace HomeHunterTests
             this.imageServices = new Mock<IImageServices>();
             this.cloudinaryServices = new Mock<ICloudinaryService>();
             this.userServices = new Mock<IUserServices>();
+            this.realEstateServices = new Mock<IRealEstateServices>();
+            this.referenceNumberGenerator = new Mock<IReferenceNumberGenerator>();
             this.SeedData();
         }
 
         [Test]
         public async Task CreateOfferShoulReturnTrue()
         {
-            var serviceInstance = new OfferServices(context,
+            var serviceInstance = new OfferServices(
+                context,
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
+                realEstateServices.Object,
+                referenceNumberGenerator.Object,
                 mapper
                 );
 
@@ -77,6 +85,8 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
+                realEstateServices.Object,
+                referenceNumberGenerator.Object,
                 mapper
                 );
 
@@ -103,6 +113,8 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
+                realEstateServices.Object,
+                referenceNumberGenerator.Object,
                 mapper
                 );
 
@@ -121,6 +133,8 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
+                realEstateServices.Object,
+                referenceNumberGenerator.Object,
                 mapper
                 );
 
@@ -143,6 +157,8 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
+                realEstateServices.Object,
+                referenceNumberGenerator.Object,
                 mapper
                 );
 
@@ -168,6 +184,8 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
+                realEstateServices.Object,
+                referenceNumberGenerator.Object,
                 mapper
                 );
 
@@ -183,6 +201,8 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
+                realEstateServices.Object,
+                referenceNumberGenerator.Object,
                 mapper
                 );
 

@@ -5,6 +5,7 @@ using HomeHunter.Domain;
 using HomeHunter.Domain.Enums;
 using HomeHunter.Services.CloudinaryServices;
 using HomeHunter.Services.Contracts;
+using HomeHunter.Services.Helpers;
 using HomeHunter.Services.Models.Offer;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,18 +27,25 @@ namespace HomeHunter.Services
         private readonly IImageServices imageServices;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IUserServices userServices;
+        private readonly IRealEstateServices realEstateServices;
+        private readonly IReferenceNumberGenerator referenceNumberGenerator;
+
         private readonly IMapper mapper;
 
         public OfferServices(HomeHunterDbContext context,
-            IImageServices imageServices,
-            ICloudinaryService cloudinaryService,
+           IImageServices imageServices,
+           ICloudinaryService cloudinaryService,
            IUserServices userServices,
+           IRealEstateServices realEstateServices,
+           IReferenceNumberGenerator referenceNumberGenerator,
            IMapper mapper)
         {
             this.context = context;
             this.imageServices = imageServices;
             this.cloudinaryService = cloudinaryService;
             this.userServices = userServices;
+            this.realEstateServices = realEstateServices;
+            this.referenceNumberGenerator = referenceNumberGenerator;
             this.mapper = mapper;
         }
 
@@ -50,7 +58,7 @@ namespace HomeHunter.Services
 
             OfferType parsedEnum = model.OfferType == GlobalConstants.OfferTypeSaleName ? OfferType.Sale : OfferType.Rental;
 
-            string referenceNumber = this.GenerateOfferId(model.OfferType);
+            string referenceNumber = await this.referenceNumberGenerator.GenerateOfferId(model.OfferType, estateId);
             var author = await this.userServices.GetUserById(authorId);
 
             var offer = new Offer
@@ -283,23 +291,6 @@ namespace HomeHunter.Services
             return changedRows;
         }
 
-        private string GenerateOfferId(string offerType)
-        {
-            string id = null;
-            string saleIndexLetter = "П";
-            string rentIndexLetter = "Н";
-            Random rnd = new Random();
-
-            if (offerType == GlobalConstants.OfferTypeSaleName)
-            {
-                id = saleIndexLetter + rnd.Next(1, 1000);
-                return id;
-            }
-            else
-            {
-                id = rentIndexLetter + rnd.Next(1, 1000);
-                return id;
-            }
-        }
+       
     }
 }

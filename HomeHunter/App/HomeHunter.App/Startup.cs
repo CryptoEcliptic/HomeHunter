@@ -10,6 +10,7 @@ using HomeHunter.Services;
 using HomeHunter.Services.CloudinaryServices;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.EmailSender;
+using HomeHunter.Services.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -91,6 +92,7 @@ namespace HomeHunter.App
             services.AddTransient<IOfferServices, OfferServices>();
             services.AddTransient<IUserServices, UserServices>();
             services.AddTransient<IStatisticServices, StatisticServices>();       
+            services.AddTransient<IReferenceNumberGenerator, ReferenceNumberGenerator>();       
             services.AddTransient<IVisitorSessionServices, VisitorSessionServices>();
             services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
