@@ -11,8 +11,9 @@ namespace HomeHunter.Services.Helpers
 {
     public class ReferenceNumberGenerator : IReferenceNumberGenerator
     {
-        private const string StartSaleRefNumberDigits = "30";
-
+        private const string StartSaleRefNumberDigit = "30";
+        private const string StartRentRefNumberDigit = "10";
+        private const int SymbolsToSkip = 2;
         Dictionary<string, string> StartingCodes = new Dictionary<string, string>
         {
             { "Едностаен апартамент", "0001" },
@@ -34,7 +35,29 @@ namespace HomeHunter.Services.Helpers
             { "Земеделска земя", "1700" },
             { "Хотел", "1800" },
         };
-        private const string SingleRoomAppartmentRefNumberMaxValue = "300199";
+
+        Dictionary<string, string> MaxCodeValues = new Dictionary<string, string>
+        {
+            { "Едностаен апартамент", "0199" },
+            { "Двустаен апартамент", "0299" },
+            { "Тристаен апартамент", "0399" },
+            { "Четиристаен апартамент", "0499" },
+            { "Многостаен апартамент", "0599" },
+            { "Мезонет", "0699" },
+            { "Ателие, Таван", "0799" },
+            { "Офис", "0899" },
+            { "Магазин", "0999" },
+            { "Заведение", "1099" },
+            { "Склад", "1199" },
+            { "Промишлено помещение", "1299" },
+            { "Етаж от къща", "1399" },
+            { "Къща", "1499" },
+            { "Гараж", "1599" },
+            { "Парцел", "1699" },
+            { "Земеделска земя", "1799" },
+            { "Хотел", "1899" },
+        };
+
         private readonly HomeHunterDbContext context;
         private readonly IRealEstateServices realEstateServices;
 
@@ -51,27 +74,24 @@ namespace HomeHunter.Services.Helpers
             var realEstate = await this.realEstateServices.GetDetailsAsync(estateId);
             var estateType = realEstate.RealEstateType;
 
-            string referenceNumber = null;
+            string referenceNumber = offerType == GlobalConstants.OfferTypeSaleName ? StartSaleRefNumberDigit : StartRentRefNumberDigit;
 
-            if (offerType == GlobalConstants.OfferTypeSaleName)
+            var previousOfferRefNumber = await this.GetRefNumberOfLastOfferByEstateType(offerType, estateType);
+            string lastDigitsOfPreviousNumber = previousOfferRefNumber != null ? previousOfferRefNumber.Skip(SymbolsToSkip).ToString() : null;
+
+            if (previousOfferRefNumber == null || MaxCodeValues[estateType] == lastDigitsOfPreviousNumber)
             {
-                referenceNumber = StartSaleRefNumberDigits;
-
-                var previousOfferRefNumber = await this.GetRefNumberOfLastOfferByEstateType(offerType, estateType);
-
-                if (previousOfferRefNumber == null)
-                {
-                    referenceNumber += StartingCodes[estateType];
-                }
-
-                else if (previousOfferRefNumber != null && previousOfferRefNumber != SingleRoomAppartmentRefNumberMaxValue)
-                {
-                    int currentRefNumberAsInt = int.Parse(previousOfferRefNumber) + 1;
-                    referenceNumber = currentRefNumberAsInt.ToString();
-                }
-
+                referenceNumber += StartingCodes[estateType];
+                return referenceNumber;
             }
-            return referenceNumber;
+            
+            else
+            {
+                int currentRefNumberAsInt = int.Parse(previousOfferRefNumber) + 1;
+                referenceNumber = currentRefNumberAsInt.ToString();
+                return referenceNumber;
+            }
+
         }
 
         private async Task<string> GetRefNumberOfLastOfferByEstateType(string offerType, string estateType)
@@ -84,7 +104,7 @@ namespace HomeHunter.Services.Helpers
            .LastOrDefaultAsync(x => x.RealEstate.RealEstateType.TypeName == estateType
                     && x.OfferType == parsedEnum);
 
-            var lastRefNumber = offer != null? offer.ReferenceNumber : null;
+            var lastRefNumber = offer != null ? offer.ReferenceNumber : null;
 
             return lastRefNumber;
         }

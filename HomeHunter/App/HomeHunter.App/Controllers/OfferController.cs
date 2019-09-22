@@ -135,7 +135,7 @@ namespace HomeHunter.App.Controllers
                 return View(model ?? new OfferCreateBindingModel());
             }
 
-            var authorId = User.FindFirstValue(ClaimTypes.NameIdentifier); //TODO Control for exceptions. Still might have problems
+            var authorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (authorId == null)
             {
                 return NotFound();
