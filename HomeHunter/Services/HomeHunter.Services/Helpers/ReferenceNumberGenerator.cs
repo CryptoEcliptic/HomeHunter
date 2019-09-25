@@ -11,10 +11,7 @@ namespace HomeHunter.Services.Helpers
 {
     public class ReferenceNumberGenerator : IReferenceNumberGenerator
     {
-        private const string StartSaleRefNumberDigit = "30";
-        private const string StartRentRefNumberDigit = "10";
-        private const int SymbolsToSkip = 2;
-        Dictionary<string, string> StartingCodes = new Dictionary<string, string>
+        private Dictionary<string, string> StartingCodesValues = new Dictionary<string, string>
         {
             { "Едностаен апартамент", "0001" },
             { "Двустаен апартамент", "0200" },
@@ -36,7 +33,7 @@ namespace HomeHunter.Services.Helpers
             { "Хотел", "1800" },
         };
 
-        Dictionary<string, string> MaxCodeValues = new Dictionary<string, string>
+        private Dictionary<string, string> MaxCodeValues = new Dictionary<string, string>
         {
             { "Едностаен апартамент", "0199" },
             { "Двустаен апартамент", "0299" },
@@ -58,6 +55,10 @@ namespace HomeHunter.Services.Helpers
             { "Хотел", "1899" },
         };
 
+        private const string StartSaleRefNumberDigit = "30";
+        private const string StartRentRefNumberDigit = "10";
+        private const int SymbolsToSkip = 2;
+       
         private readonly HomeHunterDbContext context;
         private readonly IRealEstateServices realEstateServices;
 
@@ -81,7 +82,7 @@ namespace HomeHunter.Services.Helpers
 
             if (previousOfferRefNumber == null || MaxCodeValues[estateType] == lastDigitsOfPreviousNumber)
             {
-                referenceNumber += StartingCodes[estateType];
+                referenceNumber += StartingCodesValues[estateType];
                 return referenceNumber;
             }
             

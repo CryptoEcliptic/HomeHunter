@@ -15,6 +15,12 @@ namespace HomeHunter.Domain
         [MaxLength(32)]
         public string TypeName { get; set; }
 
+        [Required]
+        public string MinReferenceNumber { get; set; }
+
+        [Required]
+        public string MaxReferenceNumber { get; set; }
+
         public ICollection<RealEstate> RealEstates { get; set; }
     }
 }
