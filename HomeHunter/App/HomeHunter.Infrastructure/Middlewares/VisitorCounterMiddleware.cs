@@ -1,10 +1,5 @@
-﻿using HomeHunter.Data;
-using HomeHunter.Domain;
-using HomeHunter.Services;
-using HomeHunter.Services.Contracts;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HomeHunter.Infrastructure.Middlewares
