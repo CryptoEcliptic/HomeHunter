@@ -26,8 +26,14 @@ namespace HomeHunterTests
         private const string ArgumentNullExceptonMessage = "ArgumentNull exception should have been thrown due to invalid method parameter.";
         private List<Offer> TestData = new List<Offer>
         {
-            new Offer { Id = "offerId111", RealEstateId = "myRealEstateId1", OfferType = OfferType.Sale, AuthorId = "coolUniqueId1", IsDeleted = false, },
+            new Offer { Id = "offerId111", RealEstateId = "myRealEstateId1",
+                OfferType = OfferType.Sale, AuthorId = "coolUniqueId1",
+                AgentName = "Pesho",
+                OfferServiceInformation = "Some Owner telephone number 012345678",
+                IsDeleted = false },
+
             new Offer { Id = "offerId112", RealEstateId = "myRealEstateId2", OfferType = OfferType.Sale, AuthorId = "coolUniqueId2", IsDeleted = false},
+
             new Offer { Id = "offerId113", RealEstateId = "myRealEstateId3", OfferType = OfferType.Rental, AuthorId = "coolUniqueId3", IsDeleted = true },
         };
 
@@ -69,6 +75,8 @@ namespace HomeHunterTests
                 OfferType = "Продажба",
                 Comments = "Some important comments",
                 ContactNumber = "0888607796",
+                AgentName = "Pesho",
+                OfferServiceInformation = "Some Owner telephone number 012345678"
             };
 
             var actualResult = await serviceInstance.CreateOfferAsync(authorId, realEstateId, offerToAdd);
@@ -145,8 +153,10 @@ namespace HomeHunterTests
             var mappedOffer = mapper.Map<OfferEditServiceModel>(offerToEdit);
 
             string comment = "This brandly new comment";
+            string agentName = "Rado";
 
             mappedOffer.Comments = comment;
+            mappedOffer.AgentName = agentName;
 
             var serviceInstance = new OfferServices(context,
                 imageServices.Object,
@@ -159,7 +169,7 @@ namespace HomeHunterTests
             var actualResult = await serviceInstance.EditOfferAsync(mappedOffer);
  
             Assert.IsTrue(actualResult);
-            Assert.That(offerToEdit.Comments == comment);
+            Assert.That(offerToEdit.Comments == comment && offerToEdit.AgentName == agentName);
         }
 
         [Test]
@@ -215,6 +225,14 @@ namespace HomeHunterTests
                 x.CreateMap<Offer, OfferPlainDetailsServiceModel>();
                 x.CreateMap<Offer, OfferEditServiceModel>();
                 x.CreateMap<OfferEditServiceModel, Offer>();
+                x.CreateMap<OfferCreateServiceModel, Offer>()
+                    .ForMember(z => z.OfferType, y => y.Ignore())
+                    .ForMember(z => z.Author, y => y.Ignore())
+                    .ForMember(z => z.ReferenceNumber, y => y.Ignore())
+                    .ForMember(z => z.RealEstate, y => y.Ignore())
+                    .ForMember(z => z.RealEstateId, y => y.Ignore())
+                    .ForMember(z => z.Author, y => y.Ignore())
+                    .ForMember(z => z.AuthorId, y => y.Ignore());          
 
             });
 
