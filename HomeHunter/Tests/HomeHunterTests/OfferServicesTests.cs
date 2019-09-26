@@ -54,12 +54,10 @@ namespace HomeHunterTests
         [Test]
         public async Task CreateOfferShoulReturnTrue()
         {
-            var serviceInstance = new OfferServices(
-                context,
-                imageServices.Object,
+            var serviceInstance = new OfferServices(context, 
+                imageServices.Object, 
                 cloudinaryServices.Object,
                 userServices.Object,
-                realEstateServices.Object,
                 referenceNumberGenerator.Object,
                 mapper
                 );
@@ -85,7 +83,6 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
-                realEstateServices.Object,
                 referenceNumberGenerator.Object,
                 mapper
                 );
@@ -113,7 +110,6 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
-                realEstateServices.Object,
                 referenceNumberGenerator.Object,
                 mapper
                 );
@@ -133,7 +129,6 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
-                realEstateServices.Object,
                 referenceNumberGenerator.Object,
                 mapper
                 );
@@ -157,7 +152,6 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
-                realEstateServices.Object,
                 referenceNumberGenerator.Object,
                 mapper
                 );
@@ -184,7 +178,6 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
-                realEstateServices.Object,
                 referenceNumberGenerator.Object,
                 mapper
                 );
@@ -201,7 +194,6 @@ namespace HomeHunterTests
                 imageServices.Object,
                 cloudinaryServices.Object,
                 userServices.Object,
-                realEstateServices.Object,
                 referenceNumberGenerator.Object,
                 mapper
                 );

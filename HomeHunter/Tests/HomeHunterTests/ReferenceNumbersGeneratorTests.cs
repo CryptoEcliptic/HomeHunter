@@ -45,7 +45,7 @@ namespace HomeHunterTests
             },
         };
 
-        private HomeHunterDbContext context;
+        private readonly HomeHunterDbContext context;
 
         public ReferenceNumbersGeneratorTests()
         {
@@ -59,10 +59,7 @@ namespace HomeHunterTests
         [TestCase("Наем", "trex3", "100600")]
         public async Task CreateReferenceNumberForAppartmentsShouldReturnTrue(string offerType, string realEstateId, string expectedResult)
         {
-            var realEstateTypeServices = new Mock<IRealEstateTypeServices>();
-            var realEstateServices = new Mock<IRealEstateServices>();
-          
-            var referenceNumberGener = new ReferenceNumberGenerator(realEstateServices.Object, realEstateTypeServices.Object, this.context);
+            var referenceNumberGener = new ReferenceNumberGenerator(this.context);
             var actualResult = await referenceNumberGener.GenerateOfferReferenceNumber(offerType, realEstateId);
 
             Assert.That(expectedResult.Equals(actualResult), ExpectedTrueResultMessage, expectedResult, actualResult);
@@ -72,10 +69,7 @@ namespace HomeHunterTests
         [TestCase("Продажба", "trex5", "300300")]
         public async Task CreateReferenceNumberWhenMaxValueIsReachedShouldRetrunTrue(string offerType, string realEstateId, string expectedResult)
         {
-            var realEstateTypeServices = new Mock<IRealEstateTypeServices>();
-            var realEstateServices = new Mock<IRealEstateServices>();
-
-            var referenceNumberGener = new ReferenceNumberGenerator(realEstateServices.Object, realEstateTypeServices.Object, this.context);
+            var referenceNumberGener = new ReferenceNumberGenerator(this.context);
             var actualResult = await referenceNumberGener.GenerateOfferReferenceNumber(offerType, realEstateId);
 
             Assert.That(expectedResult.Equals(actualResult), ExpectedTrueResultMessage, expectedResult, actualResult);

@@ -15,17 +15,10 @@ namespace HomeHunter.Services.Helpers
         private const int SymbolsToTake = 4;
        
         private readonly HomeHunterDbContext context;
-        private readonly IRealEstateServices realEstateServices;
-        private readonly IRealEstateTypeServices realEstateTypeServices;
 
-        public ReferenceNumberGenerator(
-            IRealEstateServices realEstateServices,
-            IRealEstateTypeServices realEstateTypeServices,
-            HomeHunterDbContext context)
+        public ReferenceNumberGenerator(HomeHunterDbContext context)
         {
             this.context = context;
-            this.realEstateServices = realEstateServices;
-            this.realEstateTypeServices = realEstateTypeServices;
         }
 
         public async Task<string> GenerateOfferReferenceNumber(string offerType, string estateId)

@@ -27,7 +27,6 @@ namespace HomeHunter.Services
         private readonly IImageServices imageServices;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IUserServices userServices;
-        private readonly IRealEstateServices realEstateServices;
         private readonly IReferenceNumberGenerator referenceNumberGenerator;
 
         private readonly IMapper mapper;
@@ -36,7 +35,6 @@ namespace HomeHunter.Services
            IImageServices imageServices,
            ICloudinaryService cloudinaryService,
            IUserServices userServices,
-           IRealEstateServices realEstateServices,
            IReferenceNumberGenerator referenceNumberGenerator,
            IMapper mapper)
         {
@@ -44,7 +42,6 @@ namespace HomeHunter.Services
             this.imageServices = imageServices;
             this.cloudinaryService = cloudinaryService;
             this.userServices = userServices;
-            this.realEstateServices = realEstateServices;
             this.referenceNumberGenerator = referenceNumberGenerator;
             this.mapper = mapper;
         }
