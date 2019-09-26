@@ -22,5 +22,12 @@ namespace HomeHunter.Models.BindingModels.Offer
         [RegularExpression(GlobalConstants.PhoneValidationRegex, ErrorMessage = ValidPhoneNumberErrorMessage)]
         public string ContactNumber { get; set; }
 
+        [Display(Name = "Водещ брокер")]
+        [MaxLength(64, ErrorMessage = FieldLengthRequirementMessage)]
+        public string AgentName { get; set; }
+
+        [Display(Name = "Служебна информация")]
+        [MaxLength(1024, ErrorMessage = FieldLengthRequirementMessage)]
+        public string OfferServiceInformation { get; set; }
     }
 }

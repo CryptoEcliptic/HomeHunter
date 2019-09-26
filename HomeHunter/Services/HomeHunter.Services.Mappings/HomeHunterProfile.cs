@@ -149,6 +149,16 @@ namespace HomeHunter.Infrastructure
                 .ForMember(x => x.Id, y => y.Ignore())
                 .ForMember(x => x.OfferType, y => y.Ignore());
 
+            this.CreateMap<OfferCreateServiceModel, Offer>()
+               .ForMember(x => x.OfferType, y => y.Ignore())
+               .ForMember(x => x.Author, y => y.Ignore())
+               .ForMember(x => x.ReferenceNumber, y => y.Ignore())
+               .ForMember(x => x.RealEstate, y => y.Ignore())
+               .ForMember(x => x.RealEstateId, y => y.Ignore())
+               .ForMember(x => x.Author, y => y.Ignore())
+               .ForMember(x => x.AuthorId, y => y.Ignore())
+               ;
+
             #endregion
 
             #region RealEstate Mappings

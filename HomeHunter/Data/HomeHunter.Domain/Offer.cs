@@ -15,6 +15,10 @@ namespace HomeHunter.Domain
 
         public string ContactNumber { get; set; }
 
+        public string AgentName { get; set; }
+
+        public string OfferServiceInformation { get; set; }
+
         [Required]
         public string AuthorId { get; set; }
         public HomeHunterUser Author { get; set; }

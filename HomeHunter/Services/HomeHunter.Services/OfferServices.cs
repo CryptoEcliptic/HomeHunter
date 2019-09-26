@@ -57,18 +57,13 @@ namespace HomeHunter.Services
 
             string referenceNumber = await this.referenceNumberGenerator.GenerateOfferReferenceNumber(model.OfferType, estateId);
             var author = await this.userServices.GetUserById(authorId);
-
-            var offer = new Offer
-            {
-                AuthorId = authorId,
-                Author = author,
-                RealEstateId = estateId,
-                Comments = model.Comments,
-                ContactNumber = model.ContactNumber,
-                OfferType = parsedEnum,
-                ReferenceNumber = referenceNumber,
-            };
-
+            var offer = this.mapper.Map<Offer>(model);
+            offer.Author = author;
+            offer.AuthorId = authorId;
+            offer.RealEstateId = estateId;
+            offer.OfferType = parsedEnum;
+            offer.ReferenceNumber = referenceNumber;
+           
             await this.context.Offers.AddAsync(offer);
             var changedRows = await this.context.SaveChangesAsync();
 

@@ -13,7 +13,8 @@ namespace HomeHunter.Services.Helpers
         private const string StartSaleRefNumberDigit = "30";
         private const string StartRentRefNumberDigit = "10";
         private const int SymbolsToTake = 4;
-       
+        private const int RefNumberIncrementationStep = 1;
+
         private readonly HomeHunterDbContext context;
 
         public ReferenceNumberGenerator(HomeHunterDbContext context)
@@ -41,7 +42,7 @@ namespace HomeHunter.Services.Helpers
             }
             else
             {
-                int currentRefNumberAsInt = int.Parse(previousReferenceNumber) + 1;
+                int currentRefNumberAsInt = int.Parse(previousReferenceNumber) + RefNumberIncrementationStep;
                 currentReferenceNumber = currentRefNumberAsInt.ToString();
                 return currentReferenceNumber;
             }

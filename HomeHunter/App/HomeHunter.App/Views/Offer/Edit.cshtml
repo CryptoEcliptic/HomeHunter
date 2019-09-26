@@ -36,6 +36,18 @@
                 <span asp-validation-for="ContactNumber" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <label asp-for="AgentName" class="control-label"></label>
+                <input asp-for="AgentName" class="form-control" id="AgentName" />
+                <span asp-validation-for="AgentName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OfferServiceInformation" class="control-label"></label>
+                <textarea asp-for="OfferServiceInformation" class="form-control" rows="5" style="background-color: aquamarine"></textarea>
+                <span asp-validation-for="OfferServiceInformation" class="text-danger"></span>
+            </div>
+
             <div class="form-group d-flex justify-content-around">
                 <a type="button" asp-action="Index" class="btn btn-alert-h btn-sm" style="border-radius:5px; width:180px">Откажи</a>
                 <input type="submit" value="Продължи" class="btn btn-info-h btn-sm" />
