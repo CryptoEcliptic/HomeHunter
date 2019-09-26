@@ -38,7 +38,6 @@ namespace HomeHunterTests
         {
             this.context = InMemoryDatabase.GetDbContext();
             this.SeedData();
-
         }
 
         [Test]

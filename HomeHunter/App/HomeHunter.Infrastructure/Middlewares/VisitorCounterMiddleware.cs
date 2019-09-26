@@ -25,7 +25,7 @@ namespace HomeHunter.Infrastructure.Middlewares
                 {
                     Path = "/",
                     HttpOnly = true,
-                    Secure = false,
+                    Secure = true,
                 });
             }
             await this.requestDelegate(context);

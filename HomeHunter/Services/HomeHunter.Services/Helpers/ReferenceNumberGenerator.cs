@@ -12,7 +12,7 @@ namespace HomeHunter.Services.Helpers
     {
         private const string StartSaleRefNumberDigit = "30";
         private const string StartRentRefNumberDigit = "10";
-        private const int SymbolsToSkip = 2;
+        private const int SymbolsToTake = 4;
        
         private readonly HomeHunterDbContext context;
         private readonly IRealEstateServices realEstateServices;
@@ -28,22 +28,24 @@ namespace HomeHunter.Services.Helpers
             this.realEstateTypeServices = realEstateTypeServices;
         }
 
-        public async Task<string> GenerateOfferId(string offerType, string estateId)
+        public async Task<string> GenerateOfferReferenceNumber(string offerType, string estateId)
         {
-            var realEstate = await this.realEstateServices.GetDetailsAsync(estateId);
-            var realEstateType = await this.realEstateTypeServices.GetRealEstateTypeByNameAsync(realEstate.RealEstateType);
+            var realEstate = await this.context.RealEstates
+                .Include(x => x.RealEstateType)
+                .FirstOrDefaultAsync(x => x.Id == estateId);
+
+            var realEstateType = realEstate.RealEstateType;
 
             var currentReferenceNumber = offerType == GlobalConstants.OfferTypeSaleName ? StartSaleRefNumberDigit : StartRentRefNumberDigit;
+            var previousReferenceNumber = await this.GetLastReferenceNumberDigits(offerType, realEstateType.TypeName);
 
-            var previousReferenceNumber = await this.GetLastReferenceNumber(offerType, realEstate.RealEstateType);
-            string lastDigitsOfPreviousReferenceNumber = previousReferenceNumber != null ? previousReferenceNumber.Skip(SymbolsToSkip).ToString() : null;
+            string lastDigitsOfPreviousReferenceNumber = previousReferenceNumber != null ? previousReferenceNumber.Substring(previousReferenceNumber.Length - SymbolsToTake).ToString() : null;
 
-            if (previousReferenceNumber == null || realEstateType.MaxReferenceNumber == lastDigitsOfPreviousReferenceNumber)
+            if (lastDigitsOfPreviousReferenceNumber == null || realEstateType.MaxReferenceNumber == lastDigitsOfPreviousReferenceNumber)
             {
                 currentReferenceNumber += realEstateType.MinReferenceNumber;
                 return currentReferenceNumber;
             }
-            
             else
             {
                 int currentRefNumberAsInt = int.Parse(previousReferenceNumber) + 1;
@@ -52,14 +54,14 @@ namespace HomeHunter.Services.Helpers
             }
         }
 
-        private async Task<string> GetLastReferenceNumber(string offerType, string estateType)
+        private async Task<string> GetLastReferenceNumberDigits(string offerType, string estateType)
         {
             OfferType parsedEnum = offerType == GlobalConstants.OfferTypeSaleName ? OfferType.Sale : OfferType.Rental;
 
             var offer = await this.context.Offers
-           .Include(x => x.RealEstate)
-           .OrderBy(x => x.CreatedOn)
-           .LastOrDefaultAsync(x => x.RealEstate.RealEstateType.TypeName == estateType
+                .Include(x => x.RealEstate)
+                .OrderBy(x => x.CreatedOn)
+                .LastOrDefaultAsync(x => x.RealEstate.RealEstateType.TypeName == estateType
                     && x.OfferType == parsedEnum);
 
             var lastRefNumber = offer != null ? offer.ReferenceNumber : null;

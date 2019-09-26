@@ -7,6 +7,6 @@ namespace HomeHunter.Services.Helpers
 {
     public interface IReferenceNumberGenerator
     {
-        Task<string> GenerateOfferId(string offerType, string estateId);
+        Task<string> GenerateOfferReferenceNumber(string offerType, string estateId);
     }
 }

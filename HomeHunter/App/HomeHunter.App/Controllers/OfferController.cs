@@ -6,6 +6,7 @@ using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Offer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -21,15 +22,21 @@ namespace HomeHunter.App.Controllers
         private readonly IMapper mapper;
         private readonly IOfferServices offerServices;
         private readonly SignInManager<HomeHunterUser> signInManager;
+        private readonly IVisitorSessionServices visitorSessionServices;
+        private readonly IHttpContextAccessor accessor;
 
         public OfferController(
             IMapper mapper,
             IOfferServices offerServices,
-            SignInManager<HomeHunterUser> signInManager)
+            SignInManager<HomeHunterUser> signInManager,
+            IVisitorSessionServices visitorSessionServices,
+            IHttpContextAccessor accessor)
         {
             this.mapper = mapper;
             this.offerServices = offerServices;
             this.signInManager = signInManager;
+            this.visitorSessionServices = visitorSessionServices;
+            this.accessor = accessor;
         }
 
 
@@ -59,6 +66,10 @@ namespace HomeHunter.App.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> IndexSales()
         {
+            var ip = this.accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            string visitorId = HttpContext.Request.Cookies["VisitorId"];
+            await this.visitorSessionServices.AddSessionInTheDb(ip, visitorId);
+
             var condition = OfferType.Sale;
 
             var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
@@ -70,6 +81,10 @@ namespace HomeHunter.App.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> IndexRentals()
         {
+            var ip = this.accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            string visitorId = HttpContext.Request.Cookies["VisitorId"];
+            await this.visitorSessionServices.AddSessionInTheDb(ip, visitorId);
+
             var condition = OfferType.Rental;
 
             var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);

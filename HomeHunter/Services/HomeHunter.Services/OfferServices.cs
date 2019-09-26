@@ -58,7 +58,7 @@ namespace HomeHunter.Services
 
             OfferType parsedEnum = model.OfferType == GlobalConstants.OfferTypeSaleName ? OfferType.Sale : OfferType.Rental;
 
-            string referenceNumber = await this.referenceNumberGenerator.GenerateOfferId(model.OfferType, estateId);
+            string referenceNumber = await this.referenceNumberGenerator.GenerateOfferReferenceNumber(model.OfferType, estateId);
             var author = await this.userServices.GetUserById(authorId);
 
             var offer = new Offer

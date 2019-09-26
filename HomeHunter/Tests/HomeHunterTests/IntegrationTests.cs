@@ -1,11 +1,7 @@
 ﻿using HomeHunter.App;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HomeHunterTests
@@ -48,6 +44,18 @@ namespace HomeHunterTests
         }
 
         [Test]
+        public async Task LoginPageShouldReturn200OK()
+        {
+            var expectedHtml = "<h4>Вход</h4>";
+            var testAddress = "/Identity/Account/Login";
+
+            var response = await client.GetAsync(testAddress);
+            var html = await response.Content.ReadAsStringAsync();
+            response.EnsureSuccessStatusCode();
+            StringAssert.Contains(expectedHtml, html);
+        }
+
+        [Test]
         public async Task OfferIndexSaleInvalidUrlShouldReturn404NotFound()
         {
             var testAddress = "/Offer/IndexSale";
@@ -55,6 +63,18 @@ namespace HomeHunterTests
             var response = await client.GetAsync(testAddress);
             response.StatusCode.Equals(404);
 
+        }
+
+        [Test]
+        public async Task UnauthorisedAdministrationAccessShouldReturnLoginPage()
+        {
+            var expectedHtml = "<h4>Вход</h4>";
+            var testAddress = "/Administration";
+
+            var response = await client.GetAsync(testAddress);
+            var html = await response.Content.ReadAsStringAsync();
+
+            StringAssert.Contains(expectedHtml, html);
         }
     }
 }
