@@ -58,6 +58,10 @@ namespace HomeHunter.Services.Models.Offer
 
         public decimal PricePerSquareMeter { get; set; }
 
+        public string AgentName { get; set; }
+
+        public string OfferServiceInformation { get; set; }
+
         public List<string> Images { get; set; }
     }
 }
