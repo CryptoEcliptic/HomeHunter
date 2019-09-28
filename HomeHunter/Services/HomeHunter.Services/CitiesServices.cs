@@ -18,11 +18,13 @@ namespace HomeHunter.Services
         public async Task<IQueryable<CityServiceModel>> GetAllCitiesAsync()
         {
             var cities = Task.Run(() => this.context.Cities
+                .OrderBy(x => x.CreatedOn)
                 .Select(x => new CityServiceModel
                 {
                     Name = x.Name,
-                }));
-
+                }))
+               ;
+               
             return await cities;
         }
 

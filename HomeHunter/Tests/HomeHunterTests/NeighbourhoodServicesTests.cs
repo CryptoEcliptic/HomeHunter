@@ -2,12 +2,9 @@
 using HomeHunter.Domain;
 using HomeHunter.Services;
 using HomeHunterTests.Common;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HomeHunterTests
@@ -15,7 +12,6 @@ namespace HomeHunterTests
     [TestFixture]
     public class NeighbourhoodServicesTests
     {
-        private const string ResultCountMismatchMessage = "Expected test result should be 3";
         private const string NeighbourhoodNameMismatchMessage = "Returned neighbourhood name does not match with the expected one!";
 
         private const string NeighbourhoodCountMismatchMessage = "Expected neighbourhoods count defers from actual one!";
@@ -24,7 +20,7 @@ namespace HomeHunterTests
         {
             new Neighbourhood { Name = "Дружба", City = new City{ Name= "София", Id= 500} },
             new Neighbourhood { Name = "Младост", CityId = 500,},
-            new Neighbourhood { Name = "Люлин",},
+            new Neighbourhood { Name = "Люлин", CityId = 500},
         };
         private HomeHunterDbContext context;
 
@@ -32,19 +28,6 @@ namespace HomeHunterTests
         {
             this.context = InMemoryDatabase.GetDbContext();
             this.SeedData();
-        }
-
-        [Test]
-        public async Task GetAllNeighbourhoodsCountShouldReturnThree()
-        {
-            var service = new NeighbourhoodServices(context);
-            var allNeighbourhoods = await service.GetAllNeighbourhoodsAsync();
-
-            int numberOftypes = allNeighbourhoods.AsQueryable().Count();
-            var expectedResultCount = 3;
-
-            Assert.That(numberOftypes, Is.EqualTo(expectedResultCount), ResultCountMismatchMessage);
-            Assert.That(TestDataNeibourhoods.FirstOrDefault().Name == allNeighbourhoods.FirstOrDefault().Name);
         }
 
         [Theory]
@@ -61,7 +44,7 @@ namespace HomeHunterTests
         }
 
         [Theory]
-        [TestCase("София", 2)]
+        [TestCase("София", 3)]
         [TestCase("Париж", 0)]
         [TestCase(null, 0)]
         public async Task GetNeighbourhoodByCityNameShouldReturnNeighbourhoodOrNull(string name, int expectedResult)
@@ -70,7 +53,7 @@ namespace HomeHunterTests
             var neighbourhoods = await service.GetNeighbourhoodsByCityAsync(name);
             var actualResult = neighbourhoods == null ? 0 : neighbourhoods.AsQueryable().Count();
 
-            Assert.That(actualResult == expectedResult, NeighbourhoodCountMismatchMessage);     
+            Assert.That(actualResult == expectedResult, NeighbourhoodCountMismatchMessage);
         }
 
         private void SeedData()

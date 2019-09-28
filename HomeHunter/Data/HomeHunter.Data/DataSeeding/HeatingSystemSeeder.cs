@@ -10,9 +10,6 @@ namespace HomeHunter.Data.DataSeeding
     {
         private readonly string[] HeatingSystemsList = new string[] {
             "ТЕЦ",
-            "Ток",
-            "Природен газ",
-            "Твърдо гориво",
             "Локално отопление"
         };
 

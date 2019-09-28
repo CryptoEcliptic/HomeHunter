@@ -2,7 +2,6 @@
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Neighbourhood;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,11 +14,6 @@ namespace HomeHunter.Services
         public NeighbourhoodServices(HomeHunterDbContext context)
         {
             this.context = context;
-        }
-
-        public async Task<List<Neighbourhood>> GetAllNeighbourhoodsAsync()
-        {
-            return await Task.Run(() => this.context.Neighbourhoods.ToList());
         }
 
         public async Task<Neighbourhood> GetNeighbourhoodByNameAsync(string name)
@@ -40,7 +34,7 @@ namespace HomeHunter.Services
 
             var neighbourhoodsFromDb = Task.Run(() =>  this.context.Neighbourhoods
                 .Where(x => x.City.Name == cityName)
-                .OrderBy(x => x.Name)
+                .OrderBy(x => x.CreatedOn)
                 .Select(x => new NeighbourhoodServiceModel
                 {
                     Name = x.Name,
