@@ -28,9 +28,11 @@ namespace HomeHunter.Services
             this.realEstateServices = realEstateServices;
         }
 
-        public async Task<bool> AddImageAsync(string publikKey, string url, string estateId, bool isIndexImage)
+        public async Task<bool> AddImageAsync(string publicKey, string url, string estateId, int sequence)
         {
-            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(estateId) || string.IsNullOrEmpty(publikKey))
+            List<Image> images = new List<Image>();
+
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(estateId) || string.IsNullOrEmpty(publicKey))
             {
                 throw new ArgumentNullException(InvalidImageParamsMessage);
             }
@@ -39,11 +41,13 @@ namespace HomeHunter.Services
             {
                 Url = url,
                 RealEstateId = estateId,
-                Id = publikKey,
-                IsIndexPicture = isIndexImage,
+                Id = publicKey,
+                Sequence = sequence,
             };
 
-            await this.context.Images.AddAsync(image);
+            images.Add(image);
+
+            await this.context.Images.AddRangeAsync(images);
             await this.context.SaveChangesAsync();
 
             return true;
@@ -109,7 +113,7 @@ namespace HomeHunter.Services
                 Url = url,
                 RealEstateId = estateId,
                 Id = publicKey,
-                IsIndexPicture = isIndexImage,
+                //IsIndexPicture = isIndexImage,
             };
 
             await this.context.Images.AddAsync(image);

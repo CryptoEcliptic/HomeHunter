@@ -11,7 +11,7 @@ namespace HomeHunter.Services.Contracts
 
         Task<IEnumerable<OfferIndexServiceModel>> GetAllActiveOffersAsync(OfferType? condition = null);
 
-        Task<IEnumerable<OfferIndexDeactivatedServiceModel>> GetAllDeactivatedOffersAsync();
+        Task<IEnumerable<OfferIndexDeactivatedServiceModel>> GetAllDeletedOffersAsync();
 
         Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id);
 

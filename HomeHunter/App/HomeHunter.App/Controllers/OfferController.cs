@@ -54,7 +54,7 @@ namespace HomeHunter.App.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexDeleted()
         {
-            var offerIndexServiceModel = await this.offerServices.GetAllDeactivatedOffersAsync();
+            var offerIndexServiceModel = await this.offerServices.GetAllDeletedOffersAsync();
 
             var offerIndexViewModel = this.mapper.Map<IEnumerable<OfferIndexViewModel>>(offerIndexServiceModel);
             this.ViewData["Deactivated"] = true;

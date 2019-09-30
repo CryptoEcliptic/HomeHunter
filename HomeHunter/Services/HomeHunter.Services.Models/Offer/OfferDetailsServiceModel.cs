@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HomeHunter.Services.Models.Image;
+using System.Collections.Generic;
 
 namespace HomeHunter.Services.Models.Offer
 {

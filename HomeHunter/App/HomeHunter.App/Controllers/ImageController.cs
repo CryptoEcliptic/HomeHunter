@@ -52,20 +52,15 @@ namespace HomeHunter.App.Controllers
             {
                 if (this.imageServices.ImagesCount(id) < GlobalConstants.ImageUploadLimit)
                 {
-                    int index = 1;
+                    int sequence = 1;
                     foreach (var image in model.Images)
                     {
                         var imageId = Guid.NewGuid().ToString();
-                        bool isIndexImage = false;
 
-                        if (index == 1)
-                        {
-                            isIndexImage = true;
-                        }
                         var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
-                        var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageUrl, id, isIndexImage);
+                        var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageUrl, id, sequence);
 
-                        index++;
+                        sequence++;
                     }
                 }
             }

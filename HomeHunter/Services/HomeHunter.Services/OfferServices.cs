@@ -118,7 +118,7 @@ namespace HomeHunter.Services
             }
         }
 
-        public async Task<IEnumerable<OfferIndexDeactivatedServiceModel>> GetAllDeactivatedOffersAsync()
+        public async Task<IEnumerable<OfferIndexDeactivatedServiceModel>> GetAllDeletedOffersAsync()
         {
             var activeOffers = await context.Offers
                 .Where(z => z.IsDeleted == true)
@@ -156,6 +156,9 @@ namespace HomeHunter.Services
                 .Include(r => r.RealEstate)
                     .ThenInclude(r => r.Address.Village)
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            var images = await this.GetAndSortImages(offer.RealEstateId);
+            offer.RealEstate.Images = images;
 
             if (offer == null)
             {
@@ -281,6 +284,14 @@ namespace HomeHunter.Services
             }
 
             return changedRows;
+        }
+
+        private async Task <List<Image>> GetAndSortImages(string realEstateId)
+        {
+            return await this.context.Images
+                .Where(x => x.RealEstateId == realEstateId)
+                .OrderBy(x => x.Sequence)
+                .ToListAsync();
         }
 
        

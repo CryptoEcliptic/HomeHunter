@@ -46,37 +46,37 @@ namespace HomeHunterTests
             this.SeedData();
         }
 
-        [Test]
-        public async Task AddImageToTheDbShouldReturnTrue()
-        {
-            var mapper = this.GetMapper();
-            var realEstateServices = new Mock<IRealEstateServices>();
+        //[Test]
+        //public async Task AddImageToTheDbShouldReturnTrue()
+        //{
+        //    var mapper = this.GetMapper();
+        //    var realEstateServices = new Mock<IRealEstateServices>();
 
-            var imageServices = new ImageServices(context, mapper, realEstateServices.Object);
-            string publicKey = "myCoolPublicKey";
-            string url = @"https://res.cloudinary.com/home-hunter-cloud/image/upload/v1566894195/RealEstates/087f784b-a79a-42ae-8782-58958345edaa.jpg";
-            string realEstateId = "myniqueRealEstateId1";
-            bool isIndexImage = false;
+        //    var imageServices = new ImageServices(context, mapper, realEstateServices.Object);
+        //    string publicKey = "myCoolPublicKey";
+        //    string url = @"https://res.cloudinary.com/home-hunter-cloud/image/upload/v1566894195/RealEstates/087f784b-a79a-42ae-8782-58958345edaa.jpg";
+        //    string realEstateId = "myniqueRealEstateId1";
+        //    bool isIndexImage = false;
 
-            var actualResult = await imageServices.AddImageAsync(publicKey, url, realEstateId, isIndexImage);
+        //    var actualResult = await imageServices.AddImageAsync(publicKey, url, realEstateId, isIndexImage);
 
-            Assert.IsTrue(actualResult, ExpectedTrueResultMessage);
-        }
+        //    Assert.IsTrue(actualResult, ExpectedTrueResultMessage);
+        //}
 
-        [Test]
-        public void AddImageWithImvalidParametersShouldThrowAnAxception()
-        {
-            var mapper = this.GetMapper();
-            var realEstateServices = new Mock<IRealEstateServices>();
+        //[Test]
+        //public void AddImageWithImvalidParametersShouldThrowAnAxception()
+        //{
+        //    var mapper = this.GetMapper();
+        //    var realEstateServices = new Mock<IRealEstateServices>();
 
-            var imageServices = new ImageServices(context, mapper, realEstateServices.Object);
-            string invalidPublicKey = null;
-            string url = @"https://res.cloudinary.com/home-hunter-cloud/image/upload/v1566894195/RealEstates/087f784b-a79a-42ae-8782-58958345edaa.jpg";
-            string realEstateId = "myniqueRealEstateId1";
-            bool isIndexImage = false;
+        //    var imageServices = new ImageServices(context, mapper, realEstateServices.Object);
+        //    string invalidPublicKey = null;
+        //    string url = @"https://res.cloudinary.com/home-hunter-cloud/image/upload/v1566894195/RealEstates/087f784b-a79a-42ae-8782-58958345edaa.jpg";
+        //    string realEstateId = "myniqueRealEstateId1";
+        //    bool isIndexImage = false;
 
-            Assert.ThrowsAsync<ArgumentNullException>(() => imageServices.AddImageAsync(invalidPublicKey, url, realEstateId, isIndexImage), ExceptionMessage);
-        }
+        //    Assert.ThrowsAsync<ArgumentNullException>(() => imageServices.AddImageAsync(invalidPublicKey, url, realEstateId, isIndexImage), ExceptionMessage);
+        //}
      
         [Test]
         public void LoadRealEstateImagesByRealEstateIdShouldReturnImages()

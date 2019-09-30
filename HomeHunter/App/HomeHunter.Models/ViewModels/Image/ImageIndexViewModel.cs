@@ -8,6 +8,6 @@ namespace HomeHunter.Models.ViewModels.Image
     {
         public string Url { get; set; }
 
-        public bool IsIndexPicture { get; set; }
+        public int Sequence { get; set; }
     }
 }
