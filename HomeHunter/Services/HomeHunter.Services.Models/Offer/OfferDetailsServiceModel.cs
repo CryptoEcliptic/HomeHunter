@@ -32,15 +32,19 @@ namespace HomeHunter.Services.Models.Offer
 
         public string HeatingSystem { get; set; }
 
-        public bool ParkingPlace { get; set; }
+        public bool? ParkingPlace { get; set; }
 
-        public bool Yard { get; set; }
+        public bool? Garage { get; set; }
 
-        public bool MetroNearBy { get; set; }
+        public bool? Yard { get; set; }
 
-        public bool Balcony { get; set; }
+        public bool? Furnitures { get; set; }
 
-        public bool CellingOrBasement { get; set; }
+        public bool? Elevator { get; set; }
+
+        public bool? Celling { get; set; }
+
+        public bool? Basement { get; set; }
 
         public string CreatedOn { get; set; }
 

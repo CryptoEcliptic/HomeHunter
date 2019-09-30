@@ -64,25 +64,34 @@ namespace HomeHunter.Infrastructure
 
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsViewModel>()
                 .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.CellingOrBasement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Celling, y => y.MapFrom(z => z.Celling == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
                 .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue));
+                .ForMember(x => x.Basement, y => y.MapFrom(z => z.Basement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Elevator, y => y.MapFrom(z => z.Elevator == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Furnitures, y => y.MapFrom(z => z.Furnitures == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Garage, y => y.MapFrom(z => z.Garage == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                ;
+               
 
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsDeactivatedViewModel>()
                 .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.CellingOrBasement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Celling, y => y.MapFrom(z => z.Celling == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
                 .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Basement, y => y.MapFrom(z => z.Basement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Elevator, y => y.MapFrom(z => z.Elevator == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Furnitures, y => y.MapFrom(z => z.Furnitures == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Garage, y => y.MapFrom(z => z.Garage == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
                 ;
 
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsGuestViewModel>()
-                .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.CellingOrBasement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                  .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Celling, y => y.MapFrom(z => z.Celling == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
                 .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.MetroNearBy == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
-                .ForMember(x => x.Balcony, y => y.MapFrom(z => z.Balcony == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue));
+                .ForMember(x => x.Basement, y => y.MapFrom(z => z.Basement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Elevator, y => y.MapFrom(z => z.Elevator == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Furnitures, y => y.MapFrom(z => z.Furnitures == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.Garage, y => y.MapFrom(z => z.Garage == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                ;
 
             this.CreateMap<OfferIndexServiceModel, OfferIndexGuestViewModel>()
                 .ForMember(x => x.Images, y => y.MapFrom(z => z.Images));
@@ -120,9 +129,11 @@ namespace HomeHunter.Infrastructure
                 .ForMember(x => x.HeatingSystem, y => y.MapFrom(z => z.RealEstate.HeatingSystem.Name))
                 .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.RealEstate.ParkingPlace))
                 .ForMember(x => x.Yard, y => y.MapFrom(z => z.RealEstate.Yard))
-                //.ForMember(x => x.Balcony, y => y.MapFrom(z => z.RealEstate.Balcony))
-                //.ForMember(x => x.MetroNearBy, y => y.MapFrom(z => z.RealEstate.MetroNearBy))
-                //.ForMember(x => x.CellingOrBasement, y => y.MapFrom(z => z.RealEstate.CellingOrBasement))
+                .ForMember(x => x.Basement, y => y.MapFrom(z => z.RealEstate.Basement))
+                .ForMember(x => x.Elevator, y => y.MapFrom(z => z.RealEstate.Elevator))
+                .ForMember(x => x.Garage, y => y.MapFrom(z => z.RealEstate.Garage))
+                .ForMember(x => x.Celling, y => y.MapFrom(z => z.RealEstate.Celling))
+                .ForMember(x => x.Furnitures, y => y.MapFrom(z => z.RealEstate.Furnitures))
                 .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == OfferType.Sale ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName))
                 .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                  .ForMember(x => x.DeletedOn, y => y.MapFrom(z => z.DeletedOn == null ? GlobalConstants.NotAvailableMessage : z.DeletedOn.Value.ToString(GlobalConstants.DateTimeVisualizationFormat)))
