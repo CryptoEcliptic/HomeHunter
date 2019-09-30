@@ -52,7 +52,7 @@ namespace HomeHunter.App.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> IndexDeactivated()
+        public async Task<IActionResult> IndexDeleted()
         {
             var offerIndexServiceModel = await this.offerServices.GetAllDeactivatedOffersAsync();
 
@@ -115,7 +115,7 @@ namespace HomeHunter.App.Controllers
         }
         //GET: Offer/Details/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DetailsDeactivated(string id)
+        public async Task<IActionResult> DetailsDeleted(string id)
         {
             if (id == null)
             {
@@ -123,7 +123,7 @@ namespace HomeHunter.App.Controllers
             }
 
             var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
-            var offerDetailViewModel = this.mapper.Map<OfferDetailsDeactivatedViewModel>(offerDetailsServiceModel);
+            var offerDetailViewModel = this.mapper.Map<OfferDetailsDeletedViewModel>(offerDetailsServiceModel);
 
             return View(offerDetailViewModel);
         }

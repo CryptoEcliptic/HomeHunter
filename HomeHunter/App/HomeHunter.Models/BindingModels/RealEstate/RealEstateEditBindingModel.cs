@@ -43,20 +43,26 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         [BeforeCurrentYear(1900)]
         public int? Year { get; set; }
 
-        [Display(Name = "Паркомясто/Гараж")]
-        public bool ParkingPlace { get; set; }
+        [Display(Name = "Паркомясто")]
+        public bool? ParkingPlace { get; set; }
+
+        [Display(Name = "Гараж")]
+        public bool? Garage { get; set; }
 
         [Display(Name = "Двор")]
-        public bool Yard { get; set; }
+        public bool? Yard { get; set; }
 
-        [Display(Name = "Достъп до метро")]
-        public bool MetroNearBy { get; set; }
+        [Display(Name = "Обзаведен")]
+        public bool? Furnitures { get; set; }
 
-        [Display(Name = "Тераса")]
-        public bool Balcony { get; set; }
+        [Display(Name = "Асансьор")]
+        public bool? Elevator { get; set; }
 
-        [Display(Name = "Мазе/Таван")]
-        public bool CellingOrBasement { get; set; }
+        [Display(Name = "Таван")]
+        public bool? Celling { get; set; }
+
+        [Display(Name = "Мазе")]
+        public bool? Basement { get; set; }
 
 
         [Display(Name = "Адрес/Местоположение *")]

@@ -73,7 +73,7 @@ namespace HomeHunter.Infrastructure
                 ;
                
 
-            this.CreateMap<OfferDetailsServiceModel, OfferDetailsDeactivatedViewModel>()
+            this.CreateMap<OfferDetailsServiceModel, OfferDetailsDeletedViewModel>()
                 .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
                 .ForMember(x => x.Celling, y => y.MapFrom(z => z.Celling == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
                 .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))

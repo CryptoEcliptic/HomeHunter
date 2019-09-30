@@ -8,7 +8,7 @@
 <div class="index-table-container paddingElement">
     @if ((bool)this.ViewData["Deactivated"] == true)
     {
-        <h3>Свалени обяви</h3>
+        <h3>Изтрити обяви</h3>
         <p>
             <a asp-area="Administration" asp-action="Index" asp-controller="Home">Назад</a>
         </p>
@@ -98,7 +98,7 @@
                             @Html.DisplayFor(modelItem => item.DeletedOn)
                         </td>
                         <td>
-                            <a asp-action="DetailsDeactivated" asp-route-id="@item.Id">Детайли</a>
+                            <a asp-action="DetailsDeleted" asp-route-id="@item.Id">Детайли</a>
                         </td>
                     }
                     else

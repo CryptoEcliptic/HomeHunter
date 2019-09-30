@@ -1,4 +1,4 @@
-﻿@model HomeHunter.Models.ViewModels.Offer.OfferDetailsDeactivatedViewModel;
+﻿@model HomeHunter.Models.ViewModels.Offer.OfferDetailsDeletedViewModel;
 @{
     ViewData["Title"] = "DetailsDeactivated";
     Layout = "~/Areas/Administration/Views/Shared/_LayoutAdmin.cshtml";
@@ -75,28 +75,44 @@
                     <td>@Html.DisplayFor(model => model.HeatingSystem)</td>
                 </tr>
                 <tr>
+                    <th>@Html.DisplayNameFor(model => model.Elevator)</th>
+                    <td>@Html.DisplayFor(model => model.Elevator)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Furnitures)</th>
+                    <td>@Html.DisplayFor(model => model.Furnitures)</td>
+                </tr>
+                <tr>
                     <th>@Html.DisplayNameFor(model => model.ParkingPlace)</th>
                     <td>@Html.DisplayFor(model => model.ParkingPlace)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Garage)</th>
+                    <td>@Html.DisplayFor(model => model.Garage)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Basement)</th>
+                    <td>@Html.DisplayFor(model => model.Basement)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Celling)</th>
+                    <td>@Html.DisplayFor(model => model.Celling)</td>
                 </tr>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.Yard)</th>
                     <td>@Html.DisplayFor(model => model.Yard)</td>
                 </tr>
-                @*<tr>
-                    <th>@Html.DisplayNameFor(model => model.MetroNearBy)</th>
-                    <td>@Html.DisplayFor(model => model.MetroNearBy)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Balcony)</th>
-                    <td>@Html.DisplayFor(model => model.Balcony)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.CellingOrBasement)</th>
-                    <td>@Html.DisplayFor(model => model.CellingOrBasement)</td>
-                </tr>*@
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.Comments)</th>
                     <td>@Html.DisplayFor(model => model.Comments)</td>
+                </tr>
+                <tr>
+                    <th class="offer-service-field">@Html.DisplayNameFor(model => model.OfferServiceInformation)</th>
+                    <td class="offer-service-field">@Html.DisplayFor(model => model.OfferServiceInformation)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.AgentName)</th>
+                    <td>@Html.DisplayFor(model => model.AgentName)</td>
                 </tr>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.ContactNumber)</th>

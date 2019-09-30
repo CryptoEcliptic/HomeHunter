@@ -5,6 +5,10 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.offer-service-field {
+    background-color: aquamarine
+}
+
 .container-fluid-navpg {
     height: 850px;
     background-image: url('../images/61589_indoor_skyscraper_apartment.jpg');

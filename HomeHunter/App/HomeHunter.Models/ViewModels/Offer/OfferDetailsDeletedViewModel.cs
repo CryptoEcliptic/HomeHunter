@@ -2,7 +2,7 @@
 
 namespace HomeHunter.Models.ViewModels.Offer
 {
-    public class OfferDetailsDeactivatedViewModel
+    public class OfferDetailsDeletedViewModel
     {
         [Display(Name = "Id")]
         public string Id { get; set; }
@@ -47,25 +47,25 @@ namespace HomeHunter.Models.ViewModels.Offer
         public string HeatingSystem { get; set; }
 
         [Display(Name = "Паркомясто")]
-        public bool? ParkingPlace { get; set; }
+        public string ParkingPlace { get; set; }
 
         [Display(Name = "Гараж")]
-        public bool? Garage { get; set; }
+        public string Garage { get; set; }
 
         [Display(Name = "Двор")]
-        public bool? Yard { get; set; }
+        public string Yard { get; set; }
 
         [Display(Name = "Обзаведен")]
-        public bool? Furnitures { get; set; }
+        public string Furnitures { get; set; }
 
         [Display(Name = "Асансьор")]
-        public bool? Elevator { get; set; }
+        public string Elevator { get; set; }
 
         [Display(Name = "Таван")]
-        public bool? Celling { get; set; }
+        public string Celling { get; set; }
 
         [Display(Name = "Мазе")]
-        public bool? Basement { get; set; }
+        public string Basement { get; set; }
 
         [Display(Name = "Дата на публикуване")]
         public string CreatedOn { get; set; }
@@ -90,5 +90,11 @@ namespace HomeHunter.Models.ViewModels.Offer
 
         [Display(Name = "Цена на квадратен метър")]
         public decimal PricePerSquareMeter { get; set; }
+
+        [Display(Name = "Водещ брокер")]
+        public string AgentName { get; set; }
+
+        [Display(Name = "Служебна информация")]
+        public string OfferServiceInformation { get; set; }
     }
 }

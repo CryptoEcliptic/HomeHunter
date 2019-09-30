@@ -150,7 +150,21 @@
                     </label>
                     <span asp-validation-for="Elevator" class="text-danger"></span>
                 </div>
+                <div class="checkbox">
+                    <label>
+                        @if (Model.Furnitures == true)
+                        {
+                            <input type="checkbox" id="Furnitures" key="Furnitures" name="Furnitures" value="true" checked="checked" /><strong> Обзаведен</strong>
 
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="Furnitures" key="Furnitures" name="Furnitures" value="true" /><strong> Обзаведен</strong>
+                        }
+
+                    </label>
+                    <span asp-validation-for="Furnitures" class="text-danger"></span>
+                </div>
                 <div class="checkbox">
                     <label>
                         @if (Model.ParkingPlace == true)
@@ -180,21 +194,6 @@
 
                     </label>
                     <span asp-validation-for="Garage" class="text-danger"></span>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        @if (Model.Furnitures == true)
-                        {
-                            <input type="checkbox" id="Furnitures" key="Furnitures" name="Furnitures" value="true" checked="checked" /><strong> Обзаведен</strong>
-
-                        }
-                        else
-                        {
-                            <input type="checkbox" id="Furnitures" key="Furnitures" name="Furnitures" value="true" /><strong> Обзаведен</strong>
-                        }
-
-                    </label>
-                    <span asp-validation-for="Furnitures" class="text-danger"></span>
                 </div>
                 <div class="checkbox">
                     <label>
