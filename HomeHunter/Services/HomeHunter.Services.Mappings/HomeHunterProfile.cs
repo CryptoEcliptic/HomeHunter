@@ -35,6 +35,14 @@ namespace HomeHunter.Infrastructure
 {
     public class HomeHunterProfile : Profile
     {
+        private const string SaleNameConst = "Sale";
+        private const int StartIndexDateFormat = 0;
+        private const int EndIndexYearFormat = 10;
+        private const string DeactivatedUserAccountLabel = "деактивиран";
+        private const string ActiveUserAccountLabel = "активен";
+        private const string ConfirmedUserAccountLabel = "потвърден";
+        private const string UnconfirmedUserAccountLabel = "непотвърден";
+
         public HomeHunterProfile()
         {
             this.CreateMap<HeatingSystemServiceModel, HeatingSystemViewModel>();
@@ -59,8 +67,11 @@ namespace HomeHunter.Infrastructure
 
             this.CreateMap<OfferCreateBindingModel, OfferCreateServiceModel>();
             this.CreateMap<OfferPlainDetailsServiceModel, OfferEditBindingModel>();
+            this.CreateMap<OfferEditBindingModel, OfferEditServiceModel>();
+
+
             this.CreateMap<OfferIndexDeactivatedServiceModel, OfferIndexViewModel>()
-                 .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == "Sale" ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
+                 .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == SaleNameConst ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
 
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsViewModel>()
                 .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
@@ -94,14 +105,18 @@ namespace HomeHunter.Infrastructure
                 ;
 
             this.CreateMap<OfferIndexServiceModel, OfferIndexGuestViewModel>()
-                .ForMember(x => x.Images, y => y.MapFrom(z => z.Images));
+                .ForMember(x => x.Images, y => y.MapFrom(z => z.Images))
+                .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.Substring(StartIndexDateFormat, EndIndexYearFormat)))
+                ;
 
             this.CreateMap<OfferIndexServiceModel, OfferIndexViewModel>()
-                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == "Sale" ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
+                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == SaleNameConst ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
 
             this.CreateMap<Offer, OfferIndexServiceModel>()
                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType.ToString()))
                .ForMember(x => x.Area, y => y.MapFrom(z => z.RealEstate.Area))
+               .ForMember(x => x.FloorNumber, y => y.MapFrom(z => z.RealEstate.FloorNumber))
+               .ForMember(x => x.BuildingTotalFloors, y => y.MapFrom(z => z.RealEstate.BuildingTotalFloors))
                .ForMember(x => x.Images, y => y.MapFrom(z => z.RealEstate.Images))
                .ForMember(x => x.Author, y => y.MapFrom(z => z.Author.FirstName))
                .ForMember(x => x.BuildingType, y => y.MapFrom(z => z.RealEstate.BuildingType.Name))
@@ -151,8 +166,7 @@ namespace HomeHunter.Infrastructure
                .ForMember(x => x.Neighbourhood, y => y.MapFrom(z => z.RealEstate.Address.Neighbourhood.Name))
                .ForMember(x => x.Price, y => y.MapFrom(z => z.RealEstate.Price));
 
-            this.CreateMap<OfferEditBindingModel, OfferEditServiceModel>();
-
+    
             this.CreateMap<Offer, OfferPlainDetailsServiceModel>()
                .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == OfferType.Sale ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
 
@@ -231,12 +245,12 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<HomeHunterUser, UserIndexServiceModel>()
                 .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                 .ForMember(x => x.LastLogin, y => y.MapFrom(z => z.LastLogin == DateTime.Parse(GlobalConstants.DefaultDateTimeDbValue) ? GlobalConstants.NotAvailableMessage : z.LastLogin.ToString(GlobalConstants.DateTimeVisualizationFormat)))
-                .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsDeleted == true ? "деактивиран" : "активен"))
-                .ForMember(x => x.EmailConfirmed, y => y.MapFrom(z => z.EmailConfirmed == true ? "потвърден" : "непотвърден"));
+                .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsDeleted == true ? DeactivatedUserAccountLabel : ActiveUserAccountLabel))
+                .ForMember(x => x.EmailConfirmed, y => y.MapFrom(z => z.EmailConfirmed == true ? ConfirmedUserAccountLabel : UnconfirmedUserAccountLabel));
            
             this.CreateMap<HomeHunterUser, UserDetailsServiceModel>()
-                .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsDeleted == true ? "деактивиран" : "активен"))
-                .ForMember(x => x.EmailConfirmed, y => y.MapFrom(z => z.EmailConfirmed == true ? "потвърден" : "непотвърден"))
+                .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsDeleted == true ? DeactivatedUserAccountLabel : ActiveUserAccountLabel))
+                .ForMember(x => x.EmailConfirmed, y => y.MapFrom(z => z.EmailConfirmed == true ? ConfirmedUserAccountLabel : UnconfirmedUserAccountLabel))
                 .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn.ToString(GlobalConstants.DateTimeVisualizationFormat)))
                 .ForMember(x => x.LastLogin, y => y.MapFrom(z => z.LastLogin == DateTime.Parse(GlobalConstants.DefaultDateTimeDbValue) ? GlobalConstants.NotAvailableMessage : z.LastLogin.ToString(GlobalConstants.DateTimeVisualizationFormat)));
 

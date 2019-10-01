@@ -1,8 +1,6 @@
 ﻿using HomeHunter.Models.ViewModels.Image;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace HomeHunter.Models.ViewModels.Offer
 {
@@ -25,6 +23,12 @@ namespace HomeHunter.Models.ViewModels.Offer
 
         [Display(Name = "Цена €")]
         public decimal Price { get; set; }
+
+        [Display(Name = "Етаж")]
+        public string FloorNumber { get; set; }
+
+        [Display(Name = "Брой етажи")]
+        public int? BuildingTotalFloors { get; set; }
 
         [Display(Name = "Квартал")]
         public string Neighbourhood { get; set; }

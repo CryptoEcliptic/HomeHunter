@@ -94,7 +94,7 @@ namespace HomeHunter.Services
                              .ThenInclude(x => x.Images)
                         .OrderByDescending(x => x.CreatedOn)
                         .ToListAsync();
-                
+
                 var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(salesOffers);
                 return offerIndexServiceModel;
             }
@@ -114,6 +114,7 @@ namespace HomeHunter.Services
                     .ToListAsync();
 
                 var offerIndexServiceModel = this.mapper.Map<IEnumerable<OfferIndexServiceModel>>(activeOffers);
+
                 return offerIndexServiceModel;
             }
         }

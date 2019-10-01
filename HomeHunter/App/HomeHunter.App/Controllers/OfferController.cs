@@ -73,7 +73,9 @@ namespace HomeHunter.App.Controllers
             var condition = OfferType.Sale;
 
             var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
+
             var offersIndexGuestViewModel = this.mapper.Map<IEnumerable<OfferIndexGuestViewModel>>(offerIndexServiceModel).ToList();
+
             this.ViewData["Title"] = "Sales";
             return View("IndexOffers", offersIndexGuestViewModel);
         }

@@ -21,6 +21,10 @@ namespace HomeHunter.Services.Models.Offer
 
         public decimal Price { get; set; }
 
+        public string FloorNumber { get; set; }
+
+        public int? BuildingTotalFloors { get; set; }
+
         public string Neighbourhood { get; set; }
 
         public string Author { get; set; }

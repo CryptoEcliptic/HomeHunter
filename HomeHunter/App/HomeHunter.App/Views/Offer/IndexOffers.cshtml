@@ -52,6 +52,12 @@
                     <th class="center-element-h">
                         @Html.DisplayNameFor(model => model.Area)
                     </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.FloorNumber)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.BuildingTotalFloors)
+                    </th>
                     <th class="center-element-h col-md-3">
                         @Html.DisplayNameFor(model => model.Comments)
                     </th>
@@ -67,53 +73,59 @@
                 @foreach (var item in Model)
                 {
                     var indexImage = item.Images.FirstOrDefault(x => x.Sequence == 1);
-                    <tr style="text-align:center; background-color: aliceblue">
-                        <td class="col-md-2">
-                            @if (item.Images.Count() == 0)
-                            {
-                                <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="~/lib/images/no-image-icon-0.jpg"></a>
-                            }
-                            else
-                            {
-                                <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="@indexImage.Url"></a>
+                <tr style="text-align:center; background-color: aliceblue">
+                    <td class="col-md-2">
+                        @if (item.Images.Count() == 0)
+                        {
+                            <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="~/lib/images/no-image-icon-0.jpg"></a>
+                        }
+                        else
+                        {
+                            <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="@indexImage.Url"></a>
 
-                            }
-                            
+                        }
 
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReferenceNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RealEstateType)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BuildingType)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.City)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Neighbourhood)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Area)
-                        </td>
-                        <td class="col-md-3">
-                            <p class="hidden-xs max-lines">
-                                @item.Comments;
-                            </p>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedOn)
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.Id">Детайли</a>
-                        </td>
-                    </tr>
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferenceNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RealEstateType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuildingType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Neighbourhood)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Area)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FloorNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuildingTotalFloors)
+                    </td>
+                    <td class="col-md-3">
+                        <p class="hidden-xs max-lines">
+                            @item.Comments;
+                        </p>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                    </td>
+                </tr>
                 }
             </tbody>
             <thead>
@@ -141,6 +153,12 @@
                     </th>
                     <th class="center-element-h">
                         @Html.DisplayNameFor(model => model.Area)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.FloorNumber)
+                    </th>
+                    <th class="center-element-h">
+                        @Html.DisplayNameFor(model => model.BuildingTotalFloors)
                     </th>
                     <th class="center-element-h col-md-3">
                         @Html.DisplayNameFor(model => model.Comments)
