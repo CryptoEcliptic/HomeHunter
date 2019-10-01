@@ -11,5 +11,7 @@ namespace HomeHunter.Services.Models.Image
         public string RealEstateId { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public int Sequence { get; set; }
     }
 }

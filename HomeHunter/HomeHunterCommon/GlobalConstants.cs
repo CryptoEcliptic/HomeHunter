@@ -49,6 +49,7 @@ namespace HomeHunter.Common
 
         public static List<string> ImotBgSofiaDistricts = new List<string>
         {
+            "град София, ",
             "град София, Банишора",
             "град София, Белите брези",
             "град София, Бенковски",

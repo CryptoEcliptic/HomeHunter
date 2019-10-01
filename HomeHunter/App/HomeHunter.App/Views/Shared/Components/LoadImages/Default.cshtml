@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="~/lib/assets/upload_image.css">
 
-@foreach (var item in Model.Images)
+@foreach (var item in Model.Images.OrderBy(x => x.Sequence))
 {
   
     <img id="myImg" src="@item.Url" class="myImages img-thumbnail img-h-block">
