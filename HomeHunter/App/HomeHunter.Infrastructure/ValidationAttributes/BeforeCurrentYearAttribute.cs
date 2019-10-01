@@ -7,11 +7,12 @@ namespace HomeHunter.Infrastructure.ValidationAttributes
 {
     public class BeforeCurrentYearAttribute : ValidationAttribute
     {
-        private readonly int afterYear;
+        private const int MaxYearsAhead = 3;
+        private readonly int minYear;
 
-        public BeforeCurrentYearAttribute(int afterYear)
+        public BeforeCurrentYearAttribute(int minYear)
         {
-            this.afterYear = afterYear;
+            this.minYear = minYear;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -27,14 +28,14 @@ namespace HomeHunter.Infrastructure.ValidationAttributes
             }
 
             var intValue = (int?)value;
-            if (intValue > DateTime.UtcNow.Year)
+            if (intValue > DateTime.UtcNow.Year + MaxYearsAhead)
             {
-                return new ValidationResult(validationContext?.DisplayName + "та не може да бъде по-голяма от " + DateTime.UtcNow.Year);
+                return new ValidationResult(validationContext?.DisplayName + "та не може да бъде по-голяма от " + (DateTime.UtcNow.Year + MaxYearsAhead));
             }
 
-            if (intValue < afterYear)
+            if (intValue < minYear)
             {
-                return new ValidationResult(validationContext?.DisplayName + "та не може да бъде преди " + afterYear);
+                return new ValidationResult(validationContext?.DisplayName + "та не може да бъде преди " + minYear);
             }
 
             return ValidationResult.Success;
