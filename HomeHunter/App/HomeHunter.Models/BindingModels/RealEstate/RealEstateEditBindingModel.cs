@@ -65,8 +65,7 @@ namespace HomeHunter.Models.BindingModels.RealEstate
         public bool? Basement { get; set; }
 
 
-        [Display(Name = "Адрес/Местоположение *")]
-        [Required(ErrorMessage = FieldIsRequiredErrorMessage)]
+        [Display(Name = "Адрес/Местоположение")]
         [StringLength(256, ErrorMessage = AddressRequirementsErrorMessage, MinimumLength = 5)]
         public string Address { get; set; }
 

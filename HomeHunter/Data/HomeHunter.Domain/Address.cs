@@ -5,7 +5,6 @@ namespace HomeHunter.Domain
 {
     public class Address : BaseModel<int>
     {
-        [Required]
         [MaxLength(512)]
         public string Description { get; set; }
 

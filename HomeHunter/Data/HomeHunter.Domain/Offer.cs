@@ -19,6 +19,8 @@ namespace HomeHunter.Domain
 
         public string OfferServiceInformation { get; set; }
 
+        public bool IsOfferActive { get; set; }
+
         [Required]
         public string AuthorId { get; set; }
         public HomeHunterUser Author { get; set; }

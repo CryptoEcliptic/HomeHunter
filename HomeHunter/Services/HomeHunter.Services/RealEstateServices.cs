@@ -51,7 +51,7 @@ namespace HomeHunter.Services
 
         public async Task<string> CreateRealEstateAsync(RealEstateCreateServiceModel model)
         {
-            if (model.Area <= 0 || model.Price <= 0 || string.IsNullOrEmpty(model.Address))
+            if (model.Area <= 0 || model.Price <= 0)
             {
                 throw new ArgumentNullException(InvalidMethodParametersMessage);
             }
