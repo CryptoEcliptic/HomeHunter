@@ -122,7 +122,7 @@ namespace HomeHunterTests
         public void CreateRealEstateShoulThrowsExceptionUponInvalidParameters()
         {
             string expectedId = "myNewCoolId";
-            string invalidAddress = "";
+            decimal invalidPrice = -1m;
             var mapper = this.GetMapper();
 
             var serviceInstance = new RealEstateServices(context,
@@ -138,10 +138,9 @@ namespace HomeHunterTests
             var realEstateModel = new RealEstateCreateServiceModel()
             {
                 Id = expectedId,
-                Price = 5000,
                 Area = 100,
                 RealEstateType = "Мезонет",
-                Address = invalidAddress,
+                Price = invalidPrice,
                 FloorNumber = "4",
                 BuildingTotalFloors = 5,
                 City = "София",

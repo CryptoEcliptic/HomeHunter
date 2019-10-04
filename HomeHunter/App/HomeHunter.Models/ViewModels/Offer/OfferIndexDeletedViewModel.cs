@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HomeHunter.Models.ViewModels.Offer
 {
-    public class OfferIndexDeactivatedViewModel
+    public class OfferIndexDeletedViewModel
     {
         public string Id { get; set; }
 

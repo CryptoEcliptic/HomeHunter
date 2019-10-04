@@ -6,11 +6,18 @@
 }
 
 <div class="index-table-container paddingElement">
-    @if ((bool)this.ViewData["Deactivated"] == true)
+    @if ((bool)this.ViewData["Deleted"])
     {
         <h3>Изтрити обяви</h3>
         <p>
             <a asp-area="Administration" asp-action="Index" asp-controller="Home">Назад</a>
+        </p>
+    }
+    else if ((bool)this.ViewData["Inactive"])
+    {
+        <h3>Неактивни обяви</h3>
+        <p>
+            <a asp-action="Index" asp-controller="Home">Назад</a>
         </p>
     }
     else
@@ -20,6 +27,7 @@
             <a asp-action="Create" asp-controller="RealEstates">Създай нова обява</a>
         </p>
     }
+
     <table id="table_id" class="display">
         <thead>
             <tr>
@@ -48,7 +56,7 @@
                     @Html.DisplayNameFor(model => model.CreatedOn)
                 </th>
 
-                @if ((bool)this.ViewData["Deactivated"] == true)
+                @if ((bool)this.ViewData["Deleted"] == true)
                 {
                     <th class="center-element-h">
                         @Html.DisplayNameFor(model => model.DeletedOn)
@@ -92,7 +100,7 @@
                         @Html.DisplayFor(modelItem => item.CreatedOn)
                     </td>
 
-                    @if ((bool)this.ViewData["Deactivated"] == true)
+                    @if ((bool)this.ViewData["Deleted"])
                     {
                         <td>
                             @Html.DisplayFor(modelItem => item.DeletedOn)
@@ -101,12 +109,20 @@
                             <a asp-action="DetailsDeleted" asp-route-id="@item.Id">Детайли</a>
                         </td>
                     }
-                    else
-                    { 
+                    else if ((bool)this.ViewData["Inactive"])
+                    {
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
                             <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
                             <a asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
+                            <a asp-action="" asp-route-id="@item.Id">Свали</a> @*TODO ADD Action when ready*@
                         </td>
                     }
 
@@ -124,4 +140,5 @@
         });
     </script>
 }
+
 

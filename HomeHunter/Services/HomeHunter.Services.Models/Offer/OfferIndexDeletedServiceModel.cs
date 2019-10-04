@@ -1,6 +1,6 @@
 ﻿namespace HomeHunter.Services.Models.Offer
 {
-    public class OfferIndexDeactivatedServiceModel
+    public class OfferIndexDeletedServiceModel
     {
         public string Id { get; set; }
 

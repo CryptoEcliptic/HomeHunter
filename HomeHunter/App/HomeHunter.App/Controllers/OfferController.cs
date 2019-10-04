@@ -46,10 +46,22 @@ namespace HomeHunter.App.Controllers
             var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(null);
             var offers = this.mapper.Map<IEnumerable<OfferIndexViewModel>>(offerIndexServiceModel);
 
-            this.ViewData["Deactivated"] = false;
+            this.ViewData["Deleted"] = false;
+            this.ViewData["Inactive"] = false;
             return View(offers);
         }
 
+        public async Task<IActionResult> IndexInactive()
+        {
+            var offerIndexServiceModel = await this.offerServices.GetAllInactiveOffersAsync();
+
+            var offerIndexViewModel = this.mapper.Map<IEnumerable<OfferIndexViewModel>>(offerIndexServiceModel);
+
+            this.ViewData["Inactive"] = true;
+            this.ViewData["Deleted"] = false;
+
+            return View("Index", offerIndexViewModel);
+        }
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexDeleted()
@@ -57,7 +69,9 @@ namespace HomeHunter.App.Controllers
             var offerIndexServiceModel = await this.offerServices.GetAllDeletedOffersAsync();
 
             var offerIndexViewModel = this.mapper.Map<IEnumerable<OfferIndexViewModel>>(offerIndexServiceModel);
-            this.ViewData["Deactivated"] = true;
+
+            this.ViewData["Inactive"] = false;
+            this.ViewData["Deleted"] = true;
 
             return View("Index", offerIndexViewModel);
         }
