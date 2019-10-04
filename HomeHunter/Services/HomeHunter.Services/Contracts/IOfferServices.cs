@@ -15,7 +15,7 @@ namespace HomeHunter.Services.Contracts
 
         Task<IEnumerable<OfferIndexServiceModel>> GetAllInactiveOffersAsync();
 
-        Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id);
+        Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id, bool isLogged);
 
         Task<OfferPlainDetailsServiceModel> GetOfferByIdAsync(string id);
 
@@ -24,6 +24,8 @@ namespace HomeHunter.Services.Contracts
         string GetOfferIdByRealEstateIdAsync(string realEstateId);
 
         Task<bool> DeleteOfferAsync(string offerId);
+
+        Task<bool> DeactivateOfferAsync(string offerId);
 
     }
 }

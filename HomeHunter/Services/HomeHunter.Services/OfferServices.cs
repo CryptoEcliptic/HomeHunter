@@ -158,7 +158,7 @@ namespace HomeHunter.Services
             return offerIndexServiceModel;
         }
 
-        public async Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id)
+        public async Task<OfferDetailsServiceModel> GetOfferDetailsAsync(string id, bool isLogged)
         {
             var offer = await this.context.Offers
                 .Include(x => x.Author)
@@ -178,14 +178,18 @@ namespace HomeHunter.Services
                     .ThenInclude(r => r.Address.Village)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            var images = await this.GetAndSortImages(offer.RealEstateId);
-            offer.RealEstate.Images = images;
-
             if (offer == null)
             {
                 throw new ArgumentNullException(OfferNotFoundMessage);
             }
 
+            if (!offer.IsOfferActive && !isLogged)
+            {
+                return null;
+            }
+
+            var images = await this.GetAndSortImages(offer.RealEstateId);
+            offer.RealEstate.Images = images;
             var offerDetailsServiceModel = this.mapper.Map<OfferDetailsServiceModel>(offer);
 
             return offerDetailsServiceModel;
@@ -268,6 +272,34 @@ namespace HomeHunter.Services
             if (deletionResult == 0)
             {
                 throw new InvalidOperationException(UnsuccessfullyDeletedOfferMessage);
+            }
+
+            return true;
+        }
+
+        public async Task<bool> DeactivateOfferAsync(string offerId)
+        {
+            var offer = await this.context.Offers
+                 .FirstOrDefaultAsync(x => x.Id == offerId);
+
+            if (offer == null)
+            {
+                throw new ArgumentNullException(OfferNotFoundMessage);
+            }
+
+            offer.IsOfferActive = false;
+            offer.ModifiedOn = DateTime.UtcNow;
+            
+            int changedRows = 0;
+            try
+            {
+                this.context.Update(offer);
+                changedRows = await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                return false;
             }
 
             return true;

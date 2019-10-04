@@ -118,14 +118,24 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
+            OfferDetailsServiceModel offerDetailsServiceModel;
+            bool isLogged = true;
 
             if (!this.signInManager.IsSignedIn(User))
             {
+                isLogged = false;
+                offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id, isLogged);
+
+                if(offerDetailsServiceModel == null)
+                {
+                    return NotFound();
+                }
+
                 var offerDetailsGuestViewModel = this.mapper.Map<OfferDetailsGuestViewModel>(offerDetailsServiceModel);
                 return View("DetailsGuest", offerDetailsGuestViewModel);
             }
 
+            offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id, isLogged);
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
             return View(offerDetailViewModel);
         }
@@ -138,7 +148,7 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
+            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id, true);
             var offerDetailViewModel = this.mapper.Map<OfferDetailsDeletedViewModel>(offerDetailsServiceModel);
 
             return View(offerDetailViewModel);
@@ -230,7 +240,7 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
+            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id, true);
 
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
 
@@ -247,7 +257,7 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            var isOfferDeactivated = await this.offerServices.DeleteOfferAsync(id);
+            var isOfferDeactivated = await this.offerServices.DeactivateOfferAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
@@ -260,7 +270,7 @@ namespace HomeHunter.App.Controllers
                 return NotFound();
             }
 
-            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
+            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id, true);
 
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
 
@@ -278,7 +288,7 @@ namespace HomeHunter.App.Controllers
             }
             var isOfferDeleted = await this.offerServices.DeleteOfferAsync(id);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexInactive));
         }
     }
 }
