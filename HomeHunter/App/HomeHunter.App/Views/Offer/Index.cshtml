@@ -74,59 +74,60 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr style="text-align:center">
-                    <td>
-                        @(index++)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReferenceNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OfferType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RealEstateType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Neighbourhood)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedOn)
-                    </td>
+                    <tr style="text-align:center">
+                        <td>
+                            @(index++)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReferenceNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OfferType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RealEstateType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Neighbourhood)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedOn)
+                        </td>
 
-                    @if ((bool)this.ViewData["Deleted"])
-                    {
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DeletedOn)
-                        </td>
-                        <td>
-                            <a asp-action="DetailsDeleted" asp-route-id="@item.Id">Детайли</a>
-                        </td>
-                    }
-                    else if ((bool)this.ViewData["Inactive"])
-                    {
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
-                            <a asp-action="" asp-route-id="@item.Id">Свали</a> @*TODO ADD Action when ready*@
-                        </td>
-                    }
+                        @if ((bool)this.ViewData["Deleted"])
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DeletedOn)
+                            </td>
+                            <td>
+                                <a asp-action="DetailsDeleted" asp-route-id="@item.Id">Детайли</a>
+                            </td>
+                        }
+                        else if ((bool)this.ViewData["Inactive"])
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> | 
+                                <a asp-action="" asp-route-id="@item.Id">Публикувай</a> | @*TODO ADD Action when ready*@
+                                <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="action-danger">Изтрий</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
+                                <a asp-action="Deactivate" asp-route-id="@item.Id" class="action-danger">Свали</a>
+                            </td>
+                        }
 
-                </tr>
+                    </tr>
                 }
             </tbody>
         }

@@ -10,130 +10,9 @@
         <br />
         <br />
         <h4 class="offset-3 home-hunter-center">Детайли за обявата</h4>
-        <table class="table table-estate-details table-responsive-md hover-table">
-            <tbody>
-                <tr>
-                    <th class="col-md-2">@Html.DisplayNameFor(model => model.ReferenceNumber)</th>
-                    <td class="col-md-2">@Html.DisplayFor(model => model.ReferenceNumber)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.OfferType)</th>
-                    <td>@Html.DisplayFor(model => model.OfferType)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.City)</th>
-                    <td>@Html.DisplayFor(model => model.City)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Neighbourhood)</th>
-                    <td>@Html.DisplayFor(model => model.Neighbourhood)</td>
-                </tr>
-                @if (Model.Village != null)
-                {
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.Village)</th>
-                        <td>@Html.DisplayFor(model => model.Village)</td>
-                    </tr>
-                }
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Address)</th>
-                    <td>@Html.DisplayFor(model => model.Address)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.RealEstateType)</th>
-                    <td>@Html.DisplayFor(model => model.RealEstateType)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.BuildingType)</th>
-                    <td>@Html.DisplayFor(model => model.BuildingType)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Area)</th>
-                    <td>@Html.DisplayFor(model => model.Area)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Price)</th>
-                    <td>@Html.DisplayFor(model => model.Price)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.PricePerSquareMeter)</th>
-                    <td>@Html.DisplayFor(model => model.PricePerSquareMeter)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.FloorNumber)</th>
-                    <td>@Html.DisplayFor(model => model.FloorNumber)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.BuildingTotalFloors)</th>
-                    <td>@Html.DisplayFor(model => model.BuildingTotalFloors)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Year)</th>
-                    <td>@Html.DisplayFor(model => model.Year)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.HeatingSystem)</th>
-                    <td>@Html.DisplayFor(model => model.HeatingSystem)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Elevator)</th>
-                    <td>@Html.DisplayFor(model => model.Elevator)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Furnitures)</th>
-                    <td>@Html.DisplayFor(model => model.Furnitures)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.ParkingPlace)</th>
-                    <td>@Html.DisplayFor(model => model.ParkingPlace)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Garage)</th>
-                    <td>@Html.DisplayFor(model => model.Garage)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Basement)</th>
-                    <td>@Html.DisplayFor(model => model.Basement)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Celling)</th>
-                    <td>@Html.DisplayFor(model => model.Celling)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Yard)</th>
-                    <td>@Html.DisplayFor(model => model.Yard)</td>
-                </tr>
-                <tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Comments)</th>
-                    <td>@Html.DisplayFor(model => model.Comments)</td>
-                </tr>
-                <tr>
-                    <th class="offer-service-field">@Html.DisplayNameFor(model => model.OfferServiceInformation)</th>
-                    <td class="offer-service-field">@Html.DisplayFor(model => model.OfferServiceInformation)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.AgentName)</th>
-                    <td>@Html.DisplayFor(model => model.AgentName)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.ContactNumber)</th>
-                    <td>@Html.DisplayFor(model => model.ContactNumber)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Author)</th>
-                    <td>@Html.DisplayFor(model => model.Author)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
-                    <td>@Html.DisplayFor(model => model.CreatedOn)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.ModifiedOn)</th>
-                    <td>@Html.DisplayFor(model => model.ModifiedOn)</td>
-                </tr>
-            </tbody>
-        </table>
+
+            <partial name="_OfferDetailsPartial" />
+
         <br />
         <div class="col-md-offset-3" style="padding-left:50px">
             <a type="button" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info-h btn-sm">Редактирай</a>
@@ -147,18 +26,7 @@
     <br />
     <div class="col-md-6 details-real-estate-container paddingElement">
 
-        @foreach (var image in Model.Images)
-        {
-            <img id="myImg" src="@image" class="myImages img-thumbnail img-h-block">
-            <div id="myModal" class="modal">
-                <!-- The Close Button -->
-                <span class="close">&times;</span>
-                <!-- Modal Content (The Image) -->
-                <img class="modal-content" id="img01">
-                <!-- Modal Caption (Image Text) -->
-                <div id="caption"></div>
-            </div>
-        }
+        <partial name="_RenderImagesPartial" />
 
     </div>
 

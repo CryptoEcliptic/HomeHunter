@@ -4,7 +4,9 @@ body {
     background-color: #fff;
     -webkit-font-smoothing: antialiased;
 }
-
+.action-danger{
+    color:red
+}
 .offer-service-field {
     background-color: aquamarine
 }

@@ -222,6 +222,36 @@ namespace HomeHunter.App.Controllers
 
         }
 
+        //// GET: Offer/Deactivate/5
+        public async Task<IActionResult> Deactivate(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id);
+
+            var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
+
+            return View(offerDetailViewModel);
+        }
+
+        // POST: Offer/Deactivate/5
+        [HttpPost, ActionName("Deactivate")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeactivateConfirmed(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var isOfferDeactivated = await this.offerServices.DeleteOfferAsync(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         //// GET: Offer/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
