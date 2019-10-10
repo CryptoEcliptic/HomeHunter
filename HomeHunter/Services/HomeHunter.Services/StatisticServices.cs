@@ -27,16 +27,16 @@ namespace HomeHunter.Services
 
         public async Task<StatisticsServiceModel> GetAdministrationStatistics()
         {
-            var offers = this.context.Offers.
-                Include(x => x.RealEstate)
+            var offers = this.context.Offers
+                .Include(x => x.RealEstate)
                 .ToList();
 
             var statisticsServiceModel = new StatisticsServiceModel
             {
-                ActiveOffersCount = offers.Where(x => x.IsDeleted == false).Count(),
-                ActiveRentalsCount = offers.Where(x => x.IsDeleted == false && x.OfferType == OfferType.Rental).Count(),
-                ActiveSalesCount = offers.Where(x => x.IsDeleted == false && x.OfferType == OfferType.Sale).Count(),
-                DeactivatedOffersCount = offers.Where(x => x.IsDeleted == true).Count(),
+                ActiveOffersCount = offers.Where(x => x.IsOfferActive == true).Count(),
+                ActiveRentalsCount = offers.Where(x => x.IsOfferActive == true && x.OfferType == OfferType.Rental).Count(),
+                ActiveSalesCount = offers.Where(x => x.IsOfferActive == true && x.OfferType == OfferType.Sale).Count(),
+                DeactivatedOffersCount = offers.Where(x => x.IsDeleted == false && x.IsOfferActive == false).Count(),
 
                 AverageSaleTotalPrice = GetAverageSaleTotalPrice(offers),
                 AverageSalePricePerSqMeter = GetAverageSalePricePerSquareMeter(offers),
@@ -53,9 +53,9 @@ namespace HomeHunter.Services
         private static decimal GetAverageRentPricePerSquareMeter(List<Offer> offers)
         {
             return offers
-                    .Where(x => x.OfferType == OfferType.Rental).Count() == 0 ? 0 :
+                    .Where(x => x.OfferType == OfferType.Rental && x.IsOfferActive == true).Count() == 0 ? 0 :
               offers
-                    .Where(x => x.OfferType == OfferType.Rental)
+                    .Where(x => x.OfferType == OfferType.Rental && x.IsOfferActive == true)
                     .Select(x => x.RealEstate.PricePerSquareMeter)
                     .Average();
         }
@@ -63,9 +63,9 @@ namespace HomeHunter.Services
         private static decimal GetAverageRentTotalPrice(List<Offer> offers)
         {
             return offers
-                    .Where(x => x.OfferType == OfferType.Rental).Count() == 0 ? 0 :
+                    .Where(x => x.OfferType == OfferType.Rental && x.IsOfferActive == true).Count() == 0 ? 0 :
               offers
-                    .Where(x => x.OfferType == OfferType.Rental)
+                    .Where(x => x.OfferType == OfferType.Rental && x.IsOfferActive == true)
                     .Select(x => x.RealEstate.Price)
                     .Average();
         }
@@ -73,9 +73,9 @@ namespace HomeHunter.Services
         private static decimal GetAverageSalePricePerSquareMeter(List<Offer> offers)
         {
             return offers
-                    .Where(x => x.OfferType == OfferType.Sale).Count() == 0 ? 0 :
+                    .Where(x => x.OfferType == OfferType.Sale && x.IsOfferActive == true).Count() == 0 ? 0 :
               offers
-                    .Where(x => x.OfferType == OfferType.Sale)
+                    .Where(x => x.OfferType == OfferType.Sale && x.IsOfferActive == true)
                     .Select(x => x.RealEstate.PricePerSquareMeter)
                     .Average();
         }
@@ -83,9 +83,9 @@ namespace HomeHunter.Services
         private static decimal GetAverageSaleTotalPrice(List<Offer> offers)
         {
             return offers
-                    .Where(x => x.OfferType == OfferType.Sale).Count() == 0 ? 0 :
+                    .Where(x => x.OfferType == OfferType.Sale && x.IsOfferActive == true).Count() == 0 ? 0 :
                offers
-                    .Where(x => x.OfferType == OfferType.Sale)
+                    .Where(x => x.OfferType == OfferType.Sale && x.IsOfferActive == true)
                     .Select(x => x.RealEstate.Price)
                     .Average();
         }

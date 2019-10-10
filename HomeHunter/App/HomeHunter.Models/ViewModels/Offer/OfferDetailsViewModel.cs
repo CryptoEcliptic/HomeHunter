@@ -1,8 +1,5 @@
-﻿using HomeHunter.Models.BindingModels.Image;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace HomeHunter.Models.ViewModels.Offer
 {
