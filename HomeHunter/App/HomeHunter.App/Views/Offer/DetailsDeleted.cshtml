@@ -34,10 +34,14 @@
                         <td>@Html.DisplayFor(model => model.Village)</td>
                     </tr>
                 }
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Address)</th>
-                    <td>@Html.DisplayFor(model => model.Address)</td>
-                </tr>
+                @if (Model.Address != null)
+                {
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Address)</th>
+                        <td>@Html.DisplayFor(model => model.Address)</td>
+                    </tr>
+                }
+
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.RealEstateType)</th>
                     <td>@Html.DisplayFor(model => model.RealEstateType)</td>

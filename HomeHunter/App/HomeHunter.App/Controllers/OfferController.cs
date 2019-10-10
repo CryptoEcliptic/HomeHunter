@@ -39,8 +39,6 @@ namespace HomeHunter.App.Controllers
             this.accessor = accessor;
         }
 
-
-        // GET: Offer
         public async Task<IActionResult> Index()
         {
             var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(null);
@@ -76,7 +74,6 @@ namespace HomeHunter.App.Controllers
             return View("Index", offerIndexViewModel);
         }
 
-
         [AllowAnonymous]
         public async Task<IActionResult> IndexSales()
         {
@@ -109,7 +106,6 @@ namespace HomeHunter.App.Controllers
             return View("IndexOffers", offersIndexGuestViewModel);
         }
 
-        //GET: Offer/Details/5
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
@@ -139,7 +135,7 @@ namespace HomeHunter.App.Controllers
             var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
             return View(offerDetailViewModel);
         }
-        //GET: Offer/Details/5
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DetailsDeleted(string id)
         {
@@ -154,7 +150,6 @@ namespace HomeHunter.App.Controllers
             return View(offerDetailViewModel);
         }
 
-        // GET: Offer/Create
         [HttpGet("/Offer/Create/{estateId}")]
         public IActionResult Create(string estateId)
         {
@@ -166,7 +161,6 @@ namespace HomeHunter.App.Controllers
             return View();
         }
 
-        // POST: Offer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string id, OfferCreateBindingModel model)
@@ -189,7 +183,6 @@ namespace HomeHunter.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Offer/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -209,7 +202,6 @@ namespace HomeHunter.App.Controllers
             return View(offerEditViewModel);
         }
 
-        // POST: Offer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, OfferEditBindingModel model)
@@ -232,7 +224,6 @@ namespace HomeHunter.App.Controllers
 
         }
 
-        //// GET: Offer/Deactivate/5
         public async Task<IActionResult> Deactivate(string id)
         {
             if (id == null)
@@ -247,7 +238,6 @@ namespace HomeHunter.App.Controllers
             return View(offerDetailViewModel);
         }
 
-        // POST: Offer/Deactivate/5
         [HttpPost, ActionName("Deactivate")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeactivateConfirmed(string id)
@@ -262,7 +252,6 @@ namespace HomeHunter.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //// GET: Offer/Deactivate/5
         public async Task<IActionResult> Activate(string id)
         {
             if (id == null)
@@ -291,7 +280,7 @@ namespace HomeHunter.App.Controllers
             return RedirectToAction(nameof(IndexInactive));
         }
 
-        //// GET: Offer/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -306,7 +295,7 @@ namespace HomeHunter.App.Controllers
             return View(offerDetailViewModel);
         }
 
-        // POST: Offer/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)

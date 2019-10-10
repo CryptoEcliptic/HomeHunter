@@ -317,6 +317,7 @@ namespace HomeHunter.Services
 
             offer.IsOfferActive = true;
             offer.ModifiedOn = DateTime.UtcNow;
+            offer.CreatedOn = DateTime.UtcNow;
 
             int changedRows = 0;
             try

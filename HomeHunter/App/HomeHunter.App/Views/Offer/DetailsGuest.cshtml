@@ -45,171 +45,176 @@
                     </tr>
                 }
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Address)</th>
-                    <td>@Html.DisplayFor(model => model.Address)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.RealEstateType)</th>
-                    <td>@Html.DisplayFor(model => model.RealEstateType)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.BuildingType)</th>
-                    <td>@Html.DisplayFor(model => model.BuildingType)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Area)</th>
-                    <td>@Html.DisplayFor(model => model.Area)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Price)</th>
-                    <td>@Html.DisplayFor(model => model.Price)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.PricePerSquareMeter)</th>
-                    <td>@Html.DisplayFor(model => model.PricePerSquareMeter)</td>
-                </tr>
-                <tr>
-                    <th class="col-md-1">@Html.DisplayNameFor(model => model.FloorNumber)</th>
-                    <td>@Html.DisplayFor(model => model.FloorNumber)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.BuildingTotalFloors)</th>
-                    <td>@Html.DisplayFor(model => model.BuildingTotalFloors)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Year)</th>
-                    <td>@Html.DisplayFor(model => model.Year)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.HeatingSystem)</th>
-                    <td>@Html.DisplayFor(model => model.HeatingSystem)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Elevator)</th>
-                    <td>@Html.DisplayFor(model => model.Elevator)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Furnitures)</th>
-                    <td>@Html.DisplayFor(model => model.Furnitures)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.ParkingPlace)</th>
-                    <td>@Html.DisplayFor(model => model.ParkingPlace)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Garage)</th>
-                    <td>@Html.DisplayFor(model => model.Garage)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Basement)</th>
-                    <td>@Html.DisplayFor(model => model.Basement)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Celling)</th>
-                    <td>@Html.DisplayFor(model => model.Celling)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Yard)</th>
-                    <td>@Html.DisplayFor(model => model.Yard)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Comments)</th>
-                    <td>@Html.DisplayFor(model => model.Comments)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.AgentName)</th>
-                    <td>@Html.DisplayFor(model => model.AgentName)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.ContactNumber)</th>
-                    <td>@Html.DisplayFor(model => model.ContactNumber)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
-                    <td>@Html.DisplayFor(model => model.CreatedOn)</td>
-                </tr>
-            </tbody>
-        </table>
+                    @if (Model.Address != null)
+                    {
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Address)</th>
+                            <td>@Html.DisplayFor(model => model.Address)</td>
+                        </tr>
+                        }
+
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.RealEstateType)</th>
+                        <td>@Html.DisplayFor(model => model.RealEstateType)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.BuildingType)</th>
+                        <td>@Html.DisplayFor(model => model.BuildingType)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Area)</th>
+                        <td>@Html.DisplayFor(model => model.Area)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Price)</th>
+                        <td>@Html.DisplayFor(model => model.Price)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.PricePerSquareMeter)</th>
+                        <td>@Html.DisplayFor(model => model.PricePerSquareMeter)</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-1">@Html.DisplayNameFor(model => model.FloorNumber)</th>
+                        <td>@Html.DisplayFor(model => model.FloorNumber)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.BuildingTotalFloors)</th>
+                        <td>@Html.DisplayFor(model => model.BuildingTotalFloors)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Year)</th>
+                        <td>@Html.DisplayFor(model => model.Year)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.HeatingSystem)</th>
+                        <td>@Html.DisplayFor(model => model.HeatingSystem)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Elevator)</th>
+                        <td>@Html.DisplayFor(model => model.Elevator)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Furnitures)</th>
+                        <td>@Html.DisplayFor(model => model.Furnitures)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.ParkingPlace)</th>
+                        <td>@Html.DisplayFor(model => model.ParkingPlace)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Garage)</th>
+                        <td>@Html.DisplayFor(model => model.Garage)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Basement)</th>
+                        <td>@Html.DisplayFor(model => model.Basement)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Celling)</th>
+                        <td>@Html.DisplayFor(model => model.Celling)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Yard)</th>
+                        <td>@Html.DisplayFor(model => model.Yard)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Comments)</th>
+                        <td>@Html.DisplayFor(model => model.Comments)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.AgentName)</th>
+                        <td>@Html.DisplayFor(model => model.AgentName)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.ContactNumber)</th>
+                        <td>@Html.DisplayFor(model => model.ContactNumber)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                        <td>@Html.DisplayFor(model => model.CreatedOn)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <div class="col-md-offset-4" style="padding-left:50px">
+                @if (Model.OfferType == "Продажба")
+                {
+                    <a type="button" asp-action="IndexSales" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
+                }
+                else
+                {
+                    <a type="button" asp-action="IndexRentals" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
+                }
+
+            </div>
+        </div>
         <br />
-        <div class="col-md-offset-4" style="padding-left:50px">
-            @if (Model.OfferType == "Продажба")
+        <br />
+
+        <div class="col-md-6 details-real-estate-container paddingElement" style="padding-right:20px;">
+
+            @foreach (var image in Model.Images)
             {
-                <a type="button" asp-action="IndexSales" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
-            }
-            else
-            {
-                <a type="button" asp-action="IndexRentals" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
+                <img id="myImg" src="@image" class="myImages img-thumbnail img-h-block">
+                <div id="myModal" class="modal">
+                    <!-- The Close Button -->
+                    <span class="close">&times;</span>
+                    <!-- Modal Content (The Image) -->
+                    <img class="modal-content" id="img01">
+                    <!-- Modal Caption (Image Text) -->
+                    <div id="caption"></div>
+                </div>
             }
 
         </div>
     </div>
-    <br />
-    <br />
-
-    <div class="col-md-6 details-real-estate-container paddingElement" style="padding-right:20px;">
-
-        @foreach (var image in Model.Images)
-        {
-            <img id="myImg" src="@image" class="myImages img-thumbnail img-h-block">
-            <div id="myModal" class="modal">
-                <!-- The Close Button -->
-                <span class="close">&times;</span>
-                <!-- Modal Content (The Image) -->
-                <img class="modal-content" id="img01">
-                <!-- Modal Caption (Image Text) -->
-                <div id="caption"></div>
-            </div>
-        }
-
-    </div>
-</div>
-<!--Contact Starts-->
-@{
-    string offerId = Model.Id;
-    string refNumber = Model.ReferenceNumber;
+    <!--Contact Starts-->
+    @{
+        string offerId = Model.Id;
+        string refNumber = Model.ReferenceNumber;
 
 
-    <div id="contact">
-        <br />
-        <br />
-        <div class="container contactform center">
-            <h4 class="text-center wowload fadeInUp">Направете запитване за тази обява</h4>
-            <div class="row wowload fadeInLeftBig">
-                <div class="col-sm-6 col-sm-offset-3 col-xs-12">
-                    <form asp-controller="Home" asp-action="Contact" method="post">
-                        <input type="text" readonly asp-for="@Model.ContactFormBindingModel.ReferenceNumber" value="@refNumber">
-                        <div class="form-group">
-                            <input type="email" placeholder="Email" asp-for="@Model.ContactFormBindingModel.Email" class="form-control" id="Email" />
-                            <span asp-validation-for="@Model.ContactFormBindingModel.Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="Име" asp-for="@Model.ContactFormBindingModel.Name" class="form-control" id="Name" />
-                            <span asp-validation-for="@Model.ContactFormBindingModel.Name" class="text-danger"></span>
-                        </div>
+        <div id="contact">
+            <br />
+            <br />
+            <div class="container contactform center">
+                <h4 class="text-center wowload fadeInUp">Направете запитване за тази обява</h4>
+                <div class="row wowload fadeInLeftBig">
+                    <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+                        <form asp-controller="Home" asp-action="Contact" method="post">
+                            <input type="text" readonly asp-for="@Model.ContactFormBindingModel.ReferenceNumber" value="@refNumber">
+                            <div class="form-group">
+                                <input type="email" placeholder="Email" asp-for="@Model.ContactFormBindingModel.Email" class="form-control" id="Email" />
+                                <span asp-validation-for="@Model.ContactFormBindingModel.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Име" asp-for="@Model.ContactFormBindingModel.Name" class="form-control" id="Name" />
+                                <span asp-validation-for="@Model.ContactFormBindingModel.Name" class="text-danger"></span>
+                            </div>
 
-                        <div class="form-group">
-                            <textarea placeholder="Съобщение" asp-for="@Model.ContactFormBindingModel.Message" class="form-control" rows="5"></textarea>
-                            <span asp-validation-for="@Model.ContactFormBindingModel.Message" class="text-danger"></span>
-                        </div>
-                        <input type="hidden" asp-for="@Model.ContactFormBindingModel.OfferId
+                            <div class="form-group">
+                                <textarea placeholder="Съобщение" asp-for="@Model.ContactFormBindingModel.Message" class="form-control" rows="5"></textarea>
+                                <span asp-validation-for="@Model.ContactFormBindingModel.Message" class="text-danger"></span>
+                            </div>
+                            <input type="hidden" asp-for="@Model.ContactFormBindingModel.OfferId
                                " value="@offerId" />
-                        <button type="submit" class="btn btn-primary" style="border-radius:5px"><i class="fa fa-paper-plane"></i> Изпрати</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary" style="border-radius:5px"><i class="fa fa-paper-plane"></i> Изпрати</button>
+                        </form>
+                    </div>
                 </div>
             </div>
+            <br />
         </div>
-        <br />
-    </div>
-}
-<!--Contact Ends-->
+    }
+    <!--Contact Ends-->
 
 
-@section Scripts{
+    @section Scripts{
 
-    <script src="~/lib/assets/modal_images.js" asp-append-version="true"></script>
-    <partial name="_ValidationScriptsPartial" />
+        <script src="~/lib/assets/modal_images.js" asp-append-version="true"></script>
+        <partial name="_ValidationScriptsPartial" />
 
 
-}
+    }
 
 
