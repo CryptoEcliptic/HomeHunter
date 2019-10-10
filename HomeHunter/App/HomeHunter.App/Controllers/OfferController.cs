@@ -262,6 +262,35 @@ namespace HomeHunter.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //// GET: Offer/Deactivate/5
+        public async Task<IActionResult> Activate(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id, true);
+
+            var offerDetailViewModel = this.mapper.Map<OfferDetailsViewModel>(offerDetailsServiceModel);
+
+            return View(offerDetailViewModel);
+        }
+
+        [HttpPost, ActionName("Activate")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ActivateConfirmed(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var isOfferActivated = await this.offerServices.ActivateOfferAsync(id);
+
+            return RedirectToAction(nameof(IndexInactive));
+        }
+
         //// GET: Offer/Delete/5
         public async Task<IActionResult> Delete(string id)
         {

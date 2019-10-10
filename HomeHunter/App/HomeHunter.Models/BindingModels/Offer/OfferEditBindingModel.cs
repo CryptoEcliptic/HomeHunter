@@ -11,6 +11,8 @@ namespace HomeHunter.Models.BindingModels.Offer
         private const string FieldIsRequiredMessage = "Полето {0} е задължително";
         public string Id { get; set; }
 
+        public bool IsOfferActive { get; set; }
+
         [Display(Name = "Тип на обявата *")]
         [Required(ErrorMessage = FieldIsRequiredMessage)]
         public string OfferType { get; set; }

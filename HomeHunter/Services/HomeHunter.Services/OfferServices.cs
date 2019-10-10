@@ -305,6 +305,34 @@ namespace HomeHunter.Services
             return true;
         }
 
+        public async Task<bool> ActivateOfferAsync(string offerId)
+        {
+            var offer = await this.context.Offers
+                 .FirstOrDefaultAsync(x => x.Id == offerId);
+
+            if (offer == null)
+            {
+                throw new ArgumentNullException(OfferNotFoundMessage);
+            }
+
+            offer.IsOfferActive = true;
+            offer.ModifiedOn = DateTime.UtcNow;
+
+            int changedRows = 0;
+            try
+            {
+                this.context.Update(offer);
+                changedRows = await this.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                return false;
+            }
+
+            return true;
+        }
+
         private async Task<int> SoftDeleteEntity(Offer offer)
         {
             if (offer == null)

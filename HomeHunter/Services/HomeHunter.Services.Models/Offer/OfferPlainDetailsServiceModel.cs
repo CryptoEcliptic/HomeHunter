@@ -4,6 +4,8 @@
     {
         public string Id { get; set; }
 
+        public bool IsOfferActive { get; set; }
+
         public string OfferType { get; set; }
 
         public string Comments { get; set; }

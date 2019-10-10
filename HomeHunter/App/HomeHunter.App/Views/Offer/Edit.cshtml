@@ -49,7 +49,15 @@
             </div>
 
             <div class="form-group d-flex justify-content-around">
-                <a type="button" asp-action="Index" class="btn btn-alert-h btn-sm" style="border-radius:5px; width:180px">Откажи</a>
+                @if (Model.IsOfferActive)
+                {
+                    <a type="button" asp-action="Index" class="btn btn-alert-h btn-sm" style="border-radius:5px; width:180px">Откажи</a>
+                }
+                else
+                {
+                    <a type="button" asp-action="IndexInactive" class="btn btn-alert-h btn-sm" style="border-radius:5px; width:180px">Откажи</a>
+                }
+
                 <input type="submit" value="Продължи" class="btn btn-info-h btn-sm" />
             </div>
         </form>

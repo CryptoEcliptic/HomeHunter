@@ -27,5 +27,7 @@ namespace HomeHunter.Services.Contracts
 
         Task<bool> DeactivateOfferAsync(string offerId);
 
+        Task<bool> ActivateOfferAsync(string offerId);
+
     }
 }

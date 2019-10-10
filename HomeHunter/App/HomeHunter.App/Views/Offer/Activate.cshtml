@@ -10,20 +10,25 @@
         <br />
         <br />
         <h4 class="offset-3 home-hunter-center">Детайли за обявата</h4>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="alert alert-info alert-dismissible fade in text-center" role="alert">
+                    При публикуване обявата ще бъде достъпна за клиентите.
+                    <button type="button" class="close-h" style="font-size:30px; padding-right:30px" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-            <partial name="_OfferDetailsPartial" />
+        <partial name="_OfferDetailsPartial" />
 
         <br />
         <div class="col-md-offset-3" style="padding-left:50px">
-            @if (Model.IsOfferActive)
-            {
-                <a type="button" asp-action="Index" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
-            }
-            else
-            {
+            <form asp-action="Activate">
                 <a type="button" asp-action="IndexInactive" class="btn btn-info-h btn-sm" style="width:180px">Назад</a>
-            }
-            <a type="button" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info-h btn-sm">Редактирай</a>
+                <input type="submit" value="Публикувай" class="btn btn-alert-h btn-sm" />
+            </form>
         </div>
     </div>
     <br />
@@ -31,16 +36,19 @@
     <br />
     <br />
     <br />
+
     <div class="col-md-6 details-real-estate-container paddingElement">
 
         <partial name="_RenderImagesPartial" />
 
     </div>
-
 </div>
 
 @section Scripts{
 
     <script src="~/lib/assets/modal_images.js" asp-append-version="true"></script>
 }
+
+
+
 

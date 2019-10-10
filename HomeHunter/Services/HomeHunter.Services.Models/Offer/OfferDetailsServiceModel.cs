@@ -7,6 +7,8 @@ namespace HomeHunter.Services.Models.Offer
     {
         public string Id { get; set; }
 
+        public bool IsOfferActive { get; set; }
+
         public string ReferenceNumber { get; set; }
 
         public string City { get; set; }
