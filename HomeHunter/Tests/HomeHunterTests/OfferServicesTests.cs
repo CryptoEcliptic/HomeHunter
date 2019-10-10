@@ -29,12 +29,12 @@ namespace HomeHunterTests
             new Offer { Id = "offerId111", RealEstateId = "myRealEstateId1",
                 OfferType = OfferType.Sale, AuthorId = "coolUniqueId1",
                 AgentName = "Pesho",
-                OfferServiceInformation = "Some Owner telephone number 012345678",
+                OfferServiceInformation = "Some Owner telephone number 012345678", IsOfferActive = true,
                 IsDeleted = false },
 
-            new Offer { Id = "offerId112", RealEstateId = "myRealEstateId2", OfferType = OfferType.Sale, AuthorId = "coolUniqueId2", IsDeleted = false},
+            new Offer { Id = "offerId112", RealEstateId = "myRealEstateId2", OfferType = OfferType.Sale, AuthorId = "coolUniqueId2", IsDeleted = false, IsOfferActive = true,},
 
-            new Offer { Id = "offerId113", RealEstateId = "myRealEstateId3", OfferType = OfferType.Rental, AuthorId = "coolUniqueId3", IsDeleted = true },
+            new Offer { Id = "offerId113", RealEstateId = "myRealEstateId3", OfferType = OfferType.Rental, AuthorId = "coolUniqueId3", IsDeleted = true, IsOfferActive = false, },
         };
 
         private HomeHunterDbContext context;
@@ -209,6 +209,82 @@ namespace HomeHunterTests
                 );
 
             Assert.ThrowsAsync<ArgumentNullException>( async () => serviceInstance.GetOfferIdByRealEstateIdAsync(realEstateId), ArgumentNullExceptonMessage);
+        }
+
+        [Test]
+        public async Task DeactivateOfferShouldReturnTrue()
+        {
+            var mapper = this.GetMapper();
+            var offerToDeactivate = this.TestData.FirstOrDefault();
+            var expectedPropertyResult = false;
+            
+            var serviceInstance = new OfferServices(context,
+                imageServices.Object,
+                cloudinaryServices.Object,
+                userServices.Object,
+                referenceNumberGenerator.Object,
+                mapper
+                );
+
+            var actualResult = await serviceInstance.DeactivateOfferAsync(offerToDeactivate.Id);
+
+            Assert.IsTrue(actualResult);
+            Assert.That(offerToDeactivate.IsOfferActive == expectedPropertyResult, ExpectedTrueTestResultMessage);
+        }
+
+        [Test]
+        public void DeactivateOfferShouldThrowsException()
+        {
+            var mapper = this.GetMapper();
+            var invalidOfferId = "invalid";
+
+            var serviceInstance = new OfferServices(context,
+                imageServices.Object,
+                cloudinaryServices.Object,
+                userServices.Object,
+                referenceNumberGenerator.Object,
+                mapper
+                );
+
+              Assert.ThrowsAsync<ArgumentNullException>(async () => await serviceInstance.DeactivateOfferAsync(invalidOfferId), ArgumentNullExceptonMessage);
+        }
+
+        [Test]
+        public async Task ActivateOfferShouldReturnTrue()
+        {
+            var mapper = this.GetMapper();
+            var offerToActivate = this.TestData.LastOrDefault();
+            var expectedPropertyResult = true;
+
+            var serviceInstance = new OfferServices(context,
+                imageServices.Object,
+                cloudinaryServices.Object,
+                userServices.Object,
+                referenceNumberGenerator.Object,
+                mapper
+                );
+
+            var actualResult = await serviceInstance.ActivateOfferAsync(offerToActivate.Id);
+
+            Assert.IsTrue(actualResult);
+            Assert.That(offerToActivate.IsOfferActive == expectedPropertyResult, ExpectedTrueTestResultMessage);
+        }
+
+        [Test]
+        public void ActivateOfferShouldThrowsException()
+        {
+            var mapper = this.GetMapper();
+            var invalidOfferId = "invalid";
+
+            var serviceInstance = new OfferServices(context,
+                imageServices.Object,
+                cloudinaryServices.Object,
+                userServices.Object,
+                referenceNumberGenerator.Object,
+                mapper
+                );
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await serviceInstance.ActivateOfferAsync(invalidOfferId), ArgumentNullExceptonMessage);
         }
 
         private void SeedData()

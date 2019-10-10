@@ -24,16 +24,16 @@ namespace HomeHunterTests
         private List<Offer> testOffers = new List<Offer>
         {
              new Offer {RealEstateId = "myRealEstateId100",
-             OfferType = HomeHunter.Domain.Enums.OfferType.Sale, IsDeleted = false, },
+             OfferType = HomeHunter.Domain.Enums.OfferType.Sale, IsOfferActive = false, IsDeleted = false, },
 
              new Offer {RealEstateId = "myRealEstateId200",
-             OfferType = HomeHunter.Domain.Enums.OfferType.Sale, IsDeleted = false,  },
+             OfferType = HomeHunter.Domain.Enums.OfferType.Sale, IsOfferActive = true, IsDeleted = false,  },
 
              new Offer {RealEstateId = "myRealEstateId300",
-             OfferType = HomeHunter.Domain.Enums.OfferType.Rental, IsDeleted = false,  },
+             OfferType = HomeHunter.Domain.Enums.OfferType.Rental, IsOfferActive = true, IsDeleted = false,  },
 
               new Offer {RealEstateId = "myRealEstateId400",
-             OfferType = HomeHunter.Domain.Enums.OfferType.Sale, IsDeleted = true,  },
+             OfferType = HomeHunter.Domain.Enums.OfferType.Sale, IsOfferActive = true, IsDeleted = false,  },
         };
 
         private List<RealEstate> testRealEsatates = new List<RealEstate>
@@ -68,7 +68,7 @@ namespace HomeHunterTests
         }
 
         [Test]
-        public async Task GetStatiticsShouldReturnTrue()
+        public async Task GetActiveOffersCountShouldReturnTrue()
         {
             var userServices = new Mock<IUserServices>();
             var visitorSessionServices = new Mock<IVisitorSessionServices>();
@@ -76,10 +76,34 @@ namespace HomeHunterTests
             var statisticServices = new StatisticServices(context, userServices.Object, visitorSessionServices.Object);
             var actualResult = await statisticServices.GetAdministrationStatistics();
             var ecpectedOffersCount = 3;
-            var expectedAverageSaleTotalPrice = 41666.666666666666666666666667M;
 
             Assert.IsTrue(actualResult.ActiveOffersCount == ecpectedOffersCount);
-            Assert.IsTrue(actualResult.AverageSaleTotalPrice == expectedAverageSaleTotalPrice);
+        }
+
+        [Test]
+        public async Task GetInactiveOffersCountShouldReturnTrue()
+        {
+            var userServices = new Mock<IUserServices>();
+            var visitorSessionServices = new Mock<IVisitorSessionServices>();
+
+            var statisticServices = new StatisticServices(context, userServices.Object, visitorSessionServices.Object);
+            var actualResult = await statisticServices.GetAdministrationStatistics();
+            var ecpectedOffersCount = 1;
+
+            Assert.IsTrue(actualResult.DeactivatedOffersCount == ecpectedOffersCount);
+        }
+
+        [Test]
+        public async Task GetActiveRentalsOffersCountShouldReturnTrue()
+        {
+            var userServices = new Mock<IUserServices>();
+            var visitorSessionServices = new Mock<IVisitorSessionServices>();
+
+            var statisticServices = new StatisticServices(context, userServices.Object, visitorSessionServices.Object);
+            var actualResult = await statisticServices.GetAdministrationStatistics();
+            var ecpectedOffersCount = 1;
+
+            Assert.IsTrue(actualResult.ActiveRentalsCount == ecpectedOffersCount);
         }
 
         private void SeedData()
