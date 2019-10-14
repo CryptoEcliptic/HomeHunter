@@ -96,8 +96,11 @@ namespace HomeHunter.App
             services.AddTransient<IVisitorSessionServices, VisitorSessionServices>();
             services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
-
             services.AddAutoMapper(typeof(HomeHunterProfile));
+
+            //Add InMemory Cache
+            services.AddResponseCaching();
+            //services.AddMemoryCache();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -159,6 +162,7 @@ namespace HomeHunter.App
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseResponseCaching();
             app.UseCookiePolicy();
 
             app.UseAuthentication();

@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -19,24 +21,30 @@ namespace HomeHunter.App.Controllers
     [Authorize]
     public class OfferController : Controller
     {
+        private const int ResponseCashDurationTimeSeconds = 180;
         private readonly IMapper mapper;
         private readonly IOfferServices offerServices;
         private readonly SignInManager<HomeHunterUser> signInManager;
         private readonly IVisitorSessionServices visitorSessionServices;
         private readonly IHttpContextAccessor accessor;
+        private readonly IMemoryCache cache;
 
         public OfferController(
             IMapper mapper,
             IOfferServices offerServices,
             SignInManager<HomeHunterUser> signInManager,
             IVisitorSessionServices visitorSessionServices,
-            IHttpContextAccessor accessor)
+            IHttpContextAccessor accessor,
+            IMemoryCache cache
+            )
         {
             this.mapper = mapper;
             this.offerServices = offerServices;
             this.signInManager = signInManager;
             this.visitorSessionServices = visitorSessionServices;
             this.accessor = accessor;
+            this.cache = cache;
+
         }
 
         public async Task<IActionResult> Index()
@@ -75,6 +83,7 @@ namespace HomeHunter.App.Controllers
         }
 
         [AllowAnonymous]
+        [ResponseCache(Duration = ResponseCashDurationTimeSeconds, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> IndexSales()
         {
             var ip = this.accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
@@ -84,6 +93,11 @@ namespace HomeHunter.App.Controllers
             var condition = OfferType.Sale;
 
             var offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
+            //if (!this.cache.TryGetValue("IndexSales", out offerIndexServiceModel))
+            //{
+            //    offerIndexServiceModel = await this.offerServices.GetAllActiveOffersAsync(condition);
+            //    cache.Set("IndexSales", offerIndexServiceModel, new TimeSpan(0, 2, 0));
+            //}
 
             var offersIndexGuestViewModel = this.mapper.Map<IEnumerable<OfferIndexGuestViewModel>>(offerIndexServiceModel).ToList();
 
@@ -92,6 +106,7 @@ namespace HomeHunter.App.Controllers
         }
 
         [AllowAnonymous]
+        [ResponseCache(Duration = ResponseCashDurationTimeSeconds, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> IndexRentals()
         {
             var ip = this.accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
@@ -122,7 +137,7 @@ namespace HomeHunter.App.Controllers
                 isLogged = false;
                 offerDetailsServiceModel = await this.offerServices.GetOfferDetailsAsync(id, isLogged);
 
-                if(offerDetailsServiceModel == null)
+                if (offerDetailsServiceModel == null)
                 {
                     return NotFound();
                 }
