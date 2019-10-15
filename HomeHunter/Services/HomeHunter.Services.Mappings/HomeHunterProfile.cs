@@ -18,6 +18,7 @@ using HomeHunter.Models.ViewModels.RealEstate;
 using HomeHunter.Models.ViewModels.RealEstateType;
 using HomeHunter.Models.ViewModels.Statistics;
 using HomeHunter.Models.ViewModels.User;
+using HomeHunter.Services.Mappings;
 using HomeHunter.Services.Models;
 using HomeHunter.Services.Models.BuildingType;
 using HomeHunter.Services.Models.City;
@@ -74,7 +75,9 @@ namespace HomeHunter.Infrastructure
                  .ForMember(x => x.OfferType, y => y.MapFrom(z => z.OfferType == SaleNameConst ? GlobalConstants.OfferTypeSaleName : GlobalConstants.OfferTypeRentName));
 
             this.CreateMap<OfferDetailsServiceModel, OfferDetailsViewModel>()
-                .ForMember(x => x.ParkingPlace, y => y.MapFrom(z => z.ParkingPlace == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
+                .ForMember(x => x.ParkingPlace, y => y.ConvertUsing(new BoolToStringConverter(), z => z.ParkingPlace))
+
+
                 .ForMember(x => x.Celling, y => y.MapFrom(z => z.Celling == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
                 .ForMember(x => x.Yard, y => y.MapFrom(z => z.Yard == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))
                 .ForMember(x => x.Basement, y => y.MapFrom(z => z.Basement == true ? GlobalConstants.BoolTrueStringValue : GlobalConstants.BoolFalseStringValue))

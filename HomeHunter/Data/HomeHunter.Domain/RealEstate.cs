@@ -25,19 +25,19 @@ namespace HomeHunter.Domain
 
         public int? Year { get; set; }
 
-        public bool? ParkingPlace { get; set; }
+        public bool ParkingPlace { get; set; }
 
-        public bool? Garage { get; set; }
+        public bool Garage { get; set; }
 
-        public bool? Yard { get; set; }
+        public bool Yard { get; set; }
 
-        public bool? Furnitures { get; set; }
+        public bool Furnitures { get; set; }
 
-        public bool? Elevator { get; set; }
+        public bool Elevator { get; set; }
 
-        public bool? Celling { get; set; }
+        public bool Celling { get; set; }
 
-        public bool? Basement { get; set; }
+        public bool Basement { get; set; }
 
         public Address Address { get; set; }
 
