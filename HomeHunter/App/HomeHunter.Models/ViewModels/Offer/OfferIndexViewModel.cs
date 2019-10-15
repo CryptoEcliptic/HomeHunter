@@ -34,7 +34,7 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Създал")]
         public string Author { get; set; }
 
-        [Display(Name = "Свалена")]
+        [Display(Name = "Изтрита")]
         public string DeletedOn { get; set; }
     }
 }

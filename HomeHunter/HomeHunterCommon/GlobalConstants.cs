@@ -16,7 +16,7 @@ namespace HomeHunter.Common
         public const string OfferTypeSaleName = "Продажба";
         public const string OfferTypeRentName = "Наем";
         public const int ImageUploadLimit = 20;
-        public const string DefaultDateTimeDbValue = "0001-01-01 00:00:00.0000000";
+        public const string DefaultDateTimeDbValue = "01-01-0001 00:00";
         public const string NotAvailableMessage= "n/a";
         public const string PhoneValidationRegex = @"^([0-9]{10})$|^\+[0-9]{3}[0-9]{9}$|^\+[0-9]{3} [0-9]{3} [0-9]{3} [0-9]{3}$|^\+[0-9]{3} [0-9]{9}$|^[0-9]{4} [0-9]{3} [0-9]{3}$";
         public const string AllowedFileExtensionsAsString = ".jpg, .jpeg, .png, .bmp, .gif";

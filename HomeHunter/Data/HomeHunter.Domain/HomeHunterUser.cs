@@ -11,6 +11,8 @@ namespace HomeHunter.Domain
         public HomeHunterUser()
         {
             this.OffersCreated = new List<Offer>();
+            this.LastLogin = null;
+
         }
 
         [MaxLength(16)]
@@ -26,7 +28,7 @@ namespace HomeHunter.Domain
 
         public DateTime? ModifiedOn { get; set; }
 
-        public DateTime LastLogin { get; set; }
+        public DateTime? LastLogin { get; set; }
 
         public bool IsDeleted { get; set; }
 

@@ -123,6 +123,13 @@ a.close.disabled {
     padding-bottom: 20px;
 }
 
+.confirm-email-container {
+    padding-left: 30px;
+    padding-top: 80px;
+    padding-bottom: 20px;
+    height: 700px;
+}
+
 .details-real-estate-container-guest {
     line-height:500px;
     padding-left: 30px;

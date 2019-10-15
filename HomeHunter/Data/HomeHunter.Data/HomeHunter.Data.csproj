@@ -39,6 +39,8 @@
     <Compile Remove="Migrations\20190805164755_PricePerSquMeterRealEstateProperty.Designer.cs" />
     <Compile Remove="Migrations\20190805170221_PricePerSquMeterRealEstateProperty.cs" />
     <Compile Remove="Migrations\20190805170221_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20191015152242_LastLoginNullable.cs" />
+    <Compile Remove="Migrations\20191015152242_LastLoginNullable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -17,7 +17,7 @@ namespace HomeHunter.Services.Models.RealEstate
 
         public decimal PricePerSquareMeter { get; set; }
 
-        public int Year { get; set; }
+        public int? Year { get; set; }
 
         public bool? ParkingPlace { get; set; }
                    

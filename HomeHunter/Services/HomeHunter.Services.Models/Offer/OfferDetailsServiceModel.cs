@@ -27,7 +27,7 @@ namespace HomeHunter.Services.Models.Offer
 
         public decimal Price { get; set; }
 
-        public int Year { get; set; }
+        public int? Year { get; set; }
 
         public string FloorNumber { get; set; }
 

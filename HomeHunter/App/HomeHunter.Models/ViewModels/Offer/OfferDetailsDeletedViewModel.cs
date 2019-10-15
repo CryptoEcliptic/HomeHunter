@@ -35,7 +35,7 @@ namespace HomeHunter.Models.ViewModels.Offer
         public decimal Price { get; set; }
 
         [Display(Name = "Година")]
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         [Display(Name = "Етаж")]
         public string FloorNumber { get; set; }
@@ -70,7 +70,7 @@ namespace HomeHunter.Models.ViewModels.Offer
         [Display(Name = "Дата на публикуване")]
         public string CreatedOn { get; set; }
 
-        [Display(Name = "Дата на премахване")]
+        [Display(Name = "Дата на изтриване")]
         public string DeletedOn { get; set; }
 
         [Display(Name = "Дата на последна промята")]

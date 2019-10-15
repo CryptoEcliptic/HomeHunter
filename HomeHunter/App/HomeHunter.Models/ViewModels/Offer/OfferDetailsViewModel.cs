@@ -36,7 +36,7 @@ namespace HomeHunter.Models.ViewModels.Offer
         public decimal Price { get; set; }
 
         [Display(Name = "Година")]
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         [Display(Name = "Етаж")]
         public string FloorNumber { get; set; }
