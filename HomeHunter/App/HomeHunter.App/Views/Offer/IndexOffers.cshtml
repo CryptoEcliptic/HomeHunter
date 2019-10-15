@@ -6,175 +6,174 @@
 }
 
 <link rel="stylesheet" href="~/css/guest-inedx-css.css">
-<br />
-<br />
-<div class="container-fluid paddingElement center-element-h backgr-img">
-    <div class="row">
-        @if ((string)this.ViewData["Title"] == "Sales")
-        {
-            <h2>Продажби</h2>
-        }
-        else
-        {
-            <h2>Наеми</h2>
-        }
+    <br />
+    <br />
+    <div class="container-fluid paddingElement center-element-h backgr-img">
+        <div class="row">
+            @if ((string)this.ViewData["Title"] == "Sales")
+            {
+                <h2>Продажби</h2>
+            }
+            else
+            {
+                <h2>Наеми</h2>
+            }
 
 
-        <p class="col-md-1" style="font-size:14pt">
-            <a asp-action="Index" asp-controller="Home"><strong>Назад</strong></a>
-        </p>
+            <p class="col-md-1" style="font-size:14pt">
+                <a asp-action="Index" asp-controller="Home"><strong>Назад</strong></a>
+            </p>
+        </div>
+        <div class="container col-md-12" id="property-listings" style="border-radius:7px; height:700px">
+            <table id="table_id" class="display scrollable-index-sales">
+                <thead>
+                    <tr class="active-datatable-color">
+                        <th class="center-element-h col-md-2">
+                            @Html.DisplayNameFor(model => model.Images)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.ReferenceNumber)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.RealEstateType)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.BuildingType)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.City)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.Neighbourhood)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.Area)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.FloorNumber)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.BuildingTotalFloors)
+                        </th>
+                        <th class="center-element-h col-md-3">
+                            @Html.DisplayNameFor(model => model.Comments)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.CreatedOn)
+                        </th>
+                        <th class="center-element-h">
+                            Детайли
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var indexImage = item.Images.FirstOrDefault(x => x.Sequence == 1);
+                        <tr style="text-align:center; background-color: aliceblue">
+                            <td class="col-md-2">
+                                @if (item.Images.Count() == 0)
+                                {
+                                    <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="~/lib/images/no-image-icon-0.jpg"></a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="@indexImage.Url"></a>
+
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferenceNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RealEstateType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BuildingType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Neighbourhood)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Area)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FloorNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BuildingTotalFloors)
+                            </td>
+                            <td class="col-md-3">
+                                <p class="hidden-xs max-lines">
+                                    @item.Comments;
+                                </p>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedOn)
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+                <thead>
+                    <tr class="active-datatable-color">
+                        <th class="center-element-h col-md-2">
+                            @Html.DisplayNameFor(model => model.Images)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.ReferenceNumber)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.RealEstateType)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.BuildingType)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.City)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.Neighbourhood)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.Area)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.FloorNumber)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.BuildingTotalFloors)
+                        </th>
+                        <th class="center-element-h col-md-3">
+                            @Html.DisplayNameFor(model => model.Comments)
+                        </th>
+                        <th class="center-element-h">
+                            @Html.DisplayNameFor(model => model.CreatedOn)
+                        </th>
+                        <th class="center-element-h">
+                            Детайли
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
-    <div class="container col-md-12" id="property-listings" style="border-radius:7px; height:700px">
-        <table id="table_id" class="display scrollable-index-sales">
-            <thead>
-                <tr class="active-datatable-color">
-                    <th class="center-element-h col-md-2">
-                        @Html.DisplayNameFor(model => model.Images)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.ReferenceNumber)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.RealEstateType)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.BuildingType)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.City)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.Neighbourhood)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.Area)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.FloorNumber)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.BuildingTotalFloors)
-                    </th>
-                    <th class="center-element-h col-md-3">
-                        @Html.DisplayNameFor(model => model.Comments)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.CreatedOn)
-                    </th>
-                    <th class="center-element-h">
-                        Детайли
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    var indexImage = item.Images.FirstOrDefault(x => x.Sequence == 1);
-                <tr style="text-align:center; background-color: aliceblue">
-                    <td class="col-md-2">
-                        @if (item.Images.Count() == 0)
-                        {
-                            <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="~/lib/images/no-image-icon-0.jpg"></a>
-                        }
-                        else
-                        {
-                            <a asp-action="Details" asp-route-id="@item.Id"> <img class="img-responsive img-thumbnail" asp-action="Details" asp-route-id="@item.Id" style="width:180px; height:150px" src="@indexImage.Url"></a>
-
-                        }
-
-
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReferenceNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RealEstateType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BuildingType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Neighbourhood)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Area)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FloorNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BuildingTotalFloors)
-                    </td>
-                    <td class="col-md-3">
-                        <p class="hidden-xs max-lines">
-                            @item.Comments;
-                        </p>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedOn)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.Id">Детайли</a>
-                    </td>
-                </tr>
-                }
-            </tbody>
-            <thead>
-                <tr class="active-datatable-color">
-                    <th class="center-element-h col-md-2">
-                        @Html.DisplayNameFor(model => model.Images)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.ReferenceNumber)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.RealEstateType)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.BuildingType)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.City)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.Neighbourhood)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.Area)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.FloorNumber)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.BuildingTotalFloors)
-                    </th>
-                    <th class="center-element-h col-md-3">
-                        @Html.DisplayNameFor(model => model.Comments)
-                    </th>
-                    <th class="center-element-h">
-                        @Html.DisplayNameFor(model => model.CreatedOn)
-                    </th>
-                    <th class="center-element-h">
-                        Детайли
-                    </th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-</div>
-
 
 @section Scripts{
     <script>

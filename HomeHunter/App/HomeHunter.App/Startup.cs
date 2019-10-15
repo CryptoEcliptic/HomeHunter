@@ -98,9 +98,7 @@ namespace HomeHunter.App
 
             services.AddAutoMapper(typeof(HomeHunterProfile));
 
-            //Add InMemory Cache
             services.AddResponseCaching();
-            //services.AddMemoryCache();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -164,7 +162,6 @@ namespace HomeHunter.App
             app.UseStaticFiles();
             app.UseResponseCaching();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
 
             //MiddleWare for counting visitors

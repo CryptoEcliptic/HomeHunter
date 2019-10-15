@@ -27,15 +27,13 @@ namespace HomeHunter.App.Controllers
         private readonly SignInManager<HomeHunterUser> signInManager;
         private readonly IVisitorSessionServices visitorSessionServices;
         private readonly IHttpContextAccessor accessor;
-        private readonly IMemoryCache cache;
 
         public OfferController(
             IMapper mapper,
             IOfferServices offerServices,
             SignInManager<HomeHunterUser> signInManager,
             IVisitorSessionServices visitorSessionServices,
-            IHttpContextAccessor accessor,
-            IMemoryCache cache
+            IHttpContextAccessor accessor
             )
         {
             this.mapper = mapper;
@@ -43,8 +41,6 @@ namespace HomeHunter.App.Controllers
             this.signInManager = signInManager;
             this.visitorSessionServices = visitorSessionServices;
             this.accessor = accessor;
-            this.cache = cache;
-
         }
 
         public async Task<IActionResult> Index()
