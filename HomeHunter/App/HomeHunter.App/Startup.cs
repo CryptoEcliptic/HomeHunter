@@ -69,12 +69,14 @@ namespace HomeHunter.App
                 this.Configuration["Cloudinary:ApiSecret"]
                 );
 
+            Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentails);
+            services.AddSingleton(cloudinaryUtility);
+
             //ML Regression Price prediction
             services.AddPredictionEnginePool<ModelInput, ModelOutput>()
                 .FromFile(@"..\HomeHunter.Models\MLModels\MLModel.zip");
 
-            Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentails);
-            services.AddSingleton(cloudinaryUtility);
+           
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

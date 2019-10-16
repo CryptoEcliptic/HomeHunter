@@ -47,7 +47,7 @@ namespace HomeHunter.App.Controllers
         {
             var ip = this.accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             string visitorId = HttpContext.Request.Cookies["VisitorId"];
-            
+
             this.visitorSessionServices.AddSessionInTheDb(ip, visitorId);
 
             if (this.User.IsInRole("User"))

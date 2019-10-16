@@ -18,7 +18,8 @@ namespace HomeHunter.Services
 
         public StatisticServices(HomeHunterDbContext context, 
             IUserServices userServices,
-            IVisitorSessionServices visitorSessionServices)
+            IVisitorSessionServices visitorSessionServices
+            )
         {
             this.context = context;
             this.userServices = userServices;

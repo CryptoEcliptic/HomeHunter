@@ -73,7 +73,8 @@ namespace HomeHunterTests
             var userServices = new Mock<IUserServices>();
             var visitorSessionServices = new Mock<IVisitorSessionServices>();
 
-            var statisticServices = new StatisticServices(context, userServices.Object, visitorSessionServices.Object);
+            var statisticServices = new StatisticServices(context, userServices.Object, visitorSessionServices.Object
+                );
             var actualResult = await statisticServices.GetAdministrationStatistics();
             var ecpectedOffersCount = 3;
 
@@ -86,7 +87,8 @@ namespace HomeHunterTests
             var userServices = new Mock<IUserServices>();
             var visitorSessionServices = new Mock<IVisitorSessionServices>();
 
-            var statisticServices = new StatisticServices(context, userServices.Object, visitorSessionServices.Object);
+            var statisticServices = new StatisticServices(context, userServices.Object, visitorSessionServices.Object
+                );
             var actualResult = await statisticServices.GetAdministrationStatistics();
             var ecpectedOffersCount = 1;
 
@@ -99,7 +101,8 @@ namespace HomeHunterTests
             var userServices = new Mock<IUserServices>();
             var visitorSessionServices = new Mock<IVisitorSessionServices>();
 
-            var statisticServices = new StatisticServices(context, userServices.Object, visitorSessionServices.Object);
+            var statisticServices = new StatisticServices(context, userServices.Object, visitorSessionServices.Object
+                );
             var actualResult = await statisticServices.GetAdministrationStatistics();
             var ecpectedOffersCount = 1;
 
