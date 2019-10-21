@@ -48,4 +48,11 @@
     </Content>
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Update="MLPricePrediction\MLModel.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

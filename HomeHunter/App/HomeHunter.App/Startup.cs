@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using CloudinaryDotNet;
+using HomeHunter.App.MLPricePrediction;
 using HomeHunter.Data;
 using HomeHunter.Data.DataSeeding;
 using HomeHunter.Domain;
 using HomeHunter.Infrastructure;
 using HomeHunter.Infrastructure.Middlewares;
-using HomeHunter.Models.MLModels;
 using HomeHunter.Services;
 using HomeHunter.Services.CloudinaryServices;
 using HomeHunter.Services.Contracts;
@@ -24,7 +24,6 @@ using Microsoft.Extensions.ML;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace HomeHunter.App
 {
@@ -56,7 +55,7 @@ namespace HomeHunter.App
                    options.Password.RequireUppercase = false;
                    options.Password.RequireNonAlphanumeric = false;
                    options.Password.RequiredLength = 6;
-                   options.SignIn.RequireConfirmedEmail = false; //TODO set true in production
+                   options.SignIn.RequireConfirmedEmail = false;
                })
                .AddEntityFrameworkStores<HomeHunterDbContext>()
                .AddDefaultTokenProviders()
@@ -73,10 +72,9 @@ namespace HomeHunter.App
             services.AddSingleton(cloudinaryUtility);
 
             //ML Regression Price prediction
-            services.AddPredictionEnginePool<ModelInput, ModelOutput>()
-                .FromFile(@"..\HomeHunter.Models\MLModels\MLModel.zip");
-
-           
+            services.AddPredictionEnginePool<InputModel, OutputModel>()
+            .FromFile(modelName: "RegressionAnalysisModel", filePath: @"MLPricePrediction\MLModel.zip", watchForChanges: true);
+ 
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -137,6 +135,8 @@ namespace HomeHunter.App
 
                 }
 
+                dbContext.Database.EnsureCreated();
+
                 //Database initial seeding functionality
                 new RolesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
                 new RealEstateTypesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
@@ -148,8 +148,6 @@ namespace HomeHunter.App
 
             if (env.IsDevelopment())
             {
-                //app.UseExceptionHandler("/Error"); 
-                //app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 app.UseDeveloperExceptionPage();
             }
             else

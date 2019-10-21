@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
+using HomeHunter.App.MLPricePrediction;
 using HomeHunter.Common;
 using HomeHunter.Domain;
-using HomeHunter.Models.BindingModels.Home;
-using HomeHunter.Models.MLModels;
 using HomeHunter.Models.ViewModels.Offer;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.EmailSender;
@@ -23,17 +22,15 @@ namespace HomeHunter.App.Controllers
         private readonly UserManager<HomeHunterUser> userManager;
         private readonly IApplicationEmailSender emailSender;
         private readonly IVisitorSessionServices visitorSessionServices;
-        private readonly PredictionEnginePool<ModelInput, ModelOutput> predictionEngine;
+        private readonly PredictionEnginePool<InputModel, OutputModel> predictionEngine;
         private readonly IHttpContextAccessor accessor;
-        private readonly IMapper mapper;
 
         public HomeController(IUserServices usersService,
             UserManager<HomeHunterUser> userManager,
             IApplicationEmailSender emailSender,
             IVisitorSessionServices visitorSessionServices,
-            PredictionEnginePool<ModelInput, ModelOutput> predictionEngine,
-            IHttpContextAccessor accessor,
-            IMapper mapper)
+            PredictionEnginePool<InputModel, OutputModel> predictionEngine,
+            IHttpContextAccessor accessor)
         {
             this.usersService = usersService;
             this.userManager = userManager;
@@ -41,7 +38,6 @@ namespace HomeHunter.App.Controllers
             this.visitorSessionServices = visitorSessionServices;
             this.predictionEngine = predictionEngine;
             this.accessor = accessor;
-            this.mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -82,11 +78,9 @@ namespace HomeHunter.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PredictPrice(PricePredictionBindingModel model)
+        public IActionResult PredictPrice(InputModel model)
         {
-            var input = this.mapper.Map<ModelInput>(model);
-            var output = this.predictionEngine.Predict(input);
-
+            var output = this.predictionEngine.Predict("RegressionAnalysisModel", model);
             LoadDropdownMenusData();
             model.Price = output.Score;
 

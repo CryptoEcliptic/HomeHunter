@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using HomeHunter.Common;
 using HomeHunter.Domain;
 using HomeHunter.Models.BindingModels.Home;
 using HomeHunter.Models.BindingModels.Image;
 using HomeHunter.Models.BindingModels.Offer;
 using HomeHunter.Models.BindingModels.RealEstate;
 using HomeHunter.Models.BindingModels.User;
-using HomeHunter.Models.MLModels;
 using HomeHunter.Models.ViewModels.BuildingType;
 using HomeHunter.Models.ViewModels.City;
 using HomeHunter.Models.ViewModels.HeatingSystem;
@@ -27,7 +25,7 @@ using HomeHunter.Services.Models.Offer;
 using HomeHunter.Services.Models.RealEstate;
 using HomeHunter.Services.Models.RealEstateType;
 using HomeHunter.Services.Models.User;
-using System;
+//using HomeHunter.ML.Azure;
 using System.Linq;
 
 namespace HomeHunter.Infrastructure
@@ -48,7 +46,6 @@ namespace HomeHunter.Infrastructure
             this.CreateMap<RealEstateTypeServiceModel, RealEstateTypeViewModel>();
             this.CreateMap<CityServiceModel, CityViewModel>();
             this.CreateMap<NeighbourhoodServiceModel, NeighbourhoodViewModel>();
-            this.CreateMap<PricePredictionBindingModel, ModelInput>();
             this.CreateMap<StatisticsServiceModel, StatisticsViewModel>();
 
             #region Image Mappings

@@ -132,7 +132,7 @@ namespace HomeHunterTests
             string realEstateId = "myniqueRealEstateId2";
             bool isIndexImage = true;
 
-            var actualResult = await imageServices.EditImageAsync(publicKey, url, realEstateId, isIndexImage);
+            var actualResult = await imageServices.EditImageAsync(publicKey, url, realEstateId, 1);
 
             Assert.IsTrue(actualResult, ExpectedTrueResultMessage);
         }
@@ -148,9 +148,9 @@ namespace HomeHunterTests
             string publicKey = "myUniqueImageKey007";
             string invalidUrl = @"";
             string realEstateId = "myniqueRealEstateId2";
-            bool isIndexImage = true;
+          
 
-            Assert.ThrowsAsync<ArgumentNullException>(() => imageServices.EditImageAsync(publicKey, invalidUrl, realEstateId, isIndexImage), ExceptionMessage);
+            Assert.ThrowsAsync<ArgumentNullException>(() => imageServices.EditImageAsync(publicKey, invalidUrl, realEstateId, 2), ExceptionMessage);
         }
 
         [Test]
